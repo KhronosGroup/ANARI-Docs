@@ -10,12 +10,6 @@ API. This includes:
 [options="compact"]
  * The ANARI API Specification
  * Specification of ANARI extensions
- * API reference ("`man`") pages
- * The XML API Registry (also mirrored at
-   https://github.com/KhronosGroup/ANARI-Headers)
- * ANARI header files (also mirrored at
-   https://github.com/KhronosGroup/ANARI-Headers)
- * Related tools and scripts.
 
 The authoritative public repository is located at
 https://github.com/KhronosGroup/ANARI-Docs/.
@@ -23,25 +17,16 @@ It hosts a public Issue tracker, and outside developers can file proposed
 patches (Pull Requests) against the Specification, subject to approval
 by Khronos.
 
-If in doubt where to submit your Issue, consult the
-https://github.com/KhronosGroup/ANARI-Ecosystem repo.
-
+The generated ANARI specification can be found in the repository located at
+https://github.com/KhronosGroup/ANARI-Registry.
 
 == Branch Structure
 
-The current Specification is maintained in the `master` branch of the
+The current Specification is maintained in the `main` branch of the
 repository.
 From this branch it is possible to generate Specifications for any published
-version of ANARI (1.2, 1.1, and 1.0), and incorporating any desired set of
+version of ANARI (currently 1.0), and incorporating any desired set of
 extensions.
-Each published update is tagged in the form `1.2.*release*` where *release*
-is a constantly incrementing release number and `1.2` is the latest
-published version of the API.
-The last public spec update prior to ANARI 1.2 is tagged `v1.1.130`.
-
-The last state of the `master` branch in Khronos' internal gitlab server,
-before 1.2 content was merged into it, is tagged `1.1-archive` (this tag is
-not in github).
 
 
 == Directory Structure
@@ -63,8 +48,6 @@ man/                  Reference (man) pages for the API; mostly extracted from t
 out/                  Default directory for the generated documents
 scripts/              Helper scripts used in specification, header, and reference page generation
 style/                Sources for "styleguide" (ANARI Documentation and Extensions: Procedures and Conventions)
-xml/                  XML API Registry (an.xml)
-registry.txt          Sources for documentation of the an.xml format
 ```
 
 
