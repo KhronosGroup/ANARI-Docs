@@ -1,0 +1,128 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[frame]]
+=== Frame
+
+The frame contains all the objects necessary to render and holds the resulting
+rendered 2D image (and optionally auxiliary information associated with pixels).
+To create a new frame, use
+
+[source,cpp]
+....
+ANARIFrame anariNewFrame(ANARIDevice);
+....
+
+The frame uses parameters to encode size, color format, and which
+channels to use.
+
+.Parameters accepted by the frame.
+[cols="<,<,<5",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type         | Description
+| world    |`WORLD`       | required world to be rendererd
+| camera   |`CAMERA`      | required camera used to render the world
+| renderer |`RENDERER`    | required renderer which renders the frame
+| size     |`UINT32_VEC2` | required size of the frame in pixels (width {times} height)
+| color    |`DATA_TYPE`   | enable mapping the `color` channel and specify its observable type;
+                            RGB color including alpha;
+                            possible values: `UFIXED8_VEC4`, `UFIXED8_RGBA_SRGB`, `FLOAT32_VEC4`
+| depth    |`DATA_TYPE`    | enable mapping the `depth` channel and specify its observable type;
+                            euclidean distance to the camera (_not_ to the image plane), for multiple
+                            samples per pixel their minimum is taken;
+                            possible values: `FLOAT32`
+|===================================================================================================
+
+The `world`, `camera`, `renderer`, and `size` parameters are required, `size`
+must be positive.
+
+
+.Additional parameters accepted by the frame with <<core_extensions_continuations, extension `KHR_FRAME_COMPLETION_CALLBACK`>>.
+[cols="<11,<9,<10",options="header,unbreakable"]
+|===================================================================================================
+| Name                    | Type                      | Description
+| frameCompletionCallback |`FRAME_COMPLETION_CALLBACK`| callback to invoke as continuation when the rendered frame is complete
+| frameCompletionCallbackUserData |`VOID_POINTER`     | optional user pointer passed as the first argument of the frame completion callback
+|===================================================================================================
+
+.Additional parameters accepted by the frame with <<core_extensions_aux_buffers, extension `KHR_AUXILIARY_BUFFERS`>>.
+[cols="<,<,<5",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type         | Description
+| normal   |`DATA_TYPE`   | enable mapping the `normal` channel and specify its observable type;
+                            average world-space normal of the first hit;
+                            possible values: `FIXED16_VEC3`, `FLOAT32_VEC3`
+| albedo   |`DATA_TYPE`   | enable mapping the `albedo` channel and specify its observable type;
+                            average material albedo (color without illumination) at the first hit;
+                            possible values: `UFIXED8_VEC3`, `UFIXED8_RGB_SRGB`, `FLOAT32_VEC3`
+|===================================================================================================
+
+[[frame_stochastic_rendering_parameters]]
+.Additional parameters accepted by the frame with <<core_extensions_stochastic_rendering, extension `KHR_STOCHASTIC_RENDERING`>>.
+[cols="<3,<2,>2,<9",options="header,unbreakable"]
+|===================================================================================================
+| Name         | Type  |  Default | Description
+| accumulation |`BOOL` |  `FALSE` | whether additional internal buffers are created to potentially improve the image
+                                    quality when multiple subsequent calls to `anariRenderFrame` are made
+| variance     |`BOOL` |  `FALSE` | whether to estimate the <<frame_stochastic_rendering_properties, `variance` property>>
+|===================================================================================================
+
+
+
+The application can map the given channel of a frame – and thus
+access the stored pixel information – via
+
+[source,cpp]
+....
+const void *anariMapFrame(ANARIDevice, ANARIFrame, const char *channel);
+....
+
+Only channels that have been set as parameters to the frame can be
+mapped, the type of the pixels matches the corresponding parameter
+value.
+
+[NOTE]
+.Note
+====
+ANARI makes a clear distinction between the _external_ format of channels of the
+frame and the internal one: The external format is the format the user specifies
+as `DATA_TYPE` parameter for channels, which corresponds to the element type of
+the returned buffer when calling `anariMapFrame`. Implementations may do
+significant amounts of reformatting, compression/decompression, {ldots},
+in-between the generation of the _internal_ frame and the mapping of the
+externally visible one.
+====
+
+The origin of the screen coordinate system in ANARI is the lower left corner
+(as in OpenGL), thus the first pixel addressed by the returned pointer is the
+lower left pixel of the image.
+
+A previously mapped channel of a frame can be unmapped calling
+
+[source,cpp]
+....
+void anariUnmapFrame(ANARIDevice, ANARIFrame, const char *channel);
+....
+
+The following information can be queried as properties on the `ANARIFrame`
+<<api_concepts_object_properties, using `anariGetProperty`>>.
+
+.Properties queryable on frames.
+[cols="<,<,^,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type    | Required | Description
+| duration |`FLOAT32`|   Yes    | time between start and completion of the frame
+|===================================================================================================
+
+[[frame_stochastic_rendering_properties]]
+.Additional properties queryable on frames with <<core_extensions_stochastic_rendering, extension `KHR_STOCHASTIC_RENDERING`>>.
+[cols="<,<,^,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type    | Required | Description
+| progress |`FLOAT32`|    No    | progress of rendering the frame, in [0..1]
+| variance |`FLOAT32`|    No    | estimated variance, can be used as a quality indicator how well
+                                  the image converged (and thus whether to continue progressive
+                                  rendering); only computed when enabled via
+                                  <<frame_stochastic_rendering_parameters, `variance` parameter>>
+|===================================================================================================

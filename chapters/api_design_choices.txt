@@ -1,0 +1,132 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[api_choices]]
+== API Design Choices
+
+Here we outline several fundamental ANARI API design choices that address key
+goals of broad application and programming language support, and ease of
+application development, integration, testing, and distribution.
+
+[[api_choices_c99]]
+=== C99
+
+The ANARI API is specified as a C99 API in order to provide
+compiler-independent linkage, thereby supporting easy integration into a
+broad range of applications based on a variety of compiled languages,
+including C, pass:[C++], Fortran, and dynamic languages such as Python and
+Julia, among others. C99 provides improved IEEE-754 floating point rounding
+behavior, integer types in common with pass:[C++], and other refinements
+relative to ANSI C.
+
+[[api_choices_library]]
+=== Common Front-end Library
+
+ANARI is specified as a common API header and front-end library (using either
+static or dynamic linkage) capable of loading available ANARI back-end device
+implementations at runtime, known as <<api_concepts_devices, _devices_>>.
+ANARI back-end devices are created by standard implementors and are expected
+to be distributed, installed, or upgraded independently of the standard API
+header and front-end library.
+
+
+[[api_choices_objects]]
+=== Opaque Objects, Parameterization, and Properties
+
+The ANARI API is designed to encapsulate scene data and rendering operations
+as opaque object handles using string-value pairs to parameterize them. This
+facilitates a dominantly unidirectional flow of scene information from the
+application to the instantiated ANARI device. As a result, the vast majority of
+ANARI API calls have a write-only behavior pattern to minimize imposed
+implementation requirements.
+
+An application can create ANARI objects and set named inputs on them called
+_parameters_. However, no mechanism is provided to subsequently query
+parameter data, since even the existence of a query mechanism
+would impose additional performance and storage restrictions for back-end
+renderer implementations (e.g. distributed rendering contexts).
+<<api_concepts_introspection, Object introspection>> can be used to query object
+subtypes and information about their parameters.
+
+Additionally, ANARI objects can publish named outputs called _properties_. Such
+output is specific to the type and semantics of the object, but has a generic
+interface function for access.
+
+
+
+[[api_choices_thread_safety]]
+=== Thread Safety, Asynchronous Operations
+
+The ANARI API may be called from any thread but calls that share objects
+must be synchronized and may not overlap. By default, this includes the device.
+Therefore, calls to the same device must be externally synchronized.
+
+Devices may relax this restriction via a
+<<core_extensions_relaxed_device_synchronization,core extension>>.
+
+
+Expensive operations can be implemented asynchronously, which avoids blocking
+the calling application. Each asynchronous operation is specified as to what
+API calls are legal to make while the operation has not yet completed.
+
+[NOTE]
+.Note
+====
+Making some operations asynchronous complements the thread safety of ANARI, and
+typically is used for a different purpose. Where a multithreaded application
+may be trying to work on constructing a scene (which could be many smaller
+ANARI API calls) while another scene is being rendered in parallel,
+asynchronous rendering focuses on removing the need for long running
+operations to cause an application to use multithreading just to avoid
+blocking on ANARI.
+====
+
+[[api_choices_features]]
+=== Core Features, Core Extensions, and Vendor Extensions
+
+The ANARI specification defines a core foundation of standard features and
+APIs that must be implemented by all devices. The definition of ANARI
+core features includes particular minimums for achievable implementation
+complexity, testing and validation efforts, and ultimately for overall
+application development cost.
+
+In order to facilitate the inclusion of more advanced features beyond the
+core, ANARI defines both common core extensions and the semantics for
+working with vendor specific extensions.
+
+Core extensions provide a well-defined software mechanism
+for applications and ANARI devices to negotiate the availability of
+standardized but optional features which ANARI implementations
+may choose to support. By categorizing extra ANARI functionality
+among multiple core extensions, implementors are free to choose to support
+extensions that are well matched to their core rendering algorithms, their
+target hardware, and their renderer design trade-offs, without taking on
+implementation of features that would otherwise be prohibitively complex,
+costly to performance, or impractical to incorporate for other reasons.
+The set of core extensions defined by ANARI and the syntax to determine
+their availability are described in section <<core_extensions>>.
+
+ANARI implementations may also define vendor-specific, non-standard extensions
+that provide additional object subtypes, parameters, and properties. These are
+expected to be accessible as soon as the calling application initializes the
+implementing device. Because specific object subtypes, parameters, and
+properties are all identified with strings, all extensions are accessed through
+standard API calls and avoid the need for dynamically loaded function call entry
+points.
+
+[[api_choices_distributed_rendering]]
+=== Support for Distributed Applications (Informative)
+
+ANARI is designed to be compatible with applications which are distributed
+across multiple processes which may reside on multiple machines. ANARI
+implementors provide distributed rendering capabilities using existing API
+semantics relevant to running in distributed environments, such as multiple
+processes invoking API calls in lock-step.
+
+[NOTE]
+.Note
+====
+Interoperability with underlying
+networking APIs, such as MPI, are expected to be documented by the vendor.
+====

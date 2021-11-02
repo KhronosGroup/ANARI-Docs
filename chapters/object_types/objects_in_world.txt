@@ -1,0 +1,266 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[geometry]]
+=== Geometry
+
+Geometries in ANARI are objects that describe the spatial representation of a
+surface.  To create a new geometry object of given subtype `subtype` use
+
+[source,cpp]
+....
+ANARIGeometry anariNewGeometry(ANARIDevice, const char *subtype);
+....
+
+For supported subtypes see Section
+<<standard_subtypes_geometries, Geometries>>.
+
+[NOTE]
+.Note
+====
+Geometries are typically limited to a maximum of 2^32^ primitives.
+====
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+[[sampler]]
+=== Sampler
+
+ANARI sampler objects map attribute data into other object inputs such
+materials.  To create a new sampler use
+
+[source,cpp]
+....
+ANARISampler anariNewSampler(ANARIDevice, const char *subtype);
+....
+
+For supported subtypes see Section
+<<standard_subtypes_samplers, Samplers>>.
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+[[material]]
+=== Material
+
+Materials describe how light interacts with surfaces to give objects
+their appearance. Materials are created with
+
+[source,cpp]
+....
+ANARIMaterial anariNewMaterial(ANARIDevice, const char *subtype);
+....
+
+For supported subtypes see Section
+<<standard_subtypes_materials, Materials>>.
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+
+[[surface]]
+=== Surface
+
+Geometries are matched with appearance information through Surfaces. These take
+a geometry, which defines the spatial representation, and applies either
+full-object or per-primitive color and material information. Surfaces are
+created with
+
+[source,cpp]
+....
+ANARISurface anariNewSurface(ANARIDevice);
+....
+
+.Parameters understood by Surface.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name     |Type      | Description
+| geometry |`GEOMETRY`| <<geometry>> object used by this surface
+| material |`MATERIAL`| optional <<material>> applied to the geometry
+|===================================================================================================
+
+Surfaces require a valid <<geometry>> to be set as the `geometry` parameter.
+
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+[[spatial_field]]
+=== Spatial Field
+
+ANARI spatial field objects define collections of data values spread throughout
+a local coordinate system in order to be sampled in space. Spatial fields are
+created with
+
+[source,cpp]
+....
+ANARISpatialField anariNewSpatialField(ANARIDevice, const char *subtype);
+....
+
+For supported subtypes see Section
+<<standard_subtypes_spatial_fields, Spatial Fields>>.
+
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+[[volume]]
+=== Volume
+
+Volumes in ANARI represent volumetric objects (complementing <<Surface,
+surfaces>>), encapsulating spatial data as well as appearance
+information. To create a new volume object of given subtype `subtype`
+use
+
+[source,cpp]
+....
+ANARIVolume anariNewVolume(ANARIDevice, const char *subtype);
+....
+
+For supported subtypes see Section
+<<standard_subtypes_volumes, Volumes>>.
+
+
+[[light]]
+=== Light
+
+Lights in ANARI are virtual objects that emit light into the world and
+thus illuminate objects. To create a new light object of given subtype
+`subtype` use
+
+[source,cpp]
+....
+ANARILight anariNewLight(ANARIDevice, const char *subtype);
+....
+
+
+For supported subtypes see Section <<standard_subtypes_lights, Lights>>.
+
+
+[[group]]
+=== Group
+
+Groups in ANARI represent collections of <<surface>>, <<volume>>, and <<light>>
+which share a common local-space coordinate system. Groups are created
+with
+
+[source,cpp]
+....
+ANARIGroup anariNewGroup(ANARIDevice);
+....
+
+Each array on a group is optional; there is no need to create empty arrays if
+there are no surfaces, no volumes, or no lights instanced.
+
+.Parameters understood by groups.
+[cols="<,<,>,<2",options="header,unbreakable"]
+|======================================================================================
+| Name    | Type                 | Description
+| surface |`ARRAY1D` of `SURFACE`| optional array with handles of <<Surface, surfaces>>
+| volume  |`ARRAY1D` of `VOLUME` | optional array with handles of <<Volume, volumes>>
+| light   |`ARRAY1D` of `LIGHT`  | optional array with handles of <<Light, lights>>
+|======================================================================================
+
+.Properties supported by groups.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type         | Description
+| bounds   |`FLOAT32_BOX3`| axis-aligned bounding box (excluding the lights)
+|===================================================================================================
+
+
+[[instance]]
+=== Instance
+
+Instances apply transforms to groups for placement in the World. Instances are
+created with
+
+[source,cpp]
+....
+ANARIInstance anariNewInstance(ANARIDevice);
+....
+
+Instances take an array of <<group>> representing all the objects which share the
+instances world-space transform.
+
+.Parameters understood by instances.
+[cols="<,<,>,<3",options="header,unbreakable"]
+|===================================================================================================
+| Name      | Type           |                                       Default | Description
+| group     |`GROUP`         |                                               | Group to be instanced, required
+| transform |`FLOAT32_MAT3x4`| \((1, 0, 0), (0, 1, 0), (0, 0, 1), (0, 0, 0)) | world-space transformation matrix for all attached objects
+                                                                               (overridden by  `motion.transform`, <<core_extensions_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>)
+|===================================================================================================
+
+.Properties supported by instances.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type         | Description
+| bounds   |`FLOAT32_BOX3`| axis-aligned bounding box in world-space (excluding the lights)
+|===================================================================================================
+
+<<core_extensions_transformation_motion_blur, Extension
+`KHR_TRANSFORMATION_MOTION_BLUR`>>: Uniformly (in `time`) distributed
+transformation keys can be given with `motion.transform` to achieve
+transformation motion blur (in combination with `time` and `shutter`).
+Alternatively, the transformation keys can also be given as decomposed
+`motion.scale`, `motion.rotation` and `motion.translation`. <<cameras,
+Camera>> `shutter` also needs to be set appropiately.
+
+.Additional parameters understood by instances with <<core_extensions_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>.
+[cols="<2,<2,>,<5",options="header,unbreakable"]
+|===================================================================================================
+| Name               | Type                           | Default | Description
+| motion.transform   |`ARRAY1D` of `FLOAT32_MAT3x4`   |         | additional uniformly distributed world-space transformations
+| motion.scale       |`ARRAY1D` of `FLOAT32_VEC3`     |         | additional uniformly distributed scale, overridden by `motion.transform`
+| motion.rotation    |`ARRAY1D` of `FLOAT32_QUAT_IJKW`|         | additional uniformly distributed quaternion rotation, overridden by `motion.transform`
+| motion.translation |`ARRAY1D` of `FLOAT32_VEC3`     |         | additional uniformly distributed transformlation, overridden by `motion.transform`
+| time               |`FLOAT32_BOX1`                  |  [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
+|===================================================================================================
+
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+
+[[world]]
+=== World
+
+Worlds are a container of scene data represented by
+<<instance, instances>>. Worlds are created with
+
+[source,cpp]
+....
+ANARIWorld anariNewWorld(ANARIDevice);
+....
+
+Objects are placed in the world through an array of instances, geometries,
+volumes, or lights. Similar to <<instance, instances>>, each array of objects
+is optional; there is no need to create empty arrays if there are no instances
+(though there might be nothing to render).
+
+.Parameters understood by the world.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type                  | Description
+| instance |`ARRAY1D` of `INSTANCE`| optional array with handles of <<Instance, instances>>
+| surface  |`ARRAY1D` of `SURFACE` | optional array with handles of <<Surface, surfaces>>
+| volume   |`ARRAY1D` of `VOLUME`  | optional array with handles of <<Volume, volumes>>
+| light    |`ARRAY1D` of `LIGHT`   | optional array with handles of <<Light, lights>>
+|===================================================================================================
+
+.Properties supported by the world.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type         | Description
+| bounds   |`FLOAT32_BOX3`| axis-aligned bounding box in world-space (excluding the lights)
+|===================================================================================================
+

@@ -1,0 +1,490 @@
+|Name |Closest C99-Type |Description
+
+|`DATA_TYPE`
+|`ANARIDataType` = `int32_t`
+| describes data types in ANARI
+
+|`STRING`
+|`const char*`
+| 0-terminated string
+
+|`VOID_POINTER`
+|`void*`
+|void pointer
+
+|`BOOL`
+|`int32_t`
+|boolean represented as int32_t
+
+|`FUNCTION_POINTER`
+|`void(*)(void)`
+|generic function pointer
+
+|`MEMORY_DELETER`
+|`ANARIMemoryDeleter`
+|deleter function pointer
+
+|`STATUS_CALLBACK`
+|`ANARIStatusCallback`
+|status callback function pointer
+
+|`FRAME_COMPLETION_CALLBACK`
+|`ANARIFrameCompletionCallback`
+| <<core_extensions_continuations, extension `KHR_FRAME_COMPLETION_CALLBACK`>> frame completion callback function pointer
+
+|`LIBRARY`
+|`ANARILibrary`
+|<<api_concepts_libraries, library>> object handle
+
+|`DEVICE`
+|`ANARIDevice`
+|<<api_concepts_devices, device>> object handle
+
+|`OBJECT`
+|`ANARIObject`
+|generic <<api_concepts_handles, object handle>>
+
+|`ARRAY`
+|`ANARIArray`
+|generic <<api_concepts_memory, array>> object handle
+
+|`ARRAY1D`
+|`ANARIArray1D`
+|1D <<api_concepts_memory, array>> object handle
+
+|`ARRAY2D`
+|`ANARIArray2D`
+|2D <<api_concepts_memory, array>> object handle
+
+|`ARRAY3D`
+|`ANARIArray3D`
+|3D <<api_concepts_memory, array>> object handle
+
+|`CAMERA`
+|`ANARICamera`
+|<<camera>> object handle
+
+|`FRAME`
+|`ANARIFrame`
+|<<frame>> object handle
+
+|`GEOMETRY`
+|`ANARIGeometry`
+|<<geometry>> object handle
+
+|`GROUP`
+|`ANARIGroup`
+|<<group>> object handle
+
+|`INSTANCE`
+|`ANARIInstance`
+|<<instance>> object handle
+
+|`LIGHT`
+|`ANARILight`
+|<<light>> object handle
+
+|`MATERIAL`
+|`ANARIMaterial`
+|<<material>> object handle
+
+|`RENDERER`
+|`ANARIRenderer`
+|<<renderer>> object handle
+
+|`SURFACE`
+|`ANARISurface`
+|<<surface>> object handle
+
+|`SAMPLER`
+|`ANARISampler`
+|<<sampler>> object handle
+
+|`SPATIAL_FIELD`
+|`ANARISpatialField`
+|<<spatial_field, Spatial Field>> object handle
+
+|`VOLUME`
+|`ANARIVolume`
+|<<volume>> object handle
+
+|`WORLD`
+|`ANARIWorld`
+|<<world>> object handle
+
+|`INT8`
+|`int8_t`
+|8 bit signed integer
+
+|`INT8_VEC2`
+|`int8_t[2]`
+|two element 8 bit signed integer vector
+
+|`INT8_VEC3`
+|`int8_t[3]`
+|three element 8 bit signed integer vector
+
+|`INT8_VEC4`
+|`int8_t[4]`
+|four element 8 bit signed integer vector
+
+|`UINT8`
+|`uint8_t`
+|8 bit unsigned integer
+
+|`UINT8_VEC2`
+|`uint8_t[2]`
+|two element 8 bit unsigned integer vector
+
+|`UINT8_VEC3`
+|`uint8_t[3]`
+|three element 8 bit unsigned integer vector
+
+|`UINT8_VEC4`
+|`uint8_t[4]`
+|four element 8 bit unsigned integer vector
+
+|`INT16`
+|`int16_t`
+|16 bit signed integer
+
+|`INT16_VEC2`
+|`int16_t[2]`
+|two element 16 bit signed integer vector
+
+|`INT16_VEC3`
+|`int16_t[3]`
+|three element 16 bit signed integer vector
+
+|`INT16_VEC4`
+|`int16_t[4]`
+|four element 16 bit signed integer vector
+
+|`UINT16`
+|`uint16_t`
+|16 bit unsigned integer
+
+|`UINT16_VEC2`
+|`uint16_t[2]`
+|two element 16 bit unsigned integer vector
+
+|`UINT16_VEC3`
+|`uint16_t[3]`
+|three element 16 bit unsigned integer vector
+
+|`UINT16_VEC4`
+|`uint16_t[4]`
+|four element 16 bit unsigned integer vector
+
+|`INT32`
+|`int32_t`
+|32 bit signed integer
+
+|`INT32_VEC2`
+|`int32_t[2]`
+|two element 32 bit signed integer vector
+
+|`INT32_VEC3`
+|`int32_t[3]`
+|three element 32 bit signed integer vector
+
+|`INT32_VEC4`
+|`int32_t[4]`
+|four element 32 bit signed integer vector
+
+|`UINT32`
+|`uint32_t`
+|32 bit unsigned integer
+
+|`UINT32_VEC2`
+|`uint32_t[2]`
+|two element 32 bit unsigned integer vector
+
+|`UINT32_VEC3`
+|`uint32_t[3]`
+|three element 32 bit unsigned integer vector
+
+|`UINT32_VEC4`
+|`uint32_t[4]`
+|four element 32 bit unsigned integer vector
+
+|`INT64`
+|`int64_t`
+|64 bit signed integer
+
+|`INT64_VEC2`
+|`int64_t[2]`
+|two element 64 bit signed integer vector
+
+|`INT64_VEC3`
+|`int64_t[3]`
+|three element 64 bit signed integer vector
+
+|`INT64_VEC4`
+|`int64_t[4]`
+|four element 64 bit signed integer vector
+
+|`UINT64`
+|`uint64_t`
+|64 bit unsigned integer
+
+|`UINT64_VEC2`
+|`uint64_t[2]`
+|two element vector 64 bit unsigned integer vector
+
+|`UINT64_VEC3`
+|`uint64_t[3]`
+|three element vector 64 bit unsigned integer vector
+
+|`UINT64_VEC4`
+|`uint64_t[4]`
+|four element 64 bit unsigned integer vector vector
+
+|`FIXED8`
+|`int8_t`
+|8 bit signed normalized fixed point number
+
+|`FIXED8_VEC2`
+|`int8_t[2]`
+|two element 8 bit signed normalized fixed point vector
+
+|`FIXED8_VEC3`
+|`int8_t[3]`
+|three element 8 bit signed normalized fixed point vector
+
+|`FIXED8_VEC4`
+|`int8_t[4]`
+|four element 8 bit signed normalized fixed point vector
+
+|`UFIXED8`
+|`uint8_t`
+|8 bit unsigned normalized fixed point number
+
+|`UFIXED8_VEC2`
+|`uint8_t[2]`
+|two element 8 bit unsigned normalized fixed point vector
+
+|`UFIXED8_VEC3`
+|`uint8_t[3]`
+|three element 8 bit unsigned normalized fixed point vector
+
+|`UFIXED8_VEC4`
+|`uint8_t[4]`
+|four element 8 bit unsigned normalized fixed point vector
+
+|`FIXED16`
+|`int16_t`
+|16 bit signed normalized fixed point number
+
+|`FIXED16_VEC2`
+|`int16_t[2]`
+|two element 16 bit signed normalized fixed point vector
+
+|`FIXED16_VEC3`
+|`int16_t[3]`
+|three element 16 bit signed normalized fixed point vector
+
+|`FIXED16_VEC4`
+|`int16_t[4]`
+|four element 16 bit signed normalized fixed point vector
+
+|`UFIXED16`
+|`uint16_t`
+|16 bit unsigned normalized fixed point number
+
+|`UFIXED16_VEC2`
+|`uint16_t[2]`
+|two element 16 bit unsigned normalized fixed point vector
+
+|`UFIXED16_VEC3`
+|`uint16_t[3]`
+|three element 16 bit unsigned normalized fixed point vector
+
+|`UFIXED16_VEC4`
+|`uint16_t[4]`
+|four element 16 bit unsigned normalized fixed point vector
+
+|`FIXED32`
+|`int32_t`
+|32 bit signed normalized fixed point number
+
+|`FIXED32_VEC2`
+|`int32_t[2]`
+|two element 32 bit signed normalized fixed point vector
+
+|`FIXED32_VEC3`
+|`int32_t[3]`
+|thre element 32 bit signed normalized fixed point vector
+
+|`FIXED32_VEC4`
+|`int32_t[4]`
+|four element 32 bit signed normalized fixed point vector
+
+|`UFIXED32`
+|`uint32_t`
+|32 bit unsigned normalized fixed point number
+
+|`UFIXED32_VEC2`
+|`uint32_t[2]`
+|two element 32 bit unsigned normalized fixed point vector
+
+|`UFIXED32_VEC3`
+|`uint32_t[3]`
+|three element 32 bit unsigned normalized fixed point vector
+
+|`UFIXED32_VEC4`
+|`uint32_t[4]`
+|four element 32 bit unsigned normalized fixed point vector
+
+|`FIXED64`
+|`int64_t`
+|64 bit signed normalized fixed point number
+
+|`FIXED64_VEC2`
+|`int64_t[2]`
+|two element 64 bit signed normalized fixed point vector
+
+|`FIXED64_VEC3`
+|`int64_t[3]`
+|three element 64 bit signed normalized fixed point vector
+
+|`FIXED64_VEC4`
+|`int64_t[4]`
+|four element 64 bit signed normalized fixed point vector
+
+|`UFIXED64`
+|`uint64_t`
+|64 bit unsigned normalized fixed point number
+
+|`UFIXED64_VEC2`
+|`uint64_t[2]`
+|two element 64 bit unsigned normalized fixed point vector
+
+|`UFIXED64_VEC3`
+|`uint64_t[3]`
+|three element 64 bit unsigned normalized fixed point vector
+
+|`UFIXED64_VEC4`
+|`uint64_t[4]`
+|four element 64 bit unsigned normalized fixed point vector
+
+|`FLOAT16`
+|`uint16_t`
+|16 bit floating point number
+
+|`FLOAT16_VEC2`
+|`uint16_t[2]`
+|two element 16 bit floating point vector vector
+
+|`FLOAT16_VEC3`
+|`uint16_t[3]`
+|three element vector 16 bit floating point vector
+
+|`FLOAT16_VEC4`
+|`uint16_t[4]`
+|four element vector 16 bit floating point vector
+
+|`FLOAT32`
+|`float`
+|32 bit floating point number
+
+|`FLOAT32_VEC2`
+|`float[2]`
+|two element 32 bit floating point vector vector
+
+|`FLOAT32_VEC3`
+|`float[3]`
+|three element vector 32 bit floating point vector
+
+|`FLOAT32_VEC4`
+|`float[4]`
+|four element vector 32 bit floating point vector
+
+|`FLOAT64`
+|`double`
+|64 bit floating point
+
+|`FLOAT64_VEC2`
+|`double[2]`
+|two element vector 64 bit floating point vector
+
+|`FLOAT64_VEC3`
+|`double[3]`
+|three element vector 64 bit floating point vector
+
+|`FLOAT64_VEC4`
+|`double[4]`
+|four element vector 64 bit floating point vector
+
+|`UFIXED8_RGBA_SRGB`
+|`uint8_t[4]`
+|three component sRGB color with linear alpha
+
+|`UFIXED8_RGB_SRGB`
+|`uint8_t[3]`
+|three component sRGB color
+
+|`UFIXED8_RA_SRGB`
+|`uint8_t[2]`
+|one componenet sRGB with linear alpha
+
+|`UFIXED8_R_SRGB`
+|`uint8_t[1]`
+|single component sRGB
+
+|`INT32_BOX1`
+|`int32_t[2]`
+|one dimensional 32 bit integer box (lower and upper bounds)
+
+|`INT32_BOX2`
+|`int32_t[4]`
+|two dimensional 32 bit integer box (lower and upper bound vector)
+
+|`INT32_BOX3`
+|`int32_t[6]`
+|three dimensional 32 bit integer box (lower and upper bound vector)
+
+|`INT32_BOX4`
+|`int32_t[8]`
+|four dimensional 32 bit integer box (lower and upper bound vector)
+
+|`FLOAT32_BOX1`
+|`float[2]`
+|one dimensional 32 bit float box (lower and upper bounds)
+
+|`FLOAT32_BOX2`
+|`float[4]`
+|two dimensional 32 bit float box (lower and upper bound vector)
+
+|`FLOAT32_BOX3`
+|`float[6]`
+|three dimensional 32 bit float box (lower and upper bound vector)
+
+|`FLOAT32_BOX4`
+|`float[8]`
+|four dimensional 32 bit float box (lower and upper bound vector)
+
+|`FLOAT32_MAT2`
+|`float[4]`
+|two by two 32 bit float matrix in column major order
+
+|`FLOAT32_MAT3`
+|`float[9]`
+|three by three 32 bit float matrix in column major order
+
+|`FLOAT32_MAT4`
+|`float[16]`
+|four by four 32 bit float matrix in column major order
+
+|`FLOAT32_MAT2x3`
+|`float[6]`
+|two by three 32 bit float matrix in column major order
+
+|`FLOAT32_MAT3x4`
+|`float[12]`
+|three by four 32 bit float matrix in column major order
+
+|`FLOAT32_QUAT_IJKW`
+|`float[4]`
+|quaternion
+

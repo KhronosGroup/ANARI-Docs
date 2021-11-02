@@ -1,0 +1,80 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[object_types]]
+== Object Types
+
+This section describes the base object types that make up a scene in
+ANARI. An overview is that objects are connected starting from the bottom-up:
+leaf objects like geometries, volumes and lights are instanced in
+space via instance objects, which are in turn added to the top-level root
+object, the world.
+
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+include::object_types/objects_in_world.txt[]
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+[[camera]]
+=== Camera
+
+To create a new camera of given type `subtype` use
+
+[source,cpp]
+....
+ANARICamera anariNewCamera(ANARIDevice, const char *subtype);
+....
+
+For supported subtypes see Section <<standard_subtypes_cameras, Cameras>>.
+
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+[[renderer]]
+=== Renderer
+
+A renderer is the central object for rendering in ANARI. Different
+renderers implement different features, rendering algorithms, and support
+different materials. To create a new renderer of given subtype `subtype` use
+
+[source,cpp]
+....
+ANARIRenderer anariNewRenderer(ANARIDevice, const char *subtype);
+....
+
+Every ANARI device offers a default renderer, which works without
+setting any parameters (i.e., all parameters, if any, have meaningful
+defaults). Thus, passing `default` as
+subtype string to anariNewRenderer will result in a
+usable renderer. Further renderers and their parameters can be
+enumerated with the <<api_concepts_introspection>> API. The default
+renderer is an alias to an existing renderer that is returned first in
+the list by `anariGetObjectSubtypes` when queried for `RENDERER`. Also
+refer to the documentation of ANARI implementations.
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+include::object_types/frame.txt[]
+
+[[extension_objects]]
+=== Extension Objects
+
+Extensions may need to introduce custom object types. To create such an object use
+
+[source,cpp]
+....
+ANARIObject anariNewObject(ANARIDevice, const char *type, const char *subtype);
+....
+
+Consult the extension documentation for supported `type` and `subtype` values.

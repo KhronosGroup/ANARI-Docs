@@ -1,0 +1,488 @@
+// Copyright (c) 2015-2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[naming]]
+= API Naming Conventions
+
+Identifiers in the ANARI API (e.g. types, parameters, constants, etc.) all
+follow a set of naming rules, providing a consistent scheme for developers.
+
+The ANARI C API uses prefixes as an implicit namespace control mechanism.
+Bindings to other languages can choose not to use these prefixes if the
+language provides an explicit namespace mechanism.
+
+
+== General Naming Rules
+
+Names of identifiers should generally be written with full words, avoiding
+abbreviations, as a concise description of what that identifier is.
+For example, the type of a structure containing information about a status 
+code is stext:ANARIStatusCode.
+
+Abbreviations and prefixes are sometimes used in the API when they are in
+common use.
+All abbreviations and prefixes used in the API must be approved by the
+ANARI working group, and be added to the <<naming-abbreviations,Common
+Abbreviations>> and <<naming-prefixes,Standard Prefixes>> sections,
+respectively.
+
+Whenever an abbreviation exists for a particular word, it should be used in
+place of the full word unless there is good reason not to.
+
+
+[[naming-preprocessor]]
+== Preprocessor Defines
+
+Preprocessor definitions include an underscore `_` as a delimiter between
+words, with every character in upper case.
+
+Each definition is prefixed with `ANARI_`, followed by the name.
+
+This rule applies to most declarations with the C Preprocessor's `#define`
+token, including macros and constants.
+There are however a few exceptions:
+
+  * The header guard for each header includes an additional underscore `_`
+    at the end of the identifier.
+  ** Example: `ANARI_H_`
+  * Definitions that denote the presence of an extension follow the
+    <<extensions-naming-conventions-name-strings,extension name string
+    convention>>.
+  ** Example: `ANARI_KHR_DEVICE_SYNCHRONIZATION`
+  * Two definitions are defined by the ANARI header to alias
+    certain platform-specific identifiers related to calling conventions.
+  ** Examples: `ANARI_INTERFACE` and `ANARI_DEPRECATED`
+  * Preprocessor defines are occasionally used to create aliases between
+    other ANARI identifiers, which usually happens when something was
+    originally misnamed.
+    In these cases, the fixed name is added to the API, and the old name is
+    made into an alias of that.
+
+
+== Type Names
+
+Type names are declared with no separator between words.
+Each word starts with a capital letter, and every other character in each
+word is lower case.
+
+Each type name is prefixed with `ANARI`.
+
+This rule applies to all type definitions except <<naming-funcpointers,
+function pointer types>>, including struct and union types, handles, base
+typedefs, and enumerant types.
+
+[source, c]
+.Example
+----
+// Camera 
+ANARICamera
+
+// Pick Results (Struct)
+typedef struct 
+{
+    ...
+} ANARIPickResult;
+----
+
+== Enumerant Names
+
+Enumerants include an underscore `_` as a delimiter between words, with
+every character in upper case.
+
+Each enumerant name is prefixed with `ANARI_`.
+
+Enumerants are prefixed with the exact name of the type it belongs to,
+converted to the correct case (e.g. `ANARITextureFilter` ->
+`ANARI_TEXTURE_FILTER_*`).
+
+TODO: There are many exceptions to this rule. Do we change the code or not have this rule?
+Here are a few examples of exceptions:
+
+  * ANARITextureFormat, ANARICurveBasis , ANARIFrameFormat, etc
+    success codes.
+
+[source, c]
+.Example
+----
+// Filter modes 
+typedef int ANARITextureFilter; 
+#define ANARI_TEXTURE_FILTER_BILINEAR 0
+#define ANARI_TEXTURE_FILTER_NEAREST  1
+
+// Status codes (Exception)
+typedef int ANARIStatusCode;
+#define ANARI_STATUS_NO_ERROR 0
+#define ANARI_STATUS_UNKNOWN_ERROR 1
+#define ANARI_STATUS_INVALID_ARGUMENT 2
+#define ANARI_STATUS_INVALID_OPERATION 3
+#define ANARI_STATUS_OUT_OF_MEMORY 4
+#define ANARI_STATUS_UNSUPPORTED_DEVICE 5
+#define ANARI_STATUS_VERSION_MISMATCH 6
+----
+
+
+== Command Names
+
+Command names are declared with no separator between words.
+Each word starts with a capital letter, and every other character in each
+word is lower case.
+
+The structure of a command name should be as follows:
+
+`__prefix Verb Object Property__`
+
+`_prefix_`::
+    This is "anari".
+
+`_Verb_`::
+    The verb that describes the action being performed.
+    A list of most verbs used in ANARI is available <<command-names-verbs,
+    here>>.
+
+`_Object_`::
+    The name of the object being acted upon by the command.
+
+`_Property_`::
+    The property of the object which is being acted upon by the command, and
+    is omitted in cases where the whole object is being acted upon (e.g.
+    creation commands).
+
+These rules apply to all command declarations.
+
+[source, c]
+.Example
+----
+// Creation command
+ANARI_INTERFACE ANARIDevice anariNewDevice( ... );
+
+// Load a vendor-specific module
+ANARI_INTERFACE void anariLoadModule( ... ); 
+
+// Object introspection 
+ANARI_INTERFACE const char **anariGetDeviceSubtypes( ... );
+----
+
+.Note
+[NOTE]
+====
+TODO: There are exceptions to the above rule in the core ANARI API:
+
+  * Exception 1 
+  * Exception 2 
+
+These names are left as-is to maintain compatibility.
+====
+
+
+=== Query Commands
+
+A number of commands in the API are used to determine the properties of some
+object in the implementation.
+
+The queried properties may either be invariant, or they may: change based on
+application behavior.
+If the results are not invariant, the lifetime of the results should be
+clearly described in the command description.
+
+These commands fall into two categories from a naming perspective:
+
+Capability Queries::
+
+These are commands which query capabilities of objects that an
+implementation can provide.
+Such commands use the verb "Enumerate" to identify themselves.
++
+e.g. `anariEnumerateDeviceSubtypes` and `anariEnumerateObjectSubtypes`
++
+
+Object State Queries::
+
+These commands are used to query the current properties of an object that
+has been created.
+Such commands use the verb "Get" to identify themselves.
++
+e.g. `anariGetProperty`
++
+These commands always have a parameter of the object type.
+
+
+[[command-names-verbs]]
+=== Command Verbs
+
+Below is a list of many of the verbs currently in use in core ANARI and KHR
+extensions, along with their meanings.
+The list is not guaranteed to be up to date, but covers all core and KHR
+verbs at the time of writing.
+
+[%autowidth,options="header"]
+|===
+| Verb       | Meaning
+| Acquire    | Acquire ownership of an object from an external source
+| Allocate   | Allocates memory in a pool or memory heap and creates object - paired with "Free"
+| Begin      | Start of a range of command buffer commands with different behavior than those outside the range - "End" marks the end of the range
+| Bind       | Binds an object to another object
+| Blit       | Performs a filtered and scaled copy of pixels from one image to another
+| Clear      | Sets all pixels in an image to the same value
+| Copy       | A raw copy of data from one object to another with no transformation of the data
+| Create     | Creates an object - paired with "Destroy"
+| Destroy    | Destroys an object - paired with "Create"
+| Dispatch   | Kicks off a set of compute tasks
+| Draw       | Kicks off a set of rasterization tasks
+| End        | End of a range of command buffer commands with different behavior than those outside the range - "Begin" marks the start of the range
+| Enumerate  | Queries the capabilities of objects that could be created, before creating them
+| Execute    | Executes commands recorded in another command buffer
+| Fill       | Sets all data units in a buffer to the same value
+| Flush      | Flushes data from the host to the device
+| Free       | Destroys an object and then frees memory back to a pool or memory heap - paired with "Allocate"
+| Get        | Queries the state of an existing object
+| Import     | Imports the payload from an external object into a ANARI object
+| Invalidate | Invalidates data on the host, forcing newer data on the device to be read
+| Map        | Maps an allocation into host memory - paired with "Unmap"
+| Merge      | Merges two objects
+| Present    | Presents an image to a surface
+| Push       | Pushes data to the device as part of a command stream
+| Release    | Releases ownership of an object to an external source
+| Reset      | Resets the state of an object to an initial state
+| Resolve    | Resolves multiple samples in a multisampled image to an image with one sample per pixel
+| Set        | Sets the state of an object
+| Submit     | Submits a set of commands to a queue
+| Unmap      | Unmaps an allocation from host memory - paired with "Map"
+| Update     | Updates entries in a descriptor set
+| Wait       | Waits for some signal
+| Write      | Writes values to an object
+|===
+
+
+[[naming-funcpointers]]
+=== Function Pointer Type Names
+
+Function pointer names are declared exactly as the equivalent statically
+declared command would be declared, but prefixed with `PFN_`, standing for
+"Pointer to FunctioN".
+
+[source, c]
+.Example
+----
+// PFN_anariNameObject (Function Pointer)
+typedef void (*PFN_anariNameObject)( ... );
+----
+
+
+== Function Parameter and Struct/Union Member Names
+
+Function parameter names are declared with no separator between words.
+Each new word, *except* for the first, starts with a capital letter.
+All other characters in the parameter name are in lower case.
+
+Members/parameters of a type that is not a base type should generally be
+named in a similar way to the type itself, with additional context added for
+clarity when necessary.
+
+Pointer members/parameters are prefixed with a number of `p` characters,
+with one `p` for each level of indirection.
+
+Function pointer members/parameters are prefixed with `pfn`.
+
+Any member that describes the size of a memory allocation should be suffixed
+with `Size`.
+If the context is self-evident from the structure name, then it may simply
+be named `size`.
+
+Any member that describes the number of something, such as an array length
+or number of internal allocations, should be suffixed with `Count`.
+The `size` rule overrides this rule, though it is possible to have multiple
+sizes (e.g. `sizeCount`).
+If the member is an array length, then the name of length should correspond
+to the name of the array member, usually `XYZCount` for an array named
+`pXYZs`.
+If a member of a chained extension structure is an array whose length must
+match the length of an array of the base structure, then the chained
+extension structure should include an array length member with the same name
+as the length in the base structure.
+
+These rules apply to all function parameters and struct/union members.
+
+
+[source, c]
+.Example
+----
+// Function parameters, including a single indirected pointer.
+ANARI_INTERFACE void anariUnmapFrame(
+    ANARIDevice			device, 
+    ANARIFrame			frame, 
+    const char *		pChannel);
+
+// Structure members
+typedef struct
+{
+  int hasHit;
+  float worldPosition[3];
+  ANARIInstance instance;
+  ANARIGeometricModel model;
+  uint32_t primID;
+} ANARIPickResult;
+----
+
+
+[[naming-extension-identifiers]]
+== Extension Identifier Naming Conventions
+
+Identifiers defined by an extension are modified by appending the
+extension's author ID to the end of the identifier, as described below.
+Author IDs are obtained as described in the
+<<extensions-naming-conventions,Extension and Layer Naming Conventions>>
+section.
+
+If an extension becomes part of core, a new version of the extension's
+identifiers should be created, that do not contain the author ID at the end
+of the identifier.
+The original identifiers should be kept in order to maintain source-level
+compatibility with existing applications making use of the earlier
+extension's identifiers.
+
+
+=== Extension Type Names
+
+Types defined by extensions have the author ID appended to the end of the
+type name.
+
+[source, c]
+.Example
+----
+// ANARIPickResultKHR (structure type with KHR appended)
+typedef struct
+{
+  int hasHit;
+  float worldPosition[3];
+  ANARIInstance instance;
+  ANARIGeometricModel model;
+  uint32_t primID;
+} ANARIPickResultKHR;
+----
+
+[[naming-extension-enumerant-names]]
+=== Extension Enumerant Names
+
+Enumerants defined by extensions have the author ID appended to the end of
+the enumerant name, separated by an underscore.
+
+[source, c]
+.Example
+----
+typedef int ANARITextureFormatKHR;
+#define ANARI_TEXTURE_RGBA32UI_KHR       1
+#define ANARI_TEXTURE_R32I_KHR           2
+#define ANARI_TEXTURE_R16F_KHR           3
+#define ANARI_TEXTURE_RGBA16F_KHR        4
+----
+
+
+=== Extension Function Names
+
+Function and function pointer type names defined by extensions have the
+author ID appended to the end of the name.
+
+[source, c]
+.Example
+----
+// anariPickKHR (function with KHR appended)
+ANARI_INTERFACE ANARIPickResultKHR anariPick(
+    ANARIDevice			device, 
+    ANARIFrame			frame, 
+    float 			screenPos_x, 
+    float 			screenPos_y);
+
+typedef void (*ANARIRenderContinuationKHR)(
+    void *			pUser, 
+    ANARIDevice			device, 
+    ANARIFrame			frame);
+----
+
+
+[[naming-abbreviations]]
+== Common Abbreviations
+
+Abbreviations and acronyms are sometimes used in the ANARI API Specification
+and the ANARI API where they are considered clear and commonplace.
+All such abbrevations used in the core API are defined here.
+Extensions should also use these abbreviations where appropriate.
+
+Src::
+    Source
+
+Dst::
+    Destination
+
+Min::
+    Minimum
+
+Max::
+    Maximum
+
+Rect::
+    Rectangle
+
+Info::
+    Information
+
+Lod::
+    Level of Detail
+
+Mip::
+    Related to a mipmap.
+    Use "`mipmap`" in full only when it is a standalone term.
+    If referred to some associating with a mipmap, such as levels, sampling
+    mode, size, tail images, etc., use "`mip`" as a standalone prefix word,
+    e.g. pname:maxMipLevels, ename:VK_MIP_MODE, etc.
+    This is analogous to the <<writing-compound-words,spelling conventions
+    for mip-related terms>>
+
+ID::
+    Identifier
+
+UUID::
+    Universally Unique Identifier
+
+Op::
+    Operation
+
+PTR::
+    Pointer
+
+FB::
+    Framebuffer
+
+R::
+    Red color component
+
+G::
+    Green color component
+
+B::
+    Blue color component
+
+A::
+    Alpha color component
+
+
+[[naming-prefixes]]
+== Standard Prefixes
+
+Prefixes are used in the API to denote specific semantic meaning of ANARI
+names, or as a label to avoid name clashes, and are explained here:
+
+ANARI/Anari/anari::
+    ANARI namespace +
+    All types, commands, enumerants and C macro definitions in the ANARI
+    specification are prefixed with these five characters, according to the
+    rules defined above.
+
+PFN/pfn::
+    Function Pointer +
+    Denotes that a type is a function pointer, or that a variable is of a
+    pointer type.
+
+p::
+    Pointer +
+    Variable is a pointer.

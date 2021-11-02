@@ -1,0 +1,53 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[standard_subtypes_volumes]]
+=== Volumes
+
+This section outlines volume subtypes which are supplied by complete ANARI
+device implementations.
+
+==== Scivis
+
+The scivis volume is created by passing the subtype string `scivis` to
+`anariNewVolume`. It supports the folowing parameter:
+
+.Parameters understood by the scivis volume.
+[cols="<3,<3,>2,<9",options="header,unbreakable"]
+|===================================================================================================
+| Name             | Type                 | Default | Description
+| field            |`SPATIAL_FIELD`       |         | <<spatial_field, Spatial field>> used for the field values of the volume
+| valueRange       |`FLOAT32_BOX1`        |  [0, 1] | sampled values of `field` are clamped to this range
+| color            |`ARRAY1D` of <<Color>>|         | array to map sampled and clamped field values to color
+| color.position   |`ARRAY1D` of `FLOAT32`|         | optional array to position the elements of `color` values in `valueRange`
+| opacity          |`ARRAY1D` of `FLOAT32`|         | array to map sampled and clamped field values to opacity
+| opacity.position |`ARRAY1D` of `FLOAT32`|         | optional array to position the elements of `opacity` values in `valueRange`
+| densityScale     |`FLOAT32`             |       1 | makes volumes uniformly thinner or thicker
+|===================================================================================================
+
+The `color` and the `opacity` array map values sampled in `field`
+(clamped to `valueRange`) into output colors and opacities used for
+volume rendering, respectively.
+
+[NOTE]
+.Note
+====
+The `color` and `opacity` arrays together represent a transfer function,
+which is used to visually emphasize the structure or certain features in
+the `field` data. Both arrays can be of different size.
+====
+
+If present, `color.position` and `opacity.position` arrays must contain
+monotonically increasing values within (inclusive) `valueRange` and
+their array size must not be larger than the corresponding `color` or
+`opacity` array. The `*.position` arrays contain the numeric position
+which the elements of corresponding `color` or `opacity` reside within
+`valueRange`.
+
+If a `*.position` array is not set, the position values are assumed to
+be uniformly distributed within `valueRange`, with the first element
+representing the color/opacity of the lowest value in `valueRange`, and
+the last element representing the color/opacity of the last element in
+`valueRange`.
+

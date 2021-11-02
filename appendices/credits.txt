@@ -1,0 +1,45 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[appendix]
+[[credits]]
+== Credits (Informative)
+
+ANARI 1.0 is the result of contributions from many people and companies
+participating in the Khronos ANARI Working Group, as well as input from the
+ANARI Advisory Panel.
+
+Members of the Working Group, including the company that they represented at
+the time of their most recent contribution, are listed in the following
+section.
+Some specific contributions made by individuals are listed together with
+their name.
+
+
+=== Working Group Contributors to ANARI
+
+  * Bill Sherman, NIST
+  * Brian Savery, AMD
+  * Dave DeMarle, Intel
+  * Jakob Progsch, NVIDIA
+  * Jefferson Amstutz, NVIDIA
+  * Johannes Günther, Intel
+  * John Stone, UIUC
+  * Kees Van Kooten, NVIDIA
+  * Kevin Griffin, NVIDIA
+  * Neil Trevett, NVIDIA
+  * Peter Messmer, NVIDIA
+  * Will Usher, Intel
+
+
+=== Other Credits
+
+The ANARI Advisory Panel members provided important real-world usage
+information and advice that helped guide design decisions.
+
+Administrative support to the Working Group for ANARI 1.0 was
+provided by Khronos staff.
+
+Technical support was provided by James Riordon, webmaster of Khronos.org.
+

@@ -1,0 +1,625 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[api_concepts]]
+== Common API Concepts
+
+This section describes concepts common to all object types for creation,
+parameterization, and property queries.
+
+[[api_concepts_scene_hierarchy]]
+=== Scene Hierarchy (Informative)
+
+ANARI scenes are represented as hierarchies of objects. This section
+describes their relationship to each other.
+
+The <<frame>> is the root object of the scene. It holds the framebuffer
+configuration and the <<world>>, <<camera>>, and <<renderer>> objects.  The
+<<camera>> configures the projection of the rendering used to view the
+<<world>>.  The <<renderer>> holds parameters relating to the rendering
+algorithm.  The <<world>> holds arrays of the drawable objects of the scene such
+as <<surface>>, <<volume>>, and <<light>> either directly or via an array of
+<<instance,Instances>> containing <<group>>. A <<group>> holds arrays of
+<<surface>>, <<volume>>, and <<light>> to be instanced together. An <<instance>>
+combines a <<group>> with a transform to placement of the same collection of
+objects at multiple locations within the same <<world>>. A <<surface>>
+represents drawable surfaces containing a <<geometry>> and a <<material>>. A
+<<geometry>> specifies drawable primitives and data associated with them. A
+<<material>> specifies the surface's appearance related to the data from the
+<<geometry>>. A <<volume>> represents volumetric drawable objects and may
+contain <<spatial_field>> objects. A <<spatial_field>> represents a field
+of values in 3D space. A <<light>> represents sources of illumination.
+
+The following diagram illustrates the relationships described above:
+
+image::images/anari_hierarchy.png[]
+
+[[api_concepts_object_definition]]
+=== Object Definition
+
+All objects are characterized by the following items
+
+- Objects are represented as an <<api_concepts_handles,opaque handle>>
+- Objects must be able to accept <<api_concepts_parameters,parameters>>
+- Objects must be able to post <<api_concepts_object_properties,properties>>
+- An object application reference count must only be modifiable by
+`anariRelease` and `anariRetain`
+
+
+[[api_concepts_handles]]
+=== Object Handle Representation
+
+Objects and devices in ANARI are represented by opaque 64-bit handles. The
+`NULL` handle never represents a valid object. Handles are only valid for the
+device from which they were created, and using handles with other devices leads
+to undefined behavior.
+
+[[api_concepts_lifetimes]]
+=== Object Creation and Lifetime
+
+Objects are created by calling an `anariNew` factory function (for example
+`anariNewGeometry`). Each object type has its own corresponding factory
+function. All objects, including devices, are only valid in the process in which
+they are created.
+
+Object lifetime is managed by opaque reference counting. Objects have a
+public and internal reference count. Objects are created with a public
+reference count of 1, which can be increased with _anariRetain_ and
+decreased with _anariRelease_. Once the public reference count has been
+decreased to 0, the object becomes inaccessible to host code, where using its
+handle in subsequent API calls is invalid and results in undefined behavior.
+
+The signatures to `anariRelease` and `anariRetain` are as follows
+
+[source,cpp]
+----
+void anariRelease(ANARIDevice, ANARIObject);
+
+void anariRetain(ANARIDevice, ANARIObject);
+----
+
+The internal reference count is managed by the API and will keep objects
+alive for as long as the implementation needs them. Therefore, user code may
+release objects as soon as it no longer requires access to them.
+
+
+[[api_concepts_parameters]]
+=== Parameters, Types, and Commits
+
+Objects are configured by parameters, which are identified by a string name and
+are set using `anariSetParameter`. Multiple types can be valid for a parameter,
+but only one type can be set for a particular parameter name at any given time.
+Setting a parameter with a different type overwrites its previous value and
+type.  Attempting to set a parameter that is unknown to the implementation
+has no effect on object state, but may cause an ANARI device implementation
+to emit warnings. The same applies if an unsupported type for a parameter is used.
+
+The signatures to `anariSetParameter` is as follows
+
+[source,cpp]
+----
+void anariSetParameter(
+  ANARIDevice device,
+  ANARIObject object,
+  const char *parameter,
+  ANARIDataType type,
+  const void *value
+);
+----
+
+The `ANARI_STRING` valued parameter named `name` on all object types is reserved
+across all implementations and can optionally be used by applications to inject
+human readable identifiers into the command stream. This can be useful for
+debugging purposes, for example. Implementations are allowed to ignore this
+parameter and must not emit warnings when it is present.
+
+Changes to parameter values must only take effect once `anariCommit` has been
+called on the object. Uncommitted parameters must have no effect on the behavior
+of the object during rendering operations. Calling `anariCommit` while an
+object is participating in a <<rendering_frames, rendering operation>> is
+undefined behavior.
+
+Data types passed to and returned from ANARI are specified using the
+`ANARIDataType` enum. The enum values identify ANARI object data types
+and C data types. Types starting with `ANARI` are provided by the
+ANARI headers. All other types refer to C99 types.
+See Table 1 below for a complete list.
+
+Values set on objects are passed as a `void *` in `anariSetParameter`, which
+points to the value to be read.  The type is encoded by the passed in
+`ANARIDataType` enum. For example, this means that, given `ANARI_INT`, the
+implementation casts the input `void * value` to `int *` and dereferences it
+accordingly. There are, however, two exceptions: `ANARI_STRING` and
+`ANARI_VOID_POINTER` (`const char *` and `void *` respectively) are object
+pointer based types, so they are instead passed by value.
+
+Object parameters can be unset using `anariUnsetParameter`, which returns the
+named parameter back to a state as if it had not been set. Just like with
+setting parameters, changes made by `anariUnsetParameter` must only be
+applied when the object is committed.
+
+The signature to `anariUnsetParameter` is as follows
+
+[source,cpp]
+----
+void anariUnsetParameter(
+  ANARIDevice device,
+  ANARIObject object,
+  const char *parameter
+);
+----
+
+.Data types.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+include::type_table.txt[]
+|===================================================================================================
+
+Floating point number (data types with `FLOAT`) layout and behaviour are as specified in <<ieee-754>>.
+
+[[color]]
+==== Color
+
+The following data types must be accepted by geometry's `color` attribute
+parameter and by <<standard_subtypes_samplers>> and are grouped here to allow
+for brevity:
+
+* `UFIXED8`
+* `UFIXED8_VEC2`
+* `UFIXED8_VEC3`
+* `UFIXED8_VEC4`
+* `UFIXED16`
+* `UFIXED16_VEC2`
+* `UFIXED16_VEC3`
+* `UFIXED16_VEC4`
+* `UFIXED32`
+* `UFIXED32_VEC2`
+* `UFIXED32_VEC3`
+* `UFIXED32_VEC4`
+* `FLOAT32`
+* `FLOAT32_VEC2`
+* `FLOAT32_VEC3`
+* `FLOAT32_VEC4`
+* `UFIXED8_RGBA_SRGB`
+* `UFIXED8_RGB_SRGB`
+* `UFIXED8_RA_SRGB`
+* `UFIXED8_R_SRGB`
+
+
+[[api_concepts_introspection]]
+=== Object Introspection
+
+ANARI supports introspection of objects, i.e., querying supported object
+subtypes and information about their parameters, which is particularly useful
+to enumerate and inspect implementation-specific object extensions. The intended
+use is to allow for building a graphical user interface for, e.g., specific
+renderers or materials, and to provide hints for the debug layer to aid in
+validating extensions.  Because the meta-information of objects and parameters
+supported by devices is static, it can be queried without creating a device
+first by passing the device name.
+
+[source,cpp]
+----
+const char **anariGetDeviceSubtypes(ANARILibrary);
+----
+
+To get a list of device subtypes implemented in a library, call function
+`anariGetDeviceSubtypes`. It returns `NULL` if there are no devices, or a
+`NULL`-terminated list of `0`-terminated C-strings with the names of the
+devices. The first (if any) device is the default device.
+
+[source,cpp]
+----
+const char **anariGetObjectSubtypes(
+    ANARILibrary, const char *deviceSubtype, ANARIDataType objectType);
+----
+
+To enumerate the subtypes of type `objectType` supported by device
+`deviceSubtype` call function `anariGetObjectSubtypes`. It returns `NULL` if
+there are no subtypes, or a `NULL`-terminated list of `0`-terminated C-strings
+with the names of the subtypes. Allowed `ANARIDataType` of `objectType` are
+
+* `GEOMETRY`
+* `SAMPLER`
+* `MATERIAL`
+* `VOLUME`
+* `LIGHT`
+* `CAMERA`
+* `RENDERER`
+
+[source,cpp]
+----
+typedef struct
+{
+  const char *name;
+  ANARIDataType type;
+} ANARIParameter;
+
+const ANARIParameter *anariGetObjectParameters(ANARILibrary,
+    const char *deviceSubtype,
+    const char *objectSubtype,
+    ANARIDataType objectType);
+----
+
+An object subtype can be queried for supported parameters with
+`anariGetObjectParameters`, where `objectType` is used for consistency checking
+and to disambiguate name collisions (object subtypes of different type with the
+same name). The function returns `NULL` if there are no parameters, or an array
+of `ANARIParameter` structs, where the last element has `NULL` as name and
+`ANARI_UNKNOWN` as type.
+
+[source,cpp]
+----
+const void *anariGetParameterInfo(ANARILibrary,
+    const char *deviceSubtype,
+    const char *objectSubtype,
+    ANARIDataType objectType,
+    const char *parameterName,
+    ANARIDataType parameterType,
+    const char *infoName,
+    ANARIDataType infoType);
+----
+
+Finally, a parameter can be inspected with `anariGetParameterInfo`,
+returning the result for `infoName` of type `infoType`, or `NULL` on
+error (unknown property or mismatching types). The following infos of
+parameters can be queried:
+
+.Info of parameters for introspection.
+[cols="<,<,^,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name          | Type     | Required | Description
+| description   | `STRING` |    No    | explanation of the parameter, e.g., for a tooltip
+| minimum       | type     |    No    | set values will be clamped to this minimum
+| maximum       | type     |    No    | set values will be clamped to this maximum
+| default       | type     |    No    | default value, must be in `minimum`..`maximum` if present
+| required      | `BOOL`   |    Yes   | whether the parameter must be set for an object to be valid,
+                                        must be `FALSE` if a `default` is present
+|===================================================================================================
+
+
+[[api_concepts_object_properties]]
+=== Object Properties
+
+Implementations may expose object properties through the object query
+interface.
+
+[source,cpp]
+----
+int anariGetProperty(ANARIDevice,
+    ANARIObject,
+    const char *propertyName,
+    ANARIDataType propertyType,
+    void *memory,
+    uint64_t size,
+    uint32_t waitMask);
+----
+
+Properties are identified by a string name and type. The `waitMask` indicates
+whether the property query will wait for the value to become available or should
+return instantly.
+
+If the property is available, the value will be written to `memory`, and the function
+returns `1`. Otherwise, the value is not written to `memory`, and the return value is `0`.
+
+The length of a string property can be queried as an `ANARI_ULONG` by appending
+`.size` to the property name.
+
+At most `size` bytes will be written to `memory`.
+
+[NOTE]
+.Note
+====
+Return value does not replace error handling via the callbacks.
+A property may be unavailable for various reasons including not being supported
+by the device, the value not being computed yet, or any other device-specific
+reason. Errors related to property queries are still returned via the error
+callback.
+====
+
+
+[[api_concepts_memory]]
+=== Arrays and Memory Ownership
+:array: <<api_concepts_memory, array>>
+
+`ANARIArray` handles represent data arrays in memory, which are shared with
+device implementations. The memory shared with ANARI can be either owned
+by the application, have ownership transferred to the device via a deleter
+callback, or be managed by the device. Input data has dimensions encoded
+in its handle type, where each dimension can have a sparse stride.
+
+The signature of the deleter is provided in `anari.h` as
+
+[source,cpp]
+....
+typedef void (*ANARIMemoryDeleter)(void *userPtr, void *appMemory);
+....
+
+To create a data array, use any of the following API calls based on the
+desired dimension:
+
+[source,cpp]
+....
+ANARIArray1D anariNewArray1D(ANARIDevice,
+   void *appMemory,
+   ANARIMemoryDeleter,
+   void *userPtr,
+   ANARIDataType elementType,
+   uint64_t numItems,
+   uint64_t byteStride);
+
+ANARIArray2D anariNewArray2D(ANARIDevice,
+   void *appMemory,
+   ANARIMemoryDeleter,
+   void *userPtr,
+   ANARIDataType elementType,
+   uint64_t numItems1,
+   uint64_t numItems2,
+   uint64_t byteStride1,
+   uint64_t byteStride2);
+
+ANARIArray3D anariNewArray3D(ANARIDevice,
+   void *appMemory,
+   ANARIMemoryDeleter,
+   void *userPtr,
+   ANARIDataType elementType,
+   uint64_t numItems1,
+   uint64_t numItems2,
+   uint64_t numItems3,
+   uint64_t byteStride1,
+   uint64_t byteStride2,
+   uint64_t byteStride3);
+....
+
+The number of elements `numItemsN` must be positive (there cannot be an
+empty array object). The distance between consecutive elements (per
+dimension) is given in bytes with `byteStrideN`. If a `byteStrideN` is
+zero, it will be determined automatically (e.g., as `sizeof(type)`).
+Strides do not need to be ordered. For example, `byteStride2` can be smaller
+than `byteStride1`, which is equivalent to a transpose. However, if the
+stride should be calculated, then an ordering in dimensions is assumed
+to disambiguate, i.e., `byteStride1 < byteStride2 < byteStride3`.
+
+In each creation function a deleter can be passed in (with an
+associated pointer to any needed application data or state), which ANARI will
+use to free the original pointer passed during construction. If the application
+passes `NULL`, ANARI will fully rely on the application to free the memory.
+
+When `appMemory` is not `NULL`, then the array is considered to be a _shared_
+array, where both the application and device observe the same memory.  Passing
+`NULL` in `appMemory` creates a _managed_ array. The backing memory of the array
+is managed by the device and is only writable via mapping.  Device managed
+arrays can only have dense layouts (`byteStrideN = 0`).
+
+Applications are permitted to release `ANARIArray` objects even if the
+device still contains internal references to it. When releasing a
+shared array object ANARI relinquishes shared ownership of the memory,
+which may result in the creation of internal copies. When an array is created
+with a deleter callback, it is implementation defined when an implementation
+frees host memory after the array object has been released.
+
+Applications are only permitted to write to the memory visible to
+`ANARIArray` objects if all array objects involved are mapped. Mapping
+an array object indicates that the device should not execute any
+rendering operations (or internal state updates, such as building
+acceleration structures) of any parent objects to the mapped array object.
+
+Array objects are mapped using
+
+[source,cpp]
+....
+void* anariMapArray(ANARIDevice, ANARIArray);
+....
+
+Mapped array objects are unmapped using
+
+[source,cpp]
+....
+void anariUnmapArray(ANARIDevice, ANARIArray);
+....
+
+Mapping a shared array will always result in the same address originally used
+when constructing the array object.  Mapping a managed array may return a
+different pointer each time it is mapped. The contents of memory mapped from
+managed arrays is undefined until written to and the entire mapped range must be
+specified before unmapping to avoid populating the array with undefined values.
+
+`ANARIArray` objects containing object handles increase the ref count
+of all objects in the array. Reference counts are updated on creation
+of the array object and when unmapping the array.
+
+[NOTE]
+.Note
+====
+Array parameters of objects that are accessed by the same index (because
+they represent an "array of structures") have per naming convention a
+common prefix followed by a period. The byte strides of arrays allow
+such "transformation" without changing the actual memory layout. An
+example are the vertex attributes of the
+<<standard_subtypes_geometry_triangle, triangle geometry>>, which all
+start with `vertex.` followed by the attribute name.
+====
+
+[[api_concepts_libraries]]
+=== Libraries
+
+ANARI libraries are the mechanism that applications use to manage API device
+implementations. Libraries are solely responsible for creating instances of
+<<api_concepts_devices, devices>>. Implementors may use a library to cache
+data or objects which are truly global to their device implementations, such
+as contexts from underlying APIs. Libraries are generally the first thing
+loaded by an application and the last thing cleaned up. While libraries are
+represented by an opaque handle, they are not considered an object per the
+given <<api_concepts_object_definition,definition>> of an object and are thus
+only usable in API calls which explicitly take `ANARILibrary` handles.
+
+To load a library, use
+
+[source,cpp]
+....
+ANARILibrary anariLoadLibrary(const char *name,
+  ANARIStatusCallback defaultStatusCallback,
+  void *defaultStatusCallbackUserData);
+....
+
+This will look for a shared library named `anari_library_[name]`, open it,
+and look for entry points for (implementation defined) initialization. The
+status callback passed is used as the default value for the `statusCallback`
+parameter on devices created from the returned library object. Similarly, the
+user pointer passed is used as the default value for the
+`statusCallbackUserData` device parameter.
+
+To unload a library (where library resource cleanup occurs), use
+
+[source,cpp]
+....
+void anariUnloadLibrary(ANARILibrary);
+....
+
+It is undefined behavior to unload a library while instances of devices from
+that library have not been released.
+
+[NOTE]
+.Note
+====
+Vendors are also permitted to implement direct device creation
+functions to allow an application to directly link their ANARI library at
+compile time. Please reference your vendor's documentation for whether direct
+linking is supported by their ANARI library.
+====
+
+[[api_concepts_devices]]
+=== Devices
+
+ANARI coordinates the use of one or more _devices_. A device is an object
+which provides the implementation of all ANARI API calls outside of libraries.
+Devices represent the global state which an implementor may reuse between
+different objects to render images. It is common for applications to only use
+one device at a time, but the API permits concurrent use of multiple devices
+to independently render from each other.
+
+[NOTE]
+.Note
+====
+ANARI devices are a _software_ construct. Because ANARI abstracts away the
+details of an entire rendering system, the underlying hardware which a device
+may use is entirely up to the implemetation. Please read your vendor's device
+documentation to see what parameters are available to configure and what
+underlying hardware is both available and used to render frames.
+====
+
+The ANARI device is responsible for coordinating the sharing of execution
+resources with the calling application, such as a CPU thread pool or GPU
+kernel queues.
+
+ANARI devices are represented by an `ANARIDevice` handle and created using
+
+[source,cpp]
+....
+ANARIDevice anariNewDevice(ANARILibrary, const char *subtype);
+....
+
+
+Version information can be queried as properties on the `ANARIDevice`
+<<api_concepts_object_properties, using `anariGetProperty`>>.
+
+.Properties queryable on devices.
+[cols="<5,<2,^3,<10",options="header,unbreakable"]
+|===================================================================================================
+| Name          | Type    | Required | Description
+| version       |`INT32`  |   Yes    | unique version number guaranteed to increase between versions
+| version.major |`INT32`  |    No    | semantic version major value (major.minor.patch)
+| version.minor |`INT32`  |    No    | semantic version minor value (major.minor.patch)
+| version.patch |`INT32`  |    No    | semantic version patch value (major.minor.patch)
+| version.name  |`STRING` |    No    | human readable name/title
+| geometryMaxIndex|`UINT64`|  Yes    | largest supported index into vertex arrays in <<standard_subtypes_geometries, geometries>>
+|===================================================================================================
+
+[[api_concepts_error_handling]]
+=== Error Handling
+
+Errors and other messages (warnings, validation messages, debug
+information etc.) from the device are reported via a status callback.
+The status callback function can be set using
+
+[source,cpp]
+....
+typedef void (*ANARIStatusCallback)(void *userPtr,
+    ANARIDevice,
+    ANARIObject source,
+    ANARIDataType sourceType,
+    ANARIStatusSeverity,
+    ANARIStatusCode,
+    const char *message);
+....
+
+The following values for `ANARIStatusCode` are defined:
+
+* `STATUS_NO_ERROR`
+* `STATUS_UNKNOWN_ERROR`
+* `STATUS_INVALID_ARGUMENT`
+* `STATUS_INVALID_OPERATION`
+* `STATUS_OUT_OF_MEMORY`
+* `STATUS_UNSUPPORTED_DEVICE`
+* `STATUS_VERSION_MISMATCH`
+
+The following values for `ANARIStatusSeverity` are defined:
+
+* `SEVERITY_FATAL_ERROR`
+* `SEVERITY_ERROR`
+* `SEVERITY_WARNING`
+* `SEVERITY_PERFORMANCE_WARNING`
+* `SEVERITY_INFO`
+* `SEVERITY_DEBUG`
+
+.Parameters accepted by all devices.
+[cols="<,<,<",options="header,unbreakable"]
+|===================================================================================================
+| Name                   | Type            | Description
+| statusCallback         |`STATUS_CALLBACK`| callback used to report information to the application
+| statusCallbackUserData |`VOID_POINTER`   | optional pointer passed as the first argument of the status callback
+|===================================================================================================
+
+//|logLevel |`INT` | logging level; possible values (in order of severity):
+//`SEVERITY_FATAL_ERROR`. `SEVERITY_ERROR`, `SEVERITY_WARNING`,
+//`SEVERITY_PERFORMANCE_WARNING`, `SEVERITY_INFO`, `SEVERITY_DEBUG`
+//|logOutput|`STRING` |convenience for setting where status messages go, possible values: `stderr`, `stdout`
+//|errorOutput |`STRING`|convenience for setting where error messages go, possible values: `stderr`, `stdout`
+
+
+Statuses may be reported at an undefined time after the API call
+causing them is made. Furthermore, these callbacks must
+themselves be thread safe as they can be called on any thread.
+
+[[api_concepts_attributes]]
+=== Attributes
+
+Attributes are quantities that are passed between objects during
+rendering. Attributes are identified by strings.
+
+Surface attributes are passed from <<Geometry, geometries>> and
+<<Volume, volumes>> to <<Material, materials>> and <<Sampler,
+samplers>>. Attributes are either set explicitly by user-provided data
+as array parameters (and may be interpolated in a geometry-specific way)
+or implicitly by the surface or volume. Unspecified (components of)
+attributes default to zero for the first three components and to one for
+the fourth component.
+
+.Attributes
+[cols="<,<,<",options="header",]
+|===
+|Identifier |Internal Type  |Description
+|`color` |`FLOAT32_VEC4` |color
+|`worldPosition` |`FLOAT32_VEC4` |world space position
+|`worldNormal` |`FLOAT32_VEC4` |world space shading normal
+|`objectPosition` |`FLOAT32_VEC4` |object space position
+|`objectNormal` |`FLOAT32_VEC4` |object space shading normal
+|`attribute0` |`FLOAT32_VEC4` |generic attribute 0
+|`attribute1` |`FLOAT32_VEC4` |generic attribute 1
+|`attribute2` |`FLOAT32_VEC4` |generic attribute 2
+|`attribute3` |`FLOAT32_VEC4` |generic attribute 3
+|`primitiveId` |`UINT32` / `UINT64` |geometry specific primitive identifier, at most <<Devices, device limit `geometryMaxIndex`>> large.
+|===
+
+

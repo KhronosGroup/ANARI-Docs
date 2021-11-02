@@ -1,0 +1,121 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[standard_subtypes_samplers]]
+=== Samplers
+
+This section outlines sampler subtypes which are supplied by complete ANARI
+device implementations.
+
+==== Image1D
+
+A one dimensional image sampler is created by calling <<sampler,
+`anariNewSampler`>> with subtype string `image1D`. It accepts the following parameters.
+
+.Parameters accepted by `image1D` samplers.
+[cols="<,<,>,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name            | Type                                                       | Default                         | Description
+| inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
+| inTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
+| image | `ARRAY1D` of <<Color>> |  | array backing the sampler
+| filter | `STRING` | `nearest` | filter of the sampler, possible values: `nearest`, `linear`
+| wrapMode | `STRING` | `clampToEdge` | wrap mode of the sampler, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
+| outTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
+|===================================================================================================
+
+The attribute values indicated by `inAttribute` are first transformed via
+`inTransform`, then its first component is used as normalized coordinate
+to sample `image`, taking `filter` and `wrapMode` into account. Refer to
+<<vulkan-samplers>> for the exact definitions of the sampling and filtering
+operation. The sampled value is completed to four components (if needed:
+unspecified components default to zero for the first three components and to one
+for the fourth component) and transformed via `outTransform` to yield the final
+result of the sampler.
+
+==== Image2D
+
+A two dimensional image sampler is created by calling <<sampler,
+`anariNewSampler`>> with subtype string `image2D`. It accepts the following parameters.
+
+.Parameters accepted by `image2D` samplers.
+[cols="<,<,>,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name            | Type                                                       | Default                         | Description
+| inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
+| inTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
+| image | `ARRAY2D` of <<Color>> / `FIXED8_VEC3` / `FIXED8_VEC4`|  | array backing the sampler
+| filter | `STRING` | `nearest` | filter of the sampler, possible values: `nearest`, `linear`
+| wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
+| wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
+| outTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
+|===================================================================================================
+
+The attribute values indicated by `inAttribute` are first transformed via
+`inTransform`, then its first two components are used as normalized
+coordinates to sample `image`, taking `filter` and `wrapMode` into
+account. Refer to <<vulkan-samplers>> for the exact definitions of the sampling
+and filtering operation. The sampled value is completed to four components (if
+needed: unspecified components default to zero for the first three components
+and to one for the fourth component) and transformed via `outTransform` to yield
+the final result of the sampler.
+
+==== Image3D
+
+A three dimensional image sampler is created by calling <<sampler,
+`anariNewSampler`>> with subtype string `image3D`. It accepts the following parameters.
+
+.Parameters accepted by `image3D` samplers.
+[cols="<,<,>,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name            | Type                                                       | Default                         | Description
+| inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
+| inTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
+| image | `ARRAY3D` of <<Color>> |  | array backing the sampler
+| filter | `STRING` | `nearest` | filter of the sampler, possible values: `nearest`, `linear`
+| wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
+| wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
+| wrapMode3 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 3rd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
+| outTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
+|===================================================================================================
+
+The attribute values indicated by `inAttribute` are first transformed via
+`inTransform`, then its first three components are used as normalized
+coordinates to sample `image`, taking `filter` and `wrapMode` into account.
+Refer to <<vulkan-samplers>> for the exact definitions of the sampling and
+filtering operation. The sampled value is completed to four components (if
+needed: unspecified components default to zero for the first three components
+and to one for the fourth component) and transformed via `outTransform` to yield
+the final result of the sampler.
+
+==== Primitive
+
+The primitive sampler samples an `Array1D` at unnormalized integer
+coordinates based on the `primitiveId` surface attribute, shifted by
+non-negative `offset`.
+
+.Parameters accepted by all `primitive` samplers.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name  | Type      | Description
+| array | `ARRAY1D` | backing array of the sampler
+|===================================================================================================
+
+The `array` size must be at most <<Devices, device limit `geometryMaxIndex`>>.
+
+
+==== Transform
+
+The transform sampler applies a `transform` to the input attribute and returns the result
+as the sampled value.
+
+
+.Parameters accepted by all `primitive` samplers.
+[cols="<,<,>,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name            | Type                                                       | Default                         | Description
+| inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate
+| transform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to coordinates before sampling
+|===================================================================================================
+

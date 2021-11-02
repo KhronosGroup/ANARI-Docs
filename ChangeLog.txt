@@ -1,0 +1,17 @@
+Update Log for the ANARI-Docs repository on Github. Updates are in reverse
+chronological order starting with the latest public release.
+
+This summarizes the periodic public updates, not individual commits. Updates
+on Github are done as single large patches at the release point, collecting
+together the resolution of many Khronos internal issues, along with any
+public pull requests that have been accepted.
+
+-----------------------------------------------------
+
+Change log for ?? ??, 2020 ANARI 1.0.1 spec update:
+
+  * Update release number to 1 for this update.
+
+Internal Issues:
+
+  * Prototype of ANARI specification.

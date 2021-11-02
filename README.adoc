@@ -1,0 +1,93 @@
+ifdef::env-github[]
+:note-caption: :information_source:
+endif::[]
+
+= ANARI(R)^ API Documentation Project
+
+This repository contains sources for the formal documentation of the ANARI
+API. This includes:
+
+[options="compact"]
+ * The ANARI API Specification
+ * Specification of ANARI extensions
+ * API reference ("`man`") pages
+ * The XML API Registry (also mirrored at
+   https://github.com/KhronosGroup/ANARI-Headers)
+ * ANARI header files (also mirrored at
+   https://github.com/KhronosGroup/ANARI-Headers)
+ * Related tools and scripts.
+
+The authoritative public repository is located at
+https://github.com/KhronosGroup/ANARI-Docs/.
+It hosts a public Issue tracker, and outside developers can file proposed
+patches (Pull Requests) against the Specification, subject to approval
+by Khronos.
+
+If in doubt where to submit your Issue, consult the
+https://github.com/KhronosGroup/ANARI-Ecosystem repo.
+
+
+== Branch Structure
+
+The current Specification is maintained in the `master` branch of the
+repository.
+From this branch it is possible to generate Specifications for any published
+version of ANARI (1.2, 1.1, and 1.0), and incorporating any desired set of
+extensions.
+Each published update is tagged in the form `1.2.*release*` where *release*
+is a constantly incrementing release number and `1.2` is the latest
+published version of the API.
+The last public spec update prior to ANARI 1.2 is tagged `v1.1.130`.
+
+The last state of the `master` branch in Khronos' internal gitlab server,
+before 1.2 content was merged into it, is tagged `1.1-archive` (this tag is
+not in github).
+
+
+== Directory Structure
+
+The directory structure is as follows:
+
+```
+README.adoc           This file
+BUILD.adoc            Documents how to build the specifications, and man pages
+COPYING.md            Copyright and licensing information
+CODE_OF_CONDUCT.md    Code of Conduct
+ChangeLog.txt         Change log summary for each public spec update
+Makefile, make*       Makefile and helper build scripts (see BUILD.adoc)
+appendices/           Specification appendices
+chapters/             Specification chapters
+config/               Asciidoctor configuration, CSS, and index generator
+images/               Images (figures, diagrams, icons)
+man/                  Reference (man) pages for the API; mostly extracted from the spec source
+out/                  Default directory for the generated documents
+scripts/              Helper scripts used in specification, header, and reference page generation
+style/                Sources for "styleguide" (ANARI Documentation and Extensions: Procedures and Conventions)
+xml/                  XML API Registry (an.xml)
+registry.txt          Sources for documentation of the an.xml format
+```
+
+
+== Building the Specification and Reference Pages
+
+The document sources are marked up in Asciidoctor format, and we use
+`asciidoctor` and related toolchain components to generate output documents.
+See link:BUILD.adoc[BUILD.adoc] for more information on installing the
+toolchain and building the Specification.
+
+
+== Generating Headers and Related Files
+
+See link:xml/README.adoc[xml/README.adoc].
+
+The header files (`include/anari/anari*.h`) and many parts of the
+specification and reference page documents are generated from descriptions
+in the XML API Registry (`xml/an.xml`).
+The generated files are not checked into the repository.
+If you change `an.xml`, you can regenerate the headers by going into
+`xml/` and running:
+
+    $ make clean install
+
+The other generated files are built as required via dependencies in
+the top-level `Makefile`.

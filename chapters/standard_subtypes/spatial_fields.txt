@@ -1,0 +1,43 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[standard_subtypes_spatial_fields]]
+=== Spatial Fields
+
+This section outlines spatial field subtypes which are supplied by complete
+ANARI device implementations.
+
+==== Structured Regular
+
+Structured regular spatial fields are created by passing the subtype string
+`structuredRegular` to <<spatial_field, `anariNewSpatialField`>>. The parameters
+understood by structured regular spatial fields are summarized in the table below.
+
+.Configuration parameters for structured regular spatial fields.
+[cols="<,<,>,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name    | Type           |    Default | Description
+| data    |`ARRAY3D` of `UINT8` / `INT16` / `UINT16` / `FLOAT32` / `FLOAT64` | | the actual field
+                                          values for the 3D grid, i.e., the scalars are
+                                          vertex-centered; the size and value type of the spatial field
+                                          is inferred from `data`
+| origin  |`FLOAT32_VEC3`  |  (0, 0, 0) | origin of the grid in object-space
+| spacing |`FLOAT32_VEC3`  |  (1, 1, 1) | size of the grid cells in object-space
+| filter  |`STRING`        |    `linear`| filter used for reconstructing the field,
+                                          possible values: `nearest`, `linear`
+|===================================================================================================
+
+The spatial field grid can be moved with `origin` and scaled with `spacing`, in
+local object coordinates. The spatial field data is interpreted to be
+vertex-centered, which means at least two data values need to be
+specified in each dimension to avoid a degenerated spatial field. Its local
+bounds are [`origin`, `origin` + (`data`.size - 1) {times} `spacing`].
+
+[NOTE]
+.Note
+====
+Structured regular fields only need to store the values of the samples, because
+their addresses in memory can be easily computed from a 3D position. A
+common type of structured spatial fields are regular grids.
+====

@@ -1,0 +1,61 @@
+// Copyright (c) -2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[rendering_frames]]
+== Rendering Frames
+
+Rendering is asynchronous (non-blocking), and is done by combining a
+framebuffer, renderer, camera, and world. The process of rendering a
+frame is known as a _frame operation_. Frame operations are invoked
+with
+
+[source,cpp]
+....
+void anariRenderFrame(ANARIDevice, ANARIFrame);
+....
+
+This call may not block, and the ANARIFrame itself can be used to synchronize
+with the application, cancel, or query for progress of the running task.
+When `anariRenderFrame` is called, there is no guarantee when the
+associated task will begin execution.
+
+Applications can query for the status of or wait on a running frame with
+
+[source,cpp]
+....
+int anariFrameReady(ANARIDevice, ANARIFrame, ANARIWaitMask);
+....
+
+If `ANARI_NO_WAIT` is passed as the wait mask, then the function returns
+true if the frame has completed. Alternatively, passing `ANARI_WAIT`
+will block the calling thread until the frame has completed and will
+always return true.
+
+Applications can query how long an async task ran with the `duration` property
+on the `ANARIFrame`. If available, this returns the wall clock execution time
+of the task in seconds. This is useful for applications to query exactly how
+long an asynchronous task executed without the overhead of measuring both
+task execution & synchronization by the calling application.
+
+[NOTE]
+.Note
+====
+The use of `anariRenderFrame` requires that all objects in the scene being
+rendered are valid before rendering occurs. If a call to
+`anariCommit(ANARIDevice)` happens while a frame is being rendered, the
+result is undefined behavior and should be avoided.
+====
+
+Applications can signal that an in-flight frame should be cancelled if possible
+using
+
+[source,cpp]
+....
+void anariDiscardFrame(ANARIDevice, ANARIFrame);
+....
+
+This call is not required to block until the frame completes, rather it only
+signals to the implementation to attempt cancelling the currently rendered
+frame instead of going all the way to completion. The contents of a mapped
+frame which has been discarded is undefined.

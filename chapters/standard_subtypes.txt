@@ -1,0 +1,20 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[standard_subtypes]]
+== Standard Subtypes
+
+include::standard_subtypes/geometries.txt[]
+
+include::standard_subtypes/samplers.txt[]
+
+include::standard_subtypes/materials.txt[]
+
+include::standard_subtypes/spatial_fields.txt[]
+
+include::standard_subtypes/volumes.txt[]
+
+include::standard_subtypes/lights.txt[]
+
+include::standard_subtypes/cameras.txt[]

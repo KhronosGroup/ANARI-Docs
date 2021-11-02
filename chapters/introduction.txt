@@ -1,0 +1,184 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+
+[[introduction]]
+== Introduction
+
+The fundamental problem being solved by the ANARI standard is to provide
+application developers with a high-level rendering API that can be used to
+render images from scientific and technical visualizations containing 3-D
+surface geometry and volumetric data. The API will support rendering
+techniques such as rasterization and high-fidelity path tracing,
+and will do so at low application development-time cost.
+
+Although many renderers and APIs already exist,
+and some of them successfully address the primary requirement above, in
+practice they are vendor-, hardware platform-, or rendering
+algorithm-specific, or they provide high-performance building blocks for
+rendering, but not a complete renderer implementation with a high-level API.
+ANARI aims to address the limitations of these existing APIs.
+ANARI fully abstracts vendor-, hardware platform-, and rendering
+algorithm-specific details behind the API. By doing so, a multiplicity of
+rendering back-end implementations can be used to their full capability,
+without the need for renderer-specific code in applications that use ANARI.
+
+Since ANARI provides a high-level API abstraction, significant freedom is
+provided to back-end renderer implementations. This freedom enables implementations
+to use any practical rendering algorithm for image generation, although a key focus and
+interest for ANARI is support for high-fidelity physically based rendering
+methods.
+
+ANARI applications do not specify the details of the rendering process. Using
+the ANARI API, applications specify object surface or volume data to be
+rendered, and any associated parameters that might affect appearance, such as
+their material properties, texturing, and color transfer functions, as
+appropriate. ANARI applications retain full responsibility for managing
+non-rendering attributes of geometry through their own means. ANARI provides
+rendering-focused functionality only, so higher level scene graphs and other
+more general functionality must be obtained through other APIs or
+applications which use ANARI.
+
+Scientific visualization has diverse rendering needs involving tradeoffs
+among quality, speed, and scalability to available hardware resources. It is
+typical for visualization applications to use both visual and
+quantitative rendering techniques to satisfy user demands. Furthermore, it is
+common for an application to need rendering from local CPU or GPU hardware,
+with parallel scaling through multiple machines in a cluster to exploit
+additional distributed compute and memory resources. The ANARI API provides
+the necessary abstractions to allow these needs to be met by back-end
+renderers, without excessive exposure of hardware or rendering algorithm
+details to the application. ANARI seeks primarily to standardize emerging
+work found in scientific visualization, and also (where practical) to do the
+same for related domains, such as professional visualization, visual effects,
+and engineering CAD.
+
+Multiple ANARI back-ends may be exposed through the API at runtime. The
+ANARI API provides the application with the means to enumerate available
+back-ends, methods for querying high-level capabilities of the available
+back-ends, and the ability to instantiate a back-end and at least one
+associated renderer, which can then be used to render images.
+
+[[introduction-conventions]]
+=== Document Conventions
+
+The ANARI specification is intended for use by both implementors of the API
+and application developers seeking to make use of the API, forming a
+contract between these parties.
+Specification text may address either party; typically the intended audience
+can be inferred from context, though some sections are defined to address
+only one of these parties.
+//(For example, <<fundamentals-validusage>> sections only address application developers).
+Any requirements, prohibitions, recommendations or options defined by
+<<introduction-normative-terminology, normative terminology>> are imposed
+only on the audience of that text.
+
+==== Informative Language
+
+Some language in the specification is purely informative, intended to give
+background or suggestions to implementors or developers.
+
+If an entire chapter or section contains only informative language, its title
+will be suffixed with "(Informative)".
+
+All NOTEs are implicitly informative.
+
+
+[[introduction-normative-terminology]]
+==== Normative Terminology
+
+Within this specification, the key words *must*, *required*, *should*,
+*recommended*, *may*, and *optional* are to be interpreted as described in
+https://www.ietf.org/rfc/rfc2119.txt[RFC 2119 - Key words for use in RFCs to
+Indicate Requirement Levels] (https://www.ietf.org/rfc/rfc2119.txt).
+These key words are highlighted in the specification for clarity.
+In text addressing application developers, their use expresses requirements
+that apply to application behavior.
+In text addressing implementors, their use expresses requirements that apply
+to implementations.
+
+In text addressing application developers, the additional key words *can*
+and *cannot* are to be interpreted as describing the capabilities of an
+application, as follows:
+
+*can*::
+This word means that the application is able to perform the action
+described.
+
+*cannot*::
+This word means that the API and/or the execution environment provide no
+mechanism through which the application can express or accomplish the action
+described.
+
+These key words are never used in text addressing implementors.
+
+[NOTE]
+.Note
+==================
+There is an important distinction between *cannot* and *must not*, as used
+in this Specification.
+*Cannot* means something the application literally is unable to express or
+accomplish through the API, while *must not* means something that the
+application is capable of expressing through the API, but that the
+consequences of doing so are undefined and potentially unrecoverable for
+the implementation (see <<api_concepts_error_handling>>).
+==================
+
+Unless otherwise noted in the section heading, all sections and appendices
+in this document are normative.
+
+
+[[introduction-technical-terminology]]
+==== Technical Terminology
+
+The ANARI Specification makes use of common engineering and graphics terms
+such as *Device*, *Sampler*, and *Frame* to identify and describe ANARI API
+constructs and their attributes, states, and behaviors.
+The <<glossary,Glossary>> defines the basic meanings of these terms in the
+context of the Specification.
+The Specification text provides fuller definitions of the terms and may
+elaborate, extend, or clarify the <<glossary,Glossary>> definitions.
+When a term defined in the <<glossary,Glossary>> is used in normative
+language within the Specification, the definitions within the Specification
+govern and supersede any meanings the terms may have in other technical
+contexts (i.e. outside the Specification).
+
+==== Prefixes
+
+Prefixes are used in the API to denote specific semantic meaning of ANARI
+names, or as a label to avoid name clashes, and are explained here:
+
+ANARI/anari::
+    The ANARI namespace +
+    All types, commands, enumerants and defines in this specification are
+    prefixed with these strings.
+
+The `ANARI_` prefix of named <<api_concepts_parameters, data types>> is ommited
+in tables and itemizations for readability and brevity.
+
+
+[[introduction-normative-references]]
+==== Normative References
+
+References to external documents are considered normative references if the
+Specification uses any of the normative terms defined in
+<<introduction-normative-terminology>> to refer to them or their
+requirements, either as a whole or in part.
+
+The following documents are referenced by normative sections of the
+specification:
+
+[[ieee-754]]
+IEEE.
+August, 2008.
+_IEEE Standard for Floating-Point Arithmetic_.
+IEEE Std 754-2008.
+https://dx.doi.org/10.1109/IEEESTD.2008.4610935 .
+
+[[vulkan-samplers]]
+The Khronos® Vulkan Working Group.
+January, 2020
+_Vulkan® 1.2 – A Specification_, Section 16.8. Image Sample Operations,
+https://www.khronos.org/registry/vulkan/ .
+
