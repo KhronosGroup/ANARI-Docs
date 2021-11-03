@@ -1,5 +1,4 @@
 _*/
 *vscode*
-cmake-build-*
-docs/gen/*
-docs/out/*
+gen/*
+out/*
