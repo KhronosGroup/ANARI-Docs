@@ -598,13 +598,12 @@ themselves be thread safe as they can be called on any thread.
 Attributes are quantities that are passed between objects during
 rendering. Attributes are identified by strings.
 
-Surface attributes are passed from <<Geometry, geometries>> and
-<<Volume, volumes>> to <<Material, materials>> and <<Sampler,
-samplers>>. Attributes are either set explicitly by user-provided data
-as array parameters (and may be interpolated in a geometry-specific way)
-or implicitly by the surface or volume. Unspecified (components of)
-attributes default to zero for the first three components and to one for
-the fourth component.
+Surface attributes are passed from <<Geometry, geometries>> to
+<<Material, materials>> and <<Sampler, samplers>>. Attributes are either
+set explicitly by user-provided data as array parameters (and may be
+interpolated in a geometry-specific way) or implicitly by the surface.
+Unspecified (components of) attributes default to zero for the first
+three components and to one for the fourth component.
 
 .Attributes
 [cols="<,<,<",options="header",]
