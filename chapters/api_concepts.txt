@@ -65,8 +65,8 @@ they are created.
 
 Object lifetime is managed by opaque reference counting. Objects have a
 public and internal reference count. Objects are created with a public
-reference count of 1, which can be increased with _anariRetain_ and
-decreased with _anariRelease_. Once the public reference count has been
+reference count of 1, which can be increased with `anariRetain` and
+decreased with `anariRelease`. Once the public reference count has been
 decreased to 0, the object becomes inaccessible to host code, where using its
 handle in subsequent API calls is invalid and results in undefined behavior.
 
@@ -79,6 +79,8 @@ void anariRelease(ANARIDevice, ANARIObject);
 void anariRetain(ANARIDevice, ANARIObject);
 ----
 
+Calling `anariRelease` with a `NULL` object-handle for the second
+argument is not an error.
 The internal reference count is managed by the API and will keep objects
 alive for as long as the implementation needs them. Therefore, user code may
 release objects as soon as it no longer requires access to them.
