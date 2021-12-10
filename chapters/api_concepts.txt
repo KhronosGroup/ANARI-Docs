@@ -65,8 +65,8 @@ they are created.
 
 Object lifetime is managed by opaque reference counting. Objects have a
 public and internal reference count. Objects are created with a public
-reference count of 1, which can be increased with _anariRetain_ and
-decreased with _anariRelease_. Once the public reference count has been
+reference count of 1, which can be increased with `anariRetain` and
+decreased with `anariRelease`. Once the public reference count has been
 decreased to 0, the object becomes inaccessible to host code, where using its
 handle in subsequent API calls is invalid and results in undefined behavior.
 
@@ -79,6 +79,8 @@ void anariRelease(ANARIDevice, ANARIObject);
 void anariRetain(ANARIDevice, ANARIObject);
 ----
 
+Calling `anariRelease` with a `NULL` object-handle for the second
+argument is not an error.
 The internal reference count is managed by the API and will keep objects
 alive for as long as the implementation needs them. Therefore, user code may
 release objects as soon as it no longer requires access to them.
@@ -100,10 +102,10 @@ The signatures to `anariSetParameter` is as follows
 [source,cpp]
 ----
 void anariSetParameter(
-  ANARIDevice device,
-  ANARIObject object,
+  ANARIDevice,
+  ANARIObject,
   const char *parameter,
-  ANARIDataType type,
+  ANARIDataType,
   const void *value
 );
 ----
@@ -115,9 +117,16 @@ debugging purposes, for example. Implementations are allowed to ignore this
 parameter and must not emit warnings when it is present.
 
 Changes to parameter values must only take effect once `anariCommit` has been
-called on the object. Uncommitted parameters must have no effect on the behavior
-of the object during rendering operations. Calling `anariCommit` while an
-object is participating in a <<rendering_frames, rendering operation>> is
+called on the object:
+
+[source,cpp]
+----
+void anariCommit(ANARIDevice, ANARIObject);
+----
+
+Uncommitted parameters must have no effect on the behavior of the object
+during rendering operations. Calling `anariCommit` while an object is
+participating in a <<rendering_frames, rendering operation>> is
 undefined behavior.
 
 Data types passed to and returned from ANARI are specified using the
@@ -144,8 +153,8 @@ The signature to `anariUnsetParameter` is as follows
 [source,cpp]
 ----
 void anariUnsetParameter(
-  ANARIDevice device,
-  ANARIObject object,
+  ANARIDevice,
+  ANARIObject,
   const char *parameter
 );
 ----
@@ -598,13 +607,12 @@ themselves be thread safe as they can be called on any thread.
 Attributes are quantities that are passed between objects during
 rendering. Attributes are identified by strings.
 
-Surface attributes are passed from <<Geometry, geometries>> and
-<<Volume, volumes>> to <<Material, materials>> and <<Sampler,
-samplers>>. Attributes are either set explicitly by user-provided data
-as array parameters (and may be interpolated in a geometry-specific way)
-or implicitly by the surface or volume. Unspecified (components of)
-attributes default to zero for the first three components and to one for
-the fourth component.
+Surface attributes are passed from <<Geometry, geometries>> to
+<<Material, materials>> and <<Sampler, samplers>>. Attributes are either
+set explicitly by user-provided data as array parameters (and may be
+interpolated in a geometry-specific way) or implicitly by the surface.
+Unspecified (components of) attributes default to zero for the first
+three components and to one for the fourth component.
 
 .Attributes
 [cols="<,<,<",options="header",]

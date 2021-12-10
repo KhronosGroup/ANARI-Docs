@@ -160,7 +160,7 @@ Each array on a group is optional; there is no need to create empty arrays if
 there are no surfaces, no volumes, or no lights instanced.
 
 .Parameters understood by groups.
-[cols="<,<,>,<2",options="header,unbreakable"]
+[cols="<,<,<2",options="header,unbreakable"]
 |======================================================================================
 | Name    | Type                 | Description
 | surface |`ARRAY1D` of `SURFACE`| optional array with handles of <<Surface, surfaces>>
