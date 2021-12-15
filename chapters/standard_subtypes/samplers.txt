@@ -6,7 +6,8 @@
 === Samplers
 
 This section outlines sampler subtypes which are supplied by complete ANARI
-device implementations.
+device implementations. All matrix transforms are expected to use a row-major
+layout.
 
 ==== Image1D
 

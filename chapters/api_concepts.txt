@@ -22,7 +22,7 @@ algorithm.  The <<world>> holds arrays of the drawable objects of the scene such
 as <<surface>>, <<volume>>, and <<light>> either directly or via an array of
 <<instance,Instances>> containing <<group>>. A <<group>> holds arrays of
 <<surface>>, <<volume>>, and <<light>> to be instanced together. An <<instance>>
-combines a <<group>> with a transform to placement of the same collection of
+combines a <<group>> with a transform for placement of the same collection of
 objects at multiple locations within the same <<world>>. A <<surface>>
 represents drawable surfaces containing a <<geometry>> and a <<material>>. A
 <<geometry>> specifies drawable primitives and data associated with them. A
