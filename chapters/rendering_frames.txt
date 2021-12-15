@@ -42,9 +42,7 @@ task execution & synchronization by the calling application.
 .Note
 ====
 The use of `anariRenderFrame` requires that all objects in the scene
-being rendered are valid before rendering occurs. If a call to
-`anariCommit` happens while a frame is being rendered, the result is
-undefined behavior and should be avoided.
+being rendered are valid before rendering occurs.
 ====
 
 Applications can signal that an in-flight frame should be cancelled if possible
