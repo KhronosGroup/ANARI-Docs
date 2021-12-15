@@ -101,12 +101,11 @@ special parameters:
 |===================================================================================================
 | Name   | Type    |  Default | Description
 | aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
+| height |`FLOAT32`|        1 | height of the image plane in world units
 |===================================================================================================
 
-Size of the camera sensor, and thus the extent of the scene that is
-captured in the image, can be controlled with the `imageRegion`
-parameter. The `aspect` ratio needs to be set accordingly to get an
-undistorted image.
+Note that when computing the `aspect` ratio a potentially set image
+region (using `imageRegion`) needs to be regarded as well.
 
 
 ==== Omnidirectional Camera
