@@ -6,7 +6,7 @@
 === Cameras
 
 This section outlines camera subtypes which are supplied by complete ANARI
-device implementations. All matrix transforms are expected to use a row-major
+device implementations. All matrix transforms are expected to use a column-major
 layout.
 
 All cameras sources accept the following parameters:
@@ -19,7 +19,7 @@ All cameras sources accept the following parameters:
 | position               |`FLOAT32_VEC3`|        (0, 0, 0) | position of the camera in world-space
 | direction              |`FLOAT32_VEC3`|       (0, 0, -1) | main viewing direction of the camera
 | up                     |`FLOAT32_VEC3`|        (0, 1, 0) | up direction of the camera
-| transform              |`FLOAT32_MAT4x3`| \((1, 0, 0), (0, 1, 0), (0, 0, 1), (0, 0, 0))
+| transform              |`FLOAT32_MAT3x4`| \((1, 0, 0), (0, 1, 0), (0, 0, 1), (0, 0, 0))
                         | additional world-space transformation matrix (overridden by  `motion.transform`, <<core_extensions_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>)
 | imageRegion            |`FLOAT32_BOX2`|\((0, 0), (1, 1)) | region of the sensor in normalized screen-space coordinates
 | apertureRadius         |`FLOAT32`     |                0 | size of the aperture, controls the depth of field
@@ -52,7 +52,7 @@ All cameras support depth of field via the `apertureRadius` and
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           |    Default | Description
-| motion.transform   |`ARRAY1D` of `FLOAT32_MAT4x3`   |            | additional uniformly distributed world-space transformations
+| motion.transform   |`ARRAY1D` of `FLOAT32_MAT3x4`   |            | additional uniformly distributed world-space transformations
 | motion.scale       |`ARRAY1D` of `FLOAT32_VEC3`     |            | additional uniformly distributed scale, overridden by `motion.transform`
 | motion.rotation    |`ARRAY1D` of `FLOAT32_QUAT_IJKW`|            | additional uniformly distributed quaternion rotation, overridden by `motion.transform`
 | motion.translation |`ARRAY1D` of `FLOAT32_VEC3`     |            | additional uniformly distributed transformlation, overridden by `motion.transform`
