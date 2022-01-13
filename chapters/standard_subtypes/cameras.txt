@@ -81,8 +81,8 @@ below.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name   | Type    |  Default | Description
-| fovy   |`FLOAT32`|   {pi}/3 | the field of view of the frame’s height
-| aspect |`FLOAT32`|        1 |ratio of width by height of the frame (and image region)
+| fovy   |`FLOAT32`|   {pi}/3 | the field of view (angle in radians) of the frame’s height
+| aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
 |===================================================================================================
 
 Note that when computing the `aspect` ratio a potentially set image
