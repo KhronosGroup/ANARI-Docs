@@ -466,23 +466,15 @@
 
 |`FLOAT32_MAT2`
 |`float[4]`
-|two by two 32 bit float matrix in column major order
+|two by two 32 bit float matrix in column-major order
 
 |`FLOAT32_MAT3`
 |`float[9]`
-|three by three 32 bit float matrix in column major order
+|three by three 32 bit float matrix in column-major order
 
 |`FLOAT32_MAT4`
 |`float[16]`
-|four by four 32 bit float matrix in column major order
-
-|`FLOAT32_MAT2x3`
-|`float[6]`
-|two by three 32 bit float matrix in column major order
-
-|`FLOAT32_MAT3x4`
-|`float[12]`
-|three by four 32 bit float matrix in column major order
+|four by four 32 bit float matrix in column-major order
 
 |`FLOAT32_QUAT_IJKW`
 |`float[4]`

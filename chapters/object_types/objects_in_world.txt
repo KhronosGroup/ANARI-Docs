@@ -179,8 +179,8 @@ there are no surfaces, no volumes, or no lights instanced.
 [[instance]]
 === Instance
 
-Instances apply transforms to groups for placement in the World. All matrix transforms 
-are expected to use a row-major layout. Instances are created with
+Instances apply transforms to groups for placement in the World.
+Instances are created with
 
 [source,cpp]
 ....
@@ -193,11 +193,23 @@ instances world-space transform.
 .Parameters understood by instances.
 [cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
-| Name      | Type           |                                       Default | Description
-| group     |`GROUP`         |                                               | Group to be instanced, required
-| transform |`FLOAT32_MAT4x3`| \((1, 0, 0), (0, 1, 0), (0, 0, 1), (0, 0, 0)) | world-space transformation matrix for all attached objects
-                                                                               (overridden by  `motion.transform`, <<core_extensions_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>)
+| Name      | Type         |                                       Default | Description
+| group     |`GROUP`       |                                               | Group to be instanced, required
+| transform |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
+                                                                             (overridden by  `motion.transform`, <<core_extensions_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>)
 |===================================================================================================
+
+The matrix `transform` represents an affine transformation which is
+applied to homogeneous coordinates.
+
+[NOTE]
+.Note
+====
+Since the `FLOAT32_MAT4` matrix `transform` is in column-major layout
+the translational part of the affine transformation is the 13th to 15th
+float in memory. Implementations are free to always treat the last row
+(4th, 8th, 12th and 16th float) as being (0, 0, 0, 1).
+====
 
 .Properties supported by instances.
 [cols="<,<,<2",options="header,unbreakable"]
@@ -218,7 +230,7 @@ Camera>> `shutter` also needs to be set appropiately.
 [cols="<2,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           | Default | Description
-| motion.transform   |`ARRAY1D` of `FLOAT32_MAT4x3`   |         | additional uniformly distributed world-space transformations
+| motion.transform   |`ARRAY1D` of `FLOAT32_MAT4`     |         | additional uniformly distributed world-space transformations
 | motion.scale       |`ARRAY1D` of `FLOAT32_VEC3`     |         | additional uniformly distributed scale, overridden by `motion.transform`
 | motion.rotation    |`ARRAY1D` of `FLOAT32_QUAT_IJKW`|         | additional uniformly distributed quaternion rotation, overridden by `motion.transform`
 | motion.translation |`ARRAY1D` of `FLOAT32_VEC3`     |         | additional uniformly distributed transformlation, overridden by `motion.transform`

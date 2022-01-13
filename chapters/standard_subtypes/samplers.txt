@@ -6,24 +6,24 @@
 === Samplers
 
 This section outlines sampler subtypes which are supplied by complete ANARI
-device implementations. All matrix transforms are expected to use a row-major
-layout.
+device implementations.
 
 ==== Image1D
 
 A one dimensional image sampler is created by calling <<sampler,
-`anariNewSampler`>> with subtype string `image1D`. It accepts the following parameters.
+`anariNewSampler`>> with subtype string `image1D`. It accepts the following
+parameters.
 
 .Parameters accepted by `image1D` samplers.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
 | inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
-| inTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
+| inTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
 | image | `ARRAY1D` of <<Color>> |  | array backing the sampler
 | filter | `STRING` | `nearest` | filter of the sampler, possible values: `nearest`, `linear`
 | wrapMode | `STRING` | `clampToEdge` | wrap mode of the sampler, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
-| outTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
+| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
 |===================================================================================================
 
 The attribute values indicated by `inAttribute` are first transformed via
@@ -35,6 +35,15 @@ unspecified components default to zero for the first three components and to one
 for the fourth component) and transformed via `outTransform` to yield the final
 result of the sampler.
 
+[NOTE]
+.Note
+====
+Like all `FLOAT32_MAT4` matrices, `inTransform` and `outTransform` are
+in column-major memory layout and are applied to column vectors
+(multiplied from the left).
+====
+
+
 ==== Image2D
 
 A two dimensional image sampler is created by calling <<sampler,
@@ -45,12 +54,12 @@ A two dimensional image sampler is created by calling <<sampler,
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
 | inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
-| inTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
+| inTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
 | image | `ARRAY2D` of <<Color>> / `FIXED8_VEC3` / `FIXED8_VEC4`|  | array backing the sampler
 | filter | `STRING` | `nearest` | filter of the sampler, possible values: `nearest`, `linear`
 | wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
 | wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
-| outTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
+| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
 |===================================================================================================
 
 The attribute values indicated by `inAttribute` are first transformed via
@@ -62,6 +71,14 @@ needed: unspecified components default to zero for the first three components
 and to one for the fourth component) and transformed via `outTransform` to yield
 the final result of the sampler.
 
+[NOTE]
+.Note
+====
+Like all `FLOAT32_MAT4` matrices, `inTransform` and `outTransform` are
+in column-major memory layout and are applied to column vectors
+(multiplied from the left).
+====
+
 ==== Image3D
 
 A three dimensional image sampler is created by calling <<sampler,
@@ -72,13 +89,13 @@ A three dimensional image sampler is created by calling <<sampler,
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
 | inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
-| inTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
+| inTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
 | image | `ARRAY3D` of <<Color>> |  | array backing the sampler
 | filter | `STRING` | `nearest` | filter of the sampler, possible values: `nearest`, `linear`
 | wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
 | wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
 | wrapMode3 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 3rd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
-| outTransform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
+| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
 |===================================================================================================
 
 The attribute values indicated by `inAttribute` are first transformed via
@@ -89,6 +106,14 @@ filtering operation. The sampled value is completed to four components (if
 needed: unspecified components default to zero for the first three components
 and to one for the fourth component) and transformed via `outTransform` to yield
 the final result of the sampler.
+
+[NOTE]
+.Note
+====
+Like all `FLOAT32_MAT4` matrices, `inTransform` and `outTransform` are
+in column-major memory layout and are applied to column vectors
+(multiplied from the left).
+====
 
 ==== Primitive
 
@@ -117,6 +142,12 @@ as the sampled value.
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
 | inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate
-| transform | `FLOAT32_MAT4x4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to coordinates before sampling
+| transform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to coordinates before sampling
 |===================================================================================================
 
+[NOTE]
+.Note
+====
+Like all `FLOAT32_MAT4` matrices, `transform` is in column-major memory
+layout and is applied to column vectors (multiplied from the left).
+====

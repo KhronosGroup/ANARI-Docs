@@ -6,11 +6,9 @@
 === Cameras
 
 This section outlines camera subtypes which are supplied by complete ANARI
-device implementations. All matrix transforms are expected to use a row-major
-layout.
+device implementations.
 
 All cameras sources accept the following parameters:
-
 
 .Parameters accepted by all cameras.
 [cols="<20,<14,>10,<30",options="header,unbreakable"]
@@ -19,7 +17,7 @@ All cameras sources accept the following parameters:
 | position               |`FLOAT32_VEC3`|        (0, 0, 0) | position of the camera in world-space
 | direction              |`FLOAT32_VEC3`|       (0, 0, -1) | main viewing direction of the camera
 | up                     |`FLOAT32_VEC3`|        (0, 1, 0) | up direction of the camera
-| transform              |`FLOAT32_MAT4x3`| \((1, 0, 0), (0, 1, 0), (0, 0, 1), (0, 0, 0))
+| transform              |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))
                         | additional world-space transformation matrix (overridden by  `motion.transform`, <<core_extensions_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>)
 | imageRegion            |`FLOAT32_BOX2`|\((0, 0), (1, 1)) | region of the sensor in normalized screen-space coordinates
 | apertureRadius         |`FLOAT32`     |                0 | size of the aperture, controls the depth of field
@@ -30,11 +28,22 @@ All cameras sources accept the following parameters:
 |===================================================================================================
 
 The camera is placed and oriented in the world with `position`,
-`direction` and `up`. Additionally, an extra transformation `transform`
-can be specified, which will only be applied to 3D vectors (i.e.
-`position`, `direction` and `up`), but does _not_ affect any sizes
-(e.g., `apertureRadius` or `interpupillaryDistance`). ANARI uses a
-right-handed coordinate system.
+`direction` and `up`. Additionally, an extra affine transformation
+`transform` can be specified, which is applied to homogeneous
+coordinates. Thus, `transform` will only affect 3D points and vectors
+(i.e., `position`, `direction` and `up`), but does _not_ affect any
+scalars (e.g., `apertureRadius` or `interpupillaryDistance`). ANARI uses
+a right-handed coordinate system.
+
+[NOTE]
+.Note
+====
+Since the `FLOAT32_MAT4` matrix `transform` is in column-major layout
+the translational part of the affine transformation is the 13th to 15th
+float in memory. Implementations are free to always treat the last row
+(4th, 8th, 12th and 16th float) as being (0, 0, 0, 1).
+====
+
 
 The region of the camera sensor that is rendered to the image can be
 specified in normalized screen-space coordinates with `imageRegion`.
@@ -52,7 +61,7 @@ All cameras support depth of field via the `apertureRadius` and
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           |    Default | Description
-| motion.transform   |`ARRAY1D` of `FLOAT32_MAT4x3`   |            | additional uniformly distributed world-space transformations
+| motion.transform   |`ARRAY1D` of `FLOAT32_MAT4`     |            | additional uniformly distributed world-space transformations
 | motion.scale       |`ARRAY1D` of `FLOAT32_VEC3`     |            | additional uniformly distributed scale, overridden by `motion.transform`
 | motion.rotation    |`ARRAY1D` of `FLOAT32_QUAT_IJKW`|            | additional uniformly distributed quaternion rotation, overridden by `motion.transform`
 | motion.translation |`ARRAY1D` of `FLOAT32_VEC3`     |            | additional uniformly distributed transformlation, overridden by `motion.transform`
