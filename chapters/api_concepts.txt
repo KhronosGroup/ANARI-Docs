@@ -227,11 +227,13 @@ const char **anariGetObjectSubtypes(
 To enumerate the subtypes of type `objectType` supported by device
 `deviceSubtype` call function `anariGetObjectSubtypes`. It returns `NULL` if
 there are no subtypes, or a `NULL`-terminated list of `0`-terminated C-strings
-with the names of the subtypes. Allowed `ANARIDataType` of `objectType` are
+with the names of the subtypes. The following object types are expected to have
+subtypes:
 
 * `GEOMETRY`
 * `SAMPLER`
 * `MATERIAL`
+* `SPATIAL_FIELD`
 * `VOLUME`
 * `LIGHT`
 * `CAMERA`
@@ -247,14 +249,14 @@ typedef struct
 
 const ANARIParameter *anariGetObjectParameters(ANARILibrary,
     const char *deviceSubtype,
-    const char *objectSubtype,
-    ANARIDataType objectType);
+    ANARIDataType objectType,
+    const char *objectSubtype);
 ----
 
-An object subtype can be queried for supported parameters with
-`anariGetObjectParameters`, where `objectType` is used for consistency checking
-and to disambiguate name collisions (object subtypes of different type with the
-same name). The function returns `NULL` if there are no parameters, or an array
+An object (sub)type `objectType`/`objectSubtype` can be queried for supported
+parameters with `anariGetObjectParameters` (passing `NULL` or an empty string
+for `objectSubtype` to query an object type directly that does not have
+subtypes). The function returns `NULL` if there are no parameters, or an array
 of `ANARIParameter` structs, where the last element has `NULL` as name and
 `ANARI_UNKNOWN` as type.
 
@@ -262,13 +264,16 @@ of `ANARIParameter` structs, where the last element has `NULL` as name and
 ----
 const void *anariGetParameterInfo(ANARILibrary,
     const char *deviceSubtype,
-    const char *objectSubtype,
     ANARIDataType objectType,
+    const char *objectSubtype,
     const char *parameterName,
     ANARIDataType parameterType,
     const char *infoName,
     ANARIDataType infoType);
 ----
+
+Parameters that can be of multiple types are reported multiple times (once for
+each supported variant: with the same `name`, but different `type`).
 
 Finally, a parameter can be inspected with `anariGetParameterInfo`,
 returning the result for `infoName` of type `infoType`, or `NULL` on
@@ -283,6 +288,7 @@ parameters can be queried:
 | minimum       | type     |    No    | set values will be clamped to this minimum
 | maximum       | type     |    No    | set values will be clamped to this maximum
 | default       | type     |    No    | default value, must be in `minimum`..`maximum` if present
+| elementType   |`DATA_TYPE`| for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
 | required      | `BOOL`   |    Yes   | whether the parameter must be set for an object to be valid,
                                         must be `FALSE` if a `default` is present
 |===================================================================================================
