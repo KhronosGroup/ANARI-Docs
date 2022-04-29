@@ -491,10 +491,10 @@ according to the following:
 - `region.lower` is clamped from above by `region.upper` - 1`
 
 Mapping an array always returns the full capacity, regardless of the elements
-specified by `region`. Object handles within `region` must always be valid, but
-handles outside of `region` may be invalid. Object arrays can be constructed
-with invalid handles, as long as the array `region` contains only valid handles
-by the time the array is used in a render operation.
+specified by `region`. Object handles within `region` must always be valid.
+Object arrays can be constructed with invalid handles, as long as the array
+`region` contains only valid handles by the time the array is used in a render
+operation.
 
 [[api_concepts_libraries]]
 === Libraries
