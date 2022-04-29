@@ -468,7 +468,7 @@ Implementations provide this functionality by implementing
 the following parameter to `ANARIArray1D`:
 
 .Additional parameters accepted by `ANARIArray1D` with <<core_extensions_array1d_region, extension `KHR_ARRAY1D_REGION`>>.
-[cols="<,<,>,<3",options="header,unbreakable"]
+[cols="<,<,<4",options="header,unbreakable"]
 |================================================================
 | Name     | Type         | Description
 | region   |`UINT64_BOX1` | region of elements currently in use
