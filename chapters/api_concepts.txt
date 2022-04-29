@@ -456,6 +456,46 @@ example are the vertex attributes of the
 start with `vertex.` followed by the attribute name.
 ====
 
+Arrays define a valid region of elements, which by default is always the full
+capacity of the array. Implementations can allow applications to keep a singular
+allocation of data, but use a parameter to tell the implementation only to use a
+subset of elements. This gives applications the ability to more efficiently
+change the number of elements used by parent objects at the cost of memory size
+efficiency.
+
+Implementations provide this functionality by implementing
+<<core_extensions_array1d_region, extension `KHR_ARRAY1D_REGION`>>, which adds
+the following parameter to `ANARIArray1D`:
+
+.Additional parameters accepted by `ANARIArray1D` with <<core_extensions_array1d_region, extension `KHR_ARRAY1D_REGION`>>.
+[cols="<,<,<4",options="header,unbreakable"]
+|================================================================
+| Name     | Type         | Description
+| region   |`UINT64_BOX1` | region of elements currently in use
+|================================================================
+
+The element from `region.lower` is _inclusive_, while `region.upper` is
+_exclusive_. This is intended to mimic C++ begin/end iterators on containers.
+
+If `region` is not set, all elements are used as specified when the array was
+constructed. When `region` is set, it is clamped to the range of the array's
+constructed size respectively and warnings should be emitted by the debug layer
+if `region.upper` is larger than capacity.
+
+The values specified by `region` are clamped such that the array will always
+be a valid range containing at least one element. Thus `region` is clamped
+according to the following:
+
+- `region.upper` is clamped from below by `region.lower + 1`
+- `region.upper` is clamped from above by the array's capacity
+- `region.lower` is clamped from above by `region.upper` - 1`
+
+Mapping an array always returns the full capacity, regardless of the elements
+specified by `region`. Object handles within `region` must always be valid.
+Object arrays can be constructed with invalid handles, as long as the array
+`region` contains only valid handles by the time the array is used in a render
+operation.
+
 [[api_concepts_libraries]]
 === Libraries
 

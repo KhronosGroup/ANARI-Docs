@@ -101,3 +101,10 @@ multiple subsequent calls to <<rendering_frames, `anariRenderFrame`>> without
 changes to <<frame>> improve the image quality (e.g., reduce noise levels).
 Additional properties can be queried on <<frame>>.
 
+
+[[core_extensions_array1d_region]]
+=== Array1D Region
+
+The extension `ANARI_KHR_ARRAY1D_REGION` indicates that implementations support
+using a parameter on <<api_concepts_memory, `ANARIArray1D`>> to modify the valid
+region of elements use by parent objects to the array.
