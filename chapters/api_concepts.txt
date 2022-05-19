@@ -469,13 +469,10 @@ the following parameter to `ANARIArray1D`:
 
 .Additional parameters accepted by `ANARIArray1D` with <<core_extensions_array1d_region, extension `KHR_ARRAY1D_REGION`>>.
 [cols="<,<,<4",options="header,unbreakable"]
-|================================================================
-| Name     | Type         | Description
-| region   |`UINT64_BOX1` | region of elements currently in use
-|================================================================
-
-The element from `region.lower` is _inclusive_, while `region.upper` is
-_exclusive_. This is intended to mimic C++ begin/end iterators on containers.
+|==================================================================
+| Name     | Type            | Description
+| region   |`UINT64_REGION1` | region of elements currently in use
+|==================================================================
 
 If `region` is not set, all elements are used as specified when the array was
 constructed. When `region` is set, it is clamped to the range of the array's
@@ -495,6 +492,14 @@ specified by `region`. Object handles within `region` must always be valid.
 Object arrays can be constructed with invalid handles, as long as the array
 `region` contains only valid handles by the time the array is used in a render
 operation.
+
+[NOTE]
+.Note
+====
+As with all `REGION` types, the element from `region.lower` is _inclusive_,
+while `region.upper` is _exclusive_. This is intended to mimic C++ begin/end
+iterators on containers.
+====
 
 [[api_concepts_libraries]]
 === Libraries
