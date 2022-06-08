@@ -434,51 +434,51 @@
 
 |`INT32_BOX1`
 |`int32_t[2]`
-|one dimensional 32 bit integer box (lower and upper bounds)
+|one dimensional 32 bit integer box (inclusive lower and upper bounds)
 
 |`INT32_BOX2`
 |`int32_t[4]`
-|two dimensional 32 bit integer box (lower and upper bound vector)
+|two dimensional 32 bit integer box (inclusive lower and upper bound vector)
 
 |`INT32_BOX3`
 |`int32_t[6]`
-|three dimensional 32 bit integer box (lower and upper bound vector)
+|three dimensional 32 bit integer box (inclusive lower and upper bound vector)
 
 |`INT32_BOX4`
 |`int32_t[8]`
-|four dimensional 32 bit integer box (lower and upper bound vector)
+|four dimensional 32 bit integer box (inclusive lower and upper bound vector)
 
-|`UINT64_BOX1`
+|`UINT64_REGION1`
 |`uint64_t[2]`
-|one dimensional 64 bit unsigned integer box (lower and upper bounds)
+|one dimensional 64 bit unsigned integer region (inclusive lower and exclusive upper bounds)
 
-|`UINT64_BOX2`
+|`UINT64_REGION2`
 |`uint64_t[4]`
-|two dimensional 64 bit unsigned integer box (lower and upper bound vector)
+|two dimensional 64 bit unsigned integer region (inclusive lower and exclusive upper bound vector)
 
-|`UINT64_BOX3`
+|`UINT64_REGION3`
 |`uint64_t[6]`
-|three dimensional 64 bit unsigned integer box (lower and upper bound vector)
+|three dimensional 64 bit unsigned integer region (inclusive lower and exclusive upper bound vector)
 
-|`UINT64_BOX4`
+|`UINT64_REGION4`
 |`uint64_t[8]`
-|four dimensional 64 bit unsigned integer box (lower and upper bound vector)
+|four dimensional 64 bit unsigned integer region (inclusive lower and exclusive upper bound vector)
 
 |`FLOAT32_BOX1`
 |`float[2]`
-|one dimensional 32 bit float box (lower and upper bounds)
+|one dimensional 32 bit float box (inclusive lower and upper bounds)
 
 |`FLOAT32_BOX2`
 |`float[4]`
-|two dimensional 32 bit float box (lower and upper bound vector)
+|two dimensional 32 bit float box (inclusive lower and upper bound vector)
 
 |`FLOAT32_BOX3`
 |`float[6]`
-|three dimensional 32 bit float box (lower and upper bound vector)
+|three dimensional 32 bit float box (inclusive lower and upper bound vector)
 
 |`FLOAT32_BOX4`
 |`float[8]`
-|four dimensional 32 bit float box (lower and upper bound vector)
+|four dimensional 32 bit float box (inclusive lower and upper bound vector)
 
 |`FLOAT32_MAT2`
 |`float[4]`
