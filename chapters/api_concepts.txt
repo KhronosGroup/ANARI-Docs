@@ -247,18 +247,30 @@ typedef struct
   ANARIDataType type;
 } ANARIParameter;
 
-const ANARIParameter *anariGetObjectParameters(ANARILibrary,
+const void *anariGetObjectInfo(ANARILibrary,
     const char *deviceSubtype,
     ANARIDataType objectType,
-    const char *objectSubtype);
+    const char *objectSubtype
+    const char *infoName,
+    ANARIDataType infoType);
 ----
 
-An object (sub)type `objectType`/`objectSubtype` can be queried for supported
-parameters with `anariGetObjectParameters` (passing `NULL` or an empty string
+An object (sub)type `objectType`/`objectSubtype` can be queried for information
+with `anariGetObjectInfo` (passing `NULL` or an empty string
 for `objectSubtype` to query an object type directly that does not have
-subtypes). The function returns `NULL` if there are no parameters, or an array
-of `ANARIParameter` structs, where the last element has `NULL` as name and
-`ANARI_UNKNOWN` as type.
+subtypes). The function returns the result for `infoName` of type `infoType` or
+`NULL` on error.
+
+.Info of objects for introspection.
+[cols="<,<,^,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name          | Type             | Required | Description
+| description   | `STRING`         |    No    | explanation of the object, e.g., for a tooltip
+| parameter     | `PARAMETER_LIST` |    Yes   | list of supported parameters (array of `ANARIParameter`)
+|===================================================================================================
+
+Parameters that can be of multiple types are reported multiple times (once for
+each supported variant: with the same `name`, but different `type`).
 
 [source,cpp]
 ----
@@ -272,9 +284,6 @@ const void *anariGetParameterInfo(ANARILibrary,
     ANARIDataType infoType);
 ----
 
-Parameters that can be of multiple types are reported multiple times (once for
-each supported variant: with the same `name`, but different `type`).
-
 Finally, a parameter can be inspected with `anariGetParameterInfo`,
 returning the result for `infoName` of type `infoType`, or `NULL` on
 error (unknown property or mismatching types). The following infos of
@@ -283,14 +292,15 @@ parameters can be queried:
 .Info of parameters for introspection.
 [cols="<,<,^,<4",options="header,unbreakable"]
 |===================================================================================================
-| Name          | Type     | Required | Description
-| description   | `STRING` |    No    | explanation of the parameter, e.g., for a tooltip
-| minimum       | type     |    No    | set values will be clamped to this minimum
-| maximum       | type     |    No    | set values will be clamped to this maximum
-| default       | type     |    No    | default value, must be in `minimum`..`maximum` if present
-| elementType   |`DATA_TYPE`| for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
-| required      | `BOOL`   |    Yes   | whether the parameter must be set for an object to be valid,
+| Name          | Type        | Required | Description
+| description   | `STRING`    |    No    | explanation of the parameter, e.g., for a tooltip
+| minimum       | type        |    No    | set values will be clamped to this minimum
+| maximum       | type        |    No    | set values will be clamped to this maximum
+| default       | type        |    No    | default value, must be in `minimum`..`maximum` if present
+| elementType   |`TYPE_LIST`  | for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
+| required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid,
                                         must be `FALSE` if a `default` is present
+| value         |`STRING_LIST`|    No    | list of accepted strings for parameters that only recognize specific strings
 |===================================================================================================
 
 
@@ -332,7 +342,6 @@ by the device, the value not being computed yet, or any other device-specific
 reason. Errors related to property queries are still returned via the error
 callback.
 ====
-
 
 [[api_concepts_memory]]
 === Arrays and Memory Ownership
