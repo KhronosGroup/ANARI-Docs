@@ -348,7 +348,7 @@ The signature of the deleter is provided in `anari.h` as
 
 [source,cpp]
 ....
-typedef void (*ANARIMemoryDeleter)(void *userPtr, void *appMemory);
+typedef void (*ANARIMemoryDeleter)(const void *userPtr, const void *appMemory);
 ....
 
 To create a data array, use any of the following API calls based on the
@@ -359,7 +359,7 @@ desired dimension:
 ANARIArray1D anariNewArray1D(ANARIDevice,
    const void *appMemory,
    ANARIMemoryDeleter,
-   void *userPtr,
+   const void *userPtr,
    ANARIDataType elementType,
    uint64_t numItems,
    uint64_t byteStride);
@@ -367,7 +367,7 @@ ANARIArray1D anariNewArray1D(ANARIDevice,
 ANARIArray2D anariNewArray2D(ANARIDevice,
    const void *appMemory,
    ANARIMemoryDeleter,
-   void *userPtr,
+   const void *userPtr,
    ANARIDataType elementType,
    uint64_t numItems1,
    uint64_t numItems2,
@@ -377,7 +377,7 @@ ANARIArray2D anariNewArray2D(ANARIDevice,
 ANARIArray3D anariNewArray3D(ANARIDevice,
    const void *appMemory,
    ANARIMemoryDeleter,
-   void *userPtr,
+   const void *userPtr,
    ANARIDataType elementType,
    uint64_t numItems1,
    uint64_t numItems2,
