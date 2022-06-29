@@ -520,7 +520,7 @@ To load a library, use
 ....
 ANARILibrary anariLoadLibrary(const char *name,
   ANARIStatusCallback defaultStatusCallback,
-  void *defaultStatusCallbackUserData);
+  const void *defaultStatusCallbackUserData);
 ....
 
 This will look for a shared library named `anari_library_[name]`, open it,
@@ -605,7 +605,7 @@ The status callback function can be set using
 
 [source,cpp]
 ....
-typedef void (*ANARIStatusCallback)(void *userPtr,
+typedef void (*ANARIStatusCallback)(const void *userPtr,
     ANARIDevice,
     ANARIObject source,
     ANARIDataType sourceType,
