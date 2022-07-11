@@ -247,18 +247,32 @@ typedef struct
   ANARIDataType type;
 } ANARIParameter;
 
-const ANARIParameter *anariGetObjectParameters(ANARILibrary,
+const void *anariGetObjectInfo(ANARILibrary,
     const char *deviceSubtype,
     ANARIDataType objectType,
-    const char *objectSubtype);
+    const char *objectSubtype
+    const char *infoName,
+    ANARIDataType infoType);
 ----
 
-An object (sub)type `objectType`/`objectSubtype` can be queried for supported
-parameters with `anariGetObjectParameters` (passing `NULL` or an empty string
+An object (sub)type `objectType`/`objectSubtype` can be queried for information
+with `anariGetObjectInfo` (passing `NULL` or an empty string
 for `objectSubtype` to query an object type directly that does not have
-subtypes). The function returns `NULL` if there are no parameters, or an array
-of `ANARIParameter` structs, where the last element has `NULL` as name and
-`ANARI_UNKNOWN` as type.
+subtypes). The function returns the result for `infoName` of type `infoType`, or
+`NULL` if the information can not be retrieved.
+The following infos of objects can be queried:
+
+.Info of objects for introspection.
+[cols="<,<,^,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name          | Type             | Required | Description
+| description   | `STRING`         |    No    | explanation of the object, e.g., for a tooltip
+| parameter     | `PARAMETER_LIST` |    Yes   | list of supported parameters (array of `ANARIParameter`)
+| feature       | `STRING_LIST` | for ``DEVICE``s and ``RENDERER``s | list of features supported by this object
+|===================================================================================================
+
+Parameters that can be of multiple types are reported multiple times (once for
+each supported variant: with the same `name`, but different `type`).
 
 [source,cpp]
 ----
@@ -272,25 +286,23 @@ const void *anariGetParameterInfo(ANARILibrary,
     ANARIDataType infoType);
 ----
 
-Parameters that can be of multiple types are reported multiple times (once for
-each supported variant: with the same `name`, but different `type`).
-
 Finally, a parameter can be inspected with `anariGetParameterInfo`,
-returning the result for `infoName` of type `infoType`, or `NULL` on
-error (unknown property or mismatching types). The following infos of
-parameters can be queried:
+returning the result for `infoName` of type `infoType`, or `NULL` if the
+information can not be retrieved.
+The following infos of parameters can be queried:
 
 .Info of parameters for introspection.
 [cols="<,<,^,<4",options="header,unbreakable"]
 |===================================================================================================
-| Name          | Type     | Required | Description
-| description   | `STRING` |    No    | explanation of the parameter, e.g., for a tooltip
-| minimum       | type     |    No    | set values will be clamped to this minimum
-| maximum       | type     |    No    | set values will be clamped to this maximum
-| default       | type     |    No    | default value, must be in `minimum`..`maximum` if present
-| elementType   |`DATA_TYPE`| for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
-| required      | `BOOL`   |    Yes   | whether the parameter must be set for an object to be valid,
+| Name          | Type        | Required | Description
+| description   | `STRING`    |    No    | explanation of the parameter, e.g., for a tooltip
+| minimum       | type        |    No    | set values will be clamped to this minimum
+| maximum       | type        |    No    | set values will be clamped to this maximum
+| default       | type        |    No    | default value, must be in `minimum`..`maximum` if present
+| elementType   |`TYPE_LIST`  | for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
+| required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid,
                                         must be `FALSE` if a `default` is present
+| value         |`STRING_LIST`|    No    | list of accepted strings for parameters that only recognize specific strings
 |===================================================================================================
 
 
@@ -332,6 +344,31 @@ by the device, the value not being computed yet, or any other device-specific
 reason. Errors related to property queries are still returned via the error
 callback.
 ====
+
+[[api_concepts_features]]
+=== Feature Queries
+Core features and extension features are identified by string names. Supported
+features may be queried from device and renderer objects using `anariGetObjectInfo` and
+`anariGetProperty` by querying for a `STRING_LIST` named `"feature"`.
+
+Queries using `anariGetObjectInfo` return a static list of features the object type is capable
+of supporting. Queries using `anariGetProperty` return the dynamic list of features supported by
+a specific object instance. The dynamic list returned for an object instance is a subset of
+of the static list returned for the object type. Some features may be missing from the instance
+because they depend on factors (hardware, drivers etc.) that are only known once an instance
+has been created and configured.
+
+.List of core features
+[cols="<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name                           | Description
+| `KHR_GEOMETRY_TRIANGLE`        | Adds the `"triangle"` geometry subtype and its parameters
+| `KHR_GEOMETRY_CONES`           | Adds the `"cone"` geometry subtype and its parameters
+| `KHR_DEVICE_SYNCHRONIZATION`   | Relaxes synchronization requirements for device objects
+| `KHR_WORLD_BOUNDS_QUERY`       | Bounds can be queried from world objects
+| `KHR_RENDERER_SHADOWS`         | Renderer renders shadows
+| ... | ...
+|===================================================================================================
 
 
 [[api_concepts_memory]]
@@ -581,7 +618,7 @@ ANARIDevice anariNewDevice(ANARILibrary, const char *subtype);
 ....
 
 
-Version information can be queried as properties on the `ANARIDevice`
+Version and feature support information can be queried as properties on the `ANARIDevice`
 <<api_concepts_object_properties, using `anariGetProperty`>>.
 
 .Properties queryable on devices.
@@ -594,6 +631,7 @@ Version information can be queried as properties on the `ANARIDevice`
 | version.patch |`INT32`  |    No    | semantic version patch value (major.minor.patch)
 | version.name  |`STRING` |    No    | human readable name/title
 | geometryMaxIndex|`UINT64`|  Yes    | largest supported index into vertex arrays in <<standard_subtypes_geometries, geometries>>
+| feature       | `STRING_LIST` | Yes | list of features supported by this device instance
 |===================================================================================================
 
 [[api_concepts_error_handling]]

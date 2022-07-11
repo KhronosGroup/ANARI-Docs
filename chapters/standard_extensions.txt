@@ -8,17 +8,9 @@
 This section describes the core extensions which ANARI specifies.
 The various ANARI implementing devices may or may not support any of the
 features described here.
-Applications can check whether a specific feature is supported after
-initializing a device by calling.
-
-[source,cpp]
-....
-int anariDeviceImplements(ANARIDevice, const char *extension);
-....
-
-Where `extension` is a string name of the extension. Preprocessor defines are
-also declared in the `anari_enums.h` with a value for each of the features describe
-here.
+Applications can check whether a specific feature is supported by inspecting
+the feature lists returned by <<api_concepts_introspection,`anariGetObjectInfo`>>
+or <<api_concepts_object_properties,`anariGetProperty`>>. See also <<api_concepts_object_properties>>.
 
 
 [[core_extensions_continuations]]

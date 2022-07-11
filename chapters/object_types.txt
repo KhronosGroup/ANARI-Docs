@@ -51,6 +51,16 @@ different materials. To create a new renderer of given subtype `subtype` use
 ANARIRenderer anariNewRenderer(ANARIDevice, const char *subtype);
 ....
 
+Feature support information can be queried as properties on the `ANARIRenderer`
+<<api_concepts_object_properties, using `anariGetProperty`>>.
+
+.Properties queryable on all renderers.
+[cols="<5,<2,^3,<10",options="header,unbreakable"]
+|===================================================================================================
+| Name          | Type    | Required | Description
+| feature       | `STRING_LIST` | Yes | list of features supported by this renderer instance
+|===================================================================================================
+
 Every ANARI device offers a default renderer, which works without
 setting any parameters (i.e., all parameters, if any, have meaningful
 defaults). Thus, passing `default` as
