@@ -268,6 +268,7 @@ The following infos of objects can be queried:
 | Name          | Type             | Required | Description
 | description   | `STRING`         |    No    | explanation of the object, e.g., for a tooltip
 | parameter     | `PARAMETER_LIST` |    Yes   | list of supported parameters (array of `ANARIParameter`)
+| feature       | `STRING_LIST` | for ``DEVICE``s and ``RENDERER``s | list of features supported by this object
 |===================================================================================================
 
 Parameters that can be of multiple types are reported multiple times (once for
@@ -343,6 +344,32 @@ by the device, the value not being computed yet, or any other device-specific
 reason. Errors related to property queries are still returned via the error
 callback.
 ====
+
+[[api_concepts_features]]
+=== Feature Queries
+Core features and extension features are identified by string names. Supported
+features may be queried from device and renderer objects using `anariGetObjectInfo` and
+`anariGetProperty` by querying for a `STRING_LIST` named `"feature"`.
+
+Queries using `anariGetObjectInfo` return a static list of features the object type is capable
+of supporting. Queries using `anariGetProperty` return the dynamic list of features supported by
+a specific object instance. The dynamic list returned for an object instance is a subset of
+of the static list returned for the object type. Some features may be missing from the instance
+because they depend on factors (hardware, drivers etc.) that are only known once an instance
+has been created and configured.
+
+.List of core features
+[cols="<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name                           | Description
+| `KHR_GEOMETRY_TRIANGLE`        | Adds the `"triangle"` geometry subtype and its parameters
+| `KHR_GEOMETRY_CONES`           | Adds the `"cone"` geometry subtype and its parameters
+| `KHR_DEVICE_SYNCHRONIZATION`   | Relaxes synchronization requirements for device objects
+| `KHR_WORLD_BOUNDS_QUERY`       | Bounds can be queried from world objects
+| `KHR_RENDERER_SHADOWS`         | Renderer renders shadows
+| ... | ...
+|===================================================================================================
+
 
 [[api_concepts_memory]]
 === Arrays and Memory Ownership
@@ -591,7 +618,7 @@ ANARIDevice anariNewDevice(ANARILibrary, const char *subtype);
 ....
 
 
-Version information can be queried as properties on the `ANARIDevice`
+Version and feature support information can be queried as properties on the `ANARIDevice`
 <<api_concepts_object_properties, using `anariGetProperty`>>.
 
 .Properties queryable on devices.
@@ -604,6 +631,7 @@ Version information can be queried as properties on the `ANARIDevice`
 | version.patch |`INT32`  |    No    | semantic version patch value (major.minor.patch)
 | version.name  |`STRING` |    No    | human readable name/title
 | geometryMaxIndex|`UINT64`|  Yes    | largest supported index into vertex arrays in <<standard_subtypes_geometries, geometries>>
+| feature       | `STRING_LIST` | Yes | list of features supported by this device instance
 |===================================================================================================
 
 [[api_concepts_error_handling]]
