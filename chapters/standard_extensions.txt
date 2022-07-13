@@ -34,7 +34,7 @@ The signature of the continuation is provided in `anari.h` as
 
 [source,cpp]
 ....
-typedef void (*ANARIFrameCompletionCallback)(void *userPtr, ANARIDevice, ANARIFrame);
+typedef void (*ANARIFrameCompletionCallback)(const void *userPtr, ANARIDevice, ANARIFrame);
 ....
 
 
