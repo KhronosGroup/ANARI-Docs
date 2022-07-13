@@ -81,10 +81,11 @@ ANARISurface anariNewSurface(ANARIDevice);
 |===================================================================================================
 | Name     |Type      | Description
 | geometry |`GEOMETRY`| <<geometry>> object used by this surface
-| material |`MATERIAL`| optional <<material>> applied to the geometry
+| material |`MATERIAL`| <<material>> applied to the geometry
 |===================================================================================================
 
-Surfaces require a valid <<geometry>> to be set as the `geometry` parameter.
+Surfaces require a valid <<geometry>> to be set as the `geometry` parameter and
+a valid <<material>> to be set as the `material` parameter.
 
 
 // ///////////////////////////////////////////////////////////////////////
