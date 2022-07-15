@@ -8,9 +8,9 @@
 |`const char*`
 | 0-terminated string
 
-|`TYPE_LIST`
+|`DATA_TYPE_LIST`
 |`ANARIDataType*`
-| array of `ANARIDataType` values terminated by `ANARI_UNKNOWN`
+| array of `ANARIDataType` values terminated by `UNKNOWN`
 
 |`STRING_LIST`
 |`const char**`
@@ -18,7 +18,7 @@
 
 |`PARAMETER_LIST`
 |`ANARIParameter*`
-| array of `ANARIParameter` structs terminated by `{NULL, ANARI_UNKNOWN}`
+| array of `ANARIParameter` structs terminated by `{NULL, UNKNOWN}`
 
 |`VOID_POINTER`
 |`void*`

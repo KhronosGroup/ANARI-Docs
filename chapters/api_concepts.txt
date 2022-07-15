@@ -259,7 +259,7 @@ An object (sub)type `objectType`/`objectSubtype` can be queried for information
 with `anariGetObjectInfo` (passing `NULL` or an empty string
 for `objectSubtype` to query an object type directly that does not have
 subtypes). The function returns the result for `infoName` of type `infoType`, or
-`NULL` if the information can not be retrieved.
+`NULL` if the info cannot be retrieved.
 The following infos of objects can be queried:
 
 .Info of objects for introspection.
@@ -287,7 +287,7 @@ const void *anariGetParameterInfo(ANARILibrary,
 
 Finally, a parameter can be inspected with `anariGetParameterInfo`,
 returning the result for `infoName` of type `infoType`, or `NULL` if the
-information can not be retrieved.
+info cannot be retrieved.
 The following infos of parameters can be queried:
 
 .Info of parameters for introspection.
