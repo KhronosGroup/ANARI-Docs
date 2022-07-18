@@ -8,6 +8,18 @@
 |`const char*`
 | 0-terminated string
 
+|`DATA_TYPE_LIST`
+|`ANARIDataType*`
+| array of `ANARIDataType` values terminated by `UNKNOWN`
+
+|`STRING_LIST`
+|`const char**`
+| array of 0-terminated strings terminated by `NULL`
+
+|`PARAMETER_LIST`
+|`ANARIParameter*`
+| array of `ANARIParameter` structs terminated by `{NULL, UNKNOWN}`
+
 |`VOID_POINTER`
 |`void*`
 |void pointer
