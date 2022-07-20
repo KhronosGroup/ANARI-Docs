@@ -420,9 +420,10 @@ arrays can only have dense layouts (`byteStrideN = 0`).
 Applications are permitted to release `ANARIArray` objects even if the
 device still contains internal references to it. When releasing a
 shared array object ANARI relinquishes shared ownership of the memory,
-which may result in the creation of internal copies. When an array is created
-with a deleter callback, it is implementation defined when an implementation
-frees host memory after the array object has been released.
+which may result in the creation of internal copies. When a shared array is
+created with a deleter callback, it is implementation defined when an
+implementation frees host memory after the array object has been released.
+Deleter callbacks are never called for managed arrays.
 
 Applications are only permitted to write to the memory visible to
 `ANARIArray` objects if all array objects involved are mapped. Mapping
