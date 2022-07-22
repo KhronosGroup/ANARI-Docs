@@ -75,12 +75,19 @@ access the stored pixel information – via
 
 [source,cpp]
 ....
-const void *anariMapFrame(ANARIDevice, ANARIFrame, const char *channel);
+const void* anariMapFrame(ANARIDevice,
+                          ANARIFrame,
+                          const char* channel,
+                          uint32_t *width,
+                          uint32_t *height,
+                          ANARIDataType *pixelType);
 ....
 
 Only channels that have been set as parameters to the frame can be
 mapped, the type of the pixels matches the corresponding parameter
-value.
+value. The arguments `width`, `height`, and `pixelType` are output parameters
+for the application to validate the exact dimensions and per-pixel data type in
+the mapped image.
 
 [NOTE]
 .Note
