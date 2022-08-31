@@ -298,7 +298,7 @@ The following infos of parameters can be queried:
 | minimum       | type        |    No    | set values will be clamped to this minimum
 | maximum       | type        |    No    | set values will be clamped to this maximum
 | default       | type        |    No    | default value, must be in `minimum`..`maximum` if present
-| elementType   |`TYPE_LIST`  | for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
+| elementType   |`DATA_TYPE_LIST`| for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
 | required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid,
                                         must be `FALSE` if a `default` is present
 | value         |`STRING_LIST`|    No    | list of accepted strings for parameters that only recognize specific strings
