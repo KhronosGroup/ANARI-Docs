@@ -15,7 +15,10 @@ ANARIFrame anariNewFrame(ANARIDevice);
 ....
 
 The frame uses parameters to encode size, color format, and which
-channels to use.
+channels to use. Channels are identified by string names with a `channel.` prefix. The frame
+object has an identically named parameter for each reported channel. Setting one of the allowed
+data types enables the channel and determines the data type it can be mapped as. The same
+prefixed channel names are used to select the channel in `anariMapFrame`.
 
 .Parameters accepted by the frame.
 [cols="<,<,<5",options="header,unbreakable"]
@@ -25,10 +28,10 @@ channels to use.
 | camera   |`CAMERA`      | required camera used to render the world
 | renderer |`RENDERER`    | required renderer which renders the frame
 | size     |`UINT32_VEC2` | required size of the frame in pixels (width {times} height)
-| color    |`DATA_TYPE`   | enable mapping the `color` channel and specify its observable type;
+| channel.color    |`DATA_TYPE`   | enable mapping the `color` channel and specify its observable type;
                             RGB color including alpha;
                             possible values: `UFIXED8_VEC4`, `UFIXED8_RGBA_SRGB`, `FLOAT32_VEC4`
-| depth    |`DATA_TYPE`    | enable mapping the `depth` channel and specify its observable type;
+| channel.depth    |`DATA_TYPE`    | enable mapping the `depth` channel and specify its observable type;
                             euclidean distance to the camera (_not_ to the image plane), for multiple
                             samples per pixel their minimum is taken;
                             possible values: `FLOAT32`
@@ -50,10 +53,10 @@ must be positive.
 [cols="<,<,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
-| normal   |`DATA_TYPE`   | enable mapping the `normal` channel and specify its observable type;
+| channel.normal   |`DATA_TYPE`   | enable mapping the `normal` channel and specify its observable type;
                             average world-space normal of the first hit;
                             possible values: `FIXED16_VEC3`, `FLOAT32_VEC3`
-| albedo   |`DATA_TYPE`   | enable mapping the `albedo` channel and specify its observable type;
+| channel.albedo   |`DATA_TYPE`   | enable mapping the `albedo` channel and specify its observable type;
                             average material albedo (color without illumination) at the first hit;
                             possible values: `UFIXED8_VEC3`, `UFIXED8_RGB_SRGB`, `FLOAT32_VEC3`
 |===================================================================================================
