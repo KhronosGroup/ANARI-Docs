@@ -119,7 +119,7 @@ The following information can be queried as properties on the `ANARIFrame`
 [cols="<,<,^,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type    | Required | Description
-| duration |`FLOAT32`|   Yes    | time between start and completion of the frame
+| duration |`FLOAT32`|   Yes    | time (in seconds) between start and completion of the frame
 |===================================================================================================
 
 [[frame_stochastic_rendering_properties]]
