@@ -15,10 +15,10 @@ ANARIFrame anariNewFrame(ANARIDevice);
 ....
 
 The frame uses parameters to encode size, color format, and which
-channels to use. Channels are identified by string names with a `channel.` prefix. The frame
-object has an identically named parameter for each reported channel. Setting one of the allowed
-data types enables the channel and determines the data type it can be mapped as. The same
-prefixed channel names are used to select the channel in `anariMapFrame`.
+channels to use. Channels are identified by string channel names beginning with `channel.`. The frame
+object has an identically named parameter for each reported channel. Setting these parameters
+to one of the allowed data types enables the channel and determines the data type it can be
+mapped as. The same channel names are used to map the channel contents with `anariMapFrame`.
 
 .Parameters accepted by the frame.
 [cols="<,<,<5",options="header,unbreakable"]
