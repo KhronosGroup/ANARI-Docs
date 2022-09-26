@@ -83,37 +83,33 @@ blocking on ANARI.
 ====
 
 [[api_choices_features]]
-=== Core Features, Core Extensions, and Vendor Extensions
+=== Features and Extensions
 
-The ANARI specification defines a core foundation of standard features and
-APIs that must be implemented by all devices. The definition of ANARI
-core features includes particular minimums for achievable implementation
-complexity, testing and validation efforts, and ultimately for overall
-application development cost.
+The ANARI specification defines a set of usable features exposed via the C API.
+Features are loosely defined as observable behavior from a particular use of
+the ANARI API. This most commonly is the existence of usable object subtypes,
+but also can be pre/post conditions on a function call, specific behavior of an
+object parameter, or guaranteed availability of a property.
 
-In order to facilitate the inclusion of more advanced features beyond the
-core, ANARI defines both common core extensions and the semantics for
-working with vendor specific extensions.
+Applications can query features made available by a device implementation
+through queries either on the library or the live device instance. Querying
+available features via the library represents the list of features implemented
+by the vendor at all, while querying features on a live device instance will
+also factor in the runtime environment (i.e. available underlying hardware to
+the device). In either case, feature queries are intended to be the way an
+application determines if the device is acceptable in meeting the application's
+requirements, or if the application wants to adapt itself to what features are
+available.
 
-Core extensions provide a well-defined software mechanism
-for applications and ANARI devices to negotiate the availability of
-standardized but optional features which ANARI implementations
-may choose to support. By categorizing extra ANARI functionality
-among multiple core extensions, implementors are free to choose to support
-extensions that are well matched to their core rendering algorithms, their
-target hardware, and their renderer design trade-offs, without taking on
-implementation of features that would otherwise be prohibitively complex,
-costly to performance, or impractical to incorporate for other reasons.
-The set of core extensions defined by ANARI and the syntax to determine
-their availability are described in section <<core_extensions>>.
+Extensions are features that have not yet made it into the ANARI specification.
+These features are reported in the same list as core features, but have vendor
+specific names, which may exist in more than one device from that vendor.
+This is a good way for vendors to agree upon and get experience with a feature
+prior to bring it officially into the specification.
 
-ANARI implementations may also define vendor-specific, non-standard extensions
-that provide additional object subtypes, parameters, and properties. These are
-expected to be accessible as soon as the calling application initializes the
-implementing device. Because specific object subtypes, parameters, and
-properties are all identified with strings, all extensions are accessed through
-standard API calls and avoid the need for dynamically loaded function call entry
-points.
+All features represent functionality which provides additional capabilities to
+the application. A reported extension should never represent a reduction in
+capability.
 
 [[api_choices_distributed_rendering]]
 === Support for Distributed Applications (Informative)
