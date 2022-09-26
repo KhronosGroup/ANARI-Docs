@@ -8,27 +8,26 @@
 
 The fundamental problem being solved by the ANARI standard is to provide
 application developers with a high-level rendering API that can be used to
-render images from scientific and technical visualizations containing 3-D
-surface geometry and volumetric data. The API will support rendering
-techniques such as rasterization and high-fidelity path tracing,
-and will do so at low application development-time cost.
+render images of visualizations containing 3-D surface geometry and volumetric
+data. The API will support rendering techniques such as rasterization and
+high-fidelity path tracing, and will do so at low application development-time
+cost.
 
-Although many renderers and APIs already exist,
-and some of them successfully address the primary requirement above, in
-practice they are vendor-, hardware platform-, or rendering
-algorithm-specific, or they provide high-performance building blocks for
-rendering, but not a complete renderer implementation with a high-level API.
-ANARI aims to address the limitations of these existing APIs.
+Although many renderers and APIs already exist, and some of them successfully
+address the primary requirement above, in practice they are vendor-, hardware
+platform-, or rendering algorithm-specific, or they provide high-performance
+building blocks for rendering, but not a complete renderer implementation with a
+high-level API.  ANARI aims to address the limitations of these existing APIs.
 ANARI fully abstracts vendor-, hardware platform-, and rendering
 algorithm-specific details behind the API. By doing so, a multiplicity of
-rendering back-end implementations can be used to their full capability,
-without the need for renderer-specific code in applications that use ANARI.
+rendering back-end implementations can be used to their full capability, without
+the need for renderer-specific code in applications that use ANARI.
 
 Since ANARI provides a high-level API abstraction, significant freedom is
-provided to back-end renderer implementations. This freedom enables implementations
-to use any practical rendering algorithm for image generation, although a key focus and
-interest for ANARI is support for high-fidelity physically based rendering
-methods.
+provided to back-end renderer implementations. This freedom enables
+implementations to use any practical rendering algorithm for image generation,
+although a key focus and interest for ANARI is support for high-fidelity
+physically based rendering methods.
 
 ANARI applications do not specify the details of the rendering process. Using
 the ANARI API, applications specify object surface or volume data to be
@@ -40,19 +39,15 @@ rendering-focused functionality only, so higher level scene graphs and other
 more general functionality must be obtained through other APIs or
 applications which use ANARI.
 
-Scientific visualization has diverse rendering needs involving tradeoffs
-among quality, speed, and scalability to available hardware resources. It is
-typical for visualization applications to use both visual and
-quantitative rendering techniques to satisfy user demands. Furthermore, it is
-common for an application to need rendering from local CPU or GPU hardware,
-with parallel scaling through multiple machines in a cluster to exploit
-additional distributed compute and memory resources. The ANARI API provides
-the necessary abstractions to allow these needs to be met by back-end
-renderers, without excessive exposure of hardware or rendering algorithm
-details to the application. ANARI seeks primarily to standardize emerging
-work found in scientific visualization, and also (where practical) to do the
-same for related domains, such as professional visualization, visual effects,
-and engineering CAD.
+Domains which leverage 3D graphics have diverse rendering needs involving
+tradeoffs among quality, speed, and scalability to available hardware resources.
+It is typical for 3D applications to use both visual and quantitative
+rendering techniques to satisfy user demands. Furthermore, it is common for an
+application to need rendering from local CPU or GPU hardware, with parallel
+scaling through multiple machines in a cluster to exploit additional distributed
+compute and memory resources. The ANARI API provides the necessary abstractions
+to allow these needs to be met by back-end renderers, without excessive exposure
+of hardware or rendering algorithm details to the application.
 
 Multiple ANARI back-ends may be exposed through the API at runtime. The
 ANARI API provides the application with the means to enumerate available
