@@ -503,10 +503,10 @@ change the number of elements used by parent objects at the cost of memory size
 efficiency.
 
 Implementations provide this functionality by implementing
-<<core_extensions_array1d_region, extension `KHR_ARRAY1D_REGION`>>, which adds
+<<feature_array1d_region, extension `KHR_ARRAY1D_REGION`>>, which adds
 the following parameter to `ANARIArray1D`:
 
-.Additional parameters accepted by `ANARIArray1D` with <<core_extensions_array1d_region, extension `KHR_ARRAY1D_REGION`>>.
+.Additional parameters accepted by `ANARIArray1D` with <<feature_array1d_region, extension `KHR_ARRAY1D_REGION`>>.
 [cols="<,<,<4",options="header,unbreakable"]
 |==================================================================
 | Name     | Type            | Description

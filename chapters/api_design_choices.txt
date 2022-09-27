@@ -63,7 +63,7 @@ must be synchronized and may not overlap. By default, this includes the device.
 Therefore, calls to the same device must be externally synchronized.
 
 Devices may relax this restriction via a
-<<core_extensions_relaxed_device_synchronization,core extension>>.
+<<feature_relaxed_device_synchronization,core extension>>.
 
 
 Expensive operations can be implemented asynchronously, which avoids blocking
@@ -110,6 +110,12 @@ prior to bring it officially into the specification.
 All features represent functionality which provides additional capabilities to
 the application. A reported extension should never represent a reduction in
 capability.
+
+Testable feature names are inlined in the specification alongside their
+definition. All features follow the prefix convention of
+"ANARI_[VENDOR]_[NAME]", where core features use "KHR" as the vendor string. In
+this document, all features will omit the "ANARI_" portion of the prefix for
+brevity.
 
 [[api_choices_distributed_rendering]]
 === Support for Distributed Applications (Informative)

@@ -18,7 +18,7 @@ All cameras sources accept the following parameters:
 | direction              |`FLOAT32_VEC3`|       (0, 0, -1) | main viewing direction of the camera
 | up                     |`FLOAT32_VEC3`|        (0, 1, 0) | up direction of the camera
 | transform              |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))
-                        | additional world-space transformation matrix (overridden by  `motion.transform`, <<core_extensions_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>)
+                        | additional world-space transformation matrix (overridden by  `motion.transform`, <<feature_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>)
 | imageRegion            |`FLOAT32_BOX2`|\((0, 0), (1, 1)) | region of the sensor in normalized screen-space coordinates
 | apertureRadius         |`FLOAT32`     |                0 | size of the aperture, controls the depth of field
 | focusDistance          |`FLOAT32`     |                1 | distance at where the image is sharpest when depth of field is enabled
@@ -57,7 +57,7 @@ All cameras support depth of field via the `apertureRadius` and
 `focusDistance` parameters and stereo 3D rendering by setting
 `stereoMode` and `interpupillaryDistance`.
 
-.Additional parameters accepted by all cameras with <<core_extensions_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>.
+.Additional parameters accepted by all cameras with <<feature_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>.
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           |    Default | Description
@@ -69,7 +69,7 @@ All cameras support depth of field via the `apertureRadius` and
 | shutter            |`FLOAT32_BOX1`                  | [0.5, 0.5] | start and end of shutter time
 |===================================================================================================
 
-<<core_extensions_transformation_motion_blur, Extension
+<<feature_transformation_motion_blur, Extension
 `KHR_TRANSFORMATION_MOTION_BLUR`>>: Uniformly (in `time`) distributed
 transformation keys can be set with `motion.transform` to achieve camera
 motion blur (in combination with `shutter`). Alternatively, the

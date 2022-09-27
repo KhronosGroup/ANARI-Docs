@@ -19,10 +19,10 @@ All light sources accept the following parameters:
 
 The transformation of an <<Instance, instance>> apply only to vectors
 like `position` or `direction` of a light, but _not_ to affect sizes
-like `radius` (<<core_extensions_area_lights, extension
+like `radius` (<<feature_area_lights, extension
 `KHR_AREA_LIGHTS`>>).
 
-.Additional parameters accepted by all lights with <<core_extensions_area_lights, extension `KHR_AREA_LIGHTS`>>.
+.Additional parameters accepted by all lights with <<feature_area_lights, extension `KHR_AREA_LIGHTS`>>.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type          |    Default | Description
@@ -49,7 +49,7 @@ special parameters:
                                                 surface, in W/m^2^
 |===================================================================================================
 
-.Additional parameters accepted by the directional light with <<core_extensions_area_lights, extension `KHR_AREA_LIGHTS`>>.
+.Additional parameters accepted by the directional light with <<feature_area_lights, extension `KHR_AREA_LIGHTS`>>.
 [cols="<3,<2,>2,<9",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type         |    Default | Description
@@ -61,7 +61,7 @@ special parameters:
 [NOTE]
 .Note
 ==================
-<<core_extensions_area_lights, Extension `KHR_AREA_LIGHTS`>>: Setting
+<<feature_area_lights, Extension `KHR_AREA_LIGHTS`>>: Setting
 the angular diameter to a value greater than zero will result in soft
 shadows when supported by the implementation. For instance, the apparent
 size of the sun is about 0.53° or 0.00925 rad.
@@ -88,11 +88,11 @@ the following special parameters:
                                           `intensity` takes precedence if also specified
 |===================================================================================================
 
-<<core_extensions_area_lights, Extension `KHR_AREA_LIGHTS`>>: Setting
+<<feature_area_lights, Extension `KHR_AREA_LIGHTS`>>: Setting
 the radius to a value greater than zero will result in soft shadows when
 the renderer support it.
 
-.Additional parameters accepted by the point light with <<core_extensions_area_lights, extension `KHR_AREA_LIGHTS`>>.
+.Additional parameters accepted by the point light with <<feature_area_lights, extension `KHR_AREA_LIGHTS`>>.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type    | Default | Description
@@ -135,7 +135,7 @@ the smoothstep function).
 //TODO image:imgSpotlight[ "Angles used by the spotlight."]
 
 [[standard_subtypes_light_ring]]
-==== Ring (<<core_extensions_area_lights, Extension `KHR_AREA_LIGHTS`>>)
+==== Ring (<<feature_area_lights, Extension `KHR_AREA_LIGHTS`>>)
 
 The ring light is a light emitting into a cone of directions. It is created by
 passing the subtype string `ring` to `anariNewLight`. In addition to the <<lights,
@@ -194,7 +194,7 @@ neighbors. The orientation of the C0-plane is specified via `c0`.
 //TODO image: {empty}[C-{gamma} coordinate system for the mapping of `intensityDistribution` to the spotlight.][imgSpotCoords]
 
 [[standard_subtypes_light_quad]]
-==== Quad (<<core_extensions_area_lights, Extension `KHR_AREA_LIGHTS`>>)
+==== Quad (<<feature_area_lights, Extension `KHR_AREA_LIGHTS`>>)
 
 The quadfootnote:[actually a parallelogram] light is a planar,
 procedural area light source emitting uniformly on one side into the
@@ -254,7 +254,7 @@ shadows.
 ====
 
 [[standard_subtypes_light_hdri]]
-==== HDRI (<<core_extensions_area_lights, Extension `KHR_AREA_LIGHTS`>>)
+==== HDRI (<<feature_area_lights, Extension `KHR_AREA_LIGHTS`>>)
 
 The HDRI light is a textured light source surrounding the scene and
 illuminating it from infinity. It is created by passing the subtype string
