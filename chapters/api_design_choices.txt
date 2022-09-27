@@ -63,7 +63,7 @@ must be synchronized and may not overlap. By default, this includes the device.
 Therefore, calls to the same device must be externally synchronized.
 
 Devices may relax this restriction via a
-<<feature_relaxed_device_synchronization,core extension>>.
+<<feature_relaxed_device_synchronization,core feature>>.
 
 
 Expensive operations can be implemented asynchronously, which avoids blocking
@@ -108,7 +108,7 @@ This is a good way for vendors to agree upon and get experience with a feature
 prior to bring it officially into the specification.
 
 All features represent functionality which provides additional capabilities to
-the application. A reported extension should never represent a reduction in
+the application. A reported feature should never represent a reduction in
 capability.
 
 Testable feature names are inlined in the specification alongside their

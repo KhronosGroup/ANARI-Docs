@@ -201,10 +201,10 @@ for brevity:
 
 ANARI supports introspection of objects, i.e., querying supported object
 subtypes and information about their parameters, which is particularly useful
-to enumerate and inspect implementation-specific object extensions. The intended
+to enumerate and inspect implementation-specific object features. The intended
 use is to allow for building a graphical user interface for, e.g., specific
 renderers or materials, and to provide hints for the debug layer to aid in
-validating extensions.  Because the meta-information of objects and parameters
+validating features.  Because the meta-information of objects and parameters
 supported by devices is static, it can be queried without creating a device
 first by passing the device name.
 
@@ -347,7 +347,7 @@ callback.
 
 [[api_concepts_features]]
 === Feature Queries
-Core features and extension features are identified by string names. Supported
+Core features and feature features are identified by string names. Supported
 features may be queried from device and renderer objects using
 `anariGetObjectInfo` and `anariGetProperty` by querying for a `STRING_LIST`
 named `"feature"`.
@@ -503,10 +503,10 @@ change the number of elements used by parent objects at the cost of memory size
 efficiency.
 
 Implementations provide this functionality by implementing
-<<feature_array1d_region, extension `KHR_ARRAY1D_REGION`>>, which adds
+<<feature_array1d_region, feature `KHR_ARRAY1D_REGION`>>, which adds
 the following parameter to `ANARIArray1D`:
 
-.Additional parameters accepted by `ANARIArray1D` with <<feature_array1d_region, extension `KHR_ARRAY1D_REGION`>>.
+.Additional parameters accepted by `ANARIArray1D` with <<feature_array1d_region, feature `KHR_ARRAY1D_REGION`>>.
 [cols="<,<,<4",options="header,unbreakable"]
 |==================================================================
 | Name     | Type            | Description

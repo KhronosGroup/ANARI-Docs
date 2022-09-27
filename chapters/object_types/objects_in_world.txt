@@ -197,7 +197,7 @@ instances world-space transform.
 | Name      | Type         |                                       Default | Description
 | group     |`GROUP`       |                                               | Group to be instanced, required
 | transform |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
-                                                                             (overridden by  `motion.transform`, <<feature_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>)
+                                                                             (overridden by  `motion.transform`, <<feature_transformation_motion_blur, feature `KHR_TRANSFORMATION_MOTION_BLUR`>>)
 |===================================================================================================
 
 The matrix `transform` represents an affine transformation which is
@@ -219,7 +219,7 @@ float in memory. Implementations are free to always treat the last row
 | bounds   |`FLOAT32_BOX3`| axis-aligned bounding box in world-space (excluding the lights)
 |===================================================================================================
 
-<<feature_transformation_motion_blur, Extension
+<<feature_transformation_motion_blur, Feature
 `KHR_TRANSFORMATION_MOTION_BLUR`>>: Uniformly (in `time`) distributed
 transformation keys can be given with `motion.transform` to achieve
 transformation motion blur (in combination with `time` and `shutter`).
@@ -227,7 +227,7 @@ Alternatively, the transformation keys can also be given as decomposed
 `motion.scale`, `motion.rotation` and `motion.translation`. <<cameras,
 Camera>> `shutter` also needs to be set appropiately.
 
-.Additional parameters understood by instances with <<feature_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>.
+.Additional parameters understood by instances with <<feature_transformation_motion_blur, feature `KHR_TRANSFORMATION_MOTION_BLUR`>>.
 [cols="<2,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           | Default | Description
