@@ -28,7 +28,7 @@ additional per-vertex parameters specifying the same attribute, then the
 geometry specific `vertex.pass:[*]` parameters take precedence.
 
 [[standard_subtypes_geometry_triangle]]
-==== Triangle
+==== Triangle (`KHR_GEOMETRY_TRIANGLE`)
 
 A geometry consisting of triangles is created by calling <<geometry,
 `anariNewGeometry`>> with subtype string `triangle`. A triangle geometry
@@ -65,7 +65,7 @@ implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
 [[standard_subtypes_geometry_quad]]
-==== Quad
+==== Quad (`KHR_GEOMETRY_QUAD`)
 
 A geometry consisting of quads is created by calling <<geometry,
 `anariNewGeometry`>> with subtype string `quad`. A quad geometry
@@ -100,15 +100,8 @@ large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
-////
-TODO:
-Quads are internally handled as a pair of two triangles, thus mixing
-triangles and quads is supported by encoding some triangle as a quad
-with the last two vertex indices being identical (`w=z`).
-////
 
-
-==== Sphere
+==== Sphere (`KHR_GEOMETRY_SPHERE`)
 
 A geometry consisting of individual spheres, each of which can have an
 own radius, is created by calling <<geometry, `anariNewGeometry`>> with
@@ -149,7 +142,7 @@ large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
-==== Curve
+==== Curve (`KHR_GEOMETRY_CURVE`)
 
 A geometry consisting of multiple curves is created by calling
 <<geometry, `anariNewGeometry`>> with type string `curve`. The vertices
@@ -191,7 +184,7 @@ implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>> minus 1.
 
 
-==== Cone
+==== Cone (`KHR_GEOMETRY_CONE`)
 
 A geometry consisting of individual cones, is created by calling
 <<geometry, `anariNewGeometry`>> with subtype string `cone`.
@@ -234,7 +227,7 @@ implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
 
-==== Cylinder
+==== Cylinder (`KHR_GEOMETRY_CYLINDER`)
 
 A geometry consisting of individual cylinders, each of which can have an
 own radius, is created by calling <<geometry, `anariNewGeometry`>> with

@@ -8,7 +8,7 @@
 This section outlines sampler subtypes which are supplied by complete ANARI
 device implementations.
 
-==== Image1D
+==== Image1D (`KHR_SAMPLER_IMAGE1D`)
 
 A one dimensional image sampler is created by calling <<sampler,
 `anariNewSampler`>> with subtype string `image1D`. It accepts the following
@@ -44,7 +44,7 @@ in column-major memory layout and are applied to column vectors
 ====
 
 
-==== Image2D
+==== Image2D (`KHR_SAMPLER_IMAGE2D`)
 
 A two dimensional image sampler is created by calling <<sampler,
 `anariNewSampler`>> with subtype string `image2D`. It accepts the following parameters.
@@ -79,7 +79,7 @@ in column-major memory layout and are applied to column vectors
 (multiplied from the left).
 ====
 
-==== Image3D
+==== Image3D (`KHR_SAMPLER_IMAGE3D`)
 
 A three dimensional image sampler is created by calling <<sampler,
 `anariNewSampler`>> with subtype string `image3D`. It accepts the following parameters.
@@ -115,7 +115,7 @@ in column-major memory layout and are applied to column vectors
 (multiplied from the left).
 ====
 
-==== Primitive
+==== Primitive (`KHR_SAMPLER_PRIMITIVE`)
 
 The primitive sampler samples an `Array1D` at unnormalized integer
 coordinates based on the `primitiveId` surface attribute, shifted by
@@ -131,7 +131,7 @@ non-negative `offset`.
 The `array` size must be at most <<Devices, device limit `geometryMaxIndex`>>.
 
 
-==== Transform
+==== Transform (`KHR_SAMPLER_TRANSFORM`)
 
 The transform sampler applies a `transform` to the input attribute and returns the result
 as the sampled value.

@@ -30,7 +30,7 @@ like `radius` (<<feature_area_lights, feature
 |===================================================================================================
 
 [[standard_subtypes_light_directional]]
-==== Directional
+==== Directional (`KHR_LIGHT_DIRECTIONAL`)
 
 The directional light is thought to
 be far away (outside of the scene), thus its light arrives (mostly) as
@@ -69,7 +69,7 @@ size of the sun is about 0.53° or 0.00925 rad.
 
 
 [[standard_subtypes_light_point]]
-==== Point
+==== Point (`KHR_LIGHT_POINT`)
 
 The point light (or with feature the sphere light) is a light emitting
 uniformly in all directions (from the surface toward the outside). It is created
@@ -103,7 +103,7 @@ the renderer support it.
 
 
 [[standard_subtypes_light_spot]]
-==== Spot
+==== Spot (`KHR_LIGHT_SPOT`)
 
 The spotlight is a light emitting into a cone of directions. It is
 created by passing the subtype string `spot` to `anariNewLight`. In
@@ -135,7 +135,7 @@ the smoothstep function).
 //TODO image:imgSpotlight[ "Angles used by the spotlight."]
 
 [[standard_subtypes_light_ring]]
-==== Ring (<<feature_area_lights, Feature `KHR_AREA_LIGHTS`>>)
+==== Ring (`KHR_LIGHT_RING`)
 
 The ring light is a light emitting into a cone of directions. It is created by
 passing the subtype string `ring` to `anariNewLight`. In addition to the <<lights,
@@ -194,7 +194,7 @@ neighbors. The orientation of the C0-plane is specified via `c0`.
 //TODO image: {empty}[C-{gamma} coordinate system for the mapping of `intensityDistribution` to the spotlight.][imgSpotCoords]
 
 [[standard_subtypes_light_quad]]
-==== Quad (<<feature_area_lights, Feature `KHR_AREA_LIGHTS`>>)
+==== Quad (`KHR_LIGHT_QUAD`)
 
 The quadfootnote:[actually a parallelogram] light is a planar,
 procedural area light source emitting uniformly on one side into the
@@ -254,7 +254,7 @@ shadows.
 ====
 
 [[standard_subtypes_light_hdri]]
-==== HDRI (<<feature_area_lights, Feature `KHR_AREA_LIGHTS`>>)
+==== HDRI (`KHR_LIGHT_HDRI`)
 
 The HDRI light is a textured light source surrounding the scene and
 illuminating it from infinity. It is created by passing the subtype string
@@ -276,10 +276,3 @@ parameters>> the HDRI light supports the following special parameters:
 |===================================================================================================
 
 //TODO {empty}[Orientation and Mapping of an HDRI Light.][imgHDRILight]
-
-
-// === Emissive Objects
-//
-// The link:#path-tracer[path tracer] will consider illumination by
-// <<geometries>> which have a light emitting material
-// assigned (for example the <<luminous, Luminous>> material).

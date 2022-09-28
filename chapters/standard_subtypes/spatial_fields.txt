@@ -8,7 +8,7 @@
 This section outlines spatial field subtypes which are supplied by complete
 ANARI device implementations.
 
-==== Structured Regular
+==== Structured Regular (`KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`)
 
 Structured regular spatial fields are created by passing the subtype string
 `structuredRegular` to <<spatial_field, `anariNewSpatialField`>>. The parameters
