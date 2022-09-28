@@ -49,7 +49,7 @@ must be positive.
 | frameCompletionCallbackUserData |`VOID_POINTER`     | optional user pointer passed as the first argument of the frame completion callback
 |===================================================================================================
 
-.Additional parameters accepted by the frame with <<feature_aux_buffers, feature `KHR_AUXILIARY_BUFFERS`>>.
+.Additional parameters accepted by the frame with feature `KHR_AUXILIARY_BUFFERS`.
 [cols="<,<,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
@@ -61,8 +61,14 @@ must be positive.
                             possible values: `UFIXED8_VEC3`, `UFIXED8_RGB_SRGB`, `FLOAT32_VEC3`
 |===================================================================================================
 
+The feature `KHR_STOCHASTIC_RENDERING` indicates that implementations
+use stochastic rendering techniques like Monte Carlo integration and thus that
+multiple subsequent calls to <<rendering_frames, `anariRenderFrame`>> without
+changes to <<frame>> improve the image quality (e.g., reduce noise levels).
+Additional properties can be queried on <<frame>>.
+
 [[frame_stochastic_rendering_parameters]]
-.Additional parameters accepted by the frame with <<feature_stochastic_rendering, feature `KHR_STOCHASTIC_RENDERING`>>.
+.Additional parameters accepted by the frame with feature `KHR_STOCHASTIC_RENDERING`.
 [cols="<3,<2,>2,<9",options="header,unbreakable"]
 |===================================================================================================
 | Name         | Type  |  Default | Description
@@ -71,6 +77,29 @@ must be positive.
 | variance     |`BOOL` |  `FALSE` | whether to estimate the <<frame_stochastic_rendering_properties, `variance` property>>
 |===================================================================================================
 
+Devices which implement `KHR_FRAME_COMPLETION_CALLBACK` add two parameters
+to <<frame>>: a callback invoked as a continuation after the frame completes,
+and an associated pointer to application state to be passed to the invoked
+continuation. This continuation must complete before the `ANARI_TASK_COMPLETE`
+event is signaled by `anariWait()` on the frame.
+
+The signature of the continuation is provided in `anari.h` as
+
+[source,cpp]
+....
+typedef void (*ANARIFrameCompletionCallback)(const void *userPtr, ANARIDevice, ANARIFrame);
+....
+
+
+[NOTE]
+.Note
+==================
+Implementations are strongly encouraged to invoke the continuation on a
+background thread. This helps physically maintain asynchronous behavior with calling
+application API threads. ANARI API calls are legal within the continuation,
+except for calling `anariWait()` with `ANARI_TASK_COMPLETE`, as this will incur a
+deadlock.
+==================
 
 
 The application can map the given channel of a frame – and thus

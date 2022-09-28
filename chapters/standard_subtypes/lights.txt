@@ -19,10 +19,9 @@ All light sources accept the following parameters:
 
 The transformation of an <<Instance, instance>> apply only to vectors
 like `position` or `direction` of a light, but _not_ to affect sizes
-like `radius` (<<feature_area_lights, feature
-`KHR_AREA_LIGHTS`>>).
+like `radius` (feature `KHR_AREA_LIGHTS`).
 
-.Additional parameters accepted by all lights with <<feature_area_lights, feature `KHR_AREA_LIGHTS`>>.
+.Additional parameters accepted by all lights with feature `KHR_AREA_LIGHTS`.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type          |    Default | Description
@@ -49,7 +48,7 @@ special parameters:
                                                 surface, in W/m^2^
 |===================================================================================================
 
-.Additional parameters accepted by the directional light with <<feature_area_lights, feature `KHR_AREA_LIGHTS`>>.
+.Additional parameters accepted by the directional light with feature `KHR_AREA_LIGHTS`.
 [cols="<3,<2,>2,<9",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type         |    Default | Description
@@ -61,10 +60,9 @@ special parameters:
 [NOTE]
 .Note
 ==================
-<<feature_area_lights, Feature `KHR_AREA_LIGHTS`>>: Setting
-the angular diameter to a value greater than zero will result in soft
-shadows when supported by the implementation. For instance, the apparent
-size of the sun is about 0.53° or 0.00925 rad.
+Feature `KHR_AREA_LIGHTS`: Setting the angular diameter to a value greater than
+zero will result in soft shadows when supported by the implementation. For
+instance, the apparent size of the sun is about 0.53° or 0.00925 rad.
 ==================
 
 
@@ -88,11 +86,10 @@ the following special parameters:
                                           `intensity` takes precedence if also specified
 |===================================================================================================
 
-<<feature_area_lights, Feature `KHR_AREA_LIGHTS`>>: Setting
-the radius to a value greater than zero will result in soft shadows when
-the renderer support it.
+Feature `KHR_AREA_LIGHTS`: Setting the radius to a value greater than zero will
+result in soft shadows when the renderer support it.
 
-.Additional parameters accepted by the point light with <<feature_area_lights, feature `KHR_AREA_LIGHTS`>>.
+.Additional parameters accepted by the point light with feature `KHR_AREA_LIGHTS`.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type    | Default | Description

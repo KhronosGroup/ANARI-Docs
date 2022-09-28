@@ -8,6 +8,43 @@
 This section describes concepts common to all object types for creation,
 parameterization, and property queries.
 
+[[api_concepts_thread_safety]]
+=== Thread Safety, Asynchronous Operations
+
+The ANARI API may be called from any thread but calls that share objects
+must be synchronized and may not overlap. By default, this includes the device.
+Therefore, calls to the same device must be externally synchronized.
+
+Expensive operations can be implemented asynchronously, which avoids blocking
+the calling application. Each asynchronous operation is specified as to what
+API calls are legal to make while the operation has not yet completed.
+
+[NOTE]
+.Note
+====
+Making some operations asynchronous complements the thread safety of ANARI, and
+typically is used for a different purpose. Where a multithreaded application
+may be trying to work on constructing a scene (which could be many smaller
+ANARI API calls) while another scene is being rendered in parallel,
+asynchronous rendering focuses on removing the need for long running
+operations to cause an application to use multithreading just to avoid
+blocking on ANARI.
+====
+
+Devices that implement `KHR_DEVICE_SYNCHRONIZATION` relax synchronization
+requirements by excluding the device from the external synchronization
+requirement if the device is passed as the first argument only. Calls that are
+operating on the device as the object must still be synchronized with all other
+calls involving the same device. Likewise `anariRenderFrame` must be
+synchronized with all other ANARI calls as well. This only applies to the
+`anariRenderFrame` call itself, not the asynchronous render operations which
+remain subject to asynchronous rendering restrictions.
+
+This lowers the scope of required synchonization to individual ANARI objects
+allowing different threads to operate concurrently on different objects within
+the same device.
+
+
 [[api_concepts_scene_hierarchy]]
 === Scene Hierarchy (Informative)
 
@@ -502,11 +539,10 @@ subset of elements. This gives applications the ability to more efficiently
 change the number of elements used by parent objects at the cost of memory size
 efficiency.
 
-Implementations provide this functionality by implementing
-<<feature_array1d_region, feature `KHR_ARRAY1D_REGION`>>, which adds
-the following parameter to `ANARIArray1D`:
+Implementations provide this functionality by implementing feature
+`KHR_ARRAY1D_REGION`, which adds the following parameter to `ANARIArray1D`:
 
-.Additional parameters accepted by `ANARIArray1D` with <<feature_array1d_region, feature `KHR_ARRAY1D_REGION`>>.
+.Additional parameters accepted by `ANARIArray1D` with feature `KHR_ARRAY1D_REGION`.
 [cols="<,<,<4",options="header,unbreakable"]
 |==================================================================
 | Name     | Type            | Description

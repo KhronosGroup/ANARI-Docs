@@ -39,8 +39,6 @@ include::chapters/rendering_frames.txt[]
 
 include::chapters/standard_subtypes.txt[]
 
-include::chapters/additional_features.txt[]
-
 // Appendices
 :numbered!:
 
