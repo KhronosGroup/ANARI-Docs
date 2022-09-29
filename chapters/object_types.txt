@@ -15,19 +15,7 @@ object, the world.
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
 
-include::object_types/objects_in_world.txt[]
-
-include::object_types/geometries.txt[]
-
-include::object_types/samplers.txt[]
-
-include::object_types/materials.txt[]
-
-include::object_types/spatial_fields.txt[]
-
-include::object_types/volumes.txt[]
-
-include::object_types/lights.txt[]
+include::object_types/frame.txt[]
 
 include::object_types/cameras.txt[]
 
@@ -61,7 +49,189 @@ refer to the documentation of ANARI implementations.
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
 
-include::object_types/frame.txt[]
+[[world]]
+=== World
+
+Worlds are a container of scene data represented by
+<<instance, instances>>. Worlds are created with
+
+[source,cpp]
+....
+ANARIWorld anariNewWorld(ANARIDevice);
+....
+
+Objects are placed in the world through an array of instances, geometries,
+volumes, or lights. Similar to <<instance, instances>>, each array of objects
+is optional; there is no need to create empty arrays if there are no instances
+(though there might be nothing to render).
+
+.Parameters understood by the world.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type                  | Description
+| instance |`ARRAY1D` of `INSTANCE`| optional array with handles of <<Instance, instances>>
+| surface  |`ARRAY1D` of `SURFACE` | optional array with handles of <<Surface, surfaces>>
+| volume   |`ARRAY1D` of `VOLUME`  | optional array with handles of <<Volume, volumes>>
+| light    |`ARRAY1D` of `LIGHT`   | optional array with handles of <<Light, lights>>
+|===================================================================================================
+
+.Properties supported by the world.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type         | Description
+| bounds   |`FLOAT32_BOX3`| axis-aligned bounding box in world-space (excluding the lights)
+|===================================================================================================
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+[[instance]]
+=== Instance
+
+Instances apply transforms to groups for placement in the World.
+Instances are created with
+
+[source,cpp]
+....
+ANARIInstance anariNewInstance(ANARIDevice);
+....
+
+Instances take an array of <<group>> representing all the objects which share the
+instances world-space transform.
+
+.Parameters understood by instances.
+[cols="<,<,>,<3",options="header,unbreakable"]
+|===================================================================================================
+| Name      | Type         |                                       Default | Description
+| group     |`GROUP`       |                                               | Group to be instanced, required
+| transform |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
+                                                                             (overridden by  `motion.transform`, feature `KHR_TRANSFORMATION_MOTION_BLUR`)
+|===================================================================================================
+
+The matrix `transform` represents an affine transformation which is
+applied to homogeneous coordinates.
+
+[NOTE]
+.Note
+====
+Since the `FLOAT32_MAT4` matrix `transform` is in column-major layout
+the translational part of the affine transformation is the 13th to 15th
+float in memory. Implementations are free to always treat the last row
+(4th, 8th, 12th and 16th float) as being (0, 0, 0, 1).
+====
+
+.Properties supported by instances.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type         | Description
+| bounds   |`FLOAT32_BOX3`| axis-aligned bounding box in world-space (excluding the lights)
+|===================================================================================================
+
+Feature `KHR_TRANSFORMATION_MOTION_BLUR`: Uniformly (in `time`) distributed
+transformation keys can be given with `motion.transform` to achieve
+transformation motion blur (in combination with `time` and `shutter`).
+Alternatively, the transformation keys can also be given as decomposed
+`motion.scale`, `motion.rotation` and `motion.translation`. <<cameras, Camera>>
+`shutter` also needs to be set appropiately.
+
+.Additional parameters understood by instances with feature `KHR_TRANSFORMATION_MOTION_BLUR`.
+[cols="<2,<2,>,<5",options="header,unbreakable"]
+|===================================================================================================
+| Name               | Type                           | Default | Description
+| motion.transform   |`ARRAY1D` of `FLOAT32_MAT4`     |         | additional uniformly distributed world-space transformations
+| motion.scale       |`ARRAY1D` of `FLOAT32_VEC3`     |         | additional uniformly distributed scale, overridden by `motion.transform`
+| motion.rotation    |`ARRAY1D` of `FLOAT32_QUAT_IJKW`|         | additional uniformly distributed quaternion rotation, overridden by `motion.transform`
+| motion.translation |`ARRAY1D` of `FLOAT32_VEC3`     |         | additional uniformly distributed transformlation, overridden by `motion.transform`
+| time               |`FLOAT32_BOX1`                  |  [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
+|===================================================================================================
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+[[group]]
+=== Group
+
+Groups in ANARI represent collections of <<surface>>, <<volume>>, and <<light>>
+which share a common local-space coordinate system. Groups are created
+with
+
+[source,cpp]
+....
+ANARIGroup anariNewGroup(ANARIDevice);
+....
+
+Each array on a group is optional; there is no need to create empty arrays if
+there are no surfaces, no volumes, or no lights instanced.
+
+.Parameters understood by groups.
+[cols="<,<,<2",options="header,unbreakable"]
+|======================================================================================
+| Name    | Type                 | Description
+| surface |`ARRAY1D` of `SURFACE`| optional array with handles of <<Surface, surfaces>>
+| volume  |`ARRAY1D` of `VOLUME` | optional array with handles of <<Volume, volumes>>
+| light   |`ARRAY1D` of `LIGHT`  | optional array with handles of <<Light, lights>>
+|======================================================================================
+
+.Properties supported by groups.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type         | Description
+| bounds   |`FLOAT32_BOX3`| axis-aligned bounding box (excluding the lights)
+|===================================================================================================
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+include::object_types/lights.txt[]
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+[[surface]]
+=== Surface
+
+Geometries are matched with appearance information through Surfaces. These take
+a geometry, which defines the spatial representation, and applies either
+full-object or per-primitive color and material information. Surfaces are
+created with
+
+[source,cpp]
+....
+ANARISurface anariNewSurface(ANARIDevice);
+....
+
+.Parameters understood by Surface.
+[cols="<,<,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name     |Type      | Description
+| geometry |`GEOMETRY`| <<geometry>> object used by this surface
+| material |`MATERIAL`| <<material>> applied to the geometry
+|===================================================================================================
+
+Surfaces require a valid <<geometry>> to be set as the `geometry` parameter and
+a valid <<material>> to be set as the `material` parameter.
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+
+include::object_types/geometries.txt[]
+
+include::object_types/samplers.txt[]
+
+include::object_types/materials.txt[]
+
+include::object_types/volumes.txt[]
+
+include::object_types/spatial_fields.txt[]
+
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
 
 [[extension_objects]]
 === Extension Objects
