@@ -2,8 +2,8 @@
 // Creative Commons Attribution 4.0 International License; see
 // http://creativecommons.org/licenses/by/4.0/
 
-[[standard_subtypes_geometries]]
-=== Geometries
+[[object_types_geometry]]
+=== Geometry
 
 Geometries in ANARI are objects that describe the spatial representation of a
 surface.  To create a new geometry object of given subtype `subtype` use
@@ -38,10 +38,10 @@ geometry specific `vertex.pass:[*]` parameters take precedence.
 Geometries are typically limited to a maximum of 2^32^ primitives.
 ====
 
-[[standard_subtypes_geometry_triangle]]
+[[object_types_geometry_triangle]]
 ==== Triangle (`KHR_GEOMETRY_TRIANGLE`)
 
-A geometry consisting of triangles is created by calling <<geometry,
+A geometry consisting of triangles is created by calling <<object_types_geometry,
 `anariNewGeometry`>> with subtype string `triangle`. A triangle geometry
 recognizes the following parameters:
 
@@ -75,10 +75,10 @@ large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
-[[standard_subtypes_geometry_quad]]
+[[object_types_geometry_quad]]
 ==== Quad (`KHR_GEOMETRY_QUAD`)
 
-A geometry consisting of quads is created by calling <<geometry,
+A geometry consisting of quads is created by calling <<object_types_geometry,
 `anariNewGeometry`>> with subtype string `quad`. A quad geometry
 recognizes the following parameters:
 
@@ -111,11 +111,11 @@ large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
-
+[[object_types_geometry_sphere]]
 ==== Sphere (`KHR_GEOMETRY_SPHERE`)
 
 A geometry consisting of individual spheres, each of which can have an
-own radius, is created by calling <<geometry, `anariNewGeometry`>> with
+own radius, is created by calling <<object_types_geometry, `anariNewGeometry`>> with
 subtype string `sphere`.
 
 [NOTE]
@@ -153,10 +153,11 @@ large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
+[[object_types_geometry_curve]]
 ==== Curve (`KHR_GEOMETRY_CURVE`)
 
 A geometry consisting of multiple curves is created by calling
-<<geometry, `anariNewGeometry`>> with type string `curve`. The vertices
+<<object_types_geometry, `anariNewGeometry`>> with type string `curve`. The vertices
 of the curve(s) are connected by linear, round segments (i.e., cones or
 clinders). The parameters defining this geometry are listed in the table
 below.
@@ -194,11 +195,11 @@ large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>> minus 1.
 
-
+[[object_types_geometry_cone]]
 ==== Cone (`KHR_GEOMETRY_CONE`)
 
 A geometry consisting of individual cones, is created by calling
-<<geometry, `anariNewGeometry`>> with subtype string `cone`.
+<<object_types_geometry, `anariNewGeometry`>> with subtype string `cone`.
 
 [NOTE]
 .Note
@@ -237,11 +238,11 @@ large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
-
+[[object_types_geometry_cylinder]]
 ==== Cylinder (`KHR_GEOMETRY_CYLINDER`)
 
 A geometry consisting of individual cylinders, each of which can have an
-own radius, is created by calling <<geometry, `anariNewGeometry`>> with
+own radius, is created by calling <<object_types_geometry, `anariNewGeometry`>> with
 subtype string `cylinder`.
 
 [NOTE]

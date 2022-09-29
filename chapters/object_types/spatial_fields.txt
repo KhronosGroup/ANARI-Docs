@@ -2,8 +2,8 @@
 // Creative Commons Attribution 4.0 International License; see
 // http://creativecommons.org/licenses/by/4.0/
 
-[[standard_subtypes_spatial_fields]]
-=== Spatial Fields
+[[object_types_spatial_field]]
+=== Spatial Field
 
 ANARI spatial field objects define collections of data values spread throughout
 a local coordinate system in order to be sampled in space. Spatial fields are
@@ -14,10 +14,11 @@ created with
 ANARISpatialField anariNewSpatialField(ANARIDevice, const char *subtype);
 ....
 
+[[object_types_spatial_field_structured_regular]]
 ==== Structured Regular (`KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`)
 
 Structured regular spatial fields are created by passing the subtype string
-`structuredRegular` to <<spatial_field, `anariNewSpatialField`>>. The parameters
+`structuredRegular` to <<object_types_spatial_field, `anariNewSpatialField`>>. The parameters
 understood by structured regular spatial fields are summarized in the table below.
 
 .Configuration parameters for structured regular spatial fields.

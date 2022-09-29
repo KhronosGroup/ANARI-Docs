@@ -5,11 +5,7 @@
 [[object_types]]
 == Object Types
 
-This section describes the base object types that make up a scene in
-ANARI. An overview is that objects are connected starting from the bottom-up:
-leaf objects like geometries, volumes and lights are instanced in
-space via instance objects, which are in turn added to the top-level root
-object, the world.
+This section describes the base object types that make up a scene in ANARI.
 
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
@@ -23,7 +19,7 @@ include::object_types/cameras.txt[]
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
 
-[[renderer]]
+[[object_types_renderer]]
 === Renderer
 
 A renderer is the central object for rendering in ANARI. Different
@@ -49,7 +45,7 @@ refer to the documentation of ANARI implementations.
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
 
-[[world]]
+[[object_types_world]]
 === World
 
 Worlds are a container of scene data represented by
@@ -86,7 +82,7 @@ is optional; there is no need to create empty arrays if there are no instances
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
 
-[[instance]]
+[[object_types_instance]]
 === Instance
 
 Instances apply transforms to groups for placement in the World.
@@ -150,7 +146,7 @@ Alternatively, the transformation keys can also be given as decomposed
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
 
-[[group]]
+[[object_types_group]]
 === Group
 
 Groups in ANARI represent collections of <<surface>>, <<volume>>, and <<light>>
@@ -191,7 +187,7 @@ include::object_types/lights.txt[]
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
 
-[[surface]]
+[[object_types_surface]]
 === Surface
 
 Geometries are matched with appearance information through Surfaces. These take
@@ -208,12 +204,12 @@ ANARISurface anariNewSurface(ANARIDevice);
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name     |Type      | Description
-| geometry |`GEOMETRY`| <<geometry>> object used by this surface
-| material |`MATERIAL`| <<material>> applied to the geometry
+| geometry |`GEOMETRY`| <<object_types_geometry>> object used by this surface
+| material |`MATERIAL`| <<object_types_material>> applied to the geometry
 |===================================================================================================
 
-Surfaces require a valid <<geometry>> to be set as the `geometry` parameter and
-a valid <<material>> to be set as the `material` parameter.
+Surfaces require a valid <<object_types_geometry>> to be set as the `geometry` parameter and
+a valid <<object_types_material>> to be set as the `material` parameter.
 
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
@@ -233,7 +229,7 @@ include::object_types/spatial_fields.txt[]
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
 
-[[extension_objects]]
+[[object_types_extension_objects]]
 === Extension Objects
 
 Extensions may need to introduce custom object types. To create such an object use

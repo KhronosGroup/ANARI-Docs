@@ -2,7 +2,7 @@
 // Creative Commons Attribution 4.0 International License; see
 // http://creativecommons.org/licenses/by/4.0/
 
-[[frame]]
+[[object_types_frame]]
 === Frame
 
 The frame contains all the objects necessary to render and holds the resulting
@@ -64,8 +64,8 @@ must be positive.
 The feature `KHR_STOCHASTIC_RENDERING` indicates that implementations
 use stochastic rendering techniques like Monte Carlo integration and thus that
 multiple subsequent calls to <<rendering_frames, `anariRenderFrame`>> without
-changes to <<frame>> improve the image quality (e.g., reduce noise levels).
-Additional properties can be queried on <<frame>>.
+changes to <<object_types_frame>> improve the image quality (e.g., reduce noise levels).
+Additional properties can be queried on <<object_types_frame>>.
 
 [[frame_stochastic_rendering_parameters]]
 .Additional parameters accepted by the frame with feature `KHR_STOCHASTIC_RENDERING`.
@@ -78,7 +78,7 @@ Additional properties can be queried on <<frame>>.
 |===================================================================================================
 
 Devices which implement `KHR_FRAME_COMPLETION_CALLBACK` add two parameters
-to <<frame>>: a callback invoked as a continuation after the frame completes,
+to <<object_types_frame>>: a callback invoked as a continuation after the frame completes,
 and an associated pointer to application state to be passed to the invoked
 continuation. This continuation must complete before the `ANARI_TASK_COMPLETE`
 event is signaled by `anariWait()` on the frame.

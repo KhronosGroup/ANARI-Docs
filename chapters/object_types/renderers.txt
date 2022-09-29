@@ -2,13 +2,13 @@
 // Creative Commons Attribution 4.0 International License; see
 // http://creativecommons.org/licenses/by/4.0/
 
-[[standard_subtypes_renderers]]
-=== Renderers
+[[object_types_renderers]]
+=== Renderer
 
 Every ANARI device offers a default renderer, which works without
 setting any parameters (i.e., all parameters, if any, have meaningful
 defaults). Thus, passing `default` as
-subtype string to <<renderer, `anariNewRenderer`>> will result in a
+subtype string to <<object_types_renderer, `anariNewRenderer`>> will result in a
 usable renderer. Further renderers and their parameters can be
 enumerated with the <<api_concepts_introspection>> API. The default
 renderer is an alias to an existing renderer that is returned first in
@@ -38,15 +38,15 @@ will be neglected to speedup rendering
 |float / vec3f / vec4f |backgroundColor |black, transparent |background
 color and alpha (RGBA), if no `map_backplate` is set
 
-|ANARISampler |map_backplate | |optional <<sampler>> image used
+|ANARISampler |map_backplate | |optional <<object_types_sampler>> image used
 as background (use sampler type `texture2d`)
 
 |ANARISampler |map_maxDepth | |optional screen-sized float
-<<sampler>> with maximum far distance per pixel (use sampler
+<<object_types_sampler>> with maximum far distance per pixel (use sampler
 type `texture2d`)
 
 |ANARIMaterial[] |material | |optional <<data>> array of
-<<materials>> which can be indexed by a <<Surface>>’s
+<<object_types_material>> which can be indexed by a <<Surface>>’s
 `material` parameter
 
 |uchar |pixelFilter |`ANARI_PIXELFILTER_GAUSS` |`ANARIPixelFilterType` to
@@ -58,7 +58,7 @@ ANARI’s renderers support a feature called adaptive accumulation, which
 accelerates progressive <<rendering>> by stopping the
 rendering and refinement of image regions that have an estimated
 variance below the `varianceThreshold`. This feature requires a
-<<framebuffer>> with an `ANARI_FB_VARIANCE` channel.
+<<object_types_framebuffer>> with an `ANARI_FB_VARIANCE` channel.
 
 Per default the background of the rendered image will be transparent
 black, i.e., the alpha channel holds the opacity of the rendered
@@ -114,7 +114,7 @@ width of
 The SciVis renderer is a fast ray tracer for scientific visualization
 which supports volume rendering and ambient occlusion (AO). It is
 created by passing the type string `scivis` to `anariNewRenderer`. In
-addition to the <<renderer, general parameters>> understood by all
+addition to the <<object_types_renderer, general parameters>> understood by all
 renderers, the SciVis renderer supports the following parameters:
 
 .Special parameters understood by the SciVis renderer.
@@ -143,10 +143,10 @@ illumination (without occlusion).
 This renderer supports only a subset of the features of the
 link:#scivis-renderer[SciVis renderer] to gain performance. As the name
 suggest its main shading method is ambient occlusion (AO),
-<<lights>> are _not_ considered at all and , Volume rendering
+<<object_types_light>> are _not_ considered at all and , Volume rendering
 is supported. The Ambient Occlusion renderer is created by passing the
 type string `ao` to `anariNewRenderer`. In addition to the
-<<renderer, general parameters>> understood by all renderers the
+<<object_types_renderer, general parameters>> understood by all renderers the
 following parameters are supported as well:
 
 .Special parameters understood by the Ambient Occlusion renderer.
@@ -169,7 +169,7 @@ occlusion
 The path tracer supports soft shadows, indirect illumination and
 realistic materials. This renderer is created by passing the type string
 `pathtracer` to `anariNewRenderer`. In addition to the
-<<renderer, general parameters>> understood by all renderers the path
+<<object_types_renderer, general parameters>> understood by all renderers the path
 tracer supports the following special parameters:
 
 .Special parameters understood by the path tracer.
@@ -189,11 +189,11 @@ they are accumulated into the framebuffer
 background is seen through refractive objects like glass
 |===
 
-The path tracer requires that <<materials>> are assigned to
+The path tracer requires that <<object_types_material>> are assigned to
 <<geometries>>, otherwise surfaces are treated as
 completely black.
 
-The path tracer supports <<volumes>> with multiple
+The path tracer supports <<object_types_volumes>> with multiple
 scattering. The scattering albedo can be specified using the
 link:#transfer-function[transfer function]. Extinction is assumed to be
 spectrally constant.

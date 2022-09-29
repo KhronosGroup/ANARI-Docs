@@ -2,8 +2,8 @@
 // Creative Commons Attribution 4.0 International License; see
 // http://creativecommons.org/licenses/by/4.0/
 
-[[standard_subtypes_samplers]]
-=== Samplers
+[[object_types_sampler]]
+=== Sampler
 
 ANARI sampler objects map attribute data into other object inputs such
 materials.  To create a new sampler use
@@ -13,10 +13,10 @@ materials.  To create a new sampler use
 ANARISampler anariNewSampler(ANARIDevice, const char *subtype);
 ....
 
-
+[[object_types_sampler_image1D]]
 ==== Image1D (`KHR_SAMPLER_IMAGE1D`)
 
-A one dimensional image sampler is created by calling <<sampler,
+A one dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image1D`. It accepts the following
 parameters.
 
@@ -49,10 +49,10 @@ in column-major memory layout and are applied to column vectors
 (multiplied from the left).
 ====
 
-
+[[object_types_sampler_image2D]]
 ==== Image2D (`KHR_SAMPLER_IMAGE2D`)
 
-A two dimensional image sampler is created by calling <<sampler,
+A two dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image2D`. It accepts the following parameters.
 
 .Parameters accepted by `image2D` samplers.
@@ -85,9 +85,10 @@ in column-major memory layout and are applied to column vectors
 (multiplied from the left).
 ====
 
+[[object_types_sampler_image3D]]
 ==== Image3D (`KHR_SAMPLER_IMAGE3D`)
 
-A three dimensional image sampler is created by calling <<sampler,
+A three dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image3D`. It accepts the following parameters.
 
 .Parameters accepted by `image3D` samplers.
@@ -121,6 +122,7 @@ in column-major memory layout and are applied to column vectors
 (multiplied from the left).
 ====
 
+[[object_types_sampler_primitive]]
 ==== Primitive (`KHR_SAMPLER_PRIMITIVE`)
 
 The primitive sampler samples an `Array1D` at unnormalized integer
@@ -136,7 +138,7 @@ non-negative `offset`.
 
 The `array` size must be at most <<Devices, device limit `geometryMaxIndex`>>.
 
-
+[[object_types_sampler_transform]]
 ==== Transform (`KHR_SAMPLER_TRANSFORM`)
 
 The transform sampler applies a `transform` to the input attribute and returns the result

@@ -2,8 +2,8 @@
 // Creative Commons Attribution 4.0 International License; see
 // http://creativecommons.org/licenses/by/4.0/
 
-[[standard_subtypes_lights]]
-=== Lights
+[[object_types_light]]
+=== Light
 
 Lights in ANARI are virtual objects that emit light into the world and
 thus illuminate objects. To create a new light object of given subtype
@@ -34,13 +34,13 @@ like `radius` (feature `KHR_AREA_LIGHTS`).
 | visible  |`BOOL`         |     `TRUE` | whether the light can be directly seen
 |===================================================================================================
 
-[[standard_subtypes_light_directional]]
+[[object_types_light_directional]]
 ==== Directional (`KHR_LIGHT_DIRECTIONAL`)
 
 The directional light is thought to
 be far away (outside of the scene), thus its light arrives (mostly) as
 parallel rays. It is created by passing the subtype string `directional` to
-`anariNewLight`. In addition to the <<lights, general parameters>>
+`anariNewLight`. In addition to the <<object_types_light, general parameters>>
 understood by all lights, the directional light supports the following
 special parameters:
 
@@ -72,13 +72,13 @@ instance, the apparent size of the sun is about 0.53° or 0.00925 rad.
 ==================
 
 
-[[standard_subtypes_light_point]]
+[[object_types_light_point]]
 ==== Point (`KHR_LIGHT_POINT`)
 
 The point light (or with feature the sphere light) is a light emitting
 uniformly in all directions (from the surface toward the outside). It is created
 by passing the subtype string `point` to `anariNewLight`. In addition to the
-<<lights, general parameters>> understood by all lights, the point light supports
+<<object_types_light, general parameters>> understood by all lights, the point light supports
 the following special parameters:
 
 .Special parameters accepted by the point light.
@@ -105,12 +105,12 @@ result in soft shadows when the renderer support it.
 |===================================================================================================
 
 
-[[standard_subtypes_light_spot]]
+[[object_types_light_spot]]
 ==== Spot (`KHR_LIGHT_SPOT`)
 
 The spotlight is a light emitting into a cone of directions. It is
 created by passing the subtype string `spot` to `anariNewLight`. In
-addition to the <<lights, general parameters>> understood by all
+addition to the <<object_types_light, general parameters>> understood by all
 lights, the spotlight supports the special parameters listed in the
 table.
 
@@ -137,11 +137,11 @@ the smoothstep function).
 
 //TODO image:imgSpotlight[ "Angles used by the spotlight."]
 
-[[standard_subtypes_light_ring]]
+[[object_types_light_ring]]
 ==== Ring (`KHR_LIGHT_RING`)
 
 The ring light is a light emitting into a cone of directions. It is created by
-passing the subtype string `ring` to `anariNewLight`. In addition to the <<lights,
+passing the subtype string `ring` to `anariNewLight`. In addition to the <<object_types_light,
 general parameters>> understood by all lights, the ring light supports the special
 parameters listed in the table. The ring light is
 an area light and thus has a cosine falloff.
@@ -196,13 +196,13 @@ neighbors. The orientation of the C0-plane is specified via `c0`.
 
 //TODO image: {empty}[C-{gamma} coordinate system for the mapping of `intensityDistribution` to the spotlight.][imgSpotCoords]
 
-[[standard_subtypes_light_quad]]
+[[object_types_light_quad]]
 ==== Quad (`KHR_LIGHT_QUAD`)
 
 The quadfootnote:[actually a parallelogram] light is a planar,
 procedural area light source emitting uniformly on one side into the
 half-space. It is created by passing the subtype string `quad` to
-`anariNewLight`. In addition to the <<lights, general parameters>>
+`anariNewLight`. In addition to the <<object_types_light, general parameters>>
 understood by all lights, the quad light supports the following special
 parameters:
 
@@ -256,12 +256,12 @@ will just sample the center of the quad light, which results in hard
 shadows.
 ====
 
-[[standard_subtypes_light_hdri]]
+[[object_types_light_hdri]]
 ==== HDRI (`KHR_LIGHT_HDRI`)
 
 The HDRI light is a textured light source surrounding the scene and
 illuminating it from infinity. It is created by passing the subtype string
-`hdri` to `anariNewLight`. In addition to the <<lights, general
+`hdri` to `anariNewLight`. In addition to the <<object_types_light, general
 parameters>> the HDRI light supports the following special parameters:
 
 .Special parameters accepted by the HDRI light.

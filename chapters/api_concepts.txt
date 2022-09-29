@@ -61,10 +61,10 @@ as <<surface>>, <<volume>>, and <<light>> either directly or via an array of
 <<surface>>, <<volume>>, and <<light>> to be instanced together. An <<instance>>
 combines a <<group>> with a transform for placement of the same collection of
 objects at multiple locations within the same <<world>>. A <<surface>>
-represents drawable surfaces containing a <<geometry>> and a <<material>>. A
-<<geometry>> specifies drawable primitives and data associated with them. A
-<<material>> specifies the surface's appearance related to the data from the
-<<geometry>>. A <<volume>> represents volumetric drawable objects and may
+represents drawable surfaces containing a <<object_types_geometry>> and a <<object_types_material>>. A
+<<object_types_geometry>> specifies drawable primitives and data associated with them. A
+<<object_types_material>> specifies the surface's appearance related to the data from the
+<<object_types_geometry>>. A <<volume>> represents volumetric drawable objects and may
 contain <<spatial_field>> objects. A <<spatial_field>> represents a field
 of values in 3D space. A <<light>> represents sources of illumination.
 

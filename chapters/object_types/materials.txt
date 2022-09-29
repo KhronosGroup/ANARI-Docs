@@ -2,8 +2,8 @@
 // Creative Commons Attribution 4.0 International License; see
 // http://creativecommons.org/licenses/by/4.0/
 
-[[standard_subtypes_materials]]
-=== Materials
+[[object_types_material]]
+=== Material
 
 Materials describe how light interacts with surfaces to give objects their
 appearance. Materials are created with
@@ -17,6 +17,7 @@ Most material parameters can be set to a constant, `ANARISampler` or string
 value. Unless otherwise noted, the string selects the surface attribute that
 will be used to source the parameter during rendering.
 
+[[object_types_material_matte]]
 ==== Matte (`KHR_MATERIAL_MATTE`)
 
 The `matte` material reflects light uniformly into the hemisphere, i.e.,
@@ -31,7 +32,7 @@ entirely opaque.
 |color |`FLOAT32_VEC3` / `SAMPLER` / `STRING` | (0.8, 0.8, 0.8) | diffuse color
 |===
 
-
+[[object_types_material_transparent_matte]]
 ==== Transparent Matte (`KHR_MATERIAL_TRANSPARENT_MATTE`)
 
 The `transparentMatte` material extends the <<Matte>> material by adding
