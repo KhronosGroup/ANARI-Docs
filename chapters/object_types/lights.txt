@@ -5,8 +5,14 @@
 [[standard_subtypes_lights]]
 === Lights
 
-This section outlines light subtypes which are supplied by complete ANARI
-device implementations.
+Lights in ANARI are virtual objects that emit light into the world and
+thus illuminate objects. To create a new light object of given subtype
+`subtype` use
+
+[source,cpp]
+....
+ANARILight anariNewLight(ANARIDevice, const char *subtype);
+....
 
 All light sources accept the following parameters:
 

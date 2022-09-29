@@ -5,8 +5,14 @@
 [[standard_subtypes_samplers]]
 === Samplers
 
-This section outlines sampler subtypes which are supplied by complete ANARI
-device implementations.
+ANARI sampler objects map attribute data into other object inputs such
+materials.  To create a new sampler use
+
+[source,cpp]
+....
+ANARISampler anariNewSampler(ANARIDevice, const char *subtype);
+....
+
 
 ==== Image1D (`KHR_SAMPLER_IMAGE1D`)
 

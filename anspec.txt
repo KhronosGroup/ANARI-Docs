@@ -10,7 +10,7 @@ The Khronos{regtitle} ANARI Working Group
 :data-uri:
 :icons: font
 :toc2:
-:toclevels: 2
+:toclevels: 3
 :max-width: 100%
 :numbered:
 :source-highlighter: coderay
@@ -33,11 +33,9 @@ include::chapters/api_design_choices.txt[]
 
 include::chapters/api_concepts.txt[]
 
-include::chapters/object_types.txt[]
-
 include::chapters/rendering_frames.txt[]
 
-include::chapters/standard_subtypes.txt[]
+include::chapters/object_types.txt[]
 
 // Appendices
 :numbered!:

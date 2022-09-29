@@ -5,8 +5,14 @@
 [[standard_subtypes_spatial_fields]]
 === Spatial Fields
 
-This section outlines spatial field subtypes which are supplied by complete
-ANARI device implementations.
+ANARI spatial field objects define collections of data values spread throughout
+a local coordinate system in order to be sampled in space. Spatial fields are
+created with
+
+[source,cpp]
+....
+ANARISpatialField anariNewSpatialField(ANARIDevice, const char *subtype);
+....
 
 ==== Structured Regular (`KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`)
 

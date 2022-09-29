@@ -5,8 +5,13 @@
 [[standard_subtypes_materials]]
 === Materials
 
-This section outlines material subtypes which are supplied by complete ANARI
-device implementations.
+Materials describe how light interacts with surfaces to give objects their
+appearance. Materials are created with
+
+[source,cpp]
+....
+ANARIMaterial anariNewMaterial(ANARIDevice, const char *subtype);
+....
 
 Most material parameters can be set to a constant, `ANARISampler` or string
 value. Unless otherwise noted, the string selects the surface attribute that

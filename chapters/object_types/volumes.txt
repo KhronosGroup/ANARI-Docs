@@ -5,8 +5,15 @@
 [[standard_subtypes_volumes]]
 === Volumes
 
-This section outlines volume subtypes which are supplied by complete ANARI
-device implementations.
+Volumes in ANARI represent volumetric objects (complementing <<Surface,
+surfaces>>), encapsulating spatial data as well as appearance information. To
+create a new volume object of given subtype `subtype` use
+
+[source,cpp]
+....
+ANARIVolume anariNewVolume(ANARIDevice, const char *subtype);
+....
+
 
 ==== Scivis (`KHR_VOLUME_SCIVIS`)
 
