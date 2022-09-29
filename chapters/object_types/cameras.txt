@@ -82,7 +82,7 @@ also be given as decomposed `motion.scale`, `motion.rotation` and
 `motion.translation`.
 
 
-==== Perspective Camera (`KHR_CAMERA_PERSPECTIVE`)
+==== Perspective (`KHR_CAMERA_PERSPECTIVE`)
 
 The perspective camera represents a simple thin lens camera for
 perspective rendering. It is created by passing the type string
@@ -103,7 +103,7 @@ Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
 
 
-==== Orthographic Camera (`KHR_CAMERA_ORTHOGRAPHIC`)
+==== Orthographic (`KHR_CAMERA_ORTHOGRAPHIC`)
 
 The orthographic camera represents a simple camera with orthographic
 projection. It is created by passing the type string `orthographic` to
@@ -123,7 +123,7 @@ Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
 
 
-==== Omnidirectional Camera (`KHR_CAMERA_OMNIDIRECTIONAL`)
+==== Omnidirectional (`KHR_CAMERA_OMNIDIRECTIONAL`)
 
 The omnidirectional camera captures the complete surrounding
 It is is created by passing the type string
