@@ -409,6 +409,9 @@ has been created and configured.
 | ... | ...
 |===================================================================================================
 
+A full list of ANARI features can be found in the <<feature_index, Feature
+Index>> appendix.
+
 [[api_concepts_memory]]
 === Arrays and Memory Ownership
 :array: <<api_concepts_memory, array>>

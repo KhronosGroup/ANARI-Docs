@@ -1,0 +1,104 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+// The asciidoc [glossary] template cannot contain subsections.
+// The abbreviations and prefixes probably belong in the upcoming
+// API/extension-writing-guidelines appendix, anyway.
+
+[[feature_index]]
+== Feature Index
+
+.Features.
+[cols="<2,<2",options="header,unbreakable"]
+|===================================================================================================
+|Name |Description
+
+| <<api_concepts_memory, `ANARI_KHR_ARRAY1D_REGION`>>
+| Permit runtime changable active array region
+
+| <<api_concepts_thread_safety, `ANARI_KHR_DEVICE_SYNCHRONIZATION`>>
+| Relax API function synchronization requirement
+
+| <<object_types_instance, `ANARI_KHR_TRANSFORMATION_MOTION_BLUR`>>
+| Motion blur is supported through extra object parameters
+
+| <<object_types_frame, `ANARI_KHR_STOCHASTIC_RENDERING`>>
+| Frames are progressively rendered
+
+| <<object_types_camera_perspective, `ANARI_KHR_CAMERA_PERSPECTIVE`>>
+| `perspective` camera subtype is supported
+
+| <<object_types_camera_orthographic, `ANARI_KHR_CAMERA_ORTHOGRAPHIC`>>
+| `orthographic` camera subtype is supported
+
+| <<object_types_camera_omnidirectional, `ANARI_KHR_CAMERA_OMNIDIRECTIONAL`>>
+| `omnidirectional` camera subtype is supported
+
+| <<object_types_frame, `ANARI_KHR_FRAME_COMPLETION_CALLBACK`>>
+| Frame completion callback function parameters on ANARIFrame are supported
+
+| <<object_types_frame, `ANARI_KHR_FRAME_AUXILIARY_BUFFERS`>>
+| Additional ANARIFrame channels are supported
+
+| <<object_types_geometry_triangle, `ANARI_KHR_GEOMETRY_TRIANGLE`>>
+| `triangle` geometry subtype is supported
+
+| <<object_types_geometry_quad, `ANARI_KHR_GEOMETRY_QUAD`>>
+| `quad` geometry subtype is supported
+
+| <<object_types_geometry_sphere, `ANARI_KHR_GEOMETRY_SPHERE`>>
+| `sphere` geometry subtype is supported
+
+| <<object_types_geometry_curve, `ANARI_KHR_GEOMETRY_CURVE`>>
+| `curve` geometry subtype is supported
+
+| <<object_types_geometry_cylinder, `ANARI_KHR_GEOMETRY_CYLINDER`>>
+| `cylinder` geometry subtype is supported
+
+| <<object_types_light_directional, `ANARI_KHR_LIGHT_DIRECTIONAL`>>
+| `directional` light subtype is supported
+
+| <<object_types_light_hdri, `ANARI_KHR_LIGHT_HDRI`>>
+| `hdri` light subtype is supported
+
+| <<object_types_light_point, `ANARI_KHR_LIGHT_POINT`>>
+| `point` light subtype is supported
+
+| <<object_types_light_quad, `ANARI_KHR_LIGHT_QUAD`>>
+| `quad` light subtype is supported
+
+| <<object_types_light_ring, `ANARI_KHR_LIGHT_RING`>>
+| `ring` light subtype is supported
+
+| <<object_types_light_spot, `ANARI_KHR_LIGHT_SPOT`>>
+| `spot` light subtype is supported
+
+| <<object_types_material_matte, `ANARI_KHR_LIGHT_MATTE`>>
+| `matte` material subtype is supported
+
+| <<object_types_material_transparent_matte, `ANARI_KHR_LIGHT_TRANSPARENT_MATTE`>>
+| `transparentMatte` material subtype is supported
+
+| <<object_types_sampler_image1D, `ANARI_KHR_SAMPLER_IMAGE1`>>
+| `image1D` sampler subtype is supported
+
+| <<object_types_sampler_image2D, `ANARI_KHR_SAMPLER_IMAGE2`>>
+| `image2D` sampler subtype is supported
+
+| <<object_types_sampler_image3D, `ANARI_KHR_SAMPLER_IMAGE3`>>
+| `image3D` sampler subtype is supported
+
+| <<object_types_sampler_primitive, `ANARI_KHR_SAMPLER_PRIMITIVE`>>
+| `primitive` sampler subtype is supported
+
+| <<object_types_sampler_transform, `ANARI_KHR_SAMPLER_TRANSFORM`>>
+| `transform` sampler subtype is supported
+
+| <<object_types_spatial_field_structured_regular, `ANARI_KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`>>
+| `structuredRegular` spatial field subtype is supported
+
+| <<object_types_volume_scivis, `ANARI_KHR_VOLUME_SCIVIS`>>
+| `scivis` volume subtype is supported
+
+|===================================================================================================

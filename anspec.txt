@@ -40,6 +40,8 @@ include::chapters/object_types.txt[]
 // Appendices
 :numbered!:
 
+include::appendices/feature_index.txt[]
+
 include::appendices/glossary.txt[]
 
 include::appendices/credits.txt[]
