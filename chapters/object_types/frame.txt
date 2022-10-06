@@ -21,7 +21,7 @@ to one of the allowed data types enables the channel and determines the data typ
 mapped as. The same channel names are used to map the channel contents with `anariMapFrame`.
 
 .Parameters accepted by the frame.
-[cols="<,<,<5",options="header,unbreakable"]
+[cols="<2,<2,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
 | world    |`WORLD`       | required world to be rendererd
@@ -43,14 +43,6 @@ mapped as. The same channel names are used to map the channel contents with `ana
 The `world`, `camera`, `renderer`, and `size` parameters are required, `size`
 must be positive.
 
-.Additional parameters accepted by the frame with <<feature_continuations, feature `KHR_FRAME_COMPLETION_CALLBACK`>>.
-[cols="<11,<9,<10",options="header,unbreakable"]
-|===================================================================================================
-| Name                            | Type                      | Description
-| frameCompletionCallback         |`FRAME_COMPLETION_CALLBACK`| callback to invoke as continuation when the rendered frame is complete
-| frameCompletionCallbackUserData |`VOID_POINTER`             | optional user pointer passed as the first argument of the frame completion callback
-|===================================================================================================
-
 .Additional parameters accepted by the frame with feature `KHR_FRAME_AUXILIARY_BUFFERS`.
 [cols="<,<,<5",options="header,unbreakable"]
 |===================================================================================================
@@ -63,17 +55,29 @@ must be positive.
                             possible values: `UFIXED8_VEC3`, `UFIXED8_RGB_SRGB`, `FLOAT32_VEC3`
 |===================================================================================================
 
-The feature `KHR_PROGRESSIVE_RENDERING` indicates that implementations
-use progressive rendering techniques like Monte Carlo integration and thus that
+The feature `KHR_PROGRESSIVE_RENDERING` indicates that implementations use
+progressive rendering techniques like Monte Carlo integration and thus that
 multiple subsequent calls to <<rendering_frames, `anariRenderFrame`>> without
-changes to <<object_types_frame>> improve the image quality (e.g., reduce noise levels).
-Additional properties can be queried on <<object_types_frame>>.
+changes to <<object_types_frame>> improve the image quality (e.g., reduce noise
+levels).
 
-Devices which implement `KHR_FRAME_COMPLETION_CALLBACK` add two parameters
-to <<object_types_frame>>: a callback invoked as a continuation after the frame completes,
-and an associated pointer to application state to be passed to the invoked
-continuation. This continuation must complete before the `ANARI_TASK_COMPLETE`
-event is signaled by `anariWait()` on the frame.
+The following information can be queried as properties on the `ANARIFrame`
+<<api_concepts_object_properties, using `anariGetProperty`>>.
+
+.Properties queryable on frames.
+[cols="<2,<,^,<4",options="header,unbreakable"]
+|===============================================================================================================================
+| Name          | Type    | Required | Description
+| duration      |`FLOAT32`|   Yes    | time (in seconds) between start and completion of the frame
+| taskProgress  |`FLOAT32`|   No     | progress of the current frame task since the last call to `anariRenderFrame`, in [0..1]
+| frameProgress |`FLOAT32`|   No     | progress of frame refinement when using `KHR_PROGRESSIVE_RENDERING` renderers, in [0..1]
+|===============================================================================================================================
+
+Devices which implement `KHR_FRAME_COMPLETION_CALLBACK` add two parameters to
+<<object_types_frame>>: a callback invoked as a continuation after the frame
+completes, and an associated pointer to application state to be passed to the
+invoked continuation. This continuation must complete before the
+`ANARI_TASK_COMPLETE` event is signaled by `anariWait()` on the frame.
 
 The signature of the continuation is provided in `anari.h` as
 
@@ -82,68 +86,20 @@ The signature of the continuation is provided in `anari.h` as
 typedef void (*ANARIFrameCompletionCallback)(const void *userPtr, ANARIDevice, ANARIFrame);
 ....
 
+.Additional parameters accepted by the frame with feature `KHR_FRAME_COMPLETION_CALLBACK`.
+[cols="<11,<9,<10",options="header,unbreakable"]
+|===================================================================================================
+| Name                            | Type                      | Description
+| frameCompletionCallback         |`FRAME_COMPLETION_CALLBACK`| callback to invoke as continuation when the rendered frame is complete
+| frameCompletionCallbackUserData |`VOID_POINTER`             | optional user pointer passed as the first argument of the frame completion callback
+|===================================================================================================
 
 [NOTE]
 .Note
 ==================
 Implementations are strongly encouraged to invoke the continuation on a
-background thread. This helps physically maintain asynchronous behavior with calling
-application API threads. ANARI API calls are legal within the continuation,
-except for calling `anariWait()` with `ANARI_TASK_COMPLETE`, as this will incur a
-deadlock.
+background thread. This helps physically maintain asynchronous behavior with
+calling application API threads. ANARI API calls are legal within the
+continuation, except for calling `anariWait()` with `ANARI_TASK_COMPLETE`, as
+this will incur a deadlock.
 ==================
-
-
-The application can map the given channel of a frame – and thus
-access the stored pixel information – via
-
-[source,cpp]
-....
-const void* anariMapFrame(ANARIDevice,
-                          ANARIFrame,
-                          const char* channel,
-                          uint32_t *width,
-                          uint32_t *height,
-                          ANARIDataType *pixelType);
-....
-
-Only channels that have been set as parameters to the frame can be
-mapped, the type of the pixels matches the corresponding parameter
-value. The arguments `width`, `height`, and `pixelType` are output parameters
-for the application to validate the exact dimensions and per-pixel data type in
-the mapped image.
-
-[NOTE]
-.Note
-====
-ANARI makes a clear distinction between the _external_ format of channels of the
-frame and the internal one: The external format is the format the user specifies
-as `DATA_TYPE` parameter for channels, which corresponds to the element type of
-the returned buffer when calling `anariMapFrame`. Implementations may do
-significant amounts of reformatting, compression/decompression, {ldots},
-in-between the generation of the _internal_ frame and the mapping of the
-externally visible one.
-====
-
-The origin of the screen coordinate system in ANARI is the lower left corner
-(as in OpenGL), thus the first pixel addressed by the returned pointer is the
-lower left pixel of the image.
-
-A previously mapped channel of a frame can be unmapped calling
-
-[source,cpp]
-....
-void anariUnmapFrame(ANARIDevice, ANARIFrame, const char *channel);
-....
-
-The following information can be queried as properties on the `ANARIFrame`
-<<api_concepts_object_properties, using `anariGetProperty`>>.
-
-.Properties queryable on frames.
-[cols="<,<,^,<4",options="header,unbreakable"]
-|===============================================================================================================================
-| Name          | Type    | Required | Description
-| duration      |`FLOAT32`|   Yes    | time (in seconds) between start and completion of the frame
-| taskProgress  |`FLOAT32`|   No     | progress of the current frame task since the last call to `anariRenderFrame`, in [0..1]
-| frameProgress |`FLOAT32`|   No     | progress of frame refinement when using `KHR_PROGRESSIVE_RENDERING` renderers, in [0..1]
-|===============================================================================================================================

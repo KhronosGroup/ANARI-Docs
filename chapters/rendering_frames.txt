@@ -57,3 +57,45 @@ This call is not required to block until the frame completes, rather it only
 signals to the implementation to attempt cancelling the currently rendered
 frame instead of going all the way to completion. The contents of a mapped
 frame which has been discarded is undefined.
+
+The application can map the given channel of a frame – and thus
+access the stored pixel information – via
+
+[source,cpp]
+....
+const void* anariMapFrame(ANARIDevice,
+                          ANARIFrame,
+                          const char* channel,
+                          uint32_t *width,
+                          uint32_t *height,
+                          ANARIDataType *pixelType);
+....
+
+Only channels that have been set as parameters to the frame can be
+mapped, the type of the pixels matches the corresponding parameter
+value. The arguments `width`, `height`, and `pixelType` are output parameters
+for the application to validate the exact dimensions and per-pixel data type in
+the mapped image.
+
+[NOTE]
+.Note
+====
+ANARI makes a clear distinction between the _external_ format of channels of the
+frame and the internal one: The external format is the format the user specifies
+as `DATA_TYPE` parameter for channels, which corresponds to the element type of
+the returned buffer when calling `anariMapFrame`. Implementations may do
+significant amounts of reformatting, compression/decompression, {ldots},
+in-between the generation of the _internal_ frame and the mapping of the
+externally visible one.
+====
+
+The origin of the screen coordinate system in ANARI is the lower left corner
+(as in OpenGL), thus the first pixel addressed by the returned pointer is the
+lower left pixel of the image.
+
+A previously mapped channel of a frame can be unmapped calling
+
+[source,cpp]
+....
+void anariUnmapFrame(ANARIDevice, ANARIFrame, const char *channel);
+....
