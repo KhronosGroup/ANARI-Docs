@@ -306,6 +306,7 @@ The following infos of objects can be queried:
 | description   | `STRING`         |    No    | explanation of the object, e.g., for a tooltip
 | parameter     | `PARAMETER_LIST` |    Yes   | list of supported parameters (array of `ANARIParameter`)
 | channel       | `STRING_LIST`    | for ``FRAME`` | list of supported channels
+| feature       | `STRING_LIST`    | for ``DEVICE``s and ``RENDERER``s | list of features supported by this object
 |===================================================================================================
 
 Parameters that can be of multiple types are reported multiple times (once for
@@ -340,6 +341,7 @@ The following infos of parameters can be queried:
 | required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid,
                                         must be `FALSE` if a `default` is present
 | value         |`STRING_LIST` or `DATA_TYPE_LIST` |    No    | list of accepted strings or data types for parameters that only recognize specific values
+| feature       | `STRING_LIST`    | for ``DEVICE``s and ``RENDERER``s | list of features supported by this object
 |===================================================================================================
 
 
@@ -665,13 +667,14 @@ Version information can be queried as properties on the `ANARIDevice`
 .Properties queryable on devices.
 [cols="<5,<2,^3,<10",options="header,unbreakable"]
 |===================================================================================================
-| Name          | Type    | Required | Description
-| version       |`INT32`  |   Yes    | unique version number guaranteed to increase between versions
-| version.major |`INT32`  |    No    | semantic version major value (major.minor.patch)
-| version.minor |`INT32`  |    No    | semantic version minor value (major.minor.patch)
-| version.patch |`INT32`  |    No    | semantic version patch value (major.minor.patch)
-| version.name  |`STRING` |    No    | human readable name/title
-| geometryMaxIndex|`UINT64`|  Yes    | largest supported index into vertex arrays in <<standard_subtypes_geometries, geometries>>
+| Name            | Type        | Required | Description
+| version         |`INT32`      |   Yes    | unique version number guaranteed to increase between versions
+| version.major   |`INT32`      |   No     | semantic version major value (major.minor.patch)
+| version.minor   |`INT32`      |   No     | semantic version minor value (major.minor.patch)
+| version.patch   |`INT32`      |   No     | semantic version patch value (major.minor.patch)
+| version.name    |`STRING`     |   No     | human readable name/title
+| geometryMaxIndex|`UINT64`     |   Yes    | largest supported index into vertex arrays in <<object_types_geometry, geometries>>
+| feature         |`STRING_LIST`|   Yes    | list of features supported by this device instance
 |===================================================================================================
 
 [[api_concepts_error_handling]]
