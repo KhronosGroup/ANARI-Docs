@@ -208,8 +208,8 @@ Floating point number (data types with `FLOAT`) layout and behaviour are as spec
 ==== Color
 
 The following data types must be accepted by geometry's `color` attribute
-parameter and by <<standard_subtypes_samplers>> and are grouped here to allow
-for brevity:
+parameter and by <<object_types_sampler, samplers>>, which are grouped here for
+brevity:
 
 * `UFIXED8`
 * `UFIXED8_VEC2`
