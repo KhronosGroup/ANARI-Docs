@@ -149,9 +149,9 @@ ANARI/anari::
     All types, commands, enumerants and defines in this specification are
     prefixed with these strings.
 
-The `ANARI_` prefix of named <<api_concepts_parameters, data types>> is ommited
-in tables and itemizations for readability and brevity.
-
+The `ANARI_` prefix of named <<api_concepts_parameters, data types>> and
+<<api_concepts_features, features>> is ommited in tables and itemizations for
+readability and brevity.
 
 [[introduction-normative-references]]
 ==== Normative References
