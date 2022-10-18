@@ -104,28 +104,6 @@ below.
 Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
 
-[[object_types_camera_orthographic]]
-==== Orthographic
-
-Feature: `KHR_CAMERA_ORTHOGRAPHIC`
-
-The orthographic camera represents a simple camera with orthographic
-projection. It is created by passing the type string `orthographic` to
-`anariNewCamera`. In addition to the <<object_types_camera, general parameters>>
-understood by all cameras the orthographic camera supports the following
-special parameters:
-
-.Additional parameters accepted by the orthographic camera.
-[cols="<,<,>,<4",options="header,unbreakable"]
-|===================================================================================================
-| Name   | Type    |  Default | Description
-| aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
-| height |`FLOAT32`|        1 | height of the image plane in world units
-|===================================================================================================
-
-Note that when computing the `aspect` ratio a potentially set image
-region (using `imageRegion`) needs to be regarded as well.
-
 [[object_types_camera_omnidirectional]]
 ==== Omnidirectional
 
@@ -148,3 +126,25 @@ cameras.
 
 The image content outside of [0–1] of `imageRegion` is undefined for the
 omnidirectional camera.
+
+[[object_types_camera_orthographic]]
+==== Orthographic
+
+Feature: `KHR_CAMERA_ORTHOGRAPHIC`
+
+The orthographic camera represents a simple camera with orthographic
+projection. It is created by passing the type string `orthographic` to
+`anariNewCamera`. In addition to the <<object_types_camera, general parameters>>
+understood by all cameras the orthographic camera supports the following
+special parameters:
+
+.Additional parameters accepted by the orthographic camera.
+[cols="<,<,>,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name   | Type    |  Default | Description
+| aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
+| height |`FLOAT32`|        1 | height of the image plane in world units
+|===================================================================================================
+
+Note that when computing the `aspect` ratio a potentially set image
+region (using `imageRegion`) needs to be regarded as well.

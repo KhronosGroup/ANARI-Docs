@@ -38,170 +38,6 @@ geometry specific `vertex.pass:[*]` parameters take precedence.
 Geometries are typically limited to a maximum of 2^32^ primitives.
 ====
 
-[[object_types_geometry_triangle]]
-==== Triangle
-
-Feature: `KHR_GEOMETRY_TRIANGLE`
-
-A geometry consisting of triangles is created by calling <<object_types_geometry,
-`anariNewGeometry`>> with subtype string `triangle`. A triangle geometry
-recognizes the following parameters:
-
-.Parameters defining a triangle geometry.
-[cols="<,<,>,<",options="header,unbreakable"]
-|===================================================================================================
-| Name               | Type                                                       | Default    | Description
-| vertex.position    |`ARRAY1D` of `FLOAT32_VEC3`                                 |            | required vertex positions
-| vertex.normal      |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                |            | vertex normals
-| vertex.color       |`ARRAY1D` of <<color>>                                      |            | vertex colors
-| vertex.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
-| vertex.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute1
-| vertex.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute2
-| vertex.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute3
-| primitive.index    |`ARRAY1D` of `UINT32_VEC3` / `UINT64_VEC3` | [(0, 1, 2), (4, 5, 6), {ldots}] | optional indices (into the vertex array(s)), each 3-tupel defines one triangle
-|===================================================================================================
-
-Parameter `vertex.position` must be set and contain at least three
-elements to yield a valid triangle geometry.
-
-Each element of `primitive.index` defines one triangle, its three
-components index into the `vertex.pass:[*]` arrays. If no `primitive.index` is
-given, then a "triangle soup" is assumed, i.e., each three consecutive
-vertices form one triangle (if the size of the `vertex.position` array
-is not a multiple of three the remainder one or two vertices are
-ignored).
-
-All `primitive.pass:[*]` arrays must be at least as large as (explicitly set or
-implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
-large enough to be indexed by the indices in (explicitly set or
-implicitly derived) `primitive.index`, which must be at most <<Devices,
-device limit `geometryMaxIndex`>>.
-
-[[object_types_geometry_quad]]
-==== Quad
-
-Feature: `KHR_GEOMETRY_QUAD`
-
-A geometry consisting of quads is created by calling <<object_types_geometry,
-`anariNewGeometry`>> with subtype string `quad`. A quad geometry
-recognizes the following parameters:
-
-.Parameters defining a quad geometry.
-[cols="<,<,>,<2",options="header,unbreakable"]
-|===================================================================================================
-| Name              | Type                                                      | Default                 | Description
-| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3`                     |                         | required vertex positions
-| vertex.normal     |`ARRAY1D` of `FIXED16_VEC3` or `FLOAT32_VEC3`               |                         | vertex normals
-| vertex.color      |`ARRAY1D` of <<color>>                                                        |  | vertex colors
-| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
-| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
-| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
-| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
-| primitive.index   |`ARRAY1D` of `UINT32_VEC4` / `UINT64_VEC4` | [(0, 1, 2, 4), {ldots}] | optional indices (into the vertex array(s)), each 4-tupel defines one quad
-|===================================================================================================
-
-Parameter `vertex.position` must be set and contain at least four
-elements to yield a valid quad geometry.
-
-Each element of `primitive.index` defines one quad, its four components
-index into the `vertex.pass:[*]` arrays. If no `primitive.index` is given, then
-a "quad soup" is assumed, i.e., each four consecutive vertices form one
-quad (if the size of the `vertex.position` array is not a multiple of
-four the remainder one, two, or three vertices are ignored).
-
-All `primitive.pass:[*]` arrays must be at least as large as (explicitly set or
-implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
-large enough to be indexed by the indices in (explicitly set or
-implicitly derived) `primitive.index`, which must be at most <<Devices,
-device limit `geometryMaxIndex`>>.
-
-[[object_types_geometry_sphere]]
-==== Sphere
-
-Feature: `KHR_GEOMETRY_SPHERE`
-
-A geometry consisting of individual spheres, each of which can have an
-own radius, is created by calling <<object_types_geometry, `anariNewGeometry`>> with
-subtype string `sphere`.
-
-[NOTE]
-.Note
-====
-Implementations are allowed to internally tessellate the sphere, or to render
-them procedurally such that the spheres are perfectly round.
-====
-
-.Parameters defining a sphere geometry.
-[cols="<,<,>,<2",options="header,unbreakable"]
-|===================================================================================================
-| Name               | Type                       | Default | Description
-| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3`  |         | required center positions of the spheres
-| vertex.radius     |`ARRAY1D` of `FLOAT32`       |         | per-sphere radius
-| vertex.color      |`ARRAY1D` of <<color>>                                                    | | vertex colors
-| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
-| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute1
-| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute2
-| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute3
-| primitive.index   |`ARRAY1D` of `UINT32` / `UINT64`| [0, 1, 2, {ldots}]  | optional indices (into the vertex array(s))
-| radius            |`FLOAT32`                       |                   1 | default radius for all spheres (if `sphere.radius` is not set)
-|===================================================================================================
-
-Parameter `vertex.position` must be set to yield a valid sphere
-geometry.
-
-Each element of `primitive.index` defines one sphere, indexing into the
-`vertex.pass:[*]` arrays. If no `primitive.index` is given, then a "sphere
-soup" is assumed, using all spheres at `vertex.position`.
-
-All `primitive.pass:[*]` arrays must be at least as large as (explicitly set or
-implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
-large enough to be indexed by the indices in (explicitly set or
-implicitly derived) `primitive.index`, which must be at most <<Devices,
-device limit `geometryMaxIndex`>>.
-
-[[object_types_geometry_curve]]
-==== Curve
-
-Feature: `KHR_GEOMETRY_CURVE`
-
-A geometry consisting of multiple curves is created by calling
-<<object_types_geometry, `anariNewGeometry`>> with type string `curve`. The vertices
-of the curve(s) are connected by linear, round segments (i.e., cones or
-clinders). The parameters defining this geometry are listed in the table
-below.
-
-[NOTE]
-.Note
-====
-Implementations are allowed to internally tessellate the curve, or to render
-them procedurally such that the curve segments are perfectly round.
-====
-
-
-.Parameters defining a curve geometry.
-[cols="<,<,>,<2",options="header,unbreakable"]
-|===================================================================================================
-| Name            | Type                            |            Default | Description
-| vertex.position |`ARRAY1D` of `FLOAT32_VEC3`      |                    | required vertex positions
-| vertex.radius   |`ARRAY1D` of `FLOAT32`           |                    | per-vertex radius
-| vertex.color      |`ARRAY1D` of <<color>>                                                        |  | vertex colors
-| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
-| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
-| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
-| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
-| primitive.index |`ARRAY1D` of `UINT32` / `UINT64` | [0, 1, 2, {ldots}] | optional indices into `vertex.pass:[*]` arrays, each index defines the start of one segment of a curve (the end is implicitly given with index+1)
-| radius          |`FLOAT32`                        |                  1 | default radius for all curve vertices (if `vertex.radius` is not set)
-|===================================================================================================
-
-Parameter `vertex.position` must be set and contain at least two
-elements to yield a valid curve geometry. If no `primitive.index` is
-given, then a single curve is assumed, conneting all vertices.
-
-All `primitive.pass:[*]` arrays must be at least as large as (explicitly set or
-implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
-large enough to be indexed by the indices in (explicitly set or
-implicitly derived) `primitive.index`, which must be at most <<Devices,
-device limit `geometryMaxIndex`>> minus 1.
 
 [[object_types_geometry_cone]]
 ==== Cone
@@ -248,6 +84,51 @@ large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
+
+[[object_types_geometry_curve]]
+==== Curve
+
+Feature: `KHR_GEOMETRY_CURVE`
+
+A geometry consisting of multiple curves is created by calling
+<<object_types_geometry, `anariNewGeometry`>> with type string `curve`. The vertices
+of the curve(s) are connected by linear, round segments (i.e., cones or
+clinders). The parameters defining this geometry are listed in the table
+below.
+
+[NOTE]
+.Note
+====
+Implementations are allowed to internally tessellate the curve, or to render
+them procedurally such that the curve segments are perfectly round.
+====
+
+.Parameters defining a curve geometry.
+[cols="<,<,>,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name            | Type                            |            Default | Description
+| vertex.position |`ARRAY1D` of `FLOAT32_VEC3`      |                    | required vertex positions
+| vertex.radius   |`ARRAY1D` of `FLOAT32`           |                    | per-vertex radius
+| vertex.color      |`ARRAY1D` of <<color>>                                                        |  | vertex colors
+| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
+| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
+| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
+| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
+| primitive.index |`ARRAY1D` of `UINT32` / `UINT64` | [0, 1, 2, {ldots}] | optional indices into `vertex.pass:[*]` arrays, each index defines the start of one segment of a curve (the end is implicitly given with index+1)
+| radius          |`FLOAT32`                        |                  1 | default radius for all curve vertices (if `vertex.radius` is not set)
+|===================================================================================================
+
+Parameter `vertex.position` must be set and contain at least two
+elements to yield a valid curve geometry. If no `primitive.index` is
+given, then a single curve is assumed, conneting all vertices.
+
+All `primitive.pass:[*]` arrays must be at least as large as (explicitly set or
+implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
+large enough to be indexed by the indices in (explicitly set or
+implicitly derived) `primitive.index`, which must be at most <<Devices,
+device limit `geometryMaxIndex`>> minus 1.
+
+
 [[object_types_geometry_cylinder]]
 ==== Cylinder
 
@@ -263,7 +144,6 @@ subtype string `cylinder`.
 Implementations are allowed to internally tessellate the cylinder, or to
 render them procedurally such that the cylinders are perfectly round.
 ====
-
 
 .Parameters defining a cylinder geometry.
 [cols="<,<,>,<2",options="header,unbreakable"]
@@ -289,6 +169,130 @@ If no `primitive.index` is given, then a "cylinder soup" is assumed,
 i.e., each two consecutive vertices form one cylinder (if the size of
 the `vertex.position` array is not a multiple of two the remainder
 vertex is ignored).
+
+All `primitive.pass:[*]` arrays must be at least as large as (explicitly set or
+implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
+large enough to be indexed by the indices in (explicitly set or
+implicitly derived) `primitive.index`, which must be at most <<Devices,
+device limit `geometryMaxIndex`>>.
+
+
+[[object_types_geometry_quad]]
+==== Quad
+
+Feature: `KHR_GEOMETRY_QUAD`
+
+A geometry consisting of quads is created by calling <<object_types_geometry,
+`anariNewGeometry`>> with subtype string `quad`. A quad geometry
+recognizes the following parameters:
+
+.Parameters defining a quad geometry.
+[cols="<,<,>,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name              | Type                                                      | Default                 | Description
+| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3`                     |                         | required vertex positions
+| vertex.normal     |`ARRAY1D` of `FIXED16_VEC3` or `FLOAT32_VEC3`               |                         | vertex normals
+| vertex.color      |`ARRAY1D` of <<color>>                                                        |  | vertex colors
+| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
+| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
+| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
+| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
+| primitive.index   |`ARRAY1D` of `UINT32_VEC4` / `UINT64_VEC4` | [(0, 1, 2, 4), {ldots}] | optional indices (into the vertex array(s)), each 4-tupel defines one quad
+|===================================================================================================
+
+Parameter `vertex.position` must be set and contain at least four
+elements to yield a valid quad geometry.
+
+Each element of `primitive.index` defines one quad, its four components
+index into the `vertex.pass:[*]` arrays. If no `primitive.index` is given, then
+a "quad soup" is assumed, i.e., each four consecutive vertices form one
+quad (if the size of the `vertex.position` array is not a multiple of
+four the remainder one, two, or three vertices are ignored).
+
+All `primitive.pass:[*]` arrays must be at least as large as (explicitly set or
+implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
+large enough to be indexed by the indices in (explicitly set or
+implicitly derived) `primitive.index`, which must be at most <<Devices,
+device limit `geometryMaxIndex`>>.
+
+
+[[object_types_geometry_sphere]]
+==== Sphere
+
+Feature: `KHR_GEOMETRY_SPHERE`
+
+A geometry consisting of individual spheres, each of which can have an
+own radius, is created by calling <<object_types_geometry, `anariNewGeometry`>> with
+subtype string `sphere`.
+
+[NOTE]
+.Note
+====
+Implementations are allowed to internally tessellate the sphere, or to render
+them procedurally such that the spheres are perfectly round.
+====
+
+.Parameters defining a sphere geometry.
+[cols="<,<,>,<2",options="header,unbreakable"]
+|===================================================================================================
+| Name               | Type                       | Default | Description
+| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3`  |         | required center positions of the spheres
+| vertex.radius     |`ARRAY1D` of `FLOAT32`       |         | per-sphere radius
+| vertex.color      |`ARRAY1D` of <<color>>                                                    | | vertex colors
+| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
+| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute1
+| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute2
+| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute3
+| primitive.index   |`ARRAY1D` of `UINT32` / `UINT64`| [0, 1, 2, {ldots}]  | optional indices (into the vertex array(s))
+| radius            |`FLOAT32`                       |                   1 | default radius for all spheres (if `sphere.radius` is not set)
+|===================================================================================================
+
+Parameter `vertex.position` must be set to yield a valid sphere
+geometry.
+
+Each element of `primitive.index` defines one sphere, indexing into the
+`vertex.pass:[*]` arrays. If no `primitive.index` is given, then a "sphere
+soup" is assumed, using all spheres at `vertex.position`.
+
+All `primitive.pass:[*]` arrays must be at least as large as (explicitly set or
+implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
+large enough to be indexed by the indices in (explicitly set or
+implicitly derived) `primitive.index`, which must be at most <<Devices,
+device limit `geometryMaxIndex`>>.
+
+
+[[object_types_geometry_triangle]]
+==== Triangle
+
+Feature: `KHR_GEOMETRY_TRIANGLE`
+
+A geometry consisting of triangles is created by calling <<object_types_geometry,
+`anariNewGeometry`>> with subtype string `triangle`. A triangle geometry
+recognizes the following parameters:
+
+.Parameters defining a triangle geometry.
+[cols="<,<,>,<",options="header,unbreakable"]
+|===================================================================================================
+| Name               | Type                                                       | Default    | Description
+| vertex.position    |`ARRAY1D` of `FLOAT32_VEC3`                                 |            | required vertex positions
+| vertex.normal      |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                |            | vertex normals
+| vertex.color       |`ARRAY1D` of <<color>>                                      |            | vertex colors
+| vertex.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
+| vertex.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute1
+| vertex.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute2
+| vertex.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute3
+| primitive.index    |`ARRAY1D` of `UINT32_VEC3` / `UINT64_VEC3` | [(0, 1, 2), (4, 5, 6), {ldots}] | optional indices (into the vertex array(s)), each 3-tupel defines one triangle
+|===================================================================================================
+
+Parameter `vertex.position` must be set and contain at least three
+elements to yield a valid triangle geometry.
+
+Each element of `primitive.index` defines one triangle, its three
+components index into the `vertex.pass:[*]` arrays. If no `primitive.index` is
+given, then a "triangle soup" is assumed, i.e., each three consecutive
+vertices form one triangle (if the size of the `vertex.position` array
+is not a multiple of three the remainder one or two vertices are
+ignored).
 
 All `primitive.pass:[*]` arrays must be at least as large as (explicitly set or
 implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be

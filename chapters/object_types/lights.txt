@@ -34,6 +34,7 @@ like `radius` (feature `KHR_AREA_LIGHTS`).
 | visible  |`BOOL`         |     `TRUE` | whether the light can be directly seen
 |===================================================================================================
 
+
 [[object_types_light_directional]]
 ==== Directional
 
@@ -74,6 +75,33 @@ instance, the apparent size of the sun is about 0.53° or 0.00925 rad.
 ==================
 
 
+[[object_types_light_hdri]]
+==== HDRI
+
+Feature: `KHR_LIGHT_HDRI`
+
+The HDRI light is a textured light source surrounding the scene and
+illuminating it from infinity. It is created by passing the subtype string
+`hdri` to `anariNewLight`. In addition to the <<object_types_light, general
+parameters>> the HDRI light supports the following special parameters:
+
+.Special parameters accepted by the HDRI light.
+[cols="<10,<12,>14,<40",options="header,unbreakable"]
+|===================================================================================================
+| Name      | Type         |   Default | Description
+| up        |`FLOAT32_VEC3`| (0, 0, 1) | up direction of the light in world-space
+| direction |`FLOAT32_VEC3`| (1, 0, 0) | direction to which the center of the texture will be mapped to
+| radiance  |`ARRAY2D` of `FLOAT32_VEC3`| | environment map, typically HDR with values >1, the amount
+                                         of light emitted by a point on the light source in a
+                                         direction, in W/sr/m^2^
+// TODO:, `cube`
+| layout    |`STRING`      |`equirectangular`| possible values: `equirectangular`
+| scale     |`FLOAT32`     |         1 | scale factor for `radiance`
+|===================================================================================================
+
+//TODO {empty}[Orientation and Mapping of an HDRI Light.][imgHDRILight]
+
+
 [[object_types_light_point]]
 ==== Point
 
@@ -109,39 +137,66 @@ result in soft shadows when the renderer support it.
 |===================================================================================================
 
 
-[[object_types_light_spot]]
-==== Spot
+[[object_types_light_quad]]
+==== Quad
 
-Feature: `KHR_LIGHT_SPOT`
+Feature: `KHR_LIGHT_QUAD`
 
-The spotlight is a light emitting into a cone of directions. It is
-created by passing the subtype string `spot` to `anariNewLight`. In
-addition to the <<object_types_light, general parameters>> understood by all
-lights, the spotlight supports the special parameters listed in the
-table.
+The quadfootnote:[actually a parallelogram] light is a planar,
+procedural area light source emitting uniformly on one side into the
+half-space. It is created by passing the subtype string `quad` to
+`anariNewLight`. In addition to the <<object_types_light, general parameters>>
+understood by all lights, the quad light supports the following special
+parameters:
 
-.Special parameters accepted by the spotlight.
-[cols="<,<,>,<3",options="header,unbreakable"]
+.Special parameters accepted by the quad light.
+[cols="<2,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name         | Type         |    Default | Description
-| position     |`FLOAT32_VEC3`|  (0, 0, 0) | the center of the spotlight
-| direction    |`FLOAT32_VEC3`| (0, 0, -1) | main emission direction, the axis of the spot
-| openingAngle |`FLOAT32`     |       {pi} | full opening angle (in radians) of the spot; outside
-                                             of this cone is no illumination
-| falloffAngle |`FLOAT32`     |        0.1 | size (angle in radians) of the region between the rim
-                                             (of the illumination cone) and full intensity of the
-                                             spot; should be smaller than half of `openingAngle`
+| position     |`FLOAT32_VEC3`|  (0, 0, 0) | position of one vertex of the quad light
+| edge1        |`FLOAT32_VEC3`|  (1, 0, 0) | vector to one adjacent vertex
+| edge2        |`FLOAT32_VEC3`|  (0, 1, 0) | vector to the other adjacent vertex
 | intensity    |`FLOAT32`     |          1 | the overall amount of light emitted by the light in a
                                              direction, in W/sr
 | power        |`FLOAT32`     |          1 | the overall amount of light energy emitted, in W;
-                                            `intensity` takes precedence if also specified
+                                             `intensity` takes precedence if also specified
+| radiance     |`FLOAT32`     |          1 | the amount of light
+                                             emitted by a point on the light source in a direction,
+                                             in W/sr/m^2^; `intensity` (or `power`) takes
+                                             precedence if also specified
+//TODO| map          |`TEXTURE`     |            | factor for `color`?
+| side         |`STRING`      |     `front`| side into which light is emitted;
+                                             possible values: `front`, `back`, `both`
+| intensityDistribution |`ARRAY1D` / `ARRAY2D` of `FLOAT32`| | luminous intensity distribution for
+                                             photometric lights; can be 2D for asymmetric
+                                             illumination; values are assumed to be uniformly
+                                             distributed
 |===================================================================================================
 
-The intensity distribution is constant within the core cone (`openingAngle` -
-2 {times} `falloffAngle` and then falls off to zero (smoothly interpolated with
-the smoothstep function).
+Measured light sources (IES, EULUMDAT, …) are supported by providing an
+`intensityDistribution` {array} to modulate the intensity
+per direction. The mapping is using the C-{gamma} coordinate system:
+the values of the first (or only) dimension of
+`intensityDistribution` are uniformly mapped to {gamma} in [0–{pi}]; the first
+intensity value to 0, the last value to {pi}, thus at least two values need
+to be present. If the array has a second dimension then the intensities
+are not rotational symmetric around `direction`, but are accordingly
+mapped to the C-halfplanes in [0–2{pi}]; the first `row` of values to 0
+and 2{pi}, the other rows such that they have uniform distance to its
+neighbors. The orientation of the C0-plane is aligned with `edge1`.
 
-//TODO image:imgSpotlight[ "Angles used by the spotlight."]
+//TODO {empty}[Defining a quad light which emits toward the reader.][imgQuadLight]
+
+The front side is determined by the cross product of `edge2` {times} `edge1`.
+
+[NOTE]
+.Note
+====
+Only renderers that enable `KHR_AREA_LIGHTS` will compute soft shadows from the
+quad light. Other renderers will just sample the center of the quad light, which
+results in hard shadows.
+====
+
 
 [[object_types_light_ring]]
 ==== Ring
@@ -204,90 +259,37 @@ neighbors. The orientation of the C0-plane is specified via `c0`.
 
 //TODO image: {empty}[C-{gamma} coordinate system for the mapping of `intensityDistribution` to the spotlight.][imgSpotCoords]
 
-[[object_types_light_quad]]
-==== Quad
 
-Feature: `KHR_LIGHT_QUAD`
+[[object_types_light_spot]]
+==== Spot
 
-The quadfootnote:[actually a parallelogram] light is a planar,
-procedural area light source emitting uniformly on one side into the
-half-space. It is created by passing the subtype string `quad` to
-`anariNewLight`. In addition to the <<object_types_light, general parameters>>
-understood by all lights, the quad light supports the following special
-parameters:
+Feature: `KHR_LIGHT_SPOT`
 
-.Special parameters accepted by the quad light.
-[cols="<2,<,>,<3",options="header,unbreakable"]
+The spotlight is a light emitting into a cone of directions. It is
+created by passing the subtype string `spot` to `anariNewLight`. In
+addition to the <<object_types_light, general parameters>> understood by all
+lights, the spotlight supports the special parameters listed in the
+table.
+
+.Special parameters accepted by the spotlight.
+[cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name         | Type         |    Default | Description
-| position     |`FLOAT32_VEC3`|  (0, 0, 0) | position of one vertex of the quad light
-| edge1        |`FLOAT32_VEC3`|  (1, 0, 0) | vector to one adjacent vertex
-| edge2        |`FLOAT32_VEC3`|  (0, 1, 0) | vector to the other adjacent vertex
+| position     |`FLOAT32_VEC3`|  (0, 0, 0) | the center of the spotlight
+| direction    |`FLOAT32_VEC3`| (0, 0, -1) | main emission direction, the axis of the spot
+| openingAngle |`FLOAT32`     |       {pi} | full opening angle (in radians) of the spot; outside
+                                             of this cone is no illumination
+| falloffAngle |`FLOAT32`     |        0.1 | size (angle in radians) of the region between the rim
+                                             (of the illumination cone) and full intensity of the
+                                             spot; should be smaller than half of `openingAngle`
 | intensity    |`FLOAT32`     |          1 | the overall amount of light emitted by the light in a
                                              direction, in W/sr
 | power        |`FLOAT32`     |          1 | the overall amount of light energy emitted, in W;
-                                             `intensity` takes precedence if also specified
-| radiance     |`FLOAT32`     |          1 | the amount of light
-                                             emitted by a point on the light source in a direction,
-                                             in W/sr/m^2^; `intensity` (or `power`) takes
-                                             precedence if also specified
-//TODO| map          |`TEXTURE`     |            | factor for `color`?
-| side         |`STRING`      |     `front`| side into which light is emitted;
-                                             possible values: `front`, `back`, `both`
-| intensityDistribution |`ARRAY1D` / `ARRAY2D` of `FLOAT32`| | luminous intensity distribution for
-                                             photometric lights; can be 2D for asymmetric
-                                             illumination; values are assumed to be uniformly
-                                             distributed
+                                            `intensity` takes precedence if also specified
 |===================================================================================================
 
+The intensity distribution is constant within the core cone (`openingAngle` -
+2 {times} `falloffAngle` and then falls off to zero (smoothly interpolated with
+the smoothstep function).
 
-Measured light sources (IES, EULUMDAT, …) are supported by providing an
-`intensityDistribution` {array} to modulate the intensity
-per direction. The mapping is using the C-{gamma} coordinate system:
-the values of the first (or only) dimension of
-`intensityDistribution` are uniformly mapped to {gamma} in [0–{pi}]; the first
-intensity value to 0, the last value to {pi}, thus at least two values need
-to be present. If the array has a second dimension then the intensities
-are not rotational symmetric around `direction`, but are accordingly
-mapped to the C-halfplanes in [0–2{pi}]; the first `row` of values to 0
-and 2{pi}, the other rows such that they have uniform distance to its
-neighbors. The orientation of the C0-plane is aligned with `edge1`.
-
-//TODO {empty}[Defining a quad light which emits toward the reader.][imgQuadLight]
-
-The front side is determined by the cross product of `edge2` {times} `edge1`.
-
-[NOTE]
-.Note
-====
-Only renderers that use stochastic sampling (like the path
-tracer) will compute soft shadows from the quad light. Other renderers
-will just sample the center of the quad light, which results in hard
-shadows.
-====
-
-[[object_types_light_hdri]]
-==== HDRI
-
-Feature: `KHR_LIGHT_HDRI`
-
-The HDRI light is a textured light source surrounding the scene and
-illuminating it from infinity. It is created by passing the subtype string
-`hdri` to `anariNewLight`. In addition to the <<object_types_light, general
-parameters>> the HDRI light supports the following special parameters:
-
-.Special parameters accepted by the HDRI light.
-[cols="<10,<12,>14,<40",options="header,unbreakable"]
-|===================================================================================================
-| Name      | Type         |   Default | Description
-| up        |`FLOAT32_VEC3`| (0, 0, 1) | up direction of the light in world-space
-| direction |`FLOAT32_VEC3`| (1, 0, 0) | direction to which the center of the texture will be mapped to
-| radiance  |`ARRAY2D` of `FLOAT32_VEC3`| | environment map, typically HDR with values >1, the amount
-                                         of light emitted by a point on the light source in a
-                                         direction, in W/sr/m^2^
-// TODO:, `cube`
-| layout    |`STRING`      |`equirectangular`| possible values: `equirectangular`
-| scale     |`FLOAT32`     |         1 | scale factor for `radiance`
-|===================================================================================================
-
-//TODO {empty}[Orientation and Mapping of an HDRI Light.][imgHDRILight]
+//TODO image:imgSpotlight[ "Angles used by the spotlight."]
