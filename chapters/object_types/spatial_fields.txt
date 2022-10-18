@@ -15,7 +15,9 @@ ANARISpatialField anariNewSpatialField(ANARIDevice, const char *subtype);
 ....
 
 [[object_types_spatial_field_structured_regular]]
-==== Structured Regular (`KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`)
+==== Structured Regular
+
+Feature: `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`
 
 Structured regular spatial fields are created by passing the subtype string
 `structuredRegular` to <<object_types_spatial_field, `anariNewSpatialField`>>. The parameters

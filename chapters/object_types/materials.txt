@@ -18,7 +18,9 @@ value. Unless otherwise noted, the string selects the surface attribute that
 will be used to source the parameter during rendering.
 
 [[object_types_material_matte]]
-==== Matte (`KHR_MATERIAL_MATTE`)
+==== Matte
+
+Feature: `KHR_MATERIAL_MATTE`
 
 The `matte` material reflects light uniformly into the hemisphere, i.e.,
 it exhibits Lambertian reflectance and thus its apparent brightness is
@@ -33,7 +35,9 @@ entirely opaque.
 |===
 
 [[object_types_material_transparent_matte]]
-==== Transparent Matte (`KHR_MATERIAL_TRANSPARENT_MATTE`)
+==== Transparent Matte
+
+Feature: `KHR_MATERIAL_TRANSPARENT_MATTE`
 
 The `transparentMatte` material extends the <<Matte>> material by adding
 support for (partial) cut-out transparency.

@@ -15,7 +15,9 @@ ANARIVolume anariNewVolume(ANARIDevice, const char *subtype);
 ....
 
 [[object_types_volume_scivis]]
-==== Scivis (`KHR_VOLUME_SCIVIS`)
+==== Scivis
+
+Feature: `KHR_VOLUME_SCIVIS`
 
 The scivis volume is created by passing the subtype string `scivis` to
 `anariNewVolume`. It supports the folowing parameter:
