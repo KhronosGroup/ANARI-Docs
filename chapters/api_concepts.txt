@@ -51,22 +51,28 @@ the same device.
 ANARI scenes are represented as hierarchies of objects. This section
 describes their relationship to each other.
 
-The <<frame>> is the root object of the scene. It holds the framebuffer
-configuration and the <<world>>, <<camera>>, and <<renderer>> objects.  The
-<<camera>> configures the projection of the rendering used to view the
-<<world>>.  The <<renderer>> holds parameters relating to the rendering
-algorithm.  The <<world>> holds arrays of the drawable objects of the scene such
-as <<surface>>, <<volume>>, and <<light>> either directly or via an array of
-<<instance,Instances>> containing <<group>>. A <<group>> holds arrays of
-<<surface>>, <<volume>>, and <<light>> to be instanced together. An <<instance>>
-combines a <<group>> with a transform for placement of the same collection of
-objects at multiple locations within the same <<world>>. A <<surface>>
-represents drawable surfaces containing a <<object_types_geometry>> and a <<object_types_material>>. A
-<<object_types_geometry>> specifies drawable primitives and data associated with them. A
-<<object_types_material>> specifies the surface's appearance related to the data from the
-<<object_types_geometry>>. A <<volume>> represents volumetric drawable objects and may
-contain <<spatial_field>> objects. A <<spatial_field>> represents a field
-of values in 3D space. A <<light>> represents sources of illumination.
+The <<object_types_frame>> is the root object of the scene. It holds the
+framebuffer configuration and the <<object_types_world>>,
+<<object_types_camera>>, and <<object_types_renderer>> objects.  The
+<<object_types_camera>> configures the projection of the rendering used to view
+the <<object_types_world>>.  The <<object_types_renderer>> holds parameters
+relating to the rendering algorithm.  The <<object_types_world>> holds arrays of
+the drawable objects of the scene such as <<object_types_surface>>,
+<<object_types_volume>>, and <<object_types_light>> either directly or via an
+array of <<object_types_instance>> containing <<object_types_group>>. A
+<<object_types_group>> holds arrays of <<object_types_surface>>,
+<<object_types_volume>>, and <<object_types_light>> to be instanced together. An
+<<object_types_instance>> combines a <<object_types_group>> with a transform for
+placement of the same collection of objects at multiple locations within the
+same <<object_types_world>>.  A <<object_types_surface>> represents drawable
+surfaces containing a <<object_types_geometry>> and a <<object_types_material>>.
+A <<object_types_geometry>> specifies drawable primitives and data associated
+with them. A <<object_types_material>> specifies the surface's appearance
+related to the data from the <<object_types_geometry>>. A
+<<object_types_volume>> represents volumetric drawable objects and may contain
+<<object_types_spatial_field>> objects. A <<object_types_spatial_field>>
+represents a field of values in 3D space. A <<object_types_light>> represents
+sources of illumination.
 
 The following diagram illustrates the relationships described above:
 
