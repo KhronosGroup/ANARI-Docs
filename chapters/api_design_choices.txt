@@ -85,7 +85,7 @@ capability.
 
 Testable feature names are inlined in the specification alongside their
 definition. All features follow the prefix convention of
-"ANARI_[VENDOR]_[NAME]", where core features use "KHR" as the vendor string. In
+"ANARI\_[VENDOR]_[NAME]", where core features use "KHR" as the vendor string. In
 this document, all features will omit the "ANARI_" portion of the prefix for
 brevity.
 
