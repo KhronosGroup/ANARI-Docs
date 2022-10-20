@@ -31,12 +31,12 @@ operations to cause an application to use multithreading just to avoid
 blocking on ANARI.
 ====
 
-Devices that implement `KHR_DEVICE_SYNCHRONIZATION` relax synchronization
-requirements by excluding the device from the external synchronization
-requirement if the device is passed as the first argument only. Calls that are
-operating on the device as the object must still be synchronized with all other
-calls involving the same device. Likewise `anariRenderFrame` must be
-synchronized with all other ANARI calls as well. This only applies to the
+Devices that implement feature `KHR_DEVICE_SYNCHRONIZATION` relax
+synchronization requirements by excluding the device from the external
+synchronization requirement if the device is passed as the first argument only.
+Calls that are operating on the device as the object must still be synchronized
+with all other calls involving the same device. Likewise `anariRenderFrame` must
+be synchronized with all other ANARI calls as well. This only applies to the
 `anariRenderFrame` call itself, not the asynchronous render operations which
 remain subject to asynchronous rendering restrictions.
 
@@ -347,7 +347,7 @@ The following infos of parameters can be queried:
 | required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid,
                                         must be `FALSE` if a `default` is present
 | value         |`STRING_LIST` or `DATA_TYPE_LIST` |    No    | list of accepted strings or data types for parameters that only recognize specific values
-| feature       | `STRING_LIST`    | for ``DEVICE``s and ``RENDERER``s | list of features supported by this object
+| feature       | `STRING_LIST`    | for ``DEVICE``s and ``RENDERER``s | list of supported features
 |===================================================================================================
 
 
@@ -668,7 +668,7 @@ Version information can be queried as properties on the `ANARIDevice`
 | version.patch   |`INT32`      |   No     | semantic version patch value (major.minor.patch)
 | version.name    |`STRING`     |   No     | human readable name/title
 | geometryMaxIndex|`UINT64`     |   Yes    | largest supported index into vertex arrays in <<object_types_geometry, geometries>>
-| feature         |`STRING_LIST`|   Yes    | list of features supported by this device instance
+| feature         |`STRING_LIST`|   Yes    | list of supported features
 |===================================================================================================
 
 [[api_concepts_error_handling]]

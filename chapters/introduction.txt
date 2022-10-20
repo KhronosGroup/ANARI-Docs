@@ -8,7 +8,7 @@
 
 The fundamental problem being solved by the ANARI standard is to provide
 application developers with a high-level rendering API that can be used to
-render images of visualizations containing 3-D surface geometry and volumetric
+render images of visualizations containing 3D surface geometry and volumetric
 data. The API will support rendering techniques such as rasterization and
 high-fidelity path tracing, and will do so at low application development-time
 cost.
@@ -47,7 +47,10 @@ application to need rendering from local CPU or GPU hardware, with parallel
 scaling through multiple machines in a cluster to exploit additional distributed
 compute and memory resources. The ANARI API provides the necessary abstractions
 to allow these needs to be met by back-end renderers, without excessive exposure
-of hardware or rendering algorithm details to the application.
+of hardware or rendering algorithm details to the application. ANARI seeks to
+standardize features for rendering domains including, but not limited to,
+scientific visualization, professional visualization, visual effects, and
+engineering CAD.
 
 Multiple ANARI back-ends may be exposed through the API at runtime. The
 ANARI API provides the application with the means to enumerate available

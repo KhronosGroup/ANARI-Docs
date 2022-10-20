@@ -3,9 +3,10 @@
 // http://creativecommons.org/licenses/by/4.0/
 
 [[object_types]]
-== Object Types
+== Object Types and Subtypes
 
-This section describes the base object types that make up a scene in ANARI.
+This section describes the object types (and subtypes where available) which are
+used to compose a scene in ANARI and which are involved in rendering it.
 
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
@@ -45,10 +46,10 @@ Feature support information can be queried as properties on the `ANARIRenderer`
 <<api_concepts_object_properties, using `anariGetProperty`>>.
 
 .Properties queryable on all renderers.
-[cols="<5,<2,^3,<10",options="header,unbreakable"]
+[cols="<2,<3,^2,<8",options="header,unbreakable"]
 |===================================================================================================
 | Name    | Type          | Required | Description
-| feature | `STRING_LIST` | Yes      | list of features supported by this renderer instance
+| feature | `STRING_LIST` | Yes      | list of supported features
 |===================================================================================================
 
 // ///////////////////////////////////////////////////////////////////////

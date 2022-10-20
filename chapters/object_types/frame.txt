@@ -73,10 +73,10 @@ The following information can be queried as properties on the `ANARIFrame`
 | frameProgress |`FLOAT32`|   No     | progress of frame refinement when using `KHR_PROGRESSIVE_RENDERING` renderers, in [0..1]
 |===============================================================================================================================
 
-Devices which implement `KHR_FRAME_COMPLETION_CALLBACK` add two parameters to
-<<object_types_frame>>: a callback invoked as a continuation after the frame
-completes, and an associated pointer to application state to be passed to the
-invoked continuation. This continuation must complete before the
+Devices which implement feature `KHR_FRAME_COMPLETION_CALLBACK` add two
+parameters to <<object_types_frame>>: a callback invoked as a continuation after
+the frame completes, and an associated pointer to application state to be passed
+to the invoked continuation. This continuation must complete before the
 `ANARI_TASK_COMPLETE` event is signaled by `anariWait()` on the frame.
 
 The signature of the continuation is provided in `anari.h` as

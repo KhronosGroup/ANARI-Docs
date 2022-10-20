@@ -192,9 +192,9 @@ The front side is determined by the cross product of `edge2` {times} `edge1`.
 [NOTE]
 .Note
 ====
-Only renderers that enable `KHR_AREA_LIGHTS` will compute soft shadows from the
-quad light. Other renderers will just sample the center of the quad light, which
-results in hard shadows.
+Some renderers will compute soft shadows from the quad light. Other
+implementations may just sample the center of the quad light (resulting in hard
+shadows), or may not compute shadows at all.
 ====
 
 
