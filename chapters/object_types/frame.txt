@@ -67,10 +67,10 @@ The following information can be queried as properties on the `ANARIFrame`
 .Properties queryable on frames.
 [cols="<2,<,^,<4",options="header,unbreakable"]
 |===============================================================================================================================
-| Name          | Type    | Required | Description
-| duration      |`FLOAT32`|   Yes    | time (in seconds) between start and completion of the frame
-| taskProgress  |`FLOAT32`|   No     | progress of the current frame task since the last call to `anariRenderFrame`, in [0..1]
-| frameProgress |`FLOAT32`|   No     | progress of frame refinement when using `KHR_PROGRESSIVE_RENDERING` renderers, in [0..1]
+| Name               | Type    | Required | Description
+| duration           |`FLOAT32`| Yes      | time (in seconds) between start and completion of the frame
+| renderProgress     |`FLOAT32`| No       | progress of the current frame task since the last call to `anariRenderFrame`, in [0..1]
+| refinementProgress |`FLOAT32`| No       | progress of frame refinement when using `KHR_PROGRESSIVE_RENDERING` renderers, in [0..1]
 |===============================================================================================================================
 
 Devices which implement feature `KHR_FRAME_COMPLETION_CALLBACK` add two
