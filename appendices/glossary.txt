@@ -6,7 +6,7 @@
 // The abbreviations and prefixes probably belong in the upcoming
 // API/extension-writing-guidelines appendix, anyway.
 
-[glossary]
+[appendix]
 [[glossary]]
 == Glossary
 

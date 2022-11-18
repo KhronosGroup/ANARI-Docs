@@ -2,11 +2,17 @@
 // Creative Commons Attribution 4.0 International License; see
 // http://creativecommons.org/licenses/by/4.0/
 
-[[standard_subtypes_cameras]]
-=== Cameras
+[[object_types_camera]]
+=== Camera
 
-This section outlines camera subtypes which are supplied by complete ANARI
-device implementations.
+Cameras express viewpoint and viewport projection information for rendering a
+scene.  To create a new camera of given type `subtype` use
+
+[source,cpp]
+....
+ANARICamera anariNewCamera(ANARIDevice, const char *subtype);
+....
+
 
 All cameras sources accept the following parameters:
 
@@ -18,7 +24,7 @@ All cameras sources accept the following parameters:
 | direction              |`FLOAT32_VEC3`|       (0, 0, -1) | main viewing direction of the camera
 | up                     |`FLOAT32_VEC3`|        (0, 1, 0) | up direction of the camera
 | transform              |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))
-                        | additional world-space transformation matrix (overridden by  `motion.transform`, <<core_extensions_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>)
+                        | additional world-space transformation matrix (overridden by  `motion.transform`, feature `KHR_TRANSFORMATION_MOTION_BLUR`)
 | imageRegion            |`FLOAT32_BOX2`|\((0, 0), (1, 1)) | region of the sensor in normalized screen-space coordinates
 | apertureRadius         |`FLOAT32`     |                0 | size of the aperture, controls the depth of field
 | focusDistance          |`FLOAT32`     |                1 | distance at where the image is sharpest when depth of field is enabled
@@ -57,7 +63,7 @@ All cameras support depth of field via the `apertureRadius` and
 `focusDistance` parameters and stereo 3D rendering by setting
 `stereoMode` and `interpupillaryDistance`.
 
-.Additional parameters accepted by all cameras with <<core_extensions_transformation_motion_blur, extension `KHR_TRANSFORMATION_MOTION_BLUR`>>.
+.Additional parameters accepted by all cameras with feature `KHR_TRANSFORMATION_MOTION_BLUR`.
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           |    Default | Description
@@ -69,20 +75,21 @@ All cameras support depth of field via the `apertureRadius` and
 | shutter            |`FLOAT32_BOX1`                  | [0.5, 0.5] | start and end of shutter time
 |===================================================================================================
 
-<<core_extensions_transformation_motion_blur, Extension
-`KHR_TRANSFORMATION_MOTION_BLUR`>>: Uniformly (in `time`) distributed
-transformation keys can be set with `motion.transform` to achieve camera
-motion blur (in combination with `shutter`). Alternatively, the
-transformation keys can also be given as decomposed `motion.scale`,
-`motion.rotation` and `motion.translation`.
+Feature `KHR_TRANSFORMATION_MOTION_BLUR`: Uniformly (in `time`) distributed
+transformation keys can be set with `motion.transform` to achieve camera motion
+blur (in combination with `shutter`). Alternatively, the transformation keys can
+also be given as decomposed `motion.scale`, `motion.rotation` and
+`motion.translation`.
 
+[[object_types_camera_perspective]]
+==== Perspective
 
-==== Perspective Camera
+Feature: `KHR_CAMERA_PERSPECTIVE`
 
 The perspective camera represents a simple thin lens camera for
 perspective rendering. It is created by passing the type string
 `perspective` to `anariNewCamera`. In addition to the
-<<cameras, general parameters>> understood by all cameras the
+<<object_types_camera, general parameters>> understood by all cameras the
 perspective camera supports the special parameters listed in the table
 below.
 
@@ -97,12 +104,37 @@ below.
 Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
 
+[[object_types_camera_omnidirectional]]
+==== Omnidirectional
 
-==== Orthographic Camera
+Feature: `KHR_CAMERA_OMNIDIRECTIONAL`
+
+The omnidirectional camera captures the complete surrounding
+It is is created by passing the type string
+`omnidirectional` to `anariNewCamera`. It is placed and oriented in the
+scene by using the <<object_types_camera, general parameters>> understood by all
+cameras.
+
+.Additional parameters accepted by the omnidirectional camera.
+[cols="<,<,>2,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name   | Type   |         Default | Description
+| layout |`STRING`|`equirectangular`| pixel layout, possible values: `equirectangular`
+|===================================================================================================
+//TODO:, `cube` name 'projection'? describe cube layout
+//with a latitude / longitude mapping and thus the rendered images should best have a ratio of 2:1.
+
+The image content outside of [0–1] of `imageRegion` is undefined for the
+omnidirectional camera.
+
+[[object_types_camera_orthographic]]
+==== Orthographic
+
+Feature: `KHR_CAMERA_ORTHOGRAPHIC`
 
 The orthographic camera represents a simple camera with orthographic
 projection. It is created by passing the type string `orthographic` to
-`anariNewCamera`. In addition to the <<cameras, general parameters>>
+`anariNewCamera`. In addition to the <<object_types_camera, general parameters>>
 understood by all cameras the orthographic camera supports the following
 special parameters:
 
@@ -116,25 +148,3 @@ special parameters:
 
 Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
-
-
-==== Omnidirectional Camera
-
-The omnidirectional camera captures the complete surrounding
-It is is created by passing the type string
-`omnidirectional` to `anariNewCamera`. It is placed and oriented in the
-scene by using the <<cameras, general parameters>> understood by all
-cameras.
-
-.Additional parameters accepted by the omnidirectional camera.
-[cols="<,<,>2,<4",options="header,unbreakable"]
-|===================================================================================================
-| Name   | Type   |         Default | Description
-| layout |`STRING`|`equirectangular`| pixel layout, possible values: `equirectangular`
-|===================================================================================================
-//TODO:, `cube` name 'projection'? describe cube layout
-//with a latitude / longitude mapping and thus the rendered images should best have a ratio of 2:1.
-
-
-The image content outside of [0–1] of `imageRegion` is undefined for the
-omnidirectional camera.

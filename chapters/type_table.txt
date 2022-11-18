@@ -42,7 +42,7 @@
 
 |`FRAME_COMPLETION_CALLBACK`
 |`ANARIFrameCompletionCallback`
-| <<core_extensions_continuations, extension `KHR_FRAME_COMPLETION_CALLBACK`>> frame completion callback function pointer
+| <<feature_continuations, feature `KHR_FRAME_COMPLETION_CALLBACK`>> frame completion callback function pointer
 
 |`LIBRARY`
 |`ANARILibrary`
@@ -82,7 +82,7 @@
 
 |`GEOMETRY`
 |`ANARIGeometry`
-|<<geometry>> object handle
+|<<object_types_geometry>> object handle
 
 |`GROUP`
 |`ANARIGroup`
@@ -98,7 +98,7 @@
 
 |`MATERIAL`
 |`ANARIMaterial`
-|<<material>> object handle
+|<<object_types_material>> object handle
 
 |`RENDERER`
 |`ANARIRenderer`

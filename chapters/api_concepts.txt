@@ -8,28 +8,71 @@
 This section describes concepts common to all object types for creation,
 parameterization, and property queries.
 
+[[api_concepts_thread_safety]]
+=== Thread Safety, Asynchronous Operations
+
+The ANARI API may be called from any thread but calls that share objects
+must be synchronized and may not overlap. By default, this includes the device.
+Therefore, calls to the same device must be externally synchronized.
+
+Expensive operations can be implemented asynchronously, which avoids blocking
+the calling application. Each asynchronous operation is specified as to what
+API calls are legal to make while the operation has not yet completed.
+
+[NOTE]
+.Note
+====
+Making some operations asynchronous complements the thread safety of ANARI, and
+typically is used for a different purpose. Where a multithreaded application
+may be trying to work on constructing a scene (which could be many smaller
+ANARI API calls) while another scene is being rendered in parallel,
+asynchronous rendering focuses on removing the need for long running
+operations to cause an application to use multithreading just to avoid
+blocking on ANARI.
+====
+
+Devices that implement feature `KHR_DEVICE_SYNCHRONIZATION` relax
+synchronization requirements by excluding the device from the external
+synchronization requirement if the device is passed as the first argument only.
+Calls that are operating on the device as the object must still be synchronized
+with all other calls involving the same device. Likewise `anariRenderFrame` must
+be synchronized with all other ANARI calls as well. This only applies to the
+`anariRenderFrame` call itself, not the asynchronous render operations which
+remain subject to asynchronous rendering restrictions.
+
+This lowers the scope of required synchonization to individual ANARI objects
+allowing different threads to operate concurrently on different objects within
+the same device.
+
+
 [[api_concepts_scene_hierarchy]]
 === Scene Hierarchy (Informative)
 
 ANARI scenes are represented as hierarchies of objects. This section
 describes their relationship to each other.
 
-The <<frame>> is the root object of the scene. It holds the framebuffer
-configuration and the <<world>>, <<camera>>, and <<renderer>> objects.  The
-<<camera>> configures the projection of the rendering used to view the
-<<world>>.  The <<renderer>> holds parameters relating to the rendering
-algorithm.  The <<world>> holds arrays of the drawable objects of the scene such
-as <<surface>>, <<volume>>, and <<light>> either directly or via an array of
-<<instance,Instances>> containing <<group>>. A <<group>> holds arrays of
-<<surface>>, <<volume>>, and <<light>> to be instanced together. An <<instance>>
-combines a <<group>> with a transform for placement of the same collection of
-objects at multiple locations within the same <<world>>. A <<surface>>
-represents drawable surfaces containing a <<geometry>> and a <<material>>. A
-<<geometry>> specifies drawable primitives and data associated with them. A
-<<material>> specifies the surface's appearance related to the data from the
-<<geometry>>. A <<volume>> represents volumetric drawable objects and may
-contain <<spatial_field>> objects. A <<spatial_field>> represents a field
-of values in 3D space. A <<light>> represents sources of illumination.
+The <<object_types_frame>> is the root object of the scene. It holds the
+framebuffer configuration and the <<object_types_world>>,
+<<object_types_camera>>, and <<object_types_renderer>> objects.  The
+<<object_types_camera>> configures the projection of the rendering used to view
+the <<object_types_world>>.  The <<object_types_renderer>> holds parameters
+relating to the rendering algorithm.  The <<object_types_world>> holds arrays of
+the drawable objects of the scene such as <<object_types_surface>>,
+<<object_types_volume>>, and <<object_types_light>> either directly or via an
+array of <<object_types_instance>> containing <<object_types_group>>. A
+<<object_types_group>> holds arrays of <<object_types_surface>>,
+<<object_types_volume>>, and <<object_types_light>> to be instanced together. An
+<<object_types_instance>> combines a <<object_types_group>> with a transform for
+placement of the same collection of objects at multiple locations within the
+same <<object_types_world>>.  A <<object_types_surface>> represents drawable
+surfaces containing a <<object_types_geometry>> and a <<object_types_material>>.
+A <<object_types_geometry>> specifies drawable primitives and data associated
+with them. A <<object_types_material>> specifies the surface's appearance
+related to the data from the <<object_types_geometry>>. A
+<<object_types_volume>> represents volumetric drawable objects and may contain
+<<object_types_spatial_field>> objects. A <<object_types_spatial_field>>
+represents a field of values in 3D space. A <<object_types_light>> represents
+sources of illumination.
 
 The following diagram illustrates the relationships described above:
 
@@ -171,8 +214,8 @@ Floating point number (data types with `FLOAT`) layout and behaviour are as spec
 ==== Color
 
 The following data types must be accepted by geometry's `color` attribute
-parameter and by <<standard_subtypes_samplers>> and are grouped here to allow
-for brevity:
+parameter and by <<object_types_sampler, samplers>>, which are grouped here for
+brevity:
 
 * `UFIXED8`
 * `UFIXED8_VEC2`
@@ -201,10 +244,10 @@ for brevity:
 
 ANARI supports introspection of objects, i.e., querying supported object
 subtypes and information about their parameters, which is particularly useful
-to enumerate and inspect implementation-specific object extensions. The intended
+to enumerate and inspect implementation-specific object features. The intended
 use is to allow for building a graphical user interface for, e.g., specific
 renderers or materials, and to provide hints for the debug layer to aid in
-validating extensions.  Because the meta-information of objects and parameters
+validating features.  Because the meta-information of objects and parameters
 supported by devices is static, it can be queried without creating a device
 first by passing the device name.
 
@@ -269,6 +312,7 @@ The following infos of objects can be queried:
 | description   | `STRING`         |    No    | explanation of the object, e.g., for a tooltip
 | parameter     | `PARAMETER_LIST` |    Yes   | list of supported parameters (array of `ANARIParameter`)
 | channel       | `STRING_LIST`    | for ``FRAME`` | list of supported channels
+| feature       | `STRING_LIST`    | for ``DEVICE``s and ``RENDERER``s | list of features supported by this object
 |===================================================================================================
 
 Parameters that can be of multiple types are reported multiple times (once for
@@ -303,6 +347,7 @@ The following infos of parameters can be queried:
 | required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid,
                                         must be `FALSE` if a `default` is present
 | value         |`STRING_LIST` or `DATA_TYPE_LIST` |    No    | list of accepted strings or data types for parameters that only recognize specific values
+| feature       | `STRING_LIST`    | for ``DEVICE``s and ``RENDERER``s | list of supported features
 |===================================================================================================
 
 
@@ -344,6 +389,24 @@ by the device, the value not being computed yet, or any other device-specific
 reason. Errors related to property queries are still returned via the error
 callback.
 ====
+
+[[api_concepts_features]]
+=== Feature Queries
+Core features and feature features are identified by string names. Supported
+features may be queried from device and renderer objects using
+`anariGetObjectInfo` and `anariGetProperty` by querying for a `STRING_LIST`
+named `"feature"`.
+
+Queries using `anariGetObjectInfo` return a static list of features the object
+type is capable of supporting. Queries using `anariGetProperty` return the
+dynamic list of features supported by a specific object instance. The dynamic
+list returned for an object instance is a subset of of the static list returned
+for the object type. Some features may be missing from the instance because they
+depend on factors (hardware, drivers etc.) that are only known once an instance
+has been created and configured.
+
+A full list of ANARI features can be found in the <<feature_index, Feature
+Index>> appendix.
 
 [[api_concepts_memory]]
 === Arrays and Memory Ownership
@@ -475,11 +538,10 @@ subset of elements. This gives applications the ability to more efficiently
 change the number of elements used by parent objects at the cost of memory size
 efficiency.
 
-Implementations provide this functionality by implementing
-<<core_extensions_array1d_region, extension `KHR_ARRAY1D_REGION`>>, which adds
-the following parameter to `ANARIArray1D`:
+Implementations provide this functionality by implementing feature
+`KHR_ARRAY1D_REGION`, which adds the following parameter to `ANARIArray1D`:
 
-.Additional parameters accepted by `ANARIArray1D` with <<core_extensions_array1d_region, extension `KHR_ARRAY1D_REGION`>>.
+.Additional parameters accepted by `ANARIArray1D` with feature `KHR_ARRAY1D_REGION`.
 [cols="<,<,<4",options="header,unbreakable"]
 |==================================================================
 | Name     | Type            | Description
@@ -599,13 +661,14 @@ Version information can be queried as properties on the `ANARIDevice`
 .Properties queryable on devices.
 [cols="<5,<2,^3,<10",options="header,unbreakable"]
 |===================================================================================================
-| Name          | Type    | Required | Description
-| version       |`INT32`  |   Yes    | unique version number guaranteed to increase between versions
-| version.major |`INT32`  |    No    | semantic version major value (major.minor.patch)
-| version.minor |`INT32`  |    No    | semantic version minor value (major.minor.patch)
-| version.patch |`INT32`  |    No    | semantic version patch value (major.minor.patch)
-| version.name  |`STRING` |    No    | human readable name/title
-| geometryMaxIndex|`UINT64`|  Yes    | largest supported index into vertex arrays in <<standard_subtypes_geometries, geometries>>
+| Name            | Type        | Required | Description
+| version         |`INT32`      |   Yes    | unique version number guaranteed to increase between versions
+| version.major   |`INT32`      |   No     | semantic version major value (major.minor.patch)
+| version.minor   |`INT32`      |   No     | semantic version minor value (major.minor.patch)
+| version.patch   |`INT32`      |   No     | semantic version patch value (major.minor.patch)
+| version.name    |`STRING`     |   No     | human readable name/title
+| geometryMaxIndex|`UINT64`     |   Yes    | largest supported index into vertex arrays in <<object_types_geometry, geometries>>
+| feature         |`STRING_LIST`|   Yes    | list of supported features
 |===================================================================================================
 
 [[api_concepts_error_handling]]

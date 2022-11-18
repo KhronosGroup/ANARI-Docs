@@ -1,0 +1,56 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[[object_types_material]]
+=== Material
+
+Materials describe how light interacts with surfaces to give objects their
+appearance. Materials are created with
+
+[source,cpp]
+....
+ANARIMaterial anariNewMaterial(ANARIDevice, const char *subtype);
+....
+
+Most material parameters can be set to a constant, `ANARISampler` or string
+value. Unless otherwise noted, the string selects the surface attribute that
+will be used to source the parameter during rendering.
+
+[[object_types_material_matte]]
+==== Matte
+
+Feature: `KHR_MATERIAL_MATTE`
+
+The `matte` material reflects light uniformly into the hemisphere, i.e.,
+it exhibits Lambertian reflectance and thus its apparent brightness is
+independent of the viewing direction. The matte material is always treated as
+entirely opaque.
+
+.Parameters of the matte material.
+[cols="<,<,>,<",options="header",]
+|===
+|Name  |Type         |Default   |Description
+|color |`FLOAT32_VEC3` / `SAMPLER` / `STRING` | (0.8, 0.8, 0.8) | diffuse color
+|===
+
+[[object_types_material_transparent_matte]]
+==== Transparent Matte
+
+Feature: `KHR_MATERIAL_TRANSPARENT_MATTE`
+
+The `transparentMatte` material extends the <<Matte>> material by adding
+support for (partial) cut-out transparency.
+
+.Parameters of the transparentMatte material.
+[cols="<,<,>,<",options="header",]
+|===
+|Name  |Type         |Default   |Description
+|color |`FLOAT32_VEC3` / `SAMPLER` / `STRING` | (0.8, 0.8, 0.8) | diffuse color
+|opacity |`FLOAT32` / `SAMPLER` / `STRING` | 1.0 | opacity
+|===
+
+If `color` is of type `ANARI_SAMPLER` or `ANARI_STRING`, the fourth
+component of the value fetched from a sampler or attribute is multiplied
+with the opacity value.
+
