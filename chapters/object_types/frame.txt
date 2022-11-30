@@ -55,6 +55,23 @@ must be positive.
                             possible values: `UFIXED8_VEC3`, `UFIXED8_RGB_SRGB`, `FLOAT32_VEC3`
 |===================================================================================================
 
+.Additional parameters accepted by the frame with feature `KHR_FRAME_ID_BUFFERS`.
+[cols="<,<,<5",options="header,unbreakable"]
+|===================================================================================================
+| Name                | Type       | Description
+| channel.primitiveId |`DATA_TYPE` | enable mapping the `primitiveId` channel and specify its
+                                     observable type; `primitiveId` attribute of the first hit;
+                                     possible values: `UINT32`
+| channel.objectId    |`DATA_TYPE` | enable mapping the `objectId` channel and specify its
+                                     observable type; user defined <<object_types_surface>> /
+                                     <<object_types_volume>> `id`, if specified, or index in
+                                     <<object_types_group>> of first hit; possible values: `UINT32`
+| channel.instanceId  |`DATA_TYPE` | enable mapping the `instanceId` channel and specify its
+                                     observable type; user defined <<object_types_instance>> `id`,
+                                     if specified, or instance index of first hit;
+                                     possible values: `UINT32`
+|===================================================================================================
+
 The feature `KHR_PROGRESSIVE_RENDERING` indicates that implementations use
 progressive rendering techniques like Monte Carlo integration and thus that
 multiple subsequent calls to <<rendering_frames, `anariRenderFrame`>> without

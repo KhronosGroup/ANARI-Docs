@@ -114,6 +114,7 @@ instances world-space transform.
 | group     |`GROUP`       |                                               | Group to be instanced, required
 | transform |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
                                                                              (overridden by  `motion.transform`, feature `KHR_TRANSFORMATION_MOTION_BLUR`)
+| id        |`UINT32`     |                                            -1u | optional user Id, for <<object_types_frame>> channel `instanceId`
 |===================================================================================================
 
 The matrix `transform` represents an affine transformation which is
@@ -217,6 +218,7 @@ ANARISurface anariNewSurface(ANARIDevice);
 | Name     |Type      | Description
 | geometry |`GEOMETRY`| <<object_types_geometry>> object used by this surface
 | material |`MATERIAL`| <<object_types_material>> applied to the geometry
+| id       |`UINT32`  | optional user Id, for <<object_types_frame>> channel `objectId`, default -1u
 |===================================================================================================
 
 Surfaces require a valid <<object_types_geometry>> to be set as the `geometry` parameter and
