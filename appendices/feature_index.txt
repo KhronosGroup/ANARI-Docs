@@ -17,6 +17,7 @@
 * <<object_types_camera_perspective, `KHR_CAMERA_PERSPECTIVE`>>: `perspective` camera subtype is supported
 * <<api_concepts_thread_safety, `KHR_DEVICE_SYNCHRONIZATION`>>: Relax API function synchronization requirement
 * <<object_types_frame, `KHR_FRAME_AUXILIARY_BUFFERS`>>: Additional ANARIFrame channels are supported
+* <<object_types_frame, `KHR_FRAME_ID_BUFFERS`>>: Additional ANARIFrame channels are supported
 * <<object_types_frame, `KHR_FRAME_COMPLETION_CALLBACK`>>: Frame completion callback function parameters on ANARIFrame are supported
 * <<object_types_geometry_cone, `KHR_GEOMETRY_CONE`>>: `cone` geometry subtype is supported
 * <<object_types_geometry_curve, `KHR_GEOMETRY_CURVE`>>: `curve` geometry subtype is supported

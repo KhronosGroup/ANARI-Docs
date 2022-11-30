@@ -33,6 +33,7 @@ The scivis volume is created by passing the subtype string `scivis` to
 | opacity          |`ARRAY1D` of `FLOAT32`|         | array to map sampled and clamped field values to opacity
 | opacity.position |`ARRAY1D` of `FLOAT32`|         | optional array to position the elements of `opacity` values in `valueRange`
 | densityScale     |`FLOAT32`             |       1 | makes volumes uniformly thinner or thicker
+| id               |`UINT32`              |     -1u | optional user Id, for <<object_types_frame>> channel `objectId`
 |===================================================================================================
 
 The `color` and the `opacity` array map values sampled in `field`
