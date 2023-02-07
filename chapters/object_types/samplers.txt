@@ -151,7 +151,7 @@ The `array` size must be at most <<Devices, device limit `geometryMaxIndex`>>.
 
 Feature: `KHR_SAMPLER_TRANSFORM`
 
-The transform sampler applies a `transform` to the input attribute and returns the result
+The transform sampler applies a transform to the input attribute and returns the result
 as the sampled value.
 
 
@@ -160,12 +160,12 @@ as the sampled value.
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
 | inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate
-| transform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to coordinates before sampling
+| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to coordinates before sampling
 |===================================================================================================
 
 [NOTE]
 .Note
 ====
-Like all `FLOAT32_MAT4` matrices, `transform` is in column-major memory
+Like all `FLOAT32_MAT4` matrices, `outTransform` is in column-major memory
 layout and is applied to column vectors (multiplied from the left).
 ====
