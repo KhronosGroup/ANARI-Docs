@@ -14,8 +14,9 @@ ANARIMaterial anariNewMaterial(ANARIDevice, const char *subtype);
 ....
 
 Most material parameters can be set to a constant, `ANARISampler` or string
-value. Unless otherwise noted, the string selects the surface attribute that
-will be used to source the parameter during rendering.
+value. Unless otherwise noted, the string selects the surface
+<<Attributes, attribute>> that will be used to source the parameter
+during rendering.
 
 [[object_types_material_matte]]
 ==== Matte
@@ -24,33 +25,116 @@ Feature: `KHR_MATERIAL_MATTE`
 
 The `matte` material reflects light uniformly into the hemisphere, i.e.,
 it exhibits Lambertian reflectance and thus its apparent brightness is
-independent of the viewing direction. The matte material is always treated as
-entirely opaque.
+independent of the viewing direction. The matte material supports
+(partial) cut-out transparency depending on `alphaMode`.
 
 .Parameters of the matte material.
-[cols="<,<,>,<",options="header",]
-|===
-|Name  |Type         |Default   |Description
-|color |`FLOAT32_VEC3` / `SAMPLER` / `STRING` | (0.8, 0.8, 0.8) | diffuse color
-|===
-
-[[object_types_material_transparent_matte]]
-==== Transparent Matte
-
-Feature: `KHR_MATERIAL_TRANSPARENT_MATTE`
-
-The `transparentMatte` material extends the <<Matte>> material by adding
-support for (partial) cut-out transparency.
-
-.Parameters of the transparentMatte material.
-[cols="<,<,>,<",options="header",]
+[cols="<,<2,>,<2",options="header",]
 |===
 |Name  |Type         |Default   |Description
 |color |`FLOAT32_VEC3` / `SAMPLER` / `STRING` | (0.8, 0.8, 0.8) | diffuse color
 |opacity |`FLOAT32` / `SAMPLER` / `STRING` | 1.0 | opacity
+|alphaMode |`STRING` |`opaque`| control cut-out transparency, possible values: `opaque`, `blend`, `mask`
+|alphaCutoff |`FLOAT32` | 0.5 | threshold when `alphaMode` is `mask`
 |===
 
 If `color` is of type `ANARI_SAMPLER` or `ANARI_STRING`, the fourth
 component of the value fetched from a sampler or attribute is multiplied
-with the opacity value.
+with the opacity value. The final opacity is determied by `alphaMode`:
 
+* `opaque`: fully opaque (opacity treated as 1)
+* `blend`: partial opacity
+* `mask`: fully opaque (opacity treated as 1) if the computed opacity
+  value is greater than or equal to `alphaCutoff`, otherwise fully
+  transparent (opacity treated 0)
+
+[[object_types_material_physically_based]]
+==== Physically Based
+
+Feature: `KHR_MATERIAL_PHYSICALLY_BASED`
+
+The `physicallyBased` material offers a wealth of features while being
+user friendly. It aims to be compatible to glTF's pbrMetallicRoughness
+material and ratified Khronos material extensions, thus refer to
+<<gltf-brdf>> for the exact definitions of the BRDF and also
+non-normative implementation hints, as well as to glTF extensions
+https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_specular/README.md[KHR_materials_specular],
+https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_clearcoat/README.md[KHR_materials_clearcoat],
+https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_emissive_strength/README.md[KHR_materials_emissive_strength],
+https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_ior/README.md[KHR_materials_ior],
+https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_transmission/README.md[KHR_materials_transmission],
+https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_volume/README.md[KHR_materials_volume],
+https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_sheen/README.md[KHR_materials_sheen], and
+https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_iridescence/README.md[KHR_materials_iridescence].
+
+.Parameters of the physicallyBased material.
+[cols="<3,<4,>2,<4",options="header",]
+|===================================================================================================
+| Name                | Type                                |       Default | Description
+| baseColor           |`FLOAT32_VEC3` / `SAMPLER` / `STRING`|(1.0, 1.0, 1.0)| base color
+| opacity             |`FLOAT32` / `SAMPLER` / `STRING`     |           1.0 | opacity
+| metallic            |`FLOAT32` / `SAMPLER` / `STRING`     |           1.0 | metalness
+| roughness           |`FLOAT32` / `SAMPLER` / `STRING`     |           1.0 | roughness 
+| normal              |`SAMPLER`                            |               | normal map for the base layer
+| emissive            |`FLOAT32_VEC3` / `SAMPLER` / `STRING`|(0.0, 0.0, 0.0)| emissive
+| occlusion           |`SAMPLER`                            |               | occlusion map
+| alphaMode           |`STRING`                             |       `opaque`| control cut-out transparency, possible values: `opaque`, `blend`, `mask`
+| alphaCutoff         |`FLOAT32`                            |           0.5 | threshold when `alphaMode` is `mask`
+| specular            |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | strength of the specular reflection
+| specularColor       |`FLOAT32_VEC3` / `SAMPLER` / `STRING`|(1.0, 1.0, 1.0)| color of the specular reflection at normal incidence
+| clearcoat           |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | strength of the clearcoat layer
+| clearcoatRoughness  |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | roughness of the clearcoat layer
+| clearcoatNormal     |`SAMPLER`                            |               | normal map for the clearcoat layer
+| transmission        |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | strength of the transmission
+| ior                 |`FLOAT32`                            |           1.5 | index of refraction
+| thickness           |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | thickness of the volume beneath the surface (with 0 the material is thin-walled)
+| attenuationDistance |`FLOAT32`                            |         {inf} | average distance that light travels in the medium before interacting with a particle
+| attenuationColor    |`FLOAT32_VEC3`                       |(1.0, 1.0, 1.0)| color that white light turns into due to absorption when reaching the attenuation distance
+| sheenColor          |`FLOAT32_VEC3` / `SAMPLER` / `STRING`|(0.0, 0.0, 0.0)| sheen color
+| sheenRoughness      |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | sheen roughness
+| iridescence         |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | stength of the thin-film layer
+| iridescenceIor      |`FLOAT32`                            |           1.3 | index of refraction of the thin-film layer
+| iridescenceThickness|`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | thickness of the thin-film layer
+|===================================================================================================
+
+If `baseColor` is of type `ANARI_SAMPLER` or `ANARI_STRING` and
+`alphaMode` is not `opaque`, the fourth component of the value fetched
+from a sampler or attribute is multiplied with the `opacity` value. The
+final opacity is determied by `alphaMode`:
+
+* `opaque`: fully opaque (opacity treated as 1)
+* `blend`: partial opacity
+* `mask`: fully opaque (opacity treated as 1) if the computed opacity
+  value is greater than or equal to `alphaCutoff`, otherwise fully
+  transparent (opacity treated 0)
+
+
+[NOTE]
+.Note
+====
+To use the glTF `metallicRoughnessTexture` create two samplers with the
+same `image` array and a "swizzle" `outTransform` for `roughness`.
+
+The normal maps `normal` and `clearcoatNormal` typically use an
+<<Image2D>> sampler with `image` array element type `FIXED8_VEC3` or
+`FIXED8_VEC4`. The glTF `scale` parameter of normal maps should be
+factored into the `outTransform` of the corresponding <<Sampler,
+sampler>>.
+
+Similarly, glTF parameters `emissiveStrength` and `emissiveFactor`
+should be factored into `emissive` (or `outTransform` if `emissive` is
+an `ANARI_SAMPLER`).
+
+Also, the glTF parameters `iridescenceThicknessMinimum` and
+`iridescenceThicknessMaximum` should be mapped to `outTransforms` of the
+`iridescenceThickness` sampler (assuming the 4th channel is not present
+or 1).
+====
+
+[NOTE]
+.Note
+====
+Implementations should apply the `occlusion` attenuation only for
+otherwise unoccluded ambient lighting. The glTF parameter `strength`
+should be factored into the `outTransforms` of its sampler.
+====

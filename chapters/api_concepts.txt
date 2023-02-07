@@ -395,7 +395,7 @@ callback.
 Core features and feature features are identified by string names. Supported
 features may be queried from device and renderer objects using
 `anariGetObjectInfo` and `anariGetProperty` by querying for a `STRING_LIST`
-named `"feature"`.
+named `feature`.
 
 Queries using `anariGetObjectInfo` return a static list of features the object
 type is capable of supporting. Queries using `anariGetProperty` return the

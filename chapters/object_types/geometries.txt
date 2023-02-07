@@ -191,7 +191,8 @@ recognizes the following parameters:
 |===================================================================================================
 | Name              | Type                                                      | Default                 | Description
 | vertex.position   |`ARRAY1D` of `FLOAT32_VEC3`                     |                         | required vertex positions
-| vertex.normal     |`ARRAY1D` of `FIXED16_VEC3` or `FLOAT32_VEC3`               |                         | vertex normals
+| vertex.normal     |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                                  | | vertex normals
+| vertex.tangent    |`ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4`| | vertex tangents
 | vertex.color      |`ARRAY1D` of <<color>>                                                        |  | vertex colors
 | vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
 | vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
@@ -202,6 +203,10 @@ recognizes the following parameters:
 
 Parameter `vertex.position` must be set and contain at least four
 elements to yield a valid quad geometry.
+
+The fourth component of an element of `vertex.tangent` (if present)
+indicates the handedness of the tangent space coordinate system and thus
+must be 1 or -1.
 
 Each element of `primitive.index` defines one quad, its four components
 index into the `vertex.pass:[*]` arrays. If no `primitive.index` is given, then
@@ -276,6 +281,7 @@ recognizes the following parameters:
 | Name               | Type                                                       | Default    | Description
 | vertex.position    |`ARRAY1D` of `FLOAT32_VEC3`                                 |            | required vertex positions
 | vertex.normal      |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                |            | vertex normals
+| vertex.tangent     |`ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex tangents
 | vertex.color       |`ARRAY1D` of <<color>>                                      |            | vertex colors
 | vertex.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
 | vertex.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute1
@@ -286,6 +292,10 @@ recognizes the following parameters:
 
 Parameter `vertex.position` must be set and contain at least three
 elements to yield a valid triangle geometry.
+
+The fourth component of an element of `vertex.tangent` (if present)
+indicates the handedness of the tangent space coordinate system and thus
+must be 1 or -1.
 
 Each element of `primitive.index` defines one triangle, its three
 components index into the `vertex.pass:[*]` arrays. If no `primitive.index` is
