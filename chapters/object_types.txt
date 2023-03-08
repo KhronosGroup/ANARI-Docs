@@ -52,6 +52,41 @@ Feature support information can be queried as properties on the `ANARIRenderer`
 | feature | `STRING_LIST` | Yes      | list of supported features
 |===================================================================================================
 
+
+Feature: `KHR_RENDERER_BACKGROUND_COLOR`
+
+.Parameters understood by renderers with feature `KHR_RENDERER_BACKGROUND_COLOR`.
+[cols="<,<,>,<3",options="header,unbreakable"]
+|===================================================================================================
+| Name       | Type         |      Default | Description
+| background |`FLOAT32_VEC4`| (0, 0, 0, 1) | the background color
+|===================================================================================================
+
+Feature: `KHR_RENDERER_BACKGROUND_IMAGE`
+
+.Parameters understood by renderers with feature `KHR_RENDERER_BACKGROUND_IMAGE`.
+[cols="<,<,>,<3",options="header,unbreakable"]
+|===================================================================================================
+| Name       | Type         |      Default | Description
+| background |`ARRAY2D` of <<color>> |  | the background image
+| backgroundImageFilter | `STRING` | `nearest` | filter mode of the background image, possible values: `nearest`, `linear`
+|===================================================================================================
+
+The background image will be rescaled to the frame dimensions using the specified filter mode.
+
+If both `KHR_RENDERER_BACKGROUND_COLOR` and `KHR_RENDERER_BACKGROUND_IMAGE` are supported the `background` parameter can accept either type.
+
+Feature: `KHR_RENDERER_AMBIENT_LIGHT`
+
+.Parameters understood by renderers with feature `KHR_RENDERER_AMBIENT_LIGHT`.
+[cols="<,<,>,<3",options="header,unbreakable"]
+|===================================================================================================
+| Name       | Type         |      Default | Description
+| ambientColor | `FLOAT32_VEC3` | (1, 1, 1) | ambient light color
+| ambientIntensity | `FLOAT32` | 0 | ambient light intensity
+|===================================================================================================
+
+
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
