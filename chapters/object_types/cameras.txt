@@ -81,6 +81,17 @@ blur (in combination with `shutter`). Alternatively, the transformation keys can
 also be given as decomposed `motion.scale`, `motion.rotation` and
 `motion.translation`.
 
+
+.Additional parameters accepted by all cameras with feature `KHR_CAMERA_NEAR_FAR`.
+[cols="<,<,>,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name   | Type    |  Default | Description
+| nearPlane |`FLOAT32`|         | distance of near plane from camera position
+| farPlane |`FLOAT32`|         | distance of far plane from camera position
+|===================================================================================================
+
+Feature `KHR_CAMERA_NEAR_FAR`: Some rendering algorithms rely on defined near and far planes. By default these will be determined based on the scene contents and heuristics of the renderer. Alternatively this feature provides explicit control over near and far plane positions.
+
 [[object_types_camera_perspective]]
 ==== Perspective
 
