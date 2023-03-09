@@ -412,11 +412,72 @@ Index>> appendix.
 === Arrays and Memory Ownership
 :array: <<api_concepts_memory, array>>
 
-`ANARIArray` handles represent data arrays in memory, which are shared with
-device implementations. The memory shared with ANARI can be either owned
-by the application, have ownership transferred to the device via a deleter
-callback, or be managed by the device. Input data has dimensions encoded
-in its handle type, where each dimension can have a sparse stride.
+There are two methods of expressing array data on objects: directly mapping
+array elements on an object parameter in order to write data elements, or
+creating array objects represented by a handle.
+
+The first method lets applications directly map a device's internally-managed
+one, two, or three dimensional array data on any given object using
+
+[source,cpp]
+....
+void *anariMapParameterArray1D(ANARIDevice,
+    ANARIObject,
+    const char *parameterName
+    ANARIDataType elementType,
+    uint64_t numElements);
+
+void *anariMapParameterArray2D(ANARIDevice,
+    ANARIObject,
+    const char *parameterName
+    ANARIDataType elementType,
+    uint64_t numElements1,
+    uint64_t numElements2);
+
+void *anariMapParameterArray3D(ANARIDevice,
+    ANARIObject,
+    const char *parameterName
+    ANARIDataType elementType,
+    uint64_t numElements1,
+    uint64_t numElements2,
+    uint64_t numElements3);
+....
+
+Each of these functions return a densely packed, write-only array for the
+application to fill, where the number of elements `numElementsN` must be positive
+(there cannot be an empty mapped array). Whenever an array is directly mapped,
+any previously mapped array configuration (size, dimensionality, etc.) is
+discarded in favor of the currently mapped array configuration.
+
+Devices are only required to allocate directly mapped arrays for parameters
+corresponding extensions that the device implements. In cases where the
+parameter is unknown by the device, the device is permitted to return `NULL`.
+
+Once the array has been filled, applications signal that the device is free to
+consume the data with
+
+[source,cpp]
+....
+void anariUnmapParameterArray(ANARIDevice, ANARIObject, const char *parameterName);
+....
+
+Directly mapped arrays behave like normal parameters in that the underlying
+array data will not be used in the <<rendering_frames, next rendered frame>>
+until the object itself is committed with `anariCommitParameters`. Furthermore,
+using `anariUnsetParameter` will subsequently reset the parameter to an unset
+state, effectively clearing the previously mapped array on the object. Using
+`anariSetParameter`, `anariMapParameterArray`, or `anariUnsetParameter` on an
+array that is still mapped is an error -- applications must first unmap the
+array before altering the parameter through other means. Writing to the mapped
+pointer after calling `anariUnmapParameterArray` is undefined behavior and
+should be avoided.
+
+The second method of expressing array data on objects uses handles. `ANARIArray`
+handles represent data arrays in memory, which are shared with device
+implementations. The memory shared with ANARI can be either owned by the
+application, have ownership transferred to the device via a deleter callback, or
+be managed by the device. Input data has dimensions encoded in its handle type,
+where each dimension can have a sparse stride.
 
 The signature of the deleter is provided in `anari.h` as
 
@@ -435,7 +496,7 @@ ANARIArray1D anariNewArray1D(ANARIDevice,
    ANARIMemoryDeleter,
    const void *userPtr,
    ANARIDataType elementType,
-   uint64_t numItems,
+   uint64_t numElements,
    uint64_t byteStride);
 
 ANARIArray2D anariNewArray2D(ANARIDevice,
@@ -443,8 +504,8 @@ ANARIArray2D anariNewArray2D(ANARIDevice,
    ANARIMemoryDeleter,
    const void *userPtr,
    ANARIDataType elementType,
-   uint64_t numItems1,
-   uint64_t numItems2,
+   uint64_t numElements1,
+   uint64_t numElements2,
    uint64_t byteStride1,
    uint64_t byteStride2);
 
@@ -453,15 +514,15 @@ ANARIArray3D anariNewArray3D(ANARIDevice,
    ANARIMemoryDeleter,
    const void *userPtr,
    ANARIDataType elementType,
-   uint64_t numItems1,
-   uint64_t numItems2,
-   uint64_t numItems3,
+   uint64_t numElements1,
+   uint64_t numElements2,
+   uint64_t numElements3,
    uint64_t byteStride1,
    uint64_t byteStride2,
    uint64_t byteStride3);
 ....
 
-The number of elements `numItemsN` must be positive (there cannot be an
+The number of elements `numElementsN` must be positive (there cannot be an
 empty array object). The distance between consecutive elements (per
 dimension) is given in bytes with `byteStrideN`. If a `byteStrideN` is
 zero, it will be determined automatically (e.g., as `sizeof(type)`).
@@ -573,6 +634,17 @@ operation.
 As with all `REGION` types, the element from `region.lower` is _inclusive_,
 while `region.upper` is _exclusive_. This is intended to mimic C++ begin/end
 iterators on containers.
+====
+
+[NOTE]
+.Note
+====
+Directly mapped arrays from object parameters maximizes the device's opportunity
+to be efficient in its underlying implementation. This is preferred method
+applications should use to set array data on objects.  However, if the array
+data needs to be set on more than one object, then applications should prefer
+using array objects also detailed in this section so that a single array handle
+can be set on more than one parent object.
 ====
 
 [[api_concepts_libraries]]
