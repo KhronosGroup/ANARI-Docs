@@ -78,12 +78,14 @@ If both `KHR_RENDERER_BACKGROUND_COLOR` and `KHR_RENDERER_BACKGROUND_IMAGE` are 
 
 Feature: `KHR_RENDERER_AMBIENT_LIGHT`
 
+The ambient light source surrounds the scene and illuminates it from infinity.
+
 .Parameters understood by renderers with feature `KHR_RENDERER_AMBIENT_LIGHT`.
 [cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name       | Type         |      Default | Description
 | ambientColor | `FLOAT32_VEC3` | (1, 1, 1) | ambient light color
-| ambientIntensity | `FLOAT32` | 0 | ambient light intensity
+| ambientRadiance | `FLOAT32` | 0 | the amount of light emitted by a point on the ambient light source in a direction, in W/sr/m^2^
 |===================================================================================================
 
 
