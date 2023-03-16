@@ -82,15 +82,6 @@ also be given as decomposed `motion.scale`, `motion.rotation` and
 `motion.translation`.
 
 
-.Additional parameters accepted by all cameras with feature `KHR_CAMERA_NEAR_FAR`.
-[cols="<,<,>,<4",options="header,unbreakable"]
-|===================================================================================================
-| Name   | Type    |  Default | Description
-| nearPlane |`FLOAT32`|         | distance of near plane from camera position
-| farPlane |`FLOAT32`|         | distance of far plane from camera position
-|===================================================================================================
-
-Feature `KHR_CAMERA_NEAR_FAR`: Some rendering algorithms rely on defined near and far planes. By default these will be determined based on the scene contents and heuristics of the renderer. Alternatively this feature provides explicit control over near and far plane positions.
 
 [[object_types_camera_perspective]]
 ==== Perspective
@@ -110,10 +101,27 @@ below.
 | Name   | Type    |  Default | Description
 | fovy   |`FLOAT32`|   {pi}/3 | the field of view (angle in radians) of the frame’s height
 | aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
+| nearBound |`FLOAT32`|         | maximal distance of near plane from camera position
+| farBound |`FLOAT32`|         | minimal distance of far plane from camera position
 |===================================================================================================
 
 Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
+
+The `nearBound` and `farBound` are bounds for the clipping plane positions in case the rendering algorithm
+requires them.
+If they are explicitly set they need to fulfill 0 < `nearBound` < `farBound`.
+
+[NOTE]
+.Note
+====
+Some rasterization based rendering algorithms intrinsically require near and far planes. The choice of these also affects
+depth precision. By default ANARI devices using such algorithms will try to determine appropriate values
+from the scene contents and internal heuristics. In some cases this may lead to undesirable clipping at
+the near plane or low depth precision if the ratio of far to near is large. The `nearBound` and `farBound`
+allow setting maximum and minimum values for these. If these parameters are set, anything between
+them is guaranteed to not be clipped by the camera.
+====
 
 [[object_types_camera_omnidirectional]]
 ==== Omnidirectional
@@ -155,7 +163,12 @@ special parameters:
 | Name   | Type    |  Default | Description
 | aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
 | height |`FLOAT32`|        1 | height of the image plane in world units
+| nearBound |`FLOAT32`|         | maximal distance of near plane from camera position
+| farBound |`FLOAT32`|         | minimal distance of far plane from camera position
 |===================================================================================================
 
 Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
+
+The `nearBound` and `farBound` are bounds the device has to adhere to but are not guaranteed to act as clipping planes.
+If they are explicitly set they need to fulfill 0 < `nearBound` < `farBound`.
