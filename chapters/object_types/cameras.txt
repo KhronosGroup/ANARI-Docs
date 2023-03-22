@@ -81,6 +81,8 @@ blur (in combination with `shutter`). Alternatively, the transformation keys can
 also be given as decomposed `motion.scale`, `motion.rotation` and
 `motion.translation`.
 
+
+
 [[object_types_camera_perspective]]
 ==== Perspective
 
@@ -99,10 +101,22 @@ below.
 | Name   | Type    |  Default | Description
 | fovy   |`FLOAT32`|   {pi}/3 | the field of view (angle in radians) of the frame’s height
 | aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
+| near |`FLOAT32`|         | near clip plane distance
+| far |`FLOAT32`|         | far flip plane distance
 |===================================================================================================
 
 Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
+
+If `near` and/or `far` are explicitly set they need to fulfill 0 < `near` < `far`. If they
+are not set they are determined by the renderer.
+
+[NOTE]
+.Note
+====
+Some rasterization based rendering algorithms intrinsically require near and far planes. The choice of these may also affect depth precision. By default ANARI devices using such algorithms will try to determine appropriate values from the scene contents and internal heuristics.
+When the algorithm does not require clip planes and `near`/`far` are not set it may opt perform no clipping (effectively setting them to 0 and infinity).
+====
 
 [[object_types_camera_omnidirectional]]
 ==== Omnidirectional
@@ -144,7 +158,20 @@ special parameters:
 | Name   | Type    |  Default | Description
 | aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
 | height |`FLOAT32`|        1 | height of the image plane in world units
+| near |`FLOAT32`|         | near clip plane distance
+| far |`FLOAT32`|         | far flip plane distance
 |===================================================================================================
 
 Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
+
+If `near` and/or `far` are explicitly set they need to fulfill 0 < `near` < `far`. If they
+are not set they are determined by the renderer.
+
+[NOTE]
+.Note
+====
+Some rasterization based rendering algorithms intrinsically require near and far planes. The choice of these may also affect depth precision. By default ANARI devices using such algorithms will try to determine appropriate values from the scene contents and internal heuristics.
+When the algorithm does not require clip planes and `near`/`far` are not set it may opt perform no clipping (effectively setting them to 0 and infinity).
+====
+
