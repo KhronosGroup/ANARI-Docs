@@ -69,10 +69,9 @@ Feature: `KHR_RENDERER_BACKGROUND_IMAGE`
 |===================================================================================================
 | Name       | Type         |      Default | Description
 | background |`ARRAY2D` of <<color>> |  | the background image
-| backgroundImageFilter | `STRING` | `nearest` | filter mode of the background image, possible values: `nearest`, `linear`
 |===================================================================================================
 
-The background image will be rescaled to the frame dimensions using the specified filter mode.
+The background image will be rescaled to the frame dimensions by linear filteirng.
 
 If both `KHR_RENDERER_BACKGROUND_COLOR` and `KHR_RENDERER_BACKGROUND_IMAGE` are supported the `background` parameter can accept either type.
 
