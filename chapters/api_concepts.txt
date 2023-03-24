@@ -242,29 +242,36 @@ brevity:
 [[api_concepts_introspection]]
 === Object Introspection
 
-ANARI supports introspection of objects, i.e., querying supported object
+ANARI supports introspection of objects, i.e., querying supported features, object
 subtypes and information about their parameters, which is particularly useful
 to enumerate and inspect implementation-specific object features. The intended
 use is to allow for building a graphical user interface for, e.g., specific
 renderers or materials, and to provide hints for the debug layer to aid in
-validating features.  Because the meta-information of objects and parameters
-supported by devices is static, it can be queried without creating a device
-first by passing the device name.
+validating features.
+
+Device subtypes and their implemented features can be queried
+from a library before instantiating a device. Object and parameter specific
+information can be queried from an instantiated device object.
 
 [source,cpp]
 ----
 const char **anariGetDeviceSubtypes(ANARILibrary);
+const char **anariGetDeviceFeatures(ANARILibrary, const char *deviceSubtype);
 ----
 
-To get a list of device subtypes implemented in a library, call function
+A list of device subtypes implemented in a library is retrieved by calling
 `anariGetDeviceSubtypes`. It returns `NULL` if there are no devices, or a
 `NULL`-terminated list of `0`-terminated C-strings with the names of the
 devices. The first (if any) device is the default device.
 
+The list features implemented by a device is retrieved by calling
+`anariGetDeviceFeatures` with a device subtype returned by
+`anariGetDeviceSubtypes`. It returns a `NULL`-terminated list of `0`-terminated
+C-strings with the names of the implemented features.
+
 [source,cpp]
 ----
-const char **anariGetObjectSubtypes(
-    ANARILibrary, const char *deviceSubtype, ANARIDataType objectType);
+const char **anariGetObjectSubtypes(ANARIDevice, ANARIDataType objectType);
 ----
 
 To enumerate the subtypes of type `objectType` supported by device
@@ -290,8 +297,7 @@ typedef struct
   ANARIDataType type;
 } ANARIParameter;
 
-const void *anariGetObjectInfo(ANARILibrary,
-    const char *deviceSubtype,
+const void *anariGetObjectInfo(ANARIDevice,
     ANARIDataType objectType,
     const char *objectSubtype
     const char *infoName,
@@ -312,7 +318,7 @@ The following infos of objects can be queried:
 | description   | `STRING`         |    No    | explanation of the object, e.g., for a tooltip
 | parameter     | `PARAMETER_LIST` |    Yes   | list of supported parameters (array of `ANARIParameter`)
 | channel       | `STRING_LIST`    | for ``FRAME`` | list of supported channels
-| feature       | `STRING_LIST`    | for ``DEVICE``s and ``RENDERER``s | list of features supported by this object
+| feature       | `STRING_LIST`    | for ``RENDERER``s | list of features supported by this object
 |===================================================================================================
 
 Parameters that can be of multiple types are reported multiple times (once for
@@ -320,8 +326,7 @@ each supported variant: with the same `name`, but different `type`).
 
 [source,cpp]
 ----
-const void *anariGetParameterInfo(ANARILibrary,
-    const char *deviceSubtype,
+const void *anariGetParameterInfo(ANARIDevice,
     ANARIDataType objectType,
     const char *objectSubtype,
     const char *parameterName,
@@ -347,7 +352,6 @@ The following infos of parameters can be queried:
 | required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid,
                                         must be `FALSE` if a `default` is present
 | value         |`STRING_LIST` or `DATA_TYPE_LIST` |    No    | list of accepted strings or data types for parameters that only recognize specific values
-| feature       | `STRING_LIST`    | for ``DEVICE``s and ``RENDERER``s | list of supported features
 |===================================================================================================
 
 
@@ -397,13 +401,13 @@ features may be queried from device and renderer objects using
 `anariGetObjectInfo` and `anariGetProperty` by querying for a `STRING_LIST`
 named `feature`.
 
-Queries using `anariGetObjectInfo` return a static list of features the object
-type is capable of supporting. Queries using `anariGetProperty` return the
-dynamic list of features supported by a specific object instance. The dynamic
-list returned for an object instance is a subset of of the static list returned
-for the object type. Some features may be missing from the instance because they
-depend on factors (hardware, drivers etc.) that are only known once an instance
-has been created and configured.
+Queries using `anariGetDeviceFeatures` and `anariGetObjectInfo` return a static
+list of implemented features the object type is capable of supporting. Queries using
+`anariGetProperty` return the dynamic list of features supported by a specific
+object instance. The dynamic list returned for an object instance is a subset of
+the static list returned for the object type. Some features may be missing from
+the instance because they depend on factors (hardware, drivers etc.) that are only
+known once an instance has been created and configured.
 
 A full list of ANARI features can be found in the <<feature_index, Feature
 Index>> appendix.
