@@ -93,8 +93,8 @@ The following information can be queried as properties on the `ANARIFrame`
 Devices which implement feature `KHR_FRAME_COMPLETION_CALLBACK` add two
 parameters to <<object_types_frame>>: a callback invoked as a continuation after
 the frame completes, and an associated pointer to application state to be passed
-to the invoked continuation. This continuation must complete before the
-`ANARI_TASK_COMPLETE` event is signaled by `anariWait()` on the frame.
+to the invoked continuation. This continuation must be complete before returning
+from `anariFrameReady()` when called with `ANARI_WAIT`.
 
 The signature of the continuation is provided in `anari.h` as
 
@@ -117,6 +117,6 @@ typedef void (*ANARIFrameCompletionCallback)(const void *userPtr, ANARIDevice, A
 Implementations are strongly encouraged to invoke the continuation on a
 background thread. This helps physically maintain asynchronous behavior with
 calling application API threads. ANARI API calls are legal within the
-continuation, except for calling `anariWait()` with `ANARI_TASK_COMPLETE`, as
+continuation, except for calling `anariFrameReady()` with `ANARI_WAIT`, as
 this will incur a deadlock.
 ==================
