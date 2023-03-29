@@ -73,11 +73,13 @@ Feature: `KHR_RENDERER_BACKGROUND_IMAGE`
 
 The background image will be rescaled to the size of the <<Frame>> by linear filtering.
 
-If both `KHR_RENDERER_BACKGROUND_COLOR` and `KHR_RENDERER_BACKGROUND_IMAGE` are supported the `background` parameter can accept either type.
+If both `KHR_RENDERER_BACKGROUND_COLOR` and `KHR_RENDERER_BACKGROUND_IMAGE` are
+supported the `background` parameter can accept either type.
 
 Feature: `KHR_RENDERER_AMBIENT_LIGHT`
 
-The ambient light is a light with an invisible source which surrounds the scene and illuminates it from infinity.
+The ambient light is a light with an invisible source which surrounds the scene
+and illuminates it from infinity.
 
 .Parameters understood by renderers with feature `KHR_RENDERER_AMBIENT_LIGHT`.
 [cols="<,<,>,<3",options="header,unbreakable"]
@@ -140,8 +142,10 @@ Instances are created with
 ANARIInstance anariNewInstance(ANARIDevice, const char *subtype);
 ....
 
-All instances take an array of <<group>> representing all the objects which share the
-instances world-space transform. They also always take a generic `MAT4` transform which serves as a fall back but may be overriden by subtype specific transform definitions.
+All instances take an array of <<group>> representing all the objects which
+share the instances world-space transform. They also always take a generic
+`FLOAT32_MAT4` transform which serves as a fall back but may be overriden by
+subtype specific transform definitions.
 
 .Parameters understood by all instances.
 [cols="<,<,>,<3",options="header,unbreakable"]
@@ -174,15 +178,18 @@ float in memory. Implementations are free to always treat the last row
 
 Feature: `KHR_INSTANCE_MATRIX`
 
-The `matrix` instance subtype is a basic instance that implements the mandatory parameters and properties listed above.
-When this feature is supported creating an instance of unknown subtype will create an instance of subtype `matrix` instead.
+The `matrix` instance subtype is a basic instance that implements the mandatory
+parameters and properties listed above. When this feature is supported creating
+an instance of unknown subtype will create an instance of subtype `matrix`
+instead.
 
 [NOTE]
 .Note
 ====
-Since the parameters of all other instance subtypes are supersets of the `matrix` subtype they can be
-safely substituted in case an implementation does not support that subtype. To maximize compatibility
-the transform parameter should always be set in addition to any subtype specific transform parameters.
+Since the parameters of all other instance subtypes are supersets of the
+`matrix` subtype they can be safely substituted in case an implementation does
+not support that subtype. To maximize compatibility the transform parameter
+should always be set in addition to any subtype specific transform parameters.
 ====
 
 
@@ -201,13 +208,16 @@ transformation motion blur in combination with `time` and `shutter`.
 | time               |`FLOAT32_BOX1`                  |  [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
 |===================================================================================================
 
-The `motion.transform` parameter takes precedent over the generic `transform` parameter when motion blur is supported. Renderers that don't support motion blur may fall back to using the generic `transform` parameter.
+The `motion.transform` parameter takes precedent over the generic `transform`
+parameter when motion blur is supported. Renderers that don't support motion
+blur may fall back to using the generic `transform` parameter.
 
 Feature `KHR_INSTANCE_MOTION_SRT`:
 
-The `motionSRT` instance subtype represents uniformly (in `time`) distributed transformation keys as defined by decomposed
-`motion.scale`, `motion.rotation` and `motion.translation` transform compoments. <<cameras, Camera>>
-`shutter` also needs to be set appropiately.
+The `motionSRT` instance subtype represents uniformly (in `time`) distributed
+transformation keys as defined by decomposed `motion.scale`, `motion.rotation`
+and `motion.translation` transform compoments. <<cameras, Camera>> `shutter`
+also needs to be set appropiately.
 
 .Additional parameters understood by instances with feature `KHR_TRANSFORMATION_MOTION_BLUR`.
 [cols="<2,<2,>,<5",options="header,unbreakable"]
@@ -219,7 +229,10 @@ The `motionSRT` instance subtype represents uniformly (in `time`) distributed tr
 | time               |`FLOAT32_BOX1`                  |  [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
 |===================================================================================================
 
-The `motion.scale/rotation/translation` parameters takes precedent over the generic `transform` parameter when motion blur is supported. Renderers that don't support motion blur may fall back to using the generic `transform` parameter.
+The `motion.scale/rotation/translation` parameters takes precedent over the
+generic `transform` parameter when motion blur is supported. Renderers that
+don't support motion blur may fall back to using the generic `transform`
+parameter.
 
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////

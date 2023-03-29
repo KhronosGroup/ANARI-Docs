@@ -63,9 +63,9 @@ access the stored pixel information – via
 
 [source,cpp]
 ....
-const void* anariMapFrame(ANARIDevice,
+const void *anariMapFrame(ANARIDevice,
                           ANARIFrame,
-                          const char* channel,
+                          const char *channel,
                           uint32_t *width,
                           uint32_t *height,
                           ANARIDataType *pixelType);

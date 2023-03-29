@@ -6,7 +6,7 @@
 === Sampler
 
 ANARI sampler objects map attribute data into other object inputs such
-materials.  To create a new sampler use
+materials. To create a new sampler use
 
 [source,cpp]
 ....

@@ -53,10 +53,10 @@ describes their relationship to each other.
 
 The <<object_types_frame>> is the root object of the scene. It holds the
 framebuffer configuration and the <<object_types_world>>,
-<<object_types_camera>>, and <<object_types_renderer>> objects.  The
+<<object_types_camera>>, and <<object_types_renderer>> objects. The
 <<object_types_camera>> configures the projection of the rendering used to view
-the <<object_types_world>>.  The <<object_types_renderer>> holds parameters
-relating to the rendering algorithm.  The <<object_types_world>> holds arrays of
+the <<object_types_world>>. The <<object_types_renderer>> holds parameters
+relating to the rendering algorithm. The <<object_types_world>> holds arrays of
 the drawable objects of the scene such as <<object_types_surface>>,
 <<object_types_volume>>, and <<object_types_light>> either directly or via an
 array of <<object_types_instance>> containing <<object_types_group>>. A
@@ -64,7 +64,7 @@ array of <<object_types_instance>> containing <<object_types_group>>. A
 <<object_types_volume>>, and <<object_types_light>> to be instanced together. An
 <<object_types_instance>> combines a <<object_types_group>> with a transform for
 placement of the same collection of objects at multiple locations within the
-same <<object_types_world>>.  A <<object_types_surface>> represents drawable
+same <<object_types_world>>. A <<object_types_surface>> represents drawable
 surfaces containing a <<object_types_geometry>> and a <<object_types_material>>.
 A <<object_types_geometry>> specifies drawable primitives and data associated
 with them. A <<object_types_material>> specifies the surface's appearance
@@ -136,7 +136,7 @@ Objects are configured by parameters, which are identified by a string name and
 are set using `anariSetParameter`. Multiple types can be valid for a parameter,
 but only one type can be set for a particular parameter name at any given time.
 Setting a parameter with a different type overwrites its previous value and
-type.  Attempting to set a parameter that is unknown to the implementation
+type. Attempting to set a parameter that is unknown to the implementation
 has no effect on object state, but may cause an ANARI device implementation
 to emit warnings. The same applies if an unsupported type for a parameter is used.
 
@@ -147,7 +147,7 @@ The signatures to `anariSetParameter` is as follows
 void anariSetParameter(
   ANARIDevice,
   ANARIObject,
-  const char *parameter,
+  const char *parameterName,
   ANARIDataType,
   const void *value
 );
@@ -179,7 +179,7 @@ ANARI headers. All other types refer to C99 types.
 See Table 1 below for a complete list.
 
 Values set on objects are passed as a `void *` in `anariSetParameter`, which
-points to the value to be read.  The type is encoded by the passed in
+points to the value to be read. The type is encoded by the passed in
 `ANARIDataType` enum. For example, this means that, given `ANARI_INT`, the
 implementation casts the input `void * value` to `int *` and dereferences it
 accordingly. There are, however, two exceptions: `ANARI_STRING` and
@@ -198,7 +198,7 @@ The signature to `anariUnsetParameter` is as follows
 void anariUnsetParameter(
   ANARIDevice,
   ANARIObject,
-  const char *parameter
+  const char *parameterName
 );
 ----
 
@@ -292,14 +292,15 @@ there are no subtypes, or a `NULL`-terminated list of `0`-terminated C-strings
 with the names of the subtypes. The following object types are expected to have
 subtypes:
 
+* `CAMERA`
+* `RENDERER`
+* `INSTANCE`
+* `LIGHT`
 * `GEOMETRY`
 * `SAMPLER`
 * `MATERIAL`
-* `SPATIAL_FIELD`
 * `VOLUME`
-* `LIGHT`
-* `CAMERA`
-* `RENDERER`
+* `SPATIAL_FIELD`
 
 [source,cpp]
 ----
@@ -492,7 +493,7 @@ until the object itself is committed with `anariCommitParameters`. Furthermore,
 using `anariUnsetParameter` will subsequently reset the parameter to an unset
 state, effectively clearing the previously mapped array on the object. Using
 `anariSetParameter`, `anariMapParameterArray`, or `anariUnsetParameter` on an
-array that is still mapped is an error -- applications must first unmap the
+array that is still mapped is an error – applications must first unmap the
 array before altering the parameter through other means. Writing to the mapped
 pointer after calling `anariUnmapParameterArray` is undefined behavior and
 should be avoided.
@@ -549,7 +550,7 @@ use to free the original pointer passed during construction. If the application
 passes `NULL`, ANARI will fully rely on the application to free the memory.
 
 When `appMemory` is not `NULL`, then the array is considered to be a _shared_
-array, where both the application and device observe the same memory.  Passing
+array, where both the application and device observe the same memory. Passing
 `NULL` in `appMemory` creates a _managed_ array. The backing memory of the array
 is managed by the device and is only writable via mapping.
 
@@ -571,7 +572,7 @@ Array objects are mapped using
 
 [source,cpp]
 ....
-void* anariMapArray(ANARIDevice, ANARIArray);
+void *anariMapArray(ANARIDevice, ANARIArray);
 ....
 
 Mapped array objects are unmapped using
@@ -582,7 +583,7 @@ void anariUnmapArray(ANARIDevice, ANARIArray);
 ....
 
 Mapping a shared array will always result in the same address originally used
-when constructing the array object.  Mapping a managed array may return a
+when constructing the array object. Mapping a managed array may return a
 different pointer each time it is mapped. The contents of memory mapped from
 managed arrays is undefined until written to and the entire mapped range must be
 specified before unmapping to avoid populating the array with undefined values.
@@ -650,7 +651,7 @@ iterators on containers.
 ====
 Directly mapped arrays from object parameters maximizes the device's opportunity
 to be efficient in its underlying implementation. This is preferred method
-applications should use to set array data on objects.  However, if the array
+applications should use to set array data on objects. However, if the array
 data needs to be set on more than one object, then applications should prefer
 using array objects also detailed in this section so that a single array handle
 can be set on more than one parent object.

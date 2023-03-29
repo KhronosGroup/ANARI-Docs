@@ -6,7 +6,7 @@
 === Geometry
 
 Geometries in ANARI are objects that describe the spatial representation of a
-surface.  To create a new geometry object of given subtype `subtype` use
+surface. To create a new geometry object of given subtype `subtype` use
 
 [source,cpp]
 ....
