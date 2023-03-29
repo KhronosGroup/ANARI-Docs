@@ -17,7 +17,7 @@ Although many renderers and APIs already exist, and some of them successfully
 address the primary requirement above, in practice they are vendor-, hardware
 platform-, or rendering algorithm-specific, or they provide high-performance
 building blocks for rendering, but not a complete renderer implementation with a
-high-level API.  ANARI aims to address the limitations of these existing APIs.
+high-level API. ANARI aims to address the limitations of these existing APIs.
 ANARI fully abstracts vendor-, hardware platform-, and rendering
 algorithm-specific details behind the API. By doing so, a multiplicity of
 rendering back-end implementations can be used to their full capability, without

@@ -5,7 +5,7 @@
 | describes data types in ANARI
 
 |`STRING`
-|`const char*`
+|`const char *`
 | 0-terminated string
 
 |`DATA_TYPE_LIST`
@@ -13,7 +13,7 @@
 | array of `ANARIDataType` values terminated by `UNKNOWN`
 
 |`STRING_LIST`
-|`const char**`
+|`const char **`
 | array of 0-terminated strings terminated by `NULL`
 
 |`PARAMETER_LIST`
@@ -21,7 +21,7 @@
 | array of `ANARIParameter` structs terminated by `{NULL, UNKNOWN}`
 
 |`VOID_POINTER`
-|`void*`
+|`void *`
 |void pointer
 
 |`BOOL`
