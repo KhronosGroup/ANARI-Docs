@@ -249,6 +249,13 @@ use is to allow for building a graphical user interface for, e.g., specific
 renderers or materials, and to provide hints for the debug layer to aid in
 validating features.
 
+The information queried with the following functions
+is static and will reflect what the implementation is capable of supporting.
+If a feature is unavailable for runtime dependent reasons, for example due to
+missing hardware support, the device may still advertise the associated parameters
+and object subtypes. The dynamic runtime feature availability can be queried using
+<<api_concepts_object_properties, properties>>.
+
 Device subtypes and their implemented features can be queried
 from a library before instantiating a device. Object and parameter specific
 information can be queried from an instantiated device object.
@@ -256,13 +263,18 @@ information can be queried from an instantiated device object.
 [source,cpp]
 ----
 const char **anariGetDeviceSubtypes(ANARILibrary);
-const char **anariGetDeviceFeatures(ANARILibrary, const char *deviceSubtype);
 ----
 
 A list of device subtypes implemented in a library is retrieved by calling
 `anariGetDeviceSubtypes`. It returns `NULL` if there are no devices, or a
 `NULL`-terminated list of `0`-terminated C-strings with the names of the
 devices. The first (if any) device is the default device.
+
+
+[source,cpp]
+----
+const char **anariGetDeviceFeatures(ANARILibrary, const char *deviceSubtype);
+----
 
 The list features implemented by a device is retrieved by calling
 `anariGetDeviceFeatures` with a device subtype returned by
@@ -318,7 +330,7 @@ The following infos of objects can be queried:
 | description   | `STRING`         |    No    | explanation of the object, e.g., for a tooltip
 | parameter     | `PARAMETER_LIST` |    Yes   | list of supported parameters (array of `ANARIParameter`)
 | channel       | `STRING_LIST`    | for ``FRAME`` | list of supported channels
-| feature       | `STRING_LIST`    | for ``RENDERER``s | list of features supported by this object
+| feature       | `STRING_LIST`    | for ``RENDERER``s | list of supported features
 |===================================================================================================
 
 Parameters that can be of multiple types are reported multiple times (once for
