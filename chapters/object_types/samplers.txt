@@ -29,7 +29,7 @@ parameters.
 | inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
 | inTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
 | image | `ARRAY1D` of <<Color>> |  | array backing the sampler
-| filter | `STRING` | `nearest` | filter of the sampler, possible values: `nearest`, `linear`
+| filter | `STRING` | `linear` | filter of the sampler, possible values: `nearest`, `linear`
 | wrapMode | `STRING` | `clampToEdge` | wrap mode of the sampler, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
 | outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
 |===================================================================================================
@@ -42,6 +42,9 @@ operation. The sampled value is completed to four components (if needed:
 unspecified components default to zero for the first three components and to one
 for the fourth component) and transformed via `outTransform` to yield the final
 result of the sampler.
+
+Applications which set unknown values for `filter` will result in the default
+being used.
 
 [NOTE]
 .Note
@@ -66,7 +69,7 @@ A two dimensional image sampler is created by calling <<object_types_sampler,
 | inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
 | inTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
 | image | `ARRAY2D` of <<Color>> / `FIXED8_VEC3` / `FIXED8_VEC4`|  | array backing the sampler
-| filter | `STRING` | `nearest` | filter of the sampler, possible values: `nearest`, `linear`
+| filter | `STRING` | `linear` | filter of the sampler, possible values: `nearest`, `linear`
 | wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
 | wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
 | outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
@@ -80,6 +83,9 @@ and filtering operation. The sampled value is completed to four components (if
 needed: unspecified components default to zero for the first three components
 and to one for the fourth component) and transformed via `outTransform` to yield
 the final result of the sampler.
+
+Applications which set unknown values for `filter` will result in the default
+being used.
 
 [NOTE]
 .Note
@@ -104,7 +110,7 @@ A three dimensional image sampler is created by calling <<object_types_sampler,
 | inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
 | inTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the input transform before sampling
 | image | `ARRAY3D` of <<Color>> |  | array backing the sampler
-| filter | `STRING` | `nearest` | filter of the sampler, possible values: `nearest`, `linear`
+| filter | `STRING` | `linear` | filter of the sampler, possible values: `nearest`, `linear`
 | wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
 | wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
 | wrapMode3 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 3rd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
@@ -119,6 +125,9 @@ filtering operation. The sampled value is completed to four components (if
 needed: unspecified components default to zero for the first three components
 and to one for the fourth component) and transformed via `outTransform` to yield
 the final result of the sampler.
+
+Applications which set unknown values for `filter` will result in the default
+being used.
 
 [NOTE]
 .Note
