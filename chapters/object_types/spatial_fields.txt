@@ -43,6 +43,9 @@ vertex-centered, which means at least two data values need to be
 specified in each dimension to avoid a degenerated spatial field. Its local
 bounds are [`origin`, `origin` + (`data`.size - 1) {times} `spacing`].
 
+Applications which set unknown values for `filter` will result in the default
+being used.
+
 [NOTE]
 .Note
 ====
