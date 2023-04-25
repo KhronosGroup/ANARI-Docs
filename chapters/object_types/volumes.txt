@@ -63,7 +63,7 @@ values for the columns and gradient magnitude for the rows.
 [cols="<3,<3,>2,<9",options="header,unbreakable"]
 |===================================================================================================
 | Name              | Type                            | Default | Description
-| gradient          |`ARRAY1D` of `FLOAT32`           |         | optional array to map gradient magnitude to an opacity multiplier
+| gradient          |`ARRAY1D` of `FLOAT32_VEC2`      |         | optional array to map gradient magnitude to an opacity multiplier
 | tf2d              |`Sampler` with subtype `image2D` |         | optional 2D image sampler for defining the 2D transfer function look-up table
 |===================================================================================================
 
