@@ -41,4 +41,4 @@
 * <<object_types_spatial_field_structured_regular, `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`>>: `structuredRegular` spatial field subtype is supported
 * <<object_types_frame, `KHR_PROGRESSIVE_RENDERING`>>: Frames are progressively rendered
 * <<object_types_instance, `KHR_TRANSFORMATION_MOTION_BLUR`>>: Motion blur is supported through extra object parameters
-* <<object_types_volume_scivis, `KHR_VOLUME_SCIVIS`>>: `scivis` volume subtype is supported
+* <<object_types_volume_scivis, `KHR_VOLUME_TF1D`>>: `transferFunction1D` volume subtype is supported
