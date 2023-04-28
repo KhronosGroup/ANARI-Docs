@@ -14,10 +14,10 @@ create a new volume object of given subtype `subtype` use
 ANARIVolume anariNewVolume(ANARIDevice, const char *subtype);
 ....
 
-[[object_types_volume_tf1d]]
+[[object_types_volume_transfer_function1d]]
 ==== TransferFunction1D
 
-Feature: `KHR_VOLUME_TF1D`
+Feature: `KHR_VOLUME_TRANSFER_FUNCTION1D`
 
 The 1D transfer function volume is created by passing the subtype string
 `transferFunction1D` to `anariNewVolume`. It supports the folowing parameter:
