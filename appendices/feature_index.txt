@@ -33,12 +33,12 @@
 * <<object_types_light_spot, `KHR_LIGHT_SPOT`>>: `spot` light subtype is supported
 * <<object_types_material_matte, `KHR_MATERIAL_MATTE`>>: `matte` material subtype is supported
 * <<object_types_material_physically_based, `KHR_MATERIAL_PHYSICALLY_BASED`>>: `physicallyBased` material subtype is supported
-* <<object_types_sampler_image1D, `KHR_SAMPLER_IMAGE1`>>: `image1D` sampler subtype is supported
-* <<object_types_sampler_image2D, `KHR_SAMPLER_IMAGE2`>>: `image2D` sampler subtype is supported
-* <<object_types_sampler_image3D, `KHR_SAMPLER_IMAGE3`>>: `image3D` sampler subtype is supported
+* <<object_types_sampler_image1D, `KHR_SAMPLER_IMAGE1D`>>: `image1D` sampler subtype is supported
+* <<object_types_sampler_image2D, `KHR_SAMPLER_IMAGE2D`>>: `image2D` sampler subtype is supported
+* <<object_types_sampler_image3D, `KHR_SAMPLER_IMAGE3D`>>: `image3D` sampler subtype is supported
 * <<object_types_sampler_primitive, `KHR_SAMPLER_PRIMITIVE`>>: `primitive` sampler subtype is supported
 * <<object_types_sampler_transform, `KHR_SAMPLER_TRANSFORM`>>: `transform` sampler subtype is supported
 * <<object_types_spatial_field_structured_regular, `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`>>: `structuredRegular` spatial field subtype is supported
 * <<object_types_frame, `KHR_PROGRESSIVE_RENDERING`>>: Frames are progressively rendered
 * <<object_types_instance, `KHR_TRANSFORMATION_MOTION_BLUR`>>: Motion blur is supported through extra object parameters
-* <<object_types_volume_scivis, `KHR_VOLUME_SCIVIS`>>: `scivis` volume subtype is supported
+* <<object_types_volume_transfer_function1d, `KHR_VOLUME_TRANSFER_FUNCTION1D`>>: `transferFunction1D` volume subtype is supported
