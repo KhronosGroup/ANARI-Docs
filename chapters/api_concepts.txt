@@ -459,11 +459,11 @@ void *anariMapParameterArray3D(ANARIDevice,
     uint64_t numElements3);
 ....
 
-Each of these functions return a densely packed, write-only array for the
-application to fill, where the number of elements `numElementsN` must be positive
-(there cannot be an empty mapped array). Whenever an array is directly mapped,
-any previously mapped array configuration (size, dimensionality, etc.) is
-discarded in favor of the currently mapped array configuration.
+Each of these functions return a write-only array for the application to fill,
+where the number of elements `numElementsN` must be positive (there cannot be an
+empty mapped array). Whenever an array is directly mapped, any previously mapped
+array configuration (size, dimensionality, etc.) is discarded in favor of the
+currently mapped array configuration.
 
 Devices are only required to allocate directly mapped arrays for parameters
 corresponding extensions that the device implements. In cases where the
@@ -492,8 +492,7 @@ The second method of expressing array data on objects uses handles. `ANARIArray`
 handles represent data arrays in memory, which are shared with device
 implementations. The memory shared with ANARI can be either owned by the
 application, have ownership transferred to the device via a deleter callback, or
-be managed by the device. Input data has dimensions encoded in its handle type,
-where each dimension can have a sparse stride.
+be managed by the device.
 
 The signature of the deleter is provided in `anari.h` as
 
@@ -512,8 +511,7 @@ ANARIArray1D anariNewArray1D(ANARIDevice,
    ANARIMemoryDeleter,
    const void *userPtr,
    ANARIDataType elementType,
-   uint64_t numElements,
-   uint64_t byteStride);
+   uint64_t numElements);
 
 ANARIArray2D anariNewArray2D(ANARIDevice,
    const void *appMemory,
@@ -521,9 +519,7 @@ ANARIArray2D anariNewArray2D(ANARIDevice,
    const void *userPtr,
    ANARIDataType elementType,
    uint64_t numElements1,
-   uint64_t numElements2,
-   uint64_t byteStride1,
-   uint64_t byteStride2);
+   uint64_t numElements2);
 
 ANARIArray3D anariNewArray3D(ANARIDevice,
    const void *appMemory,
@@ -532,20 +528,11 @@ ANARIArray3D anariNewArray3D(ANARIDevice,
    ANARIDataType elementType,
    uint64_t numElements1,
    uint64_t numElements2,
-   uint64_t numElements3,
-   uint64_t byteStride1,
-   uint64_t byteStride2,
-   uint64_t byteStride3);
+   uint64_t numElements3);
 ....
 
 The number of elements `numElementsN` must be positive (there cannot be an
-empty array object). The distance between consecutive elements (per
-dimension) is given in bytes with `byteStrideN`. If a `byteStrideN` is
-zero, it will be determined automatically (e.g., as `sizeof(type)`).
-Strides do not need to be ordered. For example, `byteStride2` can be smaller
-than `byteStride1`, which is equivalent to a transpose. However, if the
-stride should be calculated, then an ordering in dimensions is assumed
-to disambiguate, i.e., `byteStride1 < byteStride2 < byteStride3`.
+empty array object).
 
 In each creation function a deleter can be passed in (with an
 associated pointer to any needed application data or state), which ANARI will
@@ -555,8 +542,7 @@ passes `NULL`, ANARI will fully rely on the application to free the memory.
 When `appMemory` is not `NULL`, then the array is considered to be a _shared_
 array, where both the application and device observe the same memory.  Passing
 `NULL` in `appMemory` creates a _managed_ array. The backing memory of the array
-is managed by the device and is only writable via mapping.  Device managed
-arrays can only have dense layouts (`byteStrideN = 0`).
+is managed by the device and is only writable via mapping.
 
 Applications are permitted to release `ANARIArray` objects even if the
 device still contains internal references to it. When releasing a
@@ -601,11 +587,9 @@ of the array object and when unmapping the array.
 ====
 Array parameters of objects that are accessed by the same index (because
 they represent an "array of structures") have per naming convention a
-common prefix followed by a period. The byte strides of arrays allow
-such "transformation" without changing the actual memory layout. An
-example are the vertex attributes of the
-<<standard_subtypes_geometry_triangle, triangle geometry>>, which all
-start with `vertex.` followed by the attribute name.
+common prefix followed by a period. An example are the vertex attributes of the
+<<standard_subtypes_geometry_triangle, triangle geometry>>, which all start with
+`vertex.` followed by the attribute name.
 ====
 
 Arrays define a valid region of elements, which by default is always the full
