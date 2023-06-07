@@ -42,7 +42,7 @@ Geometries are typically limited to a maximum of 2^32^ primitives.
 [[object_types_geometry_cone]]
 ==== Cone
 
-Feature: `KHR_GEOMETRY_CONE`
+Extension: `KHR_GEOMETRY_CONE`
 
 A geometry consisting of individual cones, is created by calling
 <<object_types_geometry, `anariNewGeometry`>> with subtype string `cone`.
@@ -88,7 +88,7 @@ device limit `geometryMaxIndex`>>.
 [[object_types_geometry_curve]]
 ==== Curve
 
-Feature: `KHR_GEOMETRY_CURVE`
+Extension: `KHR_GEOMETRY_CURVE`
 
 A geometry consisting of multiple curves is created by calling
 <<object_types_geometry, `anariNewGeometry`>> with type string `curve`. The vertices
@@ -132,7 +132,7 @@ device limit `geometryMaxIndex`>> minus 1.
 [[object_types_geometry_cylinder]]
 ==== Cylinder
 
-Feature: `KHR_GEOMETRY_CYLINDER`
+Extension: `KHR_GEOMETRY_CYLINDER`
 
 A geometry consisting of individual cylinders, each of which can have an
 own radius, is created by calling <<object_types_geometry, `anariNewGeometry`>> with
@@ -180,7 +180,7 @@ device limit `geometryMaxIndex`>>.
 [[object_types_geometry_quad]]
 ==== Quad
 
-Feature: `KHR_GEOMETRY_QUAD`
+Extension: `KHR_GEOMETRY_QUAD`
 
 A geometry consisting of quads is created by calling <<object_types_geometry,
 `anariNewGeometry`>> with subtype string `quad`. A quad geometry
@@ -224,7 +224,7 @@ device limit `geometryMaxIndex`>>.
 [[object_types_geometry_sphere]]
 ==== Sphere
 
-Feature: `KHR_GEOMETRY_SPHERE`
+Extension: `KHR_GEOMETRY_SPHERE`
 
 A geometry consisting of individual spheres, each of which can have an
 own radius, is created by calling <<object_types_geometry, `anariNewGeometry`>> with
@@ -269,7 +269,7 @@ device limit `geometryMaxIndex`>>.
 [[object_types_geometry_triangle]]
 ==== Triangle
 
-Feature: `KHR_GEOMETRY_TRIANGLE`
+Extension: `KHR_GEOMETRY_TRIANGLE`
 
 A geometry consisting of triangles is created by calling <<object_types_geometry,
 `anariNewGeometry`>> with subtype string `triangle`. A triangle geometry

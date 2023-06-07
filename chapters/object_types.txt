@@ -24,7 +24,7 @@ include::object_types/cameras.txt[]
 === Renderer
 
 A renderer is the central object for rendering in ANARI. Different
-renderers implement different features, rendering algorithms, and support
+renderers implement different extensions, rendering algorithms, and support
 different materials. To create a new renderer of given subtype `subtype` use
 
 [source,cpp]
@@ -42,29 +42,29 @@ renderer is an alias to an existing renderer that is returned first in
 the list by `anariGetObjectSubtypes` when queried for `RENDERER`. Also
 refer to the documentation of ANARI implementations.
 
-Feature support information can be queried as properties on the `ANARIRenderer`
+Extension support information can be queried as properties on the `ANARIRenderer`
 <<api_concepts_object_properties, using `anariGetProperty`>>.
 
 .Properties queryable on all renderers.
 [cols="<2,<3,^2,<8",options="header,unbreakable"]
 |===================================================================================================
 | Name    | Type          | Required | Description
-| feature | `STRING_LIST` | Yes      | list of supported features
+| extension | `STRING_LIST` | Yes      | list of supported extensions
 |===================================================================================================
 
 
-Feature: `KHR_RENDERER_BACKGROUND_COLOR`
+Extension: `KHR_RENDERER_BACKGROUND_COLOR`
 
-.Parameters understood by renderers with feature `KHR_RENDERER_BACKGROUND_COLOR`.
+.Parameters understood by renderers with extension `KHR_RENDERER_BACKGROUND_COLOR`.
 [cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name       | Type         |      Default | Description
 | background |`FLOAT32_VEC4`| (0, 0, 0, 1) | the background color
 |===================================================================================================
 
-Feature: `KHR_RENDERER_BACKGROUND_IMAGE`
+Extension: `KHR_RENDERER_BACKGROUND_IMAGE`
 
-.Parameters understood by renderers with feature `KHR_RENDERER_BACKGROUND_IMAGE`.
+.Parameters understood by renderers with extension `KHR_RENDERER_BACKGROUND_IMAGE`.
 [cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name       | Type         |      Default | Description
@@ -76,12 +76,12 @@ The background image will be rescaled to the size of the <<Frame>> by linear fil
 If both `KHR_RENDERER_BACKGROUND_COLOR` and `KHR_RENDERER_BACKGROUND_IMAGE` are
 supported the `background` parameter can accept either type.
 
-Feature: `KHR_RENDERER_AMBIENT_LIGHT`
+Extension: `KHR_RENDERER_AMBIENT_LIGHT`
 
 The ambient light is a light with an invisible source which surrounds the scene
 and illuminates it from infinity.
 
-.Parameters understood by renderers with feature `KHR_RENDERER_AMBIENT_LIGHT`.
+.Parameters understood by renderers with extension `KHR_RENDERER_AMBIENT_LIGHT`.
 [cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name       | Type         |      Default | Description
@@ -153,7 +153,7 @@ subtype specific transform definitions.
 | Name      | Type         |                                       Default | Description
 | group     |`GROUP`       |                                               | Group to be instanced, required
 | transform |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
-                                                                             (overridden by  `motion.transform`, feature `KHR_TRANSFORMATION_MOTION_BLUR`)
+                                                                             (overridden by  `motion.transform`, extension `KHR_TRANSFORMATION_MOTION_BLUR`)
 | id        |`UINT32`     |                                            -1u | optional user Id, for <<object_types_frame>> channel `instanceId`
 |===================================================================================================
 
@@ -176,10 +176,10 @@ float in memory. Implementations are free to always treat the last row
 | bounds   |`FLOAT32_BOX3`| axis-aligned bounding box in world-space (excluding the lights)
 |===================================================================================================
 
-Feature: `KHR_INSTANCE_MATRIX`
+Extension: `KHR_INSTANCE_MATRIX`
 
 The `matrix` instance subtype is a basic instance that implements the mandatory
-parameters and properties listed above. When this feature is supported creating
+parameters and properties listed above. When this extension is supported creating
 an instance of unknown subtype will create an instance of subtype `matrix`
 instead.
 
@@ -193,14 +193,14 @@ should always be set in addition to any subtype specific transform parameters.
 ====
 
 
-Feature `KHR_INSTANCE_MOTION_MATRIX`:
+Extension `KHR_INSTANCE_MOTION_MATRIX`:
 
 The `motionMatrix` instance subtype represents uniformly (in `time`) distributed
 transformation keys as defined by `motion.transform` to achieve
 transformation motion blur in combination with `time` and `shutter`.
 <<cameras, Camera>> `shutter` needs to be set appropiately.
 
-.Additional parameters understood by instances with feature `KHR_TRANSFORMATION_MOTION_BLUR`.
+.Additional parameters understood by instances with extension `KHR_TRANSFORMATION_MOTION_BLUR`.
 [cols="<2,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           | Default | Description
@@ -212,14 +212,14 @@ The `motion.transform` parameter takes precedent over the generic `transform`
 parameter when motion blur is supported. Renderers that don't support motion
 blur may fall back to using the generic `transform` parameter.
 
-Feature `KHR_INSTANCE_MOTION_SRT`:
+Extension `KHR_INSTANCE_MOTION_SRT`:
 
 The `motionSRT` instance subtype represents uniformly (in `time`) distributed
 transformation keys as defined by decomposed `motion.scale`, `motion.rotation`
 and `motion.translation` transform compoments. <<cameras, Camera>> `shutter`
 also needs to be set appropiately.
 
-.Additional parameters understood by instances with feature `KHR_TRANSFORMATION_MOTION_BLUR`.
+.Additional parameters understood by instances with extension `KHR_TRANSFORMATION_MOTION_BLUR`.
 [cols="<2,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           | Default | Description

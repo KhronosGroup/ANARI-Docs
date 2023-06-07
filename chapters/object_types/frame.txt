@@ -43,7 +43,7 @@ mapped as. The same channel names are used to map the channel contents with `ana
 The `world`, `camera`, `renderer`, and `size` parameters are required, `size`
 must be positive.
 
-.Additional parameters accepted by the frame with feature `KHR_FRAME_AUXILIARY_BUFFERS`.
+.Additional parameters accepted by the frame with extension `KHR_FRAME_AUXILIARY_BUFFERS`.
 [cols="<,<,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
@@ -55,7 +55,7 @@ must be positive.
                             possible values: `UFIXED8_VEC3`, `UFIXED8_RGB_SRGB`, `FLOAT32_VEC3`
 |===================================================================================================
 
-.Additional parameters accepted by the frame with feature `KHR_FRAME_ID_BUFFERS`.
+.Additional parameters accepted by the frame with extension `KHR_FRAME_ID_BUFFERS`.
 [cols="<,<,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name                | Type       | Description
@@ -72,7 +72,7 @@ must be positive.
                                      possible values: `UINT32`
 |===================================================================================================
 
-The feature `KHR_PROGRESSIVE_RENDERING` indicates that implementations use
+The extension `KHR_PROGRESSIVE_RENDERING` indicates that implementations use
 progressive rendering techniques like Monte Carlo integration and thus that
 multiple subsequent calls to <<rendering_frames, `anariRenderFrame`>> without
 changes to <<object_types_frame>> improve the image quality (e.g., reduce noise
@@ -90,7 +90,7 @@ The following information can be queried as properties on the `ANARIFrame`
 | refinementProgress |`FLOAT32`| No       | progress of frame refinement when using `KHR_PROGRESSIVE_RENDERING` renderers, in [0..1]
 |===============================================================================================================================
 
-Devices which implement feature `KHR_FRAME_COMPLETION_CALLBACK` add two
+Devices which implement extension `KHR_FRAME_COMPLETION_CALLBACK` add two
 parameters to <<object_types_frame>>: a callback invoked as a continuation after
 the frame completes, and an associated pointer to application state to be passed
 to the invoked continuation. This continuation must be complete before returning
@@ -103,7 +103,7 @@ The signature of the continuation is provided in `anari.h` as
 typedef void (*ANARIFrameCompletionCallback)(const void *userPtr, ANARIDevice, ANARIFrame);
 ....
 
-.Additional parameters accepted by the frame with feature `KHR_FRAME_COMPLETION_CALLBACK`.
+.Additional parameters accepted by the frame with extension `KHR_FRAME_COMPLETION_CALLBACK`.
 [cols="<11,<9,<10",options="header,unbreakable"]
 |===================================================================================================
 | Name                            | Type                      | Description

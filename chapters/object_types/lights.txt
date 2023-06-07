@@ -25,9 +25,9 @@ All light sources accept the following parameters:
 
 The transformation of an <<Instance, instance>> apply only to vectors
 like `position` or `direction` of a light, but _not_ to affect sizes
-like `radius` (feature `KHR_AREA_LIGHTS`).
+like `radius` (extension `KHR_AREA_LIGHTS`).
 
-.Additional parameters accepted by all lights with feature `KHR_AREA_LIGHTS`.
+.Additional parameters accepted by all lights with extension `KHR_AREA_LIGHTS`.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type          |    Default | Description
@@ -38,7 +38,7 @@ like `radius` (feature `KHR_AREA_LIGHTS`).
 [[object_types_light_directional]]
 ==== Directional
 
-Feature: `KHR_LIGHT_DIRECTIONAL`
+Extension: `KHR_LIGHT_DIRECTIONAL`
 
 The directional light is thought to
 be far away (outside of the scene), thus its light arrives (mostly) as
@@ -57,7 +57,7 @@ special parameters:
                                                 surface, in W/m^2^
 |===================================================================================================
 
-.Additional parameters accepted by the directional light with feature `KHR_AREA_LIGHTS`.
+.Additional parameters accepted by the directional light with extension `KHR_AREA_LIGHTS`.
 [cols="<3,<2,>2,<9",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type         |    Default | Description
@@ -69,7 +69,7 @@ special parameters:
 [NOTE]
 .Note
 ==================
-Feature `KHR_AREA_LIGHTS`: Setting the angular diameter to a value greater than
+Extension `KHR_AREA_LIGHTS`: Setting the angular diameter to a value greater than
 zero will result in soft shadows when supported by the implementation. For
 instance, the apparent size of the sun is about 0.53° or 0.00925 rad.
 ==================
@@ -78,7 +78,7 @@ instance, the apparent size of the sun is about 0.53° or 0.00925 rad.
 [[object_types_light_hdri]]
 ==== HDRI
 
-Feature: `KHR_LIGHT_HDRI`
+Extension: `KHR_LIGHT_HDRI`
 
 The HDRI light is a textured light source surrounding the scene and
 illuminating it from infinity. It is created by passing the subtype string
@@ -105,9 +105,9 @@ parameters>> the HDRI light supports the following special parameters:
 [[object_types_light_point]]
 ==== Point
 
-Feature: `KHR_LIGHT_POINT`
+Extension: `KHR_LIGHT_POINT`
 
-The point light (or with feature the sphere light) is a light emitting
+The point light (or with extension the sphere light) is a light emitting
 uniformly in all directions (from the surface toward the outside). It is created
 by passing the subtype string `point` to `anariNewLight`. In addition to the
 <<object_types_light, general parameters>> understood by all lights, the point light supports
@@ -124,10 +124,10 @@ the following special parameters:
                                           `intensity` takes precedence if also specified
 |===================================================================================================
 
-Feature `KHR_AREA_LIGHTS`: Setting the radius to a value greater than zero will
+Extension `KHR_AREA_LIGHTS`: Setting the radius to a value greater than zero will
 result in soft shadows when the renderer support it.
 
-.Additional parameters accepted by the point light with feature `KHR_AREA_LIGHTS`.
+.Additional parameters accepted by the point light with extension `KHR_AREA_LIGHTS`.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type    | Default | Description
@@ -140,7 +140,7 @@ result in soft shadows when the renderer support it.
 [[object_types_light_quad]]
 ==== Quad
 
-Feature: `KHR_LIGHT_QUAD`
+Extension: `KHR_LIGHT_QUAD`
 
 The quadfootnote:[actually a parallelogram] light is a planar,
 procedural area light source emitting uniformly on one side into the
@@ -201,7 +201,7 @@ shadows), or may not compute shadows at all.
 [[object_types_light_ring]]
 ==== Ring
 
-Feature: `KHR_LIGHT_RING`
+Extension: `KHR_LIGHT_RING`
 
 The ring light is a light emitting into a cone of directions. It is created by
 passing the subtype string `ring` to `anariNewLight`. In addition to the <<object_types_light,
@@ -263,7 +263,7 @@ neighbors. The orientation of the C0-plane is specified via `c0`.
 [[object_types_light_spot]]
 ==== Spot
 
-Feature: `KHR_LIGHT_SPOT`
+Extension: `KHR_LIGHT_SPOT`
 
 The spotlight is a light emitting into a cone of directions. It is
 created by passing the subtype string `spot` to `anariNewLight`. In

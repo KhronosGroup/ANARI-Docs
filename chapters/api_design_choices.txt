@@ -54,39 +54,39 @@ output is specific to the type and semantics of the object, but has a generic
 interface function for access.
 
 
-[[api_choices_features]]
-=== Features and Extensions
+[[api_choices_extensions]]
+=== Extensions and Extensions
 
-The ANARI specification defines a set of usable features exposed via the C API.
-Features are loosely defined as observable behavior from a particular use of
+The ANARI specification defines a set of usable extensions exposed via the C API.
+Extensions are loosely defined as observable behavior from a particular use of
 the ANARI API. This most commonly is the existence of usable object subtypes,
 but also can be pre/post conditions on a function call, specific behavior of an
 object parameter, or guaranteed availability of a property.
 
-Applications can query features made available by a device implementation
+Applications can query extensions made available by a device implementation
 through queries either on the library or the live device instance. Querying
-available features via the library represents the list of features implemented
-by the vendor at all, while querying features on a live device instance will
+available extensions via the library represents the list of extensions implemented
+by the vendor at all, while querying extensions on a live device instance will
 also factor in the runtime environment (i.e. available underlying hardware to
-the device). In either case, feature queries are intended to be the way an
+the device). In either case, extension queries are intended to be the way an
 application determines if the device is acceptable in meeting the application's
-requirements, or if the application wants to adapt itself to what features are
+requirements, or if the application wants to adapt itself to what extensions are
 available.
 
-Extensions are features that have not yet made it into the ANARI specification.
-These features are reported in the same list as core features, but have vendor
+Extensions are extensions that have not yet made it into the ANARI specification.
+These extensions are reported in the same list as core extensions, but have vendor
 specific names, which may exist in more than one device from that vendor.
-This is a good way for vendors to agree upon and get experience with a feature
+This is a good way for vendors to agree upon and get experience with a extension
 prior to bring it officially into the specification.
 
-All features represent functionality which provides additional capabilities to
-the application. A reported feature should never represent a reduction in
+All extensions represent functionality which provides additional capabilities to
+the application. A reported extension should never represent a reduction in
 capability.
 
-Testable feature names are inlined in the specification alongside their
-definition. All features follow the prefix convention of
-`ANARI\_[VENDOR]_[NAME]`, where core features use `KHR` as the vendor string. In
-this document, all features will omit the `ANARI_` portion of the prefix for
+Testable extension names are inlined in the specification alongside their
+definition. All extensions follow the prefix convention of
+`ANARI\_[VENDOR]_[NAME]`, where core extensions use `KHR` as the vendor string. In
+this document, all extensions will omit the `ANARI_` portion of the prefix for
 brevity.
 
 [[api_choices_distributed_rendering]]

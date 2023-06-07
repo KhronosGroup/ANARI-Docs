@@ -16,7 +16,7 @@ ANARISampler anariNewSampler(ANARIDevice, const char *subtype);
 [[object_types_sampler_image1D]]
 ==== Image1D
 
-Feature: `KHR_SAMPLER_IMAGE1D`
+Extension: `KHR_SAMPLER_IMAGE1D`
 
 A one dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image1D`. It accepts the following
@@ -57,7 +57,7 @@ in column-major memory layout and are applied to column vectors
 [[object_types_sampler_image2D]]
 ==== Image2D
 
-Feature: `KHR_SAMPLER_IMAGE2D`
+Extension: `KHR_SAMPLER_IMAGE2D`
 
 A two dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image2D`. It accepts the following parameters.
@@ -98,7 +98,7 @@ in column-major memory layout and are applied to column vectors
 [[object_types_sampler_image3D]]
 ==== Image3D
 
-Feature: `KHR_SAMPLER_IMAGE3D`
+Extension: `KHR_SAMPLER_IMAGE3D`
 
 A three dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image3D`. It accepts the following parameters.
@@ -140,7 +140,7 @@ in column-major memory layout and are applied to column vectors
 [[object_types_sampler_primitive]]
 ==== Primitive
 
-Feature: `KHR_SAMPLER_PRIMITIVE`
+Extension: `KHR_SAMPLER_PRIMITIVE`
 
 The primitive sampler samples an `Array1D` at unnormalized integer
 coordinates based on the `primitiveId` surface attribute, shifted by
@@ -158,7 +158,7 @@ The `array` size must be at most <<Devices, device limit `geometryMaxIndex`>>.
 [[object_types_sampler_transform]]
 ==== Transform
 
-Feature: `KHR_SAMPLER_TRANSFORM`
+Extension: `KHR_SAMPLER_TRANSFORM`
 
 The transform sampler applies a transform to the input attribute and returns the result
 as the sampled value.

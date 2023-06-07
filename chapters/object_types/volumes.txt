@@ -17,7 +17,7 @@ ANARIVolume anariNewVolume(ANARIDevice, const char *subtype);
 [[object_types_volume_transfer_function1d]]
 ==== TransferFunction1D
 
-Feature: `KHR_VOLUME_TRANSFER_FUNCTION1D`
+Extension: `KHR_VOLUME_TRANSFER_FUNCTION1D`
 
 The 1D transfer function volume is created by passing the subtype string
 `transferFunction1D` to `anariNewVolume`. It supports the folowing parameter:
@@ -42,7 +42,7 @@ volume rendering, respectively.
 .Note
 ====
 The `color` and `opacity` arrays together represent a transfer function,
-which is used to visually emphasize the structure or certain features in
+which is used to visually emphasize the structure or certain extensions in
 the `field` data. Both arrays can be of different size.
 ====
 
