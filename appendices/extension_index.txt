@@ -7,8 +7,8 @@
 // API/extension-writing-guidelines appendix, anyway.
 
 [appendix]
-[[feature_index]]
-== Feature Index
+[[extension_index]]
+== Extension Index
 
 * <<api_types_lights, `KHR_AREA_LIGHTS`>>: Additional parameters are supported to spatially extend lights and thus potentially enable soft shadows
 * <<api_concepts_memory, `KHR_ARRAY1D_REGION`>>: Permit runtime changable valid array region

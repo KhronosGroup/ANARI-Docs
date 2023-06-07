@@ -31,7 +31,7 @@ operations to cause an application to use multithreading just to avoid
 blocking on ANARI.
 ====
 
-Devices that implement feature `KHR_DEVICE_SYNCHRONIZATION` relax
+Devices that implement extension `KHR_DEVICE_SYNCHRONIZATION` relax
 synchronization requirements by excluding the device from the external
 synchronization requirement if the device is passed as the first argument only.
 Calls that are operating on the device as the object must still be synchronized
@@ -242,21 +242,21 @@ brevity:
 [[api_concepts_introspection]]
 === Object Introspection
 
-ANARI supports introspection of objects, i.e., querying supported features, object
+ANARI supports introspection of objects, i.e., querying supported extensions, object
 subtypes and information about their parameters, which is particularly useful
-to enumerate and inspect implementation-specific object features. The intended
+to enumerate and inspect implementation-specific object extensions. The intended
 use is to allow for building a graphical user interface for, e.g., specific
 renderers or materials, and to provide hints for the debug layer to aid in
-validating features.
+validating extensions.
 
 The information queried with the following functions
 is static and will reflect what the implementation is capable of supporting.
-If a feature is unavailable for runtime dependent reasons, for example due to
+If a extension is unavailable for runtime dependent reasons, for example due to
 missing hardware support, the device may still advertise the associated parameters
-and object subtypes. The dynamic runtime feature availability can be queried using
+and object subtypes. The dynamic runtime extension availability can be queried using
 <<api_concepts_object_properties, properties>>.
 
-Device subtypes and their implemented features can be queried
+Device subtypes and their implemented extensions can be queried
 from a library before instantiating a device. Object and parameter specific
 information can be queried from an instantiated device object.
 
@@ -273,13 +273,13 @@ devices. The first (if any) device is the default device.
 
 [source,cpp]
 ----
-const char **anariGetDeviceFeatures(ANARILibrary, const char *deviceSubtype);
+const char **anariGetDeviceExtensions(ANARILibrary, const char *deviceSubtype);
 ----
 
-The list features implemented by a device is retrieved by calling
-`anariGetDeviceFeatures` with a device subtype returned by
+The list extensions implemented by a device is retrieved by calling
+`anariGetDeviceExtensions` with a device subtype returned by
 `anariGetDeviceSubtypes`. It returns a `NULL`-terminated list of `0`-terminated
-C-strings with the names of the implemented features.
+C-strings with the names of the implemented extensions.
 
 [source,cpp]
 ----
@@ -331,7 +331,7 @@ The following infos of objects can be queried:
 | description   | `STRING`         |    No    | explanation of the object, e.g., for a tooltip
 | parameter     | `PARAMETER_LIST` |    Yes   | list of supported parameters (array of `ANARIParameter`)
 | channel       | `STRING_LIST`    | for ``FRAME`` | list of supported channels
-| feature       | `STRING_LIST`    | for ``RENDERER``s | list of supported features
+| extension       | `STRING_LIST`    | for ``RENDERER``s | list of supported extensions
 |===================================================================================================
 
 Parameters that can be of multiple types are reported multiple times (once for
@@ -407,22 +407,22 @@ reason. Errors related to property queries are still returned via the error
 callback.
 ====
 
-[[api_concepts_features]]
-=== Feature Queries
-Core features and feature features are identified by string names. Supported
-features may be queried from device and renderer objects using
+[[api_concepts_extensions]]
+=== Extension Queries
+Core extensions and extension extensions are identified by string names. Supported
+extensions may be queried from device and renderer objects using
 `anariGetObjectInfo` and `anariGetProperty` by querying for a `STRING_LIST`
-named `feature`.
+named `extension`.
 
-Queries using `anariGetDeviceFeatures` and `anariGetObjectInfo` return a static
-list of implemented features the object type is capable of supporting. Queries using
-`anariGetProperty` return the dynamic list of features supported by a specific
+Queries using `anariGetDeviceExtensions` and `anariGetObjectInfo` return a static
+list of implemented extensions the object type is capable of supporting. Queries using
+`anariGetProperty` return the dynamic list of extensions supported by a specific
 object instance. The dynamic list returned for an object instance is a subset of
-the static list returned for the object type. Some features may be missing from
+the static list returned for the object type. Some extensions may be missing from
 the instance because they depend on factors (hardware, drivers etc.) that are only
 known once an instance has been created and configured.
 
-A full list of ANARI features can be found in the <<feature_index, Feature
+A full list of ANARI extensions can be found in the <<extension_index, Extension
 Index>> appendix.
 
 [[api_concepts_memory]]
@@ -609,10 +609,10 @@ subset of elements. This gives applications the ability to more efficiently
 change the number of elements used by parent objects at the cost of memory size
 efficiency.
 
-Implementations provide this functionality by implementing feature
+Implementations provide this functionality by implementing extension
 `KHR_ARRAY1D_REGION`, which adds the following parameter to `ANARIArray1D`:
 
-.Additional parameters accepted by `ANARIArray1D` with feature `KHR_ARRAY1D_REGION`.
+.Additional parameters accepted by `ANARIArray1D` with extension `KHR_ARRAY1D_REGION`.
 [cols="<,<,<4",options="header,unbreakable"]
 |==================================================================
 | Name     | Type            | Description
@@ -750,7 +750,7 @@ Version information can be queried as properties on the `ANARIDevice`
 | version.patch   |`INT32`      |   No     | semantic version patch value (major.minor.patch)
 | version.name    |`STRING`     |   No     | human readable name/title
 | geometryMaxIndex|`UINT64`     |   Yes    | largest supported index into vertex arrays in <<object_types_geometry, geometries>>
-| feature         |`STRING_LIST`|   Yes    | list of supported features
+| extension         |`STRING_LIST`|   Yes    | list of supported extensions
 |===================================================================================================
 
 [[api_concepts_error_handling]]

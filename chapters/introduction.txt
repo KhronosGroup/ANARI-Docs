@@ -48,7 +48,7 @@ scaling through multiple machines in a cluster to exploit additional distributed
 compute and memory resources. The ANARI API provides the necessary abstractions
 to allow these needs to be met by back-end renderers, without excessive exposure
 of hardware or rendering algorithm details to the application. ANARI seeks to
-standardize features for rendering domains including, but not limited to,
+standardize extensions for rendering domains including, but not limited to,
 scientific visualization, professional visualization, visual effects, and
 engineering CAD.
 
@@ -153,7 +153,7 @@ ANARI/anari::
     prefixed with these strings.
 
 The `ANARI_` prefix of named <<api_concepts_parameters, data types>> and
-<<api_concepts_features, features>> is ommited in tables and itemizations for
+<<api_concepts_extensions, extensions>> is ommited in tables and itemizations for
 readability and brevity.
 
 [[introduction-normative-references]]

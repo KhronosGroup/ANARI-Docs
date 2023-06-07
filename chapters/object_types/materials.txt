@@ -21,7 +21,7 @@ during rendering.
 [[object_types_material_matte]]
 ==== Matte
 
-Feature: `KHR_MATERIAL_MATTE`
+Extension: `KHR_MATERIAL_MATTE`
 
 The `matte` material reflects light uniformly into the hemisphere, i.e.,
 it exhibits Lambertian reflectance and thus its apparent brightness is
@@ -51,9 +51,9 @@ with the opacity value. The final opacity is determied by `alphaMode`:
 [[object_types_material_physically_based]]
 ==== Physically Based
 
-Feature: `KHR_MATERIAL_PHYSICALLY_BASED`
+Extension: `KHR_MATERIAL_PHYSICALLY_BASED`
 
-The `physicallyBased` material offers a wealth of features while being
+The `physicallyBased` material offers a wealth of extensions while being
 user friendly. It aims to be compatible to glTF's pbrMetallicRoughness
 material and ratified Khronos material extensions, thus refer to
 <<gltf-brdf>> for the exact definitions of the BRDF and also
