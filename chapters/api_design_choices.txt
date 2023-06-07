@@ -55,7 +55,7 @@ interface function for access.
 
 
 [[api_choices_extensions]]
-=== Extensions and Extensions
+=== Extensions
 
 The ANARI specification defines a set of usable extensions exposed via the C API.
 Extensions are loosely defined as observable behavior from a particular use of
@@ -85,9 +85,15 @@ capability.
 
 Testable extension names are inlined in the specification alongside their
 definition. All extensions follow the prefix convention of
-`ANARI\_[VENDOR]_[NAME]`, where core extensions use `KHR` as the vendor string. In
-this document, all extensions will omit the `ANARI_` portion of the prefix for
-brevity.
+`ANARI\_[VENDOR]_[NAME]`, where ratified extensions use `KHR` as the vendor
+string.
+
+Implemented extensions may be queried via <<api_concepts_introspection>>
+functions. Currently available extensions for devices and renderers may be
+queried via <<api_concepts_object_properties>> functions.
+
+A full list of ANARI extensions can be found in the <<extension_index>>
+appendix.
 
 [[api_choices_distributed_rendering]]
 === Support for Distributed Applications (Informative)
