@@ -407,24 +407,6 @@ reason. Errors related to property queries are still returned via the error
 callback.
 ====
 
-[[api_concepts_extensions]]
-=== Extension Queries
-Core extensions and extension extensions are identified by string names. Supported
-extensions may be queried from device and renderer objects using
-`anariGetObjectInfo` and `anariGetProperty` by querying for a `STRING_LIST`
-named `extension`.
-
-Queries using `anariGetDeviceExtensions` and `anariGetObjectInfo` return a static
-list of implemented extensions the object type is capable of supporting. Queries using
-`anariGetProperty` return the dynamic list of extensions supported by a specific
-object instance. The dynamic list returned for an object instance is a subset of
-the static list returned for the object type. Some extensions may be missing from
-the instance because they depend on factors (hardware, drivers etc.) that are only
-known once an instance has been created and configured.
-
-A full list of ANARI extensions can be found in the <<extension_index, Extension
-Index>> appendix.
-
 [[api_concepts_memory]]
 === Arrays and Memory Ownership
 :array: <<api_concepts_memory, array>>
