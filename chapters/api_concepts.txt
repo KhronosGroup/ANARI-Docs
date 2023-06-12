@@ -168,9 +168,7 @@ void anariCommitParameters(ANARIDevice, ANARIObject);
 ----
 
 Uncommitted parameters must have no effect on the behavior of the object
-during rendering operations. Calling `anariCommitParameters` while an object is
-participating in a <<rendering_frames, rendering operation>> is
-undefined behavior.
+during rendering operations.
 
 Data types passed to and returned from ANARI are specified using the
 `ANARIDataType` enum. The enum values identify ANARI object data types
@@ -546,9 +544,10 @@ Deleter callbacks are never called for managed arrays.
 
 Applications are only permitted to write to the memory visible to
 `ANARIArray` objects if all array objects involved are mapped. Mapping
-an array object indicates that the device should not execute any
-rendering operations (or internal state updates, such as building
-acceleration structures) of any parent objects to the mapped array object.
+a shared array object indicates that the device should not execute any rendering
+operations (or internal state updates, such as building acceleration structures)
+of any parent objects to the mapped array object which is directly referencing
+mapped memory.
 
 Array objects are mapped using
 
