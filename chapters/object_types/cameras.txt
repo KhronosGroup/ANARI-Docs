@@ -28,9 +28,6 @@ All cameras sources accept the following parameters:
 | imageRegion            |`FLOAT32_BOX2`|\((0, 0), (1, 1)) | region of the sensor in normalized screen-space coordinates
 | apertureRadius         |`FLOAT32`     |                0 | size of the aperture, controls the depth of field
 | focusDistance          |`FLOAT32`     |                1 | distance at where the image is sharpest when depth of field is enabled
-| stereoMode             |`STRING`      |            `none`| for stereo rendering, possible values:
-                        `none`, `left`, `right`, `sideBySide`, `topBottom` (left eye at top half)
-| interpupillaryDistance |`FLOAT32`     |           0.0635 | distance between left and right eye when stereo is enabled
 |===================================================================================================
 
 The camera is placed and oriented in the world with `position`,
@@ -60,8 +57,7 @@ values outside the default range of [0–1] are valid, which is useful to
 easily realize overscan or film gate, or to emulate a shifted sensor.
 
 All cameras support depth of field via the `apertureRadius` and
-`focusDistance` parameters and stereo 3D rendering by setting
-`stereoMode` and `interpupillaryDistance`.
+`focusDistance` parameters.
 
 .Additional parameters accepted by all cameras with extension `KHR_TRANSFORMATION_MOTION_BLUR`.
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
@@ -80,6 +76,18 @@ transformation keys can be set with `motion.transform` to achieve camera motion
 blur (in combination with `shutter`). Alternatively, the transformation keys can
 also be given as decomposed `motion.scale`, `motion.rotation` and
 `motion.translation`.
+
+.Additional parameters accepted by all cameras with extension `KHR_STEREO_RENDERING`.
+[cols="<3,<2,>2,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name                   | Type         | Default | Description
+| stereoMode             |`STRING`      |   `none`| possible values: `none`, `left`, `right`, `sideBySide`, `topBottom` (left eye at top half)
+| interpupillaryDistance |`FLOAT32`     |  0.0635 | distance between left and right eye when stereo is enabled
+|===================================================================================================
+
+The extension `KHR_STEREO_RENDERING` indicates that a renderer permits 3D stereo
+rendering, which is enabled by setting `stereoMode` and
+`interpupillaryDistance`.
 
 
 

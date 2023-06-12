@@ -40,5 +40,6 @@
 * <<object_types_sampler_transform, `KHR_SAMPLER_TRANSFORM`>>: `transform` sampler subtype is supported
 * <<object_types_spatial_field_structured_regular, `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`>>: `structuredRegular` spatial field subtype is supported
 * <<object_types_frame, `KHR_PROGRESSIVE_RENDERING`>>: Frames are progressively rendered
+* <<object_types_camera, `KHR_STEREO_RENDERING`>>: 3D stereo rendering is supported
 * <<object_types_instance, `KHR_TRANSFORMATION_MOTION_BLUR`>>: Motion blur is supported through extra object parameters
 * <<object_types_volume_transfer_function1d, `KHR_VOLUME_TRANSFER_FUNCTION1D`>>: `transferFunction1D` volume subtype is supported
