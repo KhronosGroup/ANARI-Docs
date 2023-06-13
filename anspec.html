@@ -466,7 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#api_choices_c99">2.1. C99</a></li>
 <li><a href="#api_choices_library">2.2. Common Front-end Library</a></li>
 <li><a href="#api_choices_objects">2.3. Opaque Objects, Parameterization, and Properties</a></li>
-<li><a href="#api_choices_features">2.4. Features and Extensions</a></li>
+<li><a href="#api_choices_extensions">2.4. Extensions</a></li>
 <li><a href="#api_choices_distributed_rendering">2.5. Support for Distributed Applications (Informative)</a></li>
 </ul>
 </li>
@@ -484,12 +484,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#api_concepts_introspection">3.7. Object Introspection</a></li>
 <li><a href="#api_concepts_object_properties">3.8. Object Properties</a></li>
-<li><a href="#api_concepts_features">3.9. Feature Queries</a></li>
-<li><a href="#api_concepts_memory">3.10. Arrays and Memory Ownership</a></li>
-<li><a href="#api_concepts_libraries">3.11. Libraries</a></li>
-<li><a href="#api_concepts_devices">3.12. Devices</a></li>
-<li><a href="#api_concepts_error_handling">3.13. Error Handling</a></li>
-<li><a href="#api_concepts_attributes">3.14. Attributes</a></li>
+<li><a href="#api_concepts_memory">3.9. Arrays and Memory Ownership</a></li>
+<li><a href="#api_concepts_libraries">3.10. Libraries</a></li>
+<li><a href="#api_concepts_devices">3.11. Devices</a></li>
+<li><a href="#api_concepts_error_handling">3.12. Error Handling</a></li>
+<li><a href="#api_concepts_attributes">3.13. Attributes</a></li>
 </ul>
 </li>
 <li><a href="#rendering_frames">4. Rendering Frames</a></li>
@@ -556,7 +555,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#object_types_extension_objects">5.14. Extension Objects</a></li>
 </ul>
 </li>
-<li><a href="#feature_index">Appendix A: Feature Index</a></li>
+<li><a href="#extension_index">Appendix A: Extension Index</a></li>
 <li><a href="#glossary">Appendix B: Glossary</a></li>
 <li><a href="#credits">Appendix C: Credits (Informative)</a>
 <ul class="sectlevel2">
@@ -656,7 +655,7 @@ cost.</p>
 address the primary requirement above, in practice they are vendor-, hardware
 platform-, or rendering algorithm-specific, or they provide high-performance
 building blocks for rendering, but not a complete renderer implementation with a
-high-level API.  ANARI aims to address the limitations of these existing APIs.
+high-level API. ANARI aims to address the limitations of these existing APIs.
 ANARI fully abstracts vendor-, hardware platform-, and rendering
 algorithm-specific details behind the API. By doing so, a multiplicity of
 rendering back-end implementations can be used to their full capability, without
@@ -690,7 +689,7 @@ scaling through multiple machines in a cluster to exploit additional distributed
 compute and memory resources. The ANARI API provides the necessary abstractions
 to allow these needs to be met by back-end renderers, without excessive exposure
 of hardware or rendering algorithm details to the application. ANARI seeks to
-standardize features for rendering domains including, but not limited to,
+standardize extensions for rendering domains including, but not limited to,
 scientific visualization, professional visualization, visual effects, and
 engineering CAD.</p>
 </div>
@@ -824,7 +823,7 @@ prefixed with these strings.</p>
 </div>
 <div class="paragraph">
 <p>The <code>ANARI_</code> prefix of named <a href="#api_concepts_parameters">data types</a> and
-<a href="#api_concepts_features">features</a> is ommited in tables and itemizations for
+<a href="#api_choices_extensions">extensions</a> is ommited in tables and itemizations for
 readability and brevity.</p>
 </div>
 </div>
@@ -919,43 +918,51 @@ interface function for access.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="api_choices_features">2.4. Features and Extensions</h3>
+<h3 id="api_choices_extensions">2.4. Extensions</h3>
 <div class="paragraph">
-<p>The ANARI specification defines a set of usable features exposed via the C API.
-Features are loosely defined as observable behavior from a particular use of
+<p>The ANARI specification defines a set of usable extensions exposed via the C API.
+Extensions are loosely defined as observable behavior from a particular use of
 the ANARI API. This most commonly is the existence of usable object subtypes,
 but also can be pre/post conditions on a function call, specific behavior of an
 object parameter, or guaranteed availability of a property.</p>
 </div>
 <div class="paragraph">
-<p>Applications can query features made available by a device implementation
+<p>Applications can query extensions made available by a device implementation
 through queries either on the library or the live device instance. Querying
-available features via the library represents the list of features implemented
-by the vendor at all, while querying features on a live device instance will
+available extensions via the library represents the list of extensions implemented
+by the vendor at all, while querying extensions on a live device instance will
 also factor in the runtime environment (i.e. available underlying hardware to
-the device). In either case, feature queries are intended to be the way an
+the device). In either case, extension queries are intended to be the way an
 application determines if the device is acceptable in meeting the application&#8217;s
-requirements, or if the application wants to adapt itself to what features are
+requirements, or if the application wants to adapt itself to what extensions are
 available.</p>
 </div>
 <div class="paragraph">
-<p>Extensions are features that have not yet made it into the ANARI specification.
-These features are reported in the same list as core features, but have vendor
+<p>Extensions are extensions that have not yet made it into the ANARI specification.
+These extensions are reported in the same list as core extensions, but have vendor
 specific names, which may exist in more than one device from that vendor.
-This is a good way for vendors to agree upon and get experience with a feature
+This is a good way for vendors to agree upon and get experience with a extension
 prior to bring it officially into the specification.</p>
 </div>
 <div class="paragraph">
-<p>All features represent functionality which provides additional capabilities to
-the application. A reported feature should never represent a reduction in
+<p>All extensions represent functionality which provides additional capabilities to
+the application. A reported extension should never represent a reduction in
 capability.</p>
 </div>
 <div class="paragraph">
-<p>Testable feature names are inlined in the specification alongside their
-definition. All features follow the prefix convention of
-<code>ANARI_[VENDOR]_[NAME]</code>, where core features use <code>KHR</code> as the vendor string. In
-this document, all features will omit the <code>ANARI_</code> portion of the prefix for
-brevity.</p>
+<p>Testable extension names are inlined in the specification alongside their
+definition. All extensions follow the prefix convention of
+<code>ANARI_[VENDOR]_[NAME]</code>, where ratified extensions use <code>KHR</code> as the vendor
+string.</p>
+</div>
+<div class="paragraph">
+<p>Implemented extensions may be queried via <a href="#api_concepts_introspection">Object Introspection</a>
+functions. Currently available extensions for devices and renderers may be
+queried via <a href="#api_concepts_object_properties">Object Properties</a> functions.</p>
+</div>
+<div class="paragraph">
+<p>A full list of ANARI extensions can be found in the <a href="#extension_index">Extension Index</a>
+appendix.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1027,7 +1034,7 @@ blocking on ANARI.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>Devices that implement feature <code>KHR_DEVICE_SYNCHRONIZATION</code> relax
+<p>Devices that implement extension <code>KHR_DEVICE_SYNCHRONIZATION</code> relax
 synchronization requirements by excluding the device from the external
 synchronization requirement if the device is passed as the first argument only.
 Calls that are operating on the device as the object must still be synchronized
@@ -1051,10 +1058,10 @@ describes their relationship to each other.</p>
 <div class="paragraph">
 <p>The <a href="#object_types_frame">Frame</a> is the root object of the scene. It holds the
 framebuffer configuration and the <a href="#object_types_world">World</a>,
-<a href="#object_types_camera">Camera</a>, and <a href="#object_types_renderer">Renderer</a> objects.  The
+<a href="#object_types_camera">Camera</a>, and <a href="#object_types_renderer">Renderer</a> objects. The
 <a href="#object_types_camera">Camera</a> configures the projection of the rendering used to view
-the <a href="#object_types_world">World</a>.  The <a href="#object_types_renderer">Renderer</a> holds parameters
-relating to the rendering algorithm.  The <a href="#object_types_world">World</a> holds arrays of
+the <a href="#object_types_world">World</a>. The <a href="#object_types_renderer">Renderer</a> holds parameters
+relating to the rendering algorithm. The <a href="#object_types_world">World</a> holds arrays of
 the drawable objects of the scene such as <a href="#object_types_surface">Surface</a>,
 <a href="#object_types_volume">Volume</a>, and <a href="#object_types_light">Light</a> either directly or via an
 array of <a href="#object_types_instance">Instance</a> containing <a href="#object_types_group">Group</a>. A
@@ -1062,7 +1069,7 @@ array of <a href="#object_types_instance">Instance</a> containing <a href="#obje
 <a href="#object_types_volume">Volume</a>, and <a href="#object_types_light">Light</a> to be instanced together. An
 <a href="#object_types_instance">Instance</a> combines a <a href="#object_types_group">Group</a> with a transform for
 placement of the same collection of objects at multiple locations within the
-same <a href="#object_types_world">World</a>.  A <a href="#object_types_surface">Surface</a> represents drawable
+same <a href="#object_types_world">World</a>. A <a href="#object_types_surface">Surface</a> represents drawable
 surfaces containing a <a href="#object_types_geometry">Geometry</a> and a <a href="#object_types_material">Material</a>.
 A <a href="#object_types_geometry">Geometry</a> specifies drawable primitives and data associated
 with them. A <a href="#object_types_material">Material</a> specifies the surface&#8217;s appearance
@@ -1154,7 +1161,7 @@ release objects as soon as it no longer requires access to them.</p>
 are set using <code>anariSetParameter</code>. Multiple types can be valid for a parameter,
 but only one type can be set for a particular parameter name at any given time.
 Setting a parameter with a different type overwrites its previous value and
-type.  Attempting to set a parameter that is unknown to the implementation
+type. Attempting to set a parameter that is unknown to the implementation
 has no effect on object state, but may cause an ANARI device implementation
 to emit warnings. The same applies if an unsupported type for a parameter is used.</p>
 </div>
@@ -1166,7 +1173,7 @@ to emit warnings. The same applies if an unsupported type for a parameter is use
 <pre class="CodeRay highlight"><code data-lang="cpp">void anariSetParameter(
   ANARIDevice,
   ANARIObject,
-  const char *parameter,
+  const char *parameterName,
   ANARIDataType,
   const void *value
 );</code></pre>
@@ -1190,9 +1197,7 @@ has been called on the object:</p>
 </div>
 <div class="paragraph">
 <p>Uncommitted parameters must have no effect on the behavior of the object
-during rendering operations. Calling <code>anariCommitParameters</code> while an object is
-participating in a <a href="#rendering_frames">rendering operation</a> is
-undefined behavior.</p>
+during rendering operations.</p>
 </div>
 <div class="paragraph">
 <p>Data types passed to and returned from ANARI are specified using the
@@ -1203,7 +1208,7 @@ See Table 1 below for a complete list.</p>
 </div>
 <div class="paragraph">
 <p>Values set on objects are passed as a <code>void *</code> in <code>anariSetParameter</code>, which
-points to the value to be read.  The type is encoded by the passed in
+points to the value to be read. The type is encoded by the passed in
 <code>ANARIDataType</code> enum. For example, this means that, given <code>ANARI_INT</code>, the
 implementation casts the input <code>void * value</code> to <code>int *</code> and dereferences it
 accordingly. There are, however, two exceptions: <code>ANARI_STRING</code> and
@@ -1224,7 +1229,7 @@ applied when the object is committed.</p>
 <pre class="CodeRay highlight"><code data-lang="cpp">void anariUnsetParameter(
   ANARIDevice,
   ANARIObject,
-  const char *parameter
+  const char *parameterName
 );</code></pre>
 </div>
 </div>
@@ -1250,7 +1255,7 @@ applied when the object is committed.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>const char*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>const char *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0-terminated string</p></td>
 </tr>
 <tr>
@@ -1260,7 +1265,7 @@ applied when the object is committed.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING_LIST</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>const char**</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>const char **</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">array of 0-terminated strings terminated by <code>NULL</code></p></td>
 </tr>
 <tr>
@@ -1270,7 +1275,7 @@ applied when the object is committed.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VOID_POINTER</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>void*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>void *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">void pointer</p></td>
 </tr>
 <tr>
@@ -1296,7 +1301,7 @@ applied when the object is committed.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FRAME_COMPLETION_CALLBACK</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ANARIFrameCompletionCallback</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#feature_continuations">feature <code>KHR_FRAME_COMPLETION_CALLBACK</code></a> frame completion callback function pointer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#extension_continuations">extension <code>KHR_FRAME_COMPLETION_CALLBACK</code></a> frame completion callback function pointer</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>LIBRARY</code></p></td>
@@ -1959,23 +1964,23 @@ brevity:</p>
 <div class="sect2">
 <h3 id="api_concepts_introspection">3.7. Object Introspection</h3>
 <div class="paragraph">
-<p>ANARI supports introspection of objects, i.e., querying supported features, object
+<p>ANARI supports introspection of objects, i.e., querying supported extensions, object
 subtypes and information about their parameters, which is particularly useful
-to enumerate and inspect implementation-specific object features. The intended
+to enumerate and inspect implementation-specific object extensions. The intended
 use is to allow for building a graphical user interface for, e.g., specific
 renderers or materials, and to provide hints for the debug layer to aid in
-validating features.</p>
+validating extensions.</p>
 </div>
 <div class="paragraph">
 <p>The information queried with the following functions
 is static and will reflect what the implementation is capable of supporting.
-If a feature is unavailable for runtime dependent reasons, for example due to
+If a extension is unavailable for runtime dependent reasons, for example due to
 missing hardware support, the device may still advertise the associated parameters
-and object subtypes. The dynamic runtime feature availability can be queried using
+and object subtypes. The dynamic runtime extension availability can be queried using
 <a href="#api_concepts_object_properties">properties</a>.</p>
 </div>
 <div class="paragraph">
-<p>Device subtypes and their implemented features can be queried
+<p>Device subtypes and their implemented extensions can be queried
 from a library before instantiating a device. Object and parameter specific
 information can be queried from an instantiated device object.</p>
 </div>
@@ -1992,14 +1997,14 @@ devices. The first (if any) device is the default device.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp">const char **anariGetDeviceFeatures(ANARILibrary, const char *deviceSubtype);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp">const char **anariGetDeviceExtensions(ANARILibrary, const char *deviceSubtype);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The list features implemented by a device is retrieved by calling
-<code>anariGetDeviceFeatures</code> with a device subtype returned by
+<p>The list extensions implemented by a device is retrieved by calling
+<code>anariGetDeviceExtensions</code> with a device subtype returned by
 <code>anariGetDeviceSubtypes</code>. It returns a <code>NULL</code>-terminated list of <code>0</code>-terminated
-C-strings with the names of the implemented features.</p>
+C-strings with the names of the implemented extensions.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2016,6 +2021,18 @@ subtypes:</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>CAMERA</code></p>
+</li>
+<li>
+<p><code>RENDERER</code></p>
+</li>
+<li>
+<p><code>INSTANCE</code></p>
+</li>
+<li>
+<p><code>LIGHT</code></p>
+</li>
+<li>
 <p><code>GEOMETRY</code></p>
 </li>
 <li>
@@ -2025,19 +2042,10 @@ subtypes:</p>
 <p><code>MATERIAL</code></p>
 </li>
 <li>
-<p><code>SPATIAL_FIELD</code></p>
-</li>
-<li>
 <p><code>VOLUME</code></p>
 </li>
 <li>
-<p><code>LIGHT</code></p>
-</li>
-<li>
-<p><code>CAMERA</code></p>
-</li>
-<li>
-<p><code>RENDERER</code></p>
+<p><code>SPATIAL_FIELD</code></p>
 </li>
 </ul>
 </div>
@@ -2100,10 +2108,10 @@ The following infos of objects can be queried:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">list of supported channels</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">feature</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extension</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING_LIST</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">for <code>RENDERER</code>s</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">list of supported features</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list of supported extensions</p></td>
 </tr>
 </tbody>
 </table>
@@ -2245,29 +2253,7 @@ callback.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="api_concepts_features">3.9. Feature Queries</h3>
-<div class="paragraph">
-<p>Core features and feature features are identified by string names. Supported
-features may be queried from device and renderer objects using
-<code>anariGetObjectInfo</code> and <code>anariGetProperty</code> by querying for a <code>STRING_LIST</code>
-named <code>feature</code>.</p>
-</div>
-<div class="paragraph">
-<p>Queries using <code>anariGetDeviceFeatures</code> and <code>anariGetObjectInfo</code> return a static
-list of implemented features the object type is capable of supporting. Queries using
-<code>anariGetProperty</code> return the dynamic list of features supported by a specific
-object instance. The dynamic list returned for an object instance is a subset of
-the static list returned for the object type. Some features may be missing from
-the instance because they depend on factors (hardware, drivers etc.) that are only
-known once an instance has been created and configured.</p>
-</div>
-<div class="paragraph">
-<p>A full list of ANARI features can be found in the <a href="#feature_index">Feature
-Index</a> appendix.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="api_concepts_memory">3.10. Arrays and Memory Ownership</h3>
+<h3 id="api_concepts_memory">3.9. Arrays and Memory Ownership</h3>
 <div class="paragraph">
 <p>There are two methods of expressing array data on objects: directly mapping
 array elements on an object parameter in order to write data elements, or
@@ -2283,14 +2269,16 @@ one, two, or three dimensional array data on any given object using</p>
     ANARIObject,
     const char *parameterName
     ANARIDataType elementType,
-    uint64_t numElements);
+    uint64_t numElements,
+    uint64_t *elementStride);
 
 void *anariMapParameterArray2D(ANARIDevice,
     ANARIObject,
     const char *parameterName
     ANARIDataType elementType,
     uint64_t numElements1,
-    uint64_t numElements2);
+    uint64_t numElements2,
+    uint64_t *elementStride);
 
 void *anariMapParameterArray3D(ANARIDevice,
     ANARIObject,
@@ -2298,20 +2286,28 @@ void *anariMapParameterArray3D(ANARIDevice,
     ANARIDataType elementType,
     uint64_t numElements1,
     uint64_t numElements2,
-    uint64_t numElements3);</code></pre>
+    uint64_t numElements3,
+    uint64_t *elementStride);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Each of these functions return a densely packed, write-only array for the
-application to fill, where the number of elements <code>numElementsN</code> must be positive
-(there cannot be an empty mapped array). Whenever an array is directly mapped,
-any previously mapped array configuration (size, dimensionality, etc.) is
-discarded in favor of the currently mapped array configuration.</p>
+<p>Each of these functions return a write-only array for the application to fill,
+where the number of elements <code>numElementsN</code> must be positive (there cannot be an
+empty mapped array). Whenever an array is directly mapped, any previous array
+configuration (size, dimensionality, etc.) is discarded in favor of the
+currently mapped array configuration.</p>
 </div>
 <div class="paragraph">
 <p>Devices are only required to allocate directly mapped arrays for parameters
 corresponding extensions that the device implements. In cases where the
 parameter is unknown by the device, the device is permitted to return <code>NULL</code>.</p>
+</div>
+<div class="paragraph">
+<p>Devices are permitted to have a non-dense element stride, which is returned by
+writing to <code>elementStride</code>. Implementations are permitted to return <code>0</code> in the
+value of <code>elementStride</code> indicating that the array is densely packed (each
+element is the size of the corresponding <code>elementType</code>). It is not permitted to
+pass <code>NULL</code> to <code>elementStride</code>;</p>
 </div>
 <div class="paragraph">
 <p>Once the array has been filled, applications signal that the device is free to
@@ -2329,7 +2325,7 @@ until the object itself is committed with <code>anariCommitParameters</code>. Fu
 using <code>anariUnsetParameter</code> will subsequently reset the parameter to an unset
 state, effectively clearing the previously mapped array on the object. Using
 <code>anariSetParameter</code>, <code>anariMapParameterArray</code>, or <code>anariUnsetParameter</code> on an
-array that is still mapped is an error&#8201;&#8212;&#8201;applications must first unmap the
+array that is still mapped is an error – applications must first unmap the
 array before altering the parameter through other means. Writing to the mapped
 pointer after calling <code>anariUnmapParameterArray</code> is undefined behavior and
 should be avoided.</p>
@@ -2339,8 +2335,7 @@ should be avoided.</p>
 handles represent data arrays in memory, which are shared with device
 implementations. The memory shared with ANARI can be either owned by the
 application, have ownership transferred to the device via a deleter callback, or
-be managed by the device. Input data has dimensions encoded in its handle type,
-where each dimension can have a sparse stride.</p>
+be managed by the device.</p>
 </div>
 <div class="paragraph">
 <p>The signature of the deleter is provided in <code>anari.h</code> as</p>
@@ -2361,8 +2356,7 @@ desired dimension:</p>
    ANARIMemoryDeleter,
    const void *userPtr,
    ANARIDataType elementType,
-   uint64_t numElements,
-   uint64_t byteStride);
+   uint64_t numElements);
 
 ANARIArray2D anariNewArray2D(ANARIDevice,
    const void *appMemory,
@@ -2370,9 +2364,7 @@ ANARIArray2D anariNewArray2D(ANARIDevice,
    const void *userPtr,
    ANARIDataType elementType,
    uint64_t numElements1,
-   uint64_t numElements2,
-   uint64_t byteStride1,
-   uint64_t byteStride2);
+   uint64_t numElements2);
 
 ANARIArray3D anariNewArray3D(ANARIDevice,
    const void *appMemory,
@@ -2381,21 +2373,12 @@ ANARIArray3D anariNewArray3D(ANARIDevice,
    ANARIDataType elementType,
    uint64_t numElements1,
    uint64_t numElements2,
-   uint64_t numElements3,
-   uint64_t byteStride1,
-   uint64_t byteStride2,
-   uint64_t byteStride3);</code></pre>
+   uint64_t numElements3);</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The number of elements <code>numElementsN</code> must be positive (there cannot be an
-empty array object). The distance between consecutive elements (per
-dimension) is given in bytes with <code>byteStrideN</code>. If a <code>byteStrideN</code> is
-zero, it will be determined automatically (e.g., as <code>sizeof(type)</code>).
-Strides do not need to be ordered. For example, <code>byteStride2</code> can be smaller
-than <code>byteStride1</code>, which is equivalent to a transpose. However, if the
-stride should be calculated, then an ordering in dimensions is assumed
-to disambiguate, i.e., <code>byteStride1 &lt; byteStride2 &lt; byteStride3</code>.</p>
+empty array object).</p>
 </div>
 <div class="paragraph">
 <p>In each creation function a deleter can be passed in (with an
@@ -2405,10 +2388,9 @@ passes <code>NULL</code>, ANARI will fully rely on the application to free the m
 </div>
 <div class="paragraph">
 <p>When <code>appMemory</code> is not <code>NULL</code>, then the array is considered to be a <em>shared</em>
-array, where both the application and device observe the same memory.  Passing
+array, where both the application and device observe the same memory. Passing
 <code>NULL</code> in <code>appMemory</code> creates a <em>managed</em> array. The backing memory of the array
-is managed by the device and is only writable via mapping.  Device managed
-arrays can only have dense layouts (<code>byteStrideN = 0</code>).</p>
+is managed by the device and is only writable via mapping.</p>
 </div>
 <div class="paragraph">
 <p>Applications are permitted to release <code>ANARIArray</code> objects even if the
@@ -2422,16 +2404,17 @@ Deleter callbacks are never called for managed arrays.</p>
 <div class="paragraph">
 <p>Applications are only permitted to write to the memory visible to
 <code>ANARIArray</code> objects if all array objects involved are mapped. Mapping
-an array object indicates that the device should not execute any
-rendering operations (or internal state updates, such as building
-acceleration structures) of any parent objects to the mapped array object.</p>
+a shared array object indicates that the device should not execute any rendering
+operations (or internal state updates, such as building acceleration structures)
+of any parent objects to the mapped array object which is directly referencing
+mapped memory.</p>
 </div>
 <div class="paragraph">
 <p>Array objects are mapped using</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp">void* anariMapArray(ANARIDevice, ANARIArray);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp">void *anariMapArray(ANARIDevice, ANARIArray);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2444,7 +2427,7 @@ acceleration structures) of any parent objects to the mapped array object.</p>
 </div>
 <div class="paragraph">
 <p>Mapping a shared array will always result in the same address originally used
-when constructing the array object.  Mapping a managed array may return a
+when constructing the array object. Mapping a managed array may return a
 different pointer each time it is mapped. The contents of memory mapped from
 managed arrays is undefined until written to and the entire mapped range must be
 specified before unmapping to avoid populating the array with undefined values.</p>
@@ -2465,11 +2448,9 @@ of the array object and when unmapping the array.</p>
 <div class="paragraph">
 <p>Array parameters of objects that are accessed by the same index (because
 they represent an "array of structures") have per naming convention a
-common prefix followed by a period. The byte strides of arrays allow
-such "transformation" without changing the actual memory layout. An
-example are the vertex attributes of the
-<a href="#standard_subtypes_geometry_triangle">triangle geometry</a>, which all
-start with <code>vertex.</code> followed by the attribute name.</p>
+common prefix followed by a period. An example are the vertex attributes of the
+<a href="#standard_subtypes_geometry_triangle">triangle geometry</a>, which all start with
+<code>vertex.</code> followed by the attribute name.</p>
 </div>
 </td>
 </tr>
@@ -2484,11 +2465,11 @@ change the number of elements used by parent objects at the cost of memory size
 efficiency.</p>
 </div>
 <div class="paragraph">
-<p>Implementations provide this functionality by implementing feature
+<p>Implementations provide this functionality by implementing extension
 <code>KHR_ARRAY1D_REGION</code>, which adds the following parameter to <code>ANARIArray1D</code>:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Additional parameters accepted by <code>ANARIArray1D</code> with feature <code>KHR_ARRAY1D_REGION</code>.</caption>
+<caption class="title">Table 4. Additional parameters accepted by <code>ANARIArray1D</code> with extension <code>KHR_ARRAY1D_REGION</code>.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -2568,7 +2549,7 @@ iterators on containers.</p>
 <div class="paragraph">
 <p>Directly mapped arrays from object parameters maximizes the device&#8217;s opportunity
 to be efficient in its underlying implementation. This is preferred method
-applications should use to set array data on objects.  However, if the array
+applications should use to set array data on objects. However, if the array
 data needs to be set on more than one object, then applications should prefer
 using array objects also detailed in this section so that a single array handle
 can be set on more than one parent object.</p>
@@ -2579,7 +2560,7 @@ can be set on more than one parent object.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="api_concepts_libraries">3.11. Libraries</h3>
+<h3 id="api_concepts_libraries">3.10. Libraries</h3>
 <div class="paragraph">
 <p>ANARI libraries are the mechanism that applications use to manage API device
 implementations. Libraries are solely responsible for creating instances of
@@ -2641,7 +2622,7 @@ linking is supported by their ANARI library.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="api_concepts_devices">3.12. Devices</h3>
+<h3 id="api_concepts_devices">3.11. Devices</h3>
 <div class="paragraph">
 <p>ANARI coordinates the use of one or more <em>devices</em>. A device is an object
 which provides the implementation of all ANARI API calls outside of libraries.
@@ -2740,16 +2721,16 @@ kernel queues.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">largest supported index into vertex arrays in <a href="#object_types_geometry">geometries</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">feature</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extension</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING_LIST</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">list of supported features</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list of supported extensions</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="api_concepts_error_handling">3.13. Error Handling</h3>
+<h3 id="api_concepts_error_handling">3.12. Error Handling</h3>
 <div class="paragraph">
 <p>Errors and other messages (warnings, validation messages, debug
 information etc.) from the device are reported via a status callback.
@@ -2853,7 +2834,7 @@ themselves be thread safe as they can be called on any thread.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="api_concepts_attributes">3.14. Attributes</h3>
+<h3 id="api_concepts_attributes">3.13. Attributes</h3>
 <div class="paragraph">
 <p>Attributes are quantities that are passed between objects during
 rendering. Attributes are identified by strings.</p>
@@ -3014,9 +2995,9 @@ access the stored pixel information – via</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp">const void* anariMapFrame(ANARIDevice,
+<pre class="CodeRay highlight"><code data-lang="cpp">const void *anariMapFrame(ANARIDevice,
                           ANARIFrame,
-                          const char* channel,
+                          const char *channel,
                           uint32_t *width,
                           uint32_t *height,
                           ANARIDataType *pixelType);</code></pre>
@@ -3089,7 +3070,8 @@ To create a new frame, use</p>
 channels to use. Channels are identified by string channel names beginning with <code>channel.</code>. The frame
 object has an identically named parameter for each reported channel. Setting these parameters
 to one of the allowed data types enables the channel and determines the data type it can be
-mapped as. The same channel names are used to map the channel contents with <code>anariMapFrame</code>.</p>
+mapped as. The same channel names are used to map the channel contents with <code>anariMapFrame</code>. Each
+channel has its own associated extension name.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 8. Parameters accepted by the frame.</caption>
@@ -3127,21 +3109,6 @@ mapped as. The same channel names are used to map the channel contents with <cod
 <td class="tableblock halign-left valign-top"><p class="tableblock">required size of the frame in pixels (width × height)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">channel.color</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATA_TYPE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">enable mapping the <code>color</code> channel and specify its observable type;
-                            RGB color including alpha;
-                            possible values: <code>UFIXED8_VEC4</code>, <code>UFIXED8_RGBA_SRGB</code>, <code>FLOAT32_VEC4</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">channel.depth</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATA_TYPE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">enable mapping the <code>depth</code> channel and specify its observable type;
-                            euclidean distance to the camera (<em>not</em> to the image plane), for multiple
-                            samples per pixel their minimum is taken;
-                            possible values: <code>FLOAT32</code></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">accumulation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>BOOL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FALSE</code></p></td>
@@ -3153,78 +3120,85 @@ mapped as. The same channel names are used to map the channel contents with <cod
 must be positive.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. Additional parameters accepted by the frame with feature <code>KHR_FRAME_AUXILIARY_BUFFERS</code>.</caption>
+<caption class="title">Table 9. Frame channel enabling parameters and their associated extension names.</caption>
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 71.4286%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 62.5%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Name</th>
 <th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Extension</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">channel.color</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATA_TYPE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KHR_FRAME_CHANNEL_COLOR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enable mapping the <code>color</code> channel and specify its observable type;
+                                                                RGB color including alpha;
+                                                                possible values: <code>UFIXED8_VEC4</code>, <code>UFIXED8_RGBA_SRGB</code>, <code>FLOAT32_VEC4</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">channel.depth</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATA_TYPE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KHR_FRAME_CHANNEL_DEPTH</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enable mapping the <code>depth</code> channel and specify its observable type;
+                                                                euclidean distance to the camera (<em>not</em> to the image plane), for multiple
+                                                                samples per pixel their minimum is taken;
+                                                                possible values: <code>FLOAT32</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">channel.normal</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATA_TYPE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KHR_FRAME_CHANNEL_NORMAL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">enable mapping the <code>normal</code> channel and specify its observable type;
-                            average world-space normal of the first hit;
-                            possible values: <code>FIXED16_VEC3</code>, <code>FLOAT32_VEC3</code></p></td>
+                                                                average world-space normal of the first hit;
+                                                                possible values: <code>FIXED16_VEC3</code>, <code>FLOAT32_VEC3</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">channel.albedo</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATA_TYPE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KHR_FRAME_CHANNEL_ALBEDO</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">enable mapping the <code>albedo</code> channel and specify its observable type;
-                            average material albedo (color without illumination) at the first hit;
-                            possible values: <code>UFIXED8_VEC3</code>, <code>UFIXED8_RGB_SRGB</code>, <code>FLOAT32_VEC3</code></p></td>
+                                                                average material albedo (color without illumination) at the first hit;
+                                                                possible values: <code>UFIXED8_VEC3</code>, <code>UFIXED8_RGB_SRGB</code>, <code>FLOAT32_VEC3</code></p></td>
 </tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. Additional parameters accepted by the frame with feature <code>KHR_FRAME_ID_BUFFERS</code>.</caption>
-<colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 71.4286%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">channel.primitiveId</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATA_TYPE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KHR_FRAME_CHANNEL_PRIMITIVE_ID</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">enable mapping the <code>primitiveId</code> channel and specify its
-                                     observable type; <code>primitiveId</code> attribute of the first hit;
-                                     possible values: <code>UINT32</code></p></td>
+                                                                        observable type; <code>primitiveId</code> attribute of the first hit;
+                                                                        possible values: <code>UINT32</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">channel.objectId</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATA_TYPE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KHR_FRAME_CHANNEL_OBJECT_ID</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">enable mapping the <code>objectId</code> channel and specify its
-                                     observable type; user defined <a href="#object_types_surface">Surface</a> /
-                                     <a href="#object_types_volume">Volume</a> <code>id</code>, if specified, or index in
-                                     <a href="#object_types_group">Group</a> of first hit; possible values: <code>UINT32</code></p></td>
+                                                                        observable type; user defined <a href="#object_types_surface">Surface</a> /
+                                                                        <a href="#object_types_volume">Volume</a> <code>id</code>, if specified, or index in
+                                                                        <a href="#object_types_group">Group</a> of first hit; possible values: <code>UINT32</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">channel.instanceId</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>DATA_TYPE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>KHR_FRAME_CHANNEL_INSTANCE_ID</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">enable mapping the <code>instanceId</code> channel and specify its
-                                     observable type; user defined <a href="#object_types_instance">Instance</a> <code>id</code>,
-                                     if specified, or instance index of first hit;
-                                     possible values: <code>UINT32</code></p></td>
+                                                                        observable type; user defined <a href="#object_types_instance">Instance</a> <code>id</code>,
+                                                                        if specified, or instance index of first hit;
+                                                                        possible values: <code>UINT32</code></p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>The feature <code>KHR_PROGRESSIVE_RENDERING</code> indicates that implementations use
+<p>The extension <code>KHR_PROGRESSIVE_RENDERING</code> indicates that implementations use
 progressive rendering techniques like Monte Carlo integration and thus that
 multiple subsequent calls to <a href="#rendering_frames"><code>anariRenderFrame</code></a> without
 changes to <a href="#object_types_frame">Frame</a> improve the image quality (e.g., reduce noise
@@ -3235,7 +3209,7 @@ levels).</p>
 <a href="#api_concepts_object_properties">using <code>anariGetProperty</code></a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. Properties queryable on frames.</caption>
+<caption class="title">Table 10. Properties queryable on frames.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 12.5%;">
@@ -3272,7 +3246,7 @@ levels).</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Devices which implement feature <code>KHR_FRAME_COMPLETION_CALLBACK</code> add two
+<p>Devices which implement extension <code>KHR_FRAME_COMPLETION_CALLBACK</code> add two
 parameters to <a href="#object_types_frame">Frame</a>: a callback invoked as a continuation after
 the frame completes, and an associated pointer to application state to be passed
 to the invoked continuation. This continuation must be complete before returning
@@ -3287,7 +3261,7 @@ from <code>anariFrameReady()</code> when called with <code>ANARI_WAIT</code>.</p
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. Additional parameters accepted by the frame with feature <code>KHR_FRAME_COMPLETION_CALLBACK</code>.</caption>
+<caption class="title">Table 11. Additional parameters accepted by the frame with extension <code>KHR_FRAME_COMPLETION_CALLBACK</code>.</caption>
 <colgroup>
 <col style="width: 36.6666%;">
 <col style="width: 30%;">
@@ -3337,7 +3311,7 @@ this will incur a deadlock.</p>
 <h3 id="object_types_camera">5.2. Camera</h3>
 <div class="paragraph">
 <p>Cameras express viewpoint and viewport projection information for rendering a
-scene.  To create a new camera of given type <code>subtype</code> use</p>
+scene. To create a new camera of given type <code>subtype</code> use</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3348,7 +3322,7 @@ scene.  To create a new camera of given type <code>subtype</code> use</p>
 <p>All cameras sources accept the following parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. Parameters accepted by all cameras.</caption>
+<caption class="title">Table 12. Parameters accepted by all cameras.</caption>
 <colgroup>
 <col style="width: 27.027%;">
 <col style="width: 18.9189%;">
@@ -3386,7 +3360,7 @@ scene.  To create a new camera of given type <code>subtype</code> use</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">transform</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_MAT4</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock">((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">additional world-space transformation matrix (overridden by  <code>motion.transform</code>, feature <code>KHR_TRANSFORMATION_MOTION_BLUR</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">additional world-space transformation matrix (overridden by  <code>motion.transform</code>, extension <code>KHR_TRANSFORMATION_MOTION_BLUR</code>)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">imageRegion</p></td>
@@ -3405,19 +3379,6 @@ scene.  To create a new camera of given type <code>subtype</code> use</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">distance at where the image is sharpest when depth of field is enabled</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">stereoMode</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock"><code>none</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">for stereo rendering, possible values:
-                        <code>none</code>, <code>left</code>, <code>right</code>, <code>sideBySide</code>, <code>topBottom</code> (left eye at top half)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">interpupillaryDistance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">0.0635</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">distance between left and right eye when stereo is enabled</p></td>
 </tr>
 </tbody>
 </table>
@@ -3459,11 +3420,10 @@ easily realize overscan or film gate, or to emulate a shifted sensor.</p>
 </div>
 <div class="paragraph">
 <p>All cameras support depth of field via the <code>apertureRadius</code> and
-<code>focusDistance</code> parameters and stereo 3D rendering by setting
-<code>stereoMode</code> and <code>interpupillaryDistance</code>.</p>
+<code>focusDistance</code> parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. Additional parameters accepted by all cameras with feature <code>KHR_TRANSFORMATION_MOTION_BLUR</code>.</caption>
+<caption class="title">Table 13. Additional parameters accepted by all cameras with extension <code>KHR_TRANSFORMATION_MOTION_BLUR</code>.</caption>
 <colgroup>
 <col style="width: 27.2727%;">
 <col style="width: 18.1818%;">
@@ -3518,16 +3478,52 @@ easily realize overscan or film gate, or to emulate a shifted sensor.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Feature <code>KHR_TRANSFORMATION_MOTION_BLUR</code>: Uniformly (in <code>time</code>) distributed
+<p>Extension <code>KHR_TRANSFORMATION_MOTION_BLUR</code>: Uniformly (in <code>time</code>) distributed
 transformation keys can be set with <code>motion.transform</code> to achieve camera motion
 blur (in combination with <code>shutter</code>). Alternatively, the transformation keys can
 also be given as decomposed <code>motion.scale</code>, <code>motion.rotation</code> and
 <code>motion.translation</code>.</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. Additional parameters accepted by all cameras with extension <code>KHR_STEREO_RENDERING</code>.</caption>
+<colgroup>
+<col style="width: 27.2727%;">
+<col style="width: 18.1818%;">
+<col style="width: 18.1818%;">
+<col style="width: 36.3637%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-right valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stereoMode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>none</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">possible values: <code>none</code>, <code>left</code>, <code>right</code>, <code>sideBySide</code>, <code>topBottom</code> (left eye at top half)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interpupillaryDistance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">0.0635</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">distance between left and right eye when stereo is enabled</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The extension <code>KHR_STEREO_RENDERING</code> indicates that a renderer permits 3D stereo
+rendering, which is enabled by setting <code>stereoMode</code> and
+<code>interpupillaryDistance</code>.</p>
+</div>
 <div class="sect3">
 <h4 id="object_types_camera_perspective">5.2.1. Perspective</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_CAMERA_PERSPECTIVE</code></p>
+<p>Extension: <code>KHR_CAMERA_PERSPECTIVE</code></p>
 </div>
 <div class="paragraph">
 <p>The perspective camera represents a simple thin lens camera for
@@ -3608,7 +3604,7 @@ When the algorithm does not require clip planes and <code>near</code>/<code>far<
 <div class="sect3">
 <h4 id="object_types_camera_omnidirectional">5.2.2. Omnidirectional</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_CAMERA_OMNIDIRECTIONAL</code></p>
+<p>Extension: <code>KHR_CAMERA_OMNIDIRECTIONAL</code></p>
 </div>
 <div class="paragraph">
 <p>The omnidirectional camera captures the complete surrounding
@@ -3650,7 +3646,7 @@ omnidirectional camera.</p>
 <div class="sect3">
 <h4 id="object_types_camera_orthographic">5.2.3. Orthographic</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_CAMERA_ORTHOGRAPHIC</code></p>
+<p>Extension: <code>KHR_CAMERA_ORTHOGRAPHIC</code></p>
 </div>
 <div class="paragraph">
 <p>The orthographic camera represents a simple camera with orthographic
@@ -3732,7 +3728,7 @@ When the algorithm does not require clip planes and <code>near</code>/<code>far<
 <h3 id="object_types_renderer">5.3. Renderer</h3>
 <div class="paragraph">
 <p>A renderer is the central object for rendering in ANARI. Different
-renderers implement different features, rendering algorithms, and support
+renderers implement different extensions, rendering algorithms, and support
 different materials. To create a new renderer of given subtype <code>subtype</code> use</p>
 </div>
 <div class="listingblock">
@@ -3752,7 +3748,7 @@ the list by <code>anariGetObjectSubtypes</code> when queried for <code>RENDERER<
 refer to the documentation of ANARI implementations.</p>
 </div>
 <div class="paragraph">
-<p>Feature support information can be queried as properties on the <code>ANARIRenderer</code>
+<p>Extension support information can be queried as properties on the <code>ANARIRenderer</code>
 <a href="#api_concepts_object_properties">using <code>anariGetProperty</code></a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -3773,18 +3769,18 @@ refer to the documentation of ANARI implementations.</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">feature</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extension</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>STRING_LIST</code></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">Yes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">list of supported features</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list of supported extensions</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Feature: <code>KHR_RENDERER_BACKGROUND_COLOR</code></p>
+<p>Extension: <code>KHR_RENDERER_BACKGROUND_COLOR</code></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. Parameters understood by renderers with feature <code>KHR_RENDERER_BACKGROUND_COLOR</code>.</caption>
+<caption class="title">Table 19. Parameters understood by renderers with extension <code>KHR_RENDERER_BACKGROUND_COLOR</code>.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -3809,10 +3805,10 @@ refer to the documentation of ANARI implementations.</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Feature: <code>KHR_RENDERER_BACKGROUND_IMAGE</code></p>
+<p>Extension: <code>KHR_RENDERER_BACKGROUND_IMAGE</code></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. Parameters understood by renderers with feature <code>KHR_RENDERER_BACKGROUND_IMAGE</code>.</caption>
+<caption class="title">Table 20. Parameters understood by renderers with extension <code>KHR_RENDERER_BACKGROUND_IMAGE</code>.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -3840,16 +3836,18 @@ refer to the documentation of ANARI implementations.</p>
 <p>The background image will be rescaled to the size of the <a href="#object_types_frame">Frame</a> by linear filtering.</p>
 </div>
 <div class="paragraph">
-<p>If both <code>KHR_RENDERER_BACKGROUND_COLOR</code> and <code>KHR_RENDERER_BACKGROUND_IMAGE</code> are supported the <code>background</code> parameter can accept either type.</p>
+<p>If both <code>KHR_RENDERER_BACKGROUND_COLOR</code> and <code>KHR_RENDERER_BACKGROUND_IMAGE</code> are
+supported the <code>background</code> parameter can accept either type.</p>
 </div>
 <div class="paragraph">
-<p>Feature: <code>KHR_RENDERER_AMBIENT_LIGHT</code></p>
+<p>Extension: <code>KHR_RENDERER_AMBIENT_LIGHT</code></p>
 </div>
 <div class="paragraph">
-<p>The ambient light is a light with an invisible source which surrounds the scene and illuminates it from infinity.</p>
+<p>The ambient light is a light with an invisible source which surrounds the scene
+and illuminates it from infinity.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 21. Parameters understood by renderers with feature <code>KHR_RENDERER_AMBIENT_LIGHT</code>.</caption>
+<caption class="title">Table 21. Parameters understood by renderers with extension <code>KHR_RENDERER_AMBIENT_LIGHT</code>.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -3965,15 +3963,17 @@ Instances are created with</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp">ANARIInstance anariNewInstance(ANARIDevice);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="cpp">ANARIInstance anariNewInstance(ANARIDevice, const char *subtype);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Instances take an array of <a href="#group">[group]</a> representing all the objects which share the
-instances world-space transform.</p>
+<p>All instances take an array of <a href="#group">[group]</a> representing all the objects which
+share the instances world-space transform. They also always take a generic
+<code>FLOAT32_MAT4</code> transform which serves as a fall back but may be overriden by
+subtype specific transform definitions.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. Parameters understood by instances.</caption>
+<caption class="title">Table 24. Parameters understood by all instances.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -4000,7 +4000,7 @@ instances world-space transform.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_MAT4</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock">((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">world-space transformation matrix for all attached objects
-                                                                             (overridden by  <code>motion.transform</code>, feature <code>KHR_TRANSFORMATION_MOTION_BLUR</code>)</p></td>
+                                                                             (overridden by  <code>motion.transform</code>, extension <code>KHR_TRANSFORMATION_MOTION_BLUR</code>)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
@@ -4055,15 +4055,43 @@ float in memory. Implementations are free to always treat the last row
 </tbody>
 </table>
 <div class="paragraph">
-<p>Feature <code>KHR_TRANSFORMATION_MOTION_BLUR</code>: Uniformly (in <code>time</code>) distributed
-transformation keys can be given with <code>motion.transform</code> to achieve
-transformation motion blur (in combination with <code>time</code> and <code>shutter</code>).
-Alternatively, the transformation keys can also be given as decomposed
-<code>motion.scale</code>, <code>motion.rotation</code> and <code>motion.translation</code>. <a href="#cameras">Camera</a>
-<code>shutter</code> also needs to be set appropiately.</p>
+<p>Extension: <code>KHR_INSTANCE_MATRIX</code></p>
+</div>
+<div class="paragraph">
+<p>The <code>matrix</code> instance subtype is a basic instance that implements the mandatory
+parameters and properties listed above. When this extension is supported creating
+an instance of unknown subtype will create an instance of subtype <code>matrix</code>
+instead.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>Since the parameters of all other instance subtypes are supersets of the
+<code>matrix</code> subtype they can be safely substituted in case an implementation does
+not support that subtype. To maximize compatibility the transform parameter
+should always be set in addition to any subtype specific transform parameters.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Extension <code>KHR_INSTANCE_MOTION_MATRIX</code>:</p>
+</div>
+<div class="paragraph">
+<p>The <code>motionMatrix</code> instance subtype represents uniformly (in <code>time</code>) distributed
+transformation keys as defined by <code>motion.transform</code> to achieve
+transformation motion blur in combination with <code>time</code> and <code>shutter</code>.
+<a href="#cameras">Camera</a> <code>shutter</code> needs to be set appropiately.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 26. Additional parameters understood by instances with feature <code>KHR_TRANSFORMATION_MOTION_BLUR</code>.</caption>
+<caption class="title">Table 26. Additional parameters understood by instances with extension <code>KHR_TRANSFORMATION_MOTION_BLUR</code>.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -4085,6 +4113,45 @@ Alternatively, the transformation keys can also be given as decomposed
 <td class="tableblock halign-right valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">additional uniformly distributed world-space transformations</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_BOX1</code></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">[0, 1]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">time associated with first and last key in <code>motion.*</code> arrays</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <code>motion.transform</code> parameter takes precedent over the generic <code>transform</code>
+parameter when motion blur is supported. Renderers that don&#8217;t support motion
+blur may fall back to using the generic <code>transform</code> parameter.</p>
+</div>
+<div class="paragraph">
+<p>Extension <code>KHR_INSTANCE_MOTION_SRT</code>:</p>
+</div>
+<div class="paragraph">
+<p>The <code>motionSRT</code> instance subtype represents uniformly (in <code>time</code>) distributed
+transformation keys as defined by decomposed <code>motion.scale</code>, <code>motion.rotation</code>
+and <code>motion.translation</code> transform compoments. <a href="#cameras">Camera</a> <code>shutter</code>
+also needs to be set appropiately.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 27. Additional parameters understood by instances with extension <code>KHR_TRANSFORMATION_MOTION_BLUR</code>.</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 10%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-right valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">motion.scale</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32_VEC3</code></p></td>
@@ -4111,6 +4178,12 @@ Alternatively, the transformation keys can also be given as decomposed
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>The <code>motion.scale/rotation/translation</code> parameters takes precedent over the
+generic <code>transform</code> parameter when motion blur is supported. Renderers that
+don&#8217;t support motion blur may fall back to using the generic <code>transform</code>
+parameter.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="object_types_group">5.6. Group</h3>
@@ -4129,7 +4202,7 @@ with</p>
 there are no surfaces, no volumes, or no lights instanced.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 27. Parameters understood by groups.</caption>
+<caption class="title">Table 28. Parameters understood by groups.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -4161,7 +4234,7 @@ there are no surfaces, no volumes, or no lights instanced.</p>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 28. Properties supported by groups.</caption>
+<caption class="title">Table 29. Properties supported by groups.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -4199,7 +4272,7 @@ thus illuminate objects. To create a new light object of given subtype
 <p>All light sources accept the following parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 29. Parameters accepted by all lights.</caption>
+<caption class="title">Table 30. Parameters accepted by all lights.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -4226,10 +4299,10 @@ thus illuminate objects. To create a new light object of given subtype
 <div class="paragraph">
 <p>The transformation of an <a href="#object_types_instance">instance</a> apply only to vectors
 like <code>position</code> or <code>direction</code> of a light, but <em>not</em> to affect sizes
-like <code>radius</code> (feature <code>KHR_AREA_LIGHTS</code>).</p>
+like <code>radius</code> (extension <code>KHR_AREA_LIGHTS</code>).</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 30. Additional parameters accepted by all lights with feature <code>KHR_AREA_LIGHTS</code>.</caption>
+<caption class="title">Table 31. Additional parameters accepted by all lights with extension <code>KHR_AREA_LIGHTS</code>.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -4256,7 +4329,7 @@ like <code>radius</code> (feature <code>KHR_AREA_LIGHTS</code>).</p>
 <div class="sect3">
 <h4 id="object_types_light_directional">5.7.1. Directional</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_LIGHT_DIRECTIONAL</code></p>
+<p>Extension: <code>KHR_LIGHT_DIRECTIONAL</code></p>
 </div>
 <div class="paragraph">
 <p>The directional light is thought to
@@ -4267,7 +4340,7 @@ understood by all lights, the directional light supports the following
 special parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 31. Special parameters accepted by the directional light.</caption>
+<caption class="title">Table 32. Special parameters accepted by the directional light.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -4300,7 +4373,7 @@ special parameters:</p>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 32. Additional parameters accepted by the directional light with feature <code>KHR_AREA_LIGHTS</code>.</caption>
+<caption class="title">Table 33. Additional parameters accepted by the directional light with extension <code>KHR_AREA_LIGHTS</code>.</caption>
 <colgroup>
 <col style="width: 18.75%;">
 <col style="width: 12.5%;">
@@ -4340,7 +4413,7 @@ special parameters:</p>
 <td class="content">
 <div class="title">Note</div>
 <div class="paragraph">
-<p>Feature <code>KHR_AREA_LIGHTS</code>: Setting the angular diameter to a value greater than
+<p>Extension <code>KHR_AREA_LIGHTS</code>: Setting the angular diameter to a value greater than
 zero will result in soft shadows when supported by the implementation. For
 instance, the apparent size of the sun is about 0.53° or 0.00925 rad.</p>
 </div>
@@ -4352,7 +4425,7 @@ instance, the apparent size of the sun is about 0.53° or 0.00925 rad.</p>
 <div class="sect3">
 <h4 id="object_types_light_hdri">5.7.2. HDRI</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_LIGHT_HDRI</code></p>
+<p>Extension: <code>KHR_LIGHT_HDRI</code></p>
 </div>
 <div class="paragraph">
 <p>The HDRI light is a textured light source surrounding the scene and
@@ -4361,7 +4434,7 @@ illuminating it from infinity. It is created by passing the subtype string
 parameters</a> the HDRI light supports the following special parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 33. Special parameters accepted by the HDRI light.</caption>
+<caption class="title">Table 34. Special parameters accepted by the HDRI light.</caption>
 <colgroup>
 <col style="width: 13.1578%;">
 <col style="width: 15.7894%;">
@@ -4415,17 +4488,17 @@ parameters</a> the HDRI light supports the following special parameters:</p>
 <div class="sect3">
 <h4 id="object_types_light_point">5.7.3. Point</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_LIGHT_POINT</code></p>
+<p>Extension: <code>KHR_LIGHT_POINT</code></p>
 </div>
 <div class="paragraph">
-<p>The point light (or with feature the sphere light) is a light emitting
+<p>The point light (or with extension the sphere light) is a light emitting
 uniformly in all directions (from the surface toward the outside). It is created
 by passing the subtype string <code>point</code> to <code>anariNewLight</code>. In addition to the
 <a href="#object_types_light">general parameters</a> understood by all lights, the point light supports
 the following special parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 34. Special parameters accepted by the point light.</caption>
+<caption class="title">Table 35. Special parameters accepted by the point light.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -4464,11 +4537,11 @@ the following special parameters:</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Feature <code>KHR_AREA_LIGHTS</code>: Setting the radius to a value greater than zero will
+<p>Extension <code>KHR_AREA_LIGHTS</code>: Setting the radius to a value greater than zero will
 result in soft shadows when the renderer support it.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 35. Additional parameters accepted by the point light with feature <code>KHR_AREA_LIGHTS</code>.</caption>
+<caption class="title">Table 36. Additional parameters accepted by the point light with extension <code>KHR_AREA_LIGHTS</code>.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -4503,7 +4576,7 @@ result in soft shadows when the renderer support it.</p>
 <div class="sect3">
 <h4 id="object_types_light_quad">5.7.4. Quad</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_LIGHT_QUAD</code></p>
+<p>Extension: <code>KHR_LIGHT_QUAD</code></p>
 </div>
 <div class="paragraph">
 <p>The quad<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> light is a planar,
@@ -4514,7 +4587,7 @@ understood by all lights, the quad light supports the following special
 parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 36. Special parameters accepted by the quad light.</caption>
+<caption class="title">Table 37. Special parameters accepted by the quad light.</caption>
 <colgroup>
 <col style="width: 28.5714%;">
 <col style="width: 14.2857%;">
@@ -4626,7 +4699,7 @@ shadows), or may not compute shadows at all.</p>
 <div class="sect3">
 <h4 id="object_types_light_ring">5.7.5. Ring</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_LIGHT_RING</code></p>
+<p>Extension: <code>KHR_LIGHT_RING</code></p>
 </div>
 <div class="paragraph">
 <p>The ring light is a light emitting into a cone of directions. It is created by
@@ -4635,7 +4708,7 @@ parameters listed in the table. The ring light is
 an area light and thus has a cosine falloff.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 37. Special parameters accepted by the ring light.</caption>
+<caption class="title">Table 38. Special parameters accepted by the ring light.</caption>
 <colgroup>
 <col style="width: 28.5714%;">
 <col style="width: 14.2857%;">
@@ -4756,7 +4829,7 @@ neighbors. The orientation of the C0-plane is specified via <code>c0</code>.</p>
 <div class="sect3">
 <h4 id="object_types_light_spot">5.7.6. Spot</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_LIGHT_SPOT</code></p>
+<p>Extension: <code>KHR_LIGHT_SPOT</code></p>
 </div>
 <div class="paragraph">
 <p>The spotlight is a light emitting into a cone of directions. It is
@@ -4766,7 +4839,7 @@ lights, the spotlight supports the special parameters listed in the
 table.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 38. Special parameters accepted by the spotlight.</caption>
+<caption class="title">Table 39. Special parameters accepted by the spotlight.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -4846,7 +4919,7 @@ created with</p>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 39. Parameters understood by Surface.</caption>
+<caption class="title">Table 40. Parameters understood by Surface.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -4886,7 +4959,7 @@ a valid <a href="#object_types_material">Material</a> to be set as the <code>mat
 <h3 id="object_types_geometry">5.9. Geometry</h3>
 <div class="paragraph">
 <p>Geometries in ANARI are objects that describe the spatial representation of a
-surface.  To create a new geometry object of given subtype <code>subtype</code> use</p>
+surface. To create a new geometry object of given subtype <code>subtype</code> use</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4897,7 +4970,7 @@ surface.  To create a new geometry object of given subtype <code>subtype</code> 
 <p>All geometries support the following attribute setting parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 40. Parameters accepted by all geometries.</caption>
+<caption class="title">Table 41. Parameters accepted by all geometries.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -4967,7 +5040,7 @@ geometry specific <code>vertex.*</code> parameters take precedence.</p>
 <div class="sect3">
 <h4 id="object_types_geometry_cone">5.9.1. Cone</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_GEOMETRY_CONE</code></p>
+<p>Extension: <code>KHR_GEOMETRY_CONE</code></p>
 </div>
 <div class="paragraph">
 <p>A geometry consisting of individual cones, is created by calling
@@ -4990,7 +5063,7 @@ render them procedurally such that the cones are perfectly round.</p>
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 41. Parameters defining a cone geometry.</caption>
+<caption class="title">Table 42. Parameters defining a cone geometry.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -5088,7 +5161,7 @@ implicitly derived) <code>primitive.index</code>, which must be at most <a href=
 <div class="sect3">
 <h4 id="object_types_geometry_curve">5.9.2. Curve</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_GEOMETRY_CURVE</code></p>
+<p>Extension: <code>KHR_GEOMETRY_CURVE</code></p>
 </div>
 <div class="paragraph">
 <p>A geometry consisting of multiple curves is created by calling
@@ -5114,7 +5187,7 @@ them procedurally such that the curve segments are perfectly round.</p>
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 42. Parameters defining a curve geometry.</caption>
+<caption class="title">Table 43. Parameters defining a curve geometry.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -5201,7 +5274,7 @@ implicitly derived) <code>primitive.index</code>, which must be at most <a href=
 <div class="sect3">
 <h4 id="object_types_geometry_cylinder">5.9.3. Cylinder</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_GEOMETRY_CYLINDER</code></p>
+<p>Extension: <code>KHR_GEOMETRY_CYLINDER</code></p>
 </div>
 <div class="paragraph">
 <p>A geometry consisting of individual cylinders, each of which can have an
@@ -5225,7 +5298,7 @@ render them procedurally such that the cylinders are perfectly round.</p>
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 43. Parameters defining a cylinder geometry.</caption>
+<caption class="title">Table 44. Parameters defining a cylinder geometry.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -5329,14 +5402,14 @@ implicitly derived) <code>primitive.index</code>, which must be at most <a href=
 <div class="sect3">
 <h4 id="object_types_geometry_quad">5.9.4. Quad</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_GEOMETRY_QUAD</code></p>
+<p>Extension: <code>KHR_GEOMETRY_QUAD</code></p>
 </div>
 <div class="paragraph">
 <p>A geometry consisting of quads is created by calling <a href="#object_types_geometry"><code>anariNewGeometry</code></a> with subtype string <code>quad</code>. A quad geometry
 recognizes the following parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 44. Parameters defining a quad geometry.</caption>
+<caption class="title">Table 45. Parameters defining a quad geometry.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -5434,7 +5507,7 @@ implicitly derived) <code>primitive.index</code>, which must be at most <a href=
 <div class="sect3">
 <h4 id="object_types_geometry_sphere">5.9.5. Sphere</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_GEOMETRY_SPHERE</code></p>
+<p>Extension: <code>KHR_GEOMETRY_SPHERE</code></p>
 </div>
 <div class="paragraph">
 <p>A geometry consisting of individual spheres, each of which can have an
@@ -5458,7 +5531,7 @@ them procedurally such that the spheres are perfectly round.</p>
 </table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 45. Parameters defining a sphere geometry.</caption>
+<caption class="title">Table 46. Parameters defining a sphere geometry.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -5549,14 +5622,14 @@ implicitly derived) <code>primitive.index</code>, which must be at most <a href=
 <div class="sect3">
 <h4 id="object_types_geometry_triangle">5.9.6. Triangle</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_GEOMETRY_TRIANGLE</code></p>
+<p>Extension: <code>KHR_GEOMETRY_TRIANGLE</code></p>
 </div>
 <div class="paragraph">
 <p>A geometry consisting of triangles is created by calling <a href="#object_types_geometry"><code>anariNewGeometry</code></a> with subtype string <code>triangle</code>. A triangle geometry
 recognizes the following parameters:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 46. Parameters defining a triangle geometry.</caption>
+<caption class="title">Table 47. Parameters defining a triangle geometry.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -5657,7 +5730,7 @@ implicitly derived) <code>primitive.index</code>, which must be at most <a href=
 <h3 id="object_types_sampler">5.10. Sampler</h3>
 <div class="paragraph">
 <p>ANARI sampler objects map attribute data into other object inputs such
-materials.  To create a new sampler use</p>
+materials. To create a new sampler use</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5667,14 +5740,14 @@ materials.  To create a new sampler use</p>
 <div class="sect3">
 <h4 id="object_types_sampler_image1D">5.10.1. Image1D</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_SAMPLER_IMAGE1D</code></p>
+<p>Extension: <code>KHR_SAMPLER_IMAGE1D</code></p>
 </div>
 <div class="paragraph">
 <p>A one dimensional image sampler is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string <code>image1D</code>. It accepts the following
 parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 47. Parameters accepted by <code>image1D</code> samplers.</caption>
+<caption class="title">Table 48. Parameters accepted by <code>image1D</code> samplers.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -5763,13 +5836,13 @@ in column-major memory layout and are applied to column vectors
 <div class="sect3">
 <h4 id="object_types_sampler_image2D">5.10.2. Image2D</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_SAMPLER_IMAGE2D</code></p>
+<p>Extension: <code>KHR_SAMPLER_IMAGE2D</code></p>
 </div>
 <div class="paragraph">
 <p>A two dimensional image sampler is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string <code>image2D</code>. It accepts the following parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 48. Parameters accepted by <code>image2D</code> samplers.</caption>
+<caption class="title">Table 49. Parameters accepted by <code>image2D</code> samplers.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -5864,13 +5937,13 @@ in column-major memory layout and are applied to column vectors
 <div class="sect3">
 <h4 id="object_types_sampler_image3D">5.10.3. Image3D</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_SAMPLER_IMAGE3D</code></p>
+<p>Extension: <code>KHR_SAMPLER_IMAGE3D</code></p>
 </div>
 <div class="paragraph">
 <p>A three dimensional image sampler is created by calling <a href="#object_types_sampler"><code>anariNewSampler</code></a> with subtype string <code>image3D</code>. It accepts the following parameters.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 49. Parameters accepted by <code>image3D</code> samplers.</caption>
+<caption class="title">Table 50. Parameters accepted by <code>image3D</code> samplers.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -5971,7 +6044,7 @@ in column-major memory layout and are applied to column vectors
 <div class="sect3">
 <h4 id="object_types_sampler_primitive">5.10.4. Primitive</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_SAMPLER_PRIMITIVE</code></p>
+<p>Extension: <code>KHR_SAMPLER_PRIMITIVE</code></p>
 </div>
 <div class="paragraph">
 <p>The primitive sampler samples an <code>Array1D</code> at unnormalized integer
@@ -5979,7 +6052,7 @@ coordinates based on the <code>primitiveId</code> surface attribute, shifted by
 non-negative <code>offset</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 50. Parameters accepted by all <code>primitive</code> samplers.</caption>
+<caption class="title">Table 51. Parameters accepted by all <code>primitive</code> samplers.</caption>
 <colgroup>
 <col style="width: 25%;">
 <col style="width: 25%;">
@@ -6007,14 +6080,14 @@ non-negative <code>offset</code>.</p>
 <div class="sect3">
 <h4 id="object_types_sampler_transform">5.10.5. Transform</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_SAMPLER_TRANSFORM</code></p>
+<p>Extension: <code>KHR_SAMPLER_TRANSFORM</code></p>
 </div>
 <div class="paragraph">
 <p>The transform sampler applies a transform to the input attribute and returns the result
 as the sampled value.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 51. Parameters accepted by all <code>primitive</code> samplers.</caption>
+<caption class="title">Table 52. Parameters accepted by all <code>primitive</code> samplers.</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -6082,7 +6155,7 @@ during rendering.</p>
 <div class="sect3">
 <h4 id="object_types_material_matte">5.11.1. Matte</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_MATERIAL_MATTE</code></p>
+<p>Extension: <code>KHR_MATERIAL_MATTE</code></p>
 </div>
 <div class="paragraph">
 <p>The <code>matte</code> material reflects light uniformly into the hemisphere, i.e.,
@@ -6091,7 +6164,7 @@ independent of the viewing direction. The matte material supports
 (partial) cut-out transparency depending on <code>alphaMode</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 52. Parameters of the matte material.</caption>
+<caption class="title">Table 53. Parameters of the matte material.</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 33.3333%;">
@@ -6157,10 +6230,10 @@ transparent (opacity treated 0)</p>
 <div class="sect3">
 <h4 id="object_types_material_physically_based">5.11.2. Physically Based</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_MATERIAL_PHYSICALLY_BASED</code></p>
+<p>Extension: <code>KHR_MATERIAL_PHYSICALLY_BASED</code></p>
 </div>
 <div class="paragraph">
-<p>The <code>physicallyBased</code> material offers a wealth of features while being
+<p>The <code>physicallyBased</code> material offers a wealth of extensions while being
 user friendly. It aims to be compatible to glTF&#8217;s pbrMetallicRoughness
 material and ratified Khronos material extensions, thus refer to
 <a href="#gltf-brdf">[gltf-brdf]</a> for the exact definitions of the BRDF and also
@@ -6175,7 +6248,7 @@ non-normative implementation hints, as well as to glTF extensions
 <a href="https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_iridescence/README.md">KHR_materials_iridescence</a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 53. Parameters of the physicallyBased material.</caption>
+<caption class="title">Table 54. Parameters of the physicallyBased material.</caption>
 <colgroup>
 <col style="width: 23.0769%;">
 <col style="width: 30.7692%;">
@@ -6424,14 +6497,14 @@ create a new volume object of given subtype <code>subtype</code> use</p>
 <div class="sect3">
 <h4 id="object_types_volume_transfer_function1d">5.12.1. TransferFunction1D</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_VOLUME_TRANSFER_FUNCTION1D</code></p>
+<p>Extension: <code>KHR_VOLUME_TRANSFER_FUNCTION1D</code></p>
 </div>
 <div class="paragraph">
 <p>The 1D transfer function volume is created by passing the subtype string
 <code>transferFunction1D</code> to <code>anariNewVolume</code>. It supports the folowing parameter:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 54. Parameters understood by the tf1d volume.</caption>
+<caption class="title">Table 55. Parameters understood by the tf1d volume.</caption>
 <colgroup>
 <col style="width: 17.647%;">
 <col style="width: 17.647%;">
@@ -6455,39 +6528,21 @@ create a new volume object of given subtype <code>subtype</code> use</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">valueRange</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_BOX1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_BOX1</code> / <code>FLOAT64_BOX1</code></p></td>
 <td class="tableblock halign-right valign-top"><p class="tableblock">[0, 1]</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">sampled values of <code>field</code> are clamped to this range</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">color</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <a href="#color">Color</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32_VEC3</code> / <code>FLOAT32_VEC4</code> / <code>ARRAY1D</code> of <a href="#color">Color</a></p></td>
 <td class="tableblock halign-right valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">array to map sampled and clamped field values to color</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">color.position</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">optional array to position the elements of <code>color</code> values in <code>valueRange</code></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">opacity</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code> / <code>ARRAY1D</code> of <code>FLOAT32</code></p></td>
 <td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">array to map sampled and clamped field values to opacity</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">opacity.position</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ARRAY1D</code> of <code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">optional array to position the elements of <code>opacity</code> values in <code>valueRange</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">densityScale</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FLOAT32</code></p></td>
-<td class="tableblock halign-right valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">makes volumes uniformly thinner or thicker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">opacity value multiplied into alpha component of the <code>color</code> parameter</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
@@ -6498,9 +6553,18 @@ create a new volume object of given subtype <code>subtype</code> use</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>The <code>color</code> and the <code>opacity</code> array map values sampled in <code>field</code>
-(clamped to <code>valueRange</code>) into output colors and opacities used for
-volume rendering, respectively.</p>
+<p>When the <code>color</code> and <code>opacity</code> parameters are provided as single values, they
+are uniformly used regardless of where samples are on <code>valueRange</code>.</p>
+</div>
+<div class="paragraph">
+<p>When the <code>color</code> and <code>opacity</code> parameters are provided as arrays, they map
+values sampled in <code>field</code> (clamped to <code>valueRange</code>) into output colors and
+opacities used for volume rendering, respectively.</p>
+</div>
+<div class="paragraph">
+<p>In either case, <code>color</code> includes the opacity component, so the <code>opacity</code>
+parameter is treated as a multiplied scaling factor for the final output color
+of the respective.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -6512,7 +6576,7 @@ volume rendering, respectively.</p>
 <div class="title">Note</div>
 <div class="paragraph">
 <p>The <code>color</code> and <code>opacity</code> arrays together represent a transfer function,
-which is used to visually emphasize the structure or certain features in
+which is used to visually emphasize the structure or certain extensions in
 the <code>field</code> data. Both arrays can be of different size.</p>
 </div>
 </td>
@@ -6520,18 +6584,9 @@ the <code>field</code> data. Both arrays can be of different size.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>If present, <code>color.position</code> and <code>opacity.position</code> arrays must contain
-monotonically increasing values within (inclusive) <code>valueRange</code> and
-their array size must not be larger than the corresponding <code>color</code> or
-<code>opacity</code> array. The <code>*.position</code> arrays contain the numeric position
-which the elements of corresponding <code>color</code> or <code>opacity</code> reside within
-<code>valueRange</code>.</p>
-</div>
-<div class="paragraph">
-<p>If a <code>*.position</code> array is not set, the position values are assumed to
-be uniformly distributed within <code>valueRange</code>, with the first element
-representing the color/opacity of the lowest value in <code>valueRange</code>, and
-the last element representing the color/opacity of the last element in
+<p>The values in the <code>color</code> and <code>opacity</code> arrays are assumed to be uniformly
+distributed within <code>valueRange</code>, with the first element representing the lowest
+value in <code>valueRange</code> and the last element representing the the last element in
 <code>valueRange</code>.</p>
 </div>
 </div>
@@ -6551,7 +6606,7 @@ created with</p>
 <div class="sect3">
 <h4 id="object_types_spatial_field_structured_regular">5.13.1. Structured Regular</h4>
 <div class="paragraph">
-<p>Feature: <code>KHR_SPATIAL_FIELD_STRUCTURED_REGULAR</code></p>
+<p>Extension: <code>KHR_SPATIAL_FIELD_STRUCTURED_REGULAR</code></p>
 </div>
 <div class="paragraph">
 <p>Structured regular spatial fields are created by passing the subtype string
@@ -6559,7 +6614,7 @@ created with</p>
 understood by structured regular spatial fields are summarized in the table below.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 55. Configuration parameters for structured regular spatial fields.</caption>
+<caption class="title">Table 56. Configuration parameters for structured regular spatial fields.</caption>
 <colgroup>
 <col style="width: 14.2857%;">
 <col style="width: 14.2857%;">
@@ -6652,7 +6707,7 @@ common type of structured spatial fields are regular grids.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="feature_index">Appendix A: Feature Index</h2>
+<h2 id="extension_index">Appendix A: Extension Index</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -6678,7 +6733,25 @@ common type of structured spatial fields are regular grids.</p>
 <p><a href="#object_types_frame"><code>KHR_FRAME_AUXILIARY_BUFFERS</code></a>: Additional ANARIFrame channels are supported</p>
 </li>
 <li>
-<p><a href="#object_types_frame"><code>KHR_FRAME_ID_BUFFERS</code></a>: Additional ANARIFrame channels are supported</p>
+<p><a href="#object_types_frame"><code>KHR_FRAME_CHANNEL_COLOR</code></a>: <code>channel.color</code> is supported on ANARIFrame</p>
+</li>
+<li>
+<p><a href="#object_types_frame"><code>KHR_FRAME_CHANNEL_DEPTH</code></a>: <code>channel.depth</code> is supported on ANARIFrame</p>
+</li>
+<li>
+<p><a href="#object_types_frame"><code>KHR_FRAME_CHANNEL_NORMAL</code></a>: <code>channel.normal</code> is supported on ANARIFrame</p>
+</li>
+<li>
+<p><a href="#object_types_frame"><code>KHR_FRAME_CHANNEL_ALBEDO</code></a>: <code>channel.albedo</code> is supported on ANARIFrame</p>
+</li>
+<li>
+<p><a href="#object_types_frame"><code>KHR_FRAME_CHANNEL_PRIMITIVE_ID</code></a>: <code>channel.primitiveId</code> is supported on ANARIFrame</p>
+</li>
+<li>
+<p><a href="#object_types_frame"><code>KHR_FRAME_CHANNEL_OBJECT_ID</code></a>: <code>channel.objectId</code> is supported on ANARIFrame</p>
+</li>
+<li>
+<p><a href="#object_types_frame"><code>KHR_FRAME_CHANNEL_INSTANCE_ID</code></a>: <code>channel.instanceId</code> is supported on ANARIFrame</p>
 </li>
 <li>
 <p><a href="#object_types_frame"><code>KHR_FRAME_COMPLETION_CALLBACK</code></a>: Frame completion callback function parameters on ANARIFrame are supported</p>
@@ -6745,6 +6818,9 @@ common type of structured spatial fields are regular grids.</p>
 </li>
 <li>
 <p><a href="#object_types_frame"><code>KHR_PROGRESSIVE_RENDERING</code></a>: Frames are progressively rendered</p>
+</li>
+<li>
+<p><a href="#object_types_camera"><code>KHR_STEREO_RENDERING</code></a>: 3D stereo rendering is supported</p>
 </li>
 <li>
 <p><a href="#object_types_instance"><code>KHR_TRANSFORMATION_MOTION_BLUR</code></a>: Motion blur is supported through extra object parameters</p>
@@ -6872,7 +6948,7 @@ provided by Khronos staff.</p>
 </div>
 <div id="footer" style="max-width: 100%;">
 <div id="footer-text">
-Last updated 2022-10-07 10:35:21 -0500
+Last updated 2023-06-12 20:34:05 -0500
 </div>
 </div>
 </body>
