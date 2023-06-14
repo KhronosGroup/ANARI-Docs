@@ -16,9 +16,6 @@
 * <<object_types_camera_orthographic, `KHR_CAMERA_ORTHOGRAPHIC`>>: `orthographic` camera subtype is supported
 * <<object_types_camera_perspective, `KHR_CAMERA_PERSPECTIVE`>>: `perspective` camera subtype is supported
 * <<api_concepts_thread_safety, `KHR_DEVICE_SYNCHRONIZATION`>>: Relax API function synchronization requirement
-* <<object_types_frame, `KHR_FRAME_AUXILIARY_BUFFERS`>>: Additional ANARIFrame channels are supported
-* <<object_types_frame, `KHR_FRAME_CHANNEL_COLOR`>>: `channel.color` is supported on ANARIFrame
-* <<object_types_frame, `KHR_FRAME_CHANNEL_DEPTH`>>: `channel.depth` is supported on ANARIFrame
 * <<object_types_frame, `KHR_FRAME_CHANNEL_NORMAL`>>: `channel.normal` is supported on ANARIFrame
 * <<object_types_frame, `KHR_FRAME_CHANNEL_ALBEDO`>>: `channel.albedo` is supported on ANARIFrame
 * <<object_types_frame, `KHR_FRAME_CHANNEL_PRIMITIVE_ID`>>: `channel.primitiveId` is supported on ANARIFrame

@@ -41,10 +41,10 @@ must be positive.
 [cols="<,<,<,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name             | Type        | Extension                  | Description
-| channel.color    |`DATA_TYPE`  | `KHR_FRAME_CHANNEL_COLOR`  | enable mapping the `color` channel and specify its observable type;
+| channel.color    |`DATA_TYPE`  |                            | enable mapping the `color` channel and specify its observable type;
                                                                 RGB color including alpha;
                                                                 possible values: `UFIXED8_VEC4`, `UFIXED8_RGBA_SRGB`, `FLOAT32_VEC4`
-| channel.depth    |`DATA_TYPE`  | `KHR_FRAME_CHANNEL_DEPTH`  | enable mapping the `depth` channel and specify its observable type;
+| channel.depth    |`DATA_TYPE`  |                            | enable mapping the `depth` channel and specify its observable type;
                                                                 euclidean distance to the camera (_not_ to the image plane), for multiple
                                                                 samples per pixel their minimum is taken;
                                                                 possible values: `FLOAT32`
