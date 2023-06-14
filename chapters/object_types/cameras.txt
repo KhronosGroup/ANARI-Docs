@@ -115,7 +115,7 @@ are not set they are determined by the renderer.
 .Note
 ====
 Some rasterization based rendering algorithms intrinsically require near and far planes. The choice of these may also affect depth precision. By default ANARI devices using such algorithms will try to determine appropriate values from the scene contents and internal heuristics.
-When the algorithm does not require clip planes and `near`/`far` are not set it may opt perform no clipping (effectively setting them to 0 and infinity).
+When the algorithm does not require clip planes and `near`/`far` are not set it may opt to perform no clipping (effectively setting them to 0 and infinity).
 ====
 
 [[object_types_camera_omnidirectional]]
@@ -165,13 +165,14 @@ special parameters:
 Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
 
-If `near` and/or `far` are explicitly set they need to fulfill 0 < `near` < `far`. If they
+If `near` and/or `far` are explicitly set they need to fulfill `near` < `far`. If they
 are not set they are determined by the renderer.
 
 [NOTE]
 .Note
 ====
 Some rasterization based rendering algorithms intrinsically require near and far planes. The choice of these may also affect depth precision. By default ANARI devices using such algorithms will try to determine appropriate values from the scene contents and internal heuristics.
-When the algorithm does not require clip planes and `near`/`far` are not set it may opt perform no clipping (effectively setting them to 0 and infinity).
+When the algorithm does not require clip planes and `near`/`far` are not set it may opt to perform no clipping.
+If not explicitly set the near plane of the ortho camera may be set to negative values by the implementation in order to include the entire scene.
 ====
 
