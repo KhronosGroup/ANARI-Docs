@@ -172,6 +172,6 @@ are not set they are determined by the renderer.
 .Note
 ====
 Some rasterization based rendering algorithms intrinsically require near and far planes. The choice of these may also affect depth precision. By default ANARI devices using such algorithms will try to determine appropriate values from the scene contents and internal heuristics.
-When the algorithm does not require clip planes and `near`/`far` are not set it may opt to perform no clipping.
+When the algorithm does not require clip planes and `near`/`far` are not set it may opt to perform no clipping (effectively setting them to 0 and infinity).
 ====
 
