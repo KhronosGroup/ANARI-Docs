@@ -110,7 +110,7 @@ below.
 | fovy   |`FLOAT32`|   {pi}/3 | the field of view (angle in radians) of the frame’s height
 | aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
 | near |`FLOAT32`|         | near clip plane distance
-| far |`FLOAT32`|         | far flip plane distance
+| far |`FLOAT32`|         | far clip plane distance
 |===================================================================================================
 
 Note that when computing the `aspect` ratio a potentially set image
@@ -167,7 +167,7 @@ special parameters:
 | aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
 | height |`FLOAT32`|        1 | height of the image plane in world units
 | near |`FLOAT32`|         | near clip plane distance
-| far |`FLOAT32`|         | far flip plane distance
+| far |`FLOAT32`|         | far clip plane distance
 |===================================================================================================
 
 Note that when computing the `aspect` ratio a potentially set image
