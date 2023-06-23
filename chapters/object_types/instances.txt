@@ -2,7 +2,6 @@
 // Creative Commons Attribution 4.0 International License; see
 // http://creativecommons.org/licenses/by/4.0/
 
-
 [[object_types_instance]]
 === Instance
 
@@ -25,7 +24,6 @@ subtype specific transform definitions.
 | Name      | Type         |                                       Default | Description
 | group     |`GROUP`       |                                               | Group to be instanced, required
 | transform |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
-                                                                             (overridden by  `motion.transform`, extension `KHR_TRANSFORMATION_MOTION_BLUR`)
 | id        |`UINT32`     |                                            -1u | optional user Id, for <<object_types_frame>> channel `instanceId`
 |===================================================================================================
 
@@ -48,6 +46,10 @@ float in memory. Implementations are free to always treat the last row
 | bounds   |`FLOAT32_BOX3`| axis-aligned bounding box in world-space (excluding the lights)
 |===================================================================================================
 
+
+[[object_types_instance_matrix]]
+==== Matrix
+
 Extension: `KHR_INSTANCE_MATRIX`
 
 The `matrix` instance subtype is a basic instance that implements the mandatory
@@ -65,6 +67,9 @@ should always be set in addition to any subtype specific transform parameters.
 ====
 
 
+[[object_types_instance_motion_matrix]]
+==== Motion Matrix
+
 Extension `KHR_INSTANCE_MOTION_MATRIX`:
 
 The `motionMatrix` instance subtype represents uniformly (in `time`) distributed
@@ -72,37 +77,39 @@ transformation keys as defined by `motion.transform` to achieve
 transformation motion blur in combination with `time` and `shutter`.
 <<cameras, Camera>> `shutter` needs to be set appropiately.
 
-.Additional parameters understood by instances with extension `KHR_TRANSFORMATION_MOTION_BLUR`.
+.Additional parameters accepted by the motion matrix instance.
 [cols="<2,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           | Default | Description
-| motion.transform   |`ARRAY1D` of `FLOAT32_MAT4`     |         | additional uniformly distributed world-space transformations
-| time               |`FLOAT32_BOX1`                  |  [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
+| motion.transform   |`ARRAY1D` of `FLOAT32_MAT4`     |         | uniformly distributed world-space transformations
+| time               |`FLOAT32_BOX1`                  |  [0, 1] | time associated with first and last key in `motion.transform` array
 |===================================================================================================
 
-The `motion.transform` parameter takes precedent over the generic `transform`
-parameter when motion blur is supported. Renderers that don't support motion
-blur may fall back to using the generic `transform` parameter.
+The `motion.transform` parameter takes precedence over the generic `transform`
+parameter.
 
-Extension `KHR_INSTANCE_MOTION_SRT`:
 
-The `motionSRT` instance subtype represents uniformly (in `time`) distributed
-transformation keys as defined by decomposed `motion.scale`, `motion.rotation`
-and `motion.translation` transform compoments. <<cameras, Camera>> `shutter`
-also needs to be set appropiately.
+[[object_types_instance_motion_scale_rotation_translation]]
+==== Motion Scale Rotation Translation
 
-.Additional parameters understood by instances with extension `KHR_TRANSFORMATION_MOTION_BLUR`.
+Extension `KHR_INSTANCE_MOTION_SCALE_ROTATION_TRANSLATION`:
+
+The `motionScaleRotationTranslation` instance subtype represents uniformly (in
+`time`) distributed transformation keys as defined by decomposed `motion.scale`,
+`motion.rotation` and `motion.translation` transform components (applied in this
+order) to achieve transformation motion blur in combination with `time` and
+`shutter`. <<cameras, Camera>> `shutter` needs to be set appropiately.
+
+.Additional parameters accepted by the motion scale rotation translation instance.
 [cols="<2,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           | Default | Description
-| motion.scale       |`ARRAY1D` of `FLOAT32_VEC3`     |         | additional uniformly distributed scale, overridden by `motion.transform`
-| motion.rotation    |`ARRAY1D` of `FLOAT32_QUAT_IJKW`|         | additional uniformly distributed quaternion rotation, overridden by `motion.transform`
-| motion.translation |`ARRAY1D` of `FLOAT32_VEC3`     |         | additional uniformly distributed transformlation, overridden by `motion.transform`
+| motion.scale       |`ARRAY1D` of `FLOAT32_VEC3`     |         | uniformly distributed scale
+| motion.rotation    |`ARRAY1D` of `FLOAT32_QUAT_IJKW`|         | uniformly distributed quaternion rotation
+| motion.translation |`ARRAY1D` of `FLOAT32_VEC3`     |         | uniformly distributed translation
 | time               |`FLOAT32_BOX1`                  |  [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
 |===================================================================================================
 
-The `motion.scale/rotation/translation` parameters takes precedent over the
-generic `transform` parameter when motion blur is supported. Renderers that
-don't support motion blur may fall back to using the generic `transform`
+The `motion.pass:[*]` parameters takes precedence over the generic `transform`
 parameter.
 
