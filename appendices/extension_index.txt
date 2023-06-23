@@ -16,6 +16,7 @@
 * <<object_types_camera_orthographic, `KHR_CAMERA_ORTHOGRAPHIC`>>: `orthographic` camera subtype is supported
 * <<object_types_camera_perspective, `KHR_CAMERA_PERSPECTIVE`>>: `perspective` camera subtype is supported
 * <<api_concepts_thread_safety, `KHR_DEVICE_SYNCHRONIZATION`>>: Relax API function synchronization requirement
+* <<object_types_frame, `KHR_FRAME_ACCUMULATION`>>: Frames are progressively rendered
 * <<object_types_frame, `KHR_FRAME_CHANNEL_NORMAL`>>: `channel.normal` is supported on ANARIFrame
 * <<object_types_frame, `KHR_FRAME_CHANNEL_ALBEDO`>>: `channel.albedo` is supported on ANARIFrame
 * <<object_types_frame, `KHR_FRAME_CHANNEL_PRIMITIVE_ID`>>: `channel.primitiveId` is supported on ANARIFrame
@@ -45,6 +46,5 @@
 * <<object_types_sampler_primitive, `KHR_SAMPLER_PRIMITIVE`>>: `primitive` sampler subtype is supported
 * <<object_types_sampler_transform, `KHR_SAMPLER_TRANSFORM`>>: `transform` sampler subtype is supported
 * <<object_types_spatial_field_structured_regular, `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`>>: `structuredRegular` spatial field subtype is supported
-* <<object_types_frame, `KHR_PROGRESSIVE_RENDERING`>>: Frames are progressively rendered
 * <<object_types_camera, `KHR_STEREO_RENDERING`>>: 3D stereo rendering is supported
 * <<object_types_volume_transfer_function1d, `KHR_VOLUME_TRANSFER_FUNCTION1D`>>: `transferFunction1D` volume subtype is supported

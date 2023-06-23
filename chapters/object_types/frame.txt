@@ -30,8 +30,8 @@ channel has its own associated extension name.
 | renderer |`RENDERER`    | required renderer which renders the frame
 | size     |`UINT32_VEC2` | required size of the frame in pixels (width {times} height)
 | accumulation |`BOOL` |  `FALSE` | whether additional internal buffers are created to potentially improve the image
-                                    quality when multiple subsequent calls to `anariRenderFrame` are made (only relevant
-                                    with a progressive renderer, parameter ignored otherwise)
+                                    quality when multiple subsequent calls to `anariRenderFrame` are made (extension
+                                    `KHR_FRAME_ACCUMULATION`)
 |===================================================================================================
 
 The `world`, `camera`, `renderer`, and `size` parameters are required, `size`
@@ -67,7 +67,7 @@ must be positive.
                                                                         possible values: `UINT32`
 |===================================================================================================
 
-The extension `KHR_PROGRESSIVE_RENDERING` indicates that implementations use
+The extension `KHR_FRAME_ACCUMULATION` indicates that implementations use
 progressive rendering techniques like Monte Carlo integration and thus that
 multiple subsequent calls to <<rendering_frames, `anariRenderFrame`>> without
 changes to <<object_types_frame>> improve the image quality (e.g., reduce noise
@@ -82,7 +82,7 @@ The following information can be queried as properties on the `ANARIFrame`
 | Name               | Type    | Required | Description
 | duration           |`FLOAT32`| Yes      | time (in seconds) between start and completion of the frame
 | renderProgress     |`FLOAT32`| No       | progress of the current frame task since the last call to `anariRenderFrame`, in [0..1]
-| refinementProgress |`FLOAT32`| No       | progress of frame refinement when using `KHR_PROGRESSIVE_RENDERING` renderers, in [0..1]
+| refinementProgress |`FLOAT32`| No       | progress of frame refinement when using `KHR_FRAME_ACCUMULATION` renderers, in [0..1]
 |===============================================================================================================================
 
 Devices which implement extension `KHR_FRAME_COMPLETION_CALLBACK` add two
