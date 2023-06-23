@@ -23,29 +23,11 @@ All cameras sources accept the following parameters:
 | position               |`FLOAT32_VEC3`|        (0, 0, 0) | position of the camera in world-space
 | direction              |`FLOAT32_VEC3`|       (0, 0, -1) | main viewing direction of the camera
 | up                     |`FLOAT32_VEC3`|        (0, 1, 0) | up direction of the camera
-| transform              |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))
-                        | additional world-space transformation matrix (overridden by  `motion.transform`, extension `KHR_TRANSFORMATION_MOTION_BLUR`)
 | imageRegion            |`FLOAT32_BOX2`|\((0, 0), (1, 1)) | region of the sensor in normalized screen-space coordinates
-| apertureRadius         |`FLOAT32`     |                0 | size of the aperture, controls the depth of field
-| focusDistance          |`FLOAT32`     |                1 | distance at where the image is sharpest when depth of field is enabled
 |===================================================================================================
 
 The camera is placed and oriented in the world with `position`,
-`direction` and `up`. Additionally, an extra affine transformation
-`transform` can be specified, which is applied to homogeneous
-coordinates. Thus, `transform` will only affect 3D points and vectors
-(i.e., `position`, `direction` and `up`), but does _not_ affect any
-scalars (e.g., `apertureRadius` or `interpupillaryDistance`). ANARI uses
-a right-handed coordinate system.
-
-[NOTE]
-.Note
-====
-Since the `FLOAT32_MAT4` matrix `transform` is in column-major layout
-the translational part of the affine transformation is the 13th to 15th
-float in memory. Implementations are free to always treat the last row
-(4th, 8th, 12th and 16th float) as being (0, 0, 0, 1).
-====
+`direction` and `up`. ANARI uses a right-handed coordinate system.
 
 
 The region of the camera sensor that is rendered to the image can be
@@ -56,28 +38,18 @@ scenes which are specified in a left-handed coordinate system. Note that
 values outside the default range of [0–1] are valid, which is useful to
 easily realize overscan or film gate, or to emulate a shifted sensor.
 
-All cameras support depth of field via the `apertureRadius` and
-`focusDistance` parameters.
 
-.Additional parameters accepted by all cameras with extension `KHR_TRANSFORMATION_MOTION_BLUR`.
+.Additional parameters accepted by all cameras with extension `KHR_CAMERA_DEPTH_OF_FIELD`
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
-| Name               | Type                           |    Default | Description
-| motion.transform   |`ARRAY1D` of `FLOAT32_MAT4`     |            | additional uniformly distributed world-space transformations
-| motion.scale       |`ARRAY1D` of `FLOAT32_VEC3`     |            | additional uniformly distributed scale, overridden by `motion.transform`
-| motion.rotation    |`ARRAY1D` of `FLOAT32_QUAT_IJKW`|            | additional uniformly distributed quaternion rotation, overridden by `motion.transform`
-| motion.translation |`ARRAY1D` of `FLOAT32_VEC3`     |            | additional uniformly distributed transformlation, overridden by `motion.transform`
-| time               |`FLOAT32_BOX1`                  |     [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
-| shutter            |`FLOAT32_BOX1`                  | [0.5, 0.5] | start and end of shutter time
+| apertureRadius         |`FLOAT32`     |                0 | size of the aperture, controls the depth of field
+| focusDistance          |`FLOAT32`     |                1 | distance at where the image is sharpest when depth of field is enabled
 |===================================================================================================
 
-Extension `KHR_TRANSFORMATION_MOTION_BLUR`: Uniformly (in `time`) distributed
-transformation keys can be set with `motion.transform` to achieve camera motion
-blur (in combination with `shutter`). Alternatively, the transformation keys can
-also be given as decomposed `motion.scale`, `motion.rotation` and
-`motion.translation`.
+The externsion `KHR_CAMERA_DEPTH_OF_FIELD` indicates that cameras support depth
+of field via the `apertureRadius` and `focusDistance` parameters.
 
-.Additional parameters accepted by all cameras with extension `KHR_STEREO_RENDERING`.
+.Additional parameters accepted by all cameras with extension `KHR_CAMERA_STEREO`.
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name                   | Type         | Default | Description
@@ -85,10 +57,41 @@ also be given as decomposed `motion.scale`, `motion.rotation` and
 | interpupillaryDistance |`FLOAT32`     |  0.0635 | distance between left and right eye when stereo is enabled
 |===================================================================================================
 
-The extension `KHR_STEREO_RENDERING` indicates that a renderer permits 3D stereo
+The extension `KHR_CAMERA_STEREO` indicates that a renderer permits 3D stereo
 rendering, which is enabled by setting `stereoMode` and
 `interpupillaryDistance`.
 
+.Additional parameters accepted by all cameras with extension `KHR_CAMERA_MOTION_TRANSFORMATION`.
+[cols="<3,<2,>2,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name               | Type                           |    Default | Description
+| motion.transform   |`ARRAY1D` of `FLOAT32_MAT4`     |            | uniformly distributed world-space transformations
+| motion.scale       |`ARRAY1D` of `FLOAT32_VEC3`     |            | uniformly distributed scale, overridden by `motion.transform`
+| motion.rotation    |`ARRAY1D` of `FLOAT32_QUAT_IJKW`|            | uniformly distributed quaternion rotation, overridden by `motion.transform`
+| motion.translation |`ARRAY1D` of `FLOAT32_VEC3`     |            | uniformly distributed transformlation, overridden by `motion.transform`
+| time               |`FLOAT32_BOX1`                  |     [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
+|===================================================================================================
+
+Extension `KHR_CAMERA_MOTION_TRANSFORMATION`: Uniformly (in `time`) distributed
+transformation keys can be set with `motion.transform` to achieve camera motion
+blur (in combination with extension `KHR_CAMERA_SHUTTER`). Alternatively, the
+transformation keys can also be given as decomposed `motion.scale`,
+`motion.rotation` and `motion.translation`.
+
+.Additional parameters accepted by all cameras with extension `KHR_CAMERA_SHUTTER`.
+[cols="<3,<2,>2,<4",options="header,unbreakable"]
+|===================================================================================================
+| shutter            |`FLOAT32_BOX1`                  | [0.5, 0.5] | start and end of shutter time, clamped to [0, 1]
+|===================================================================================================
+
+.Additional parameters accepted by all cameras with extension `KHR_CAMERA_ROLLING_SHUTTER`.
+[cols="<3,<2,>2,<4",options="header,unbreakable"]
+|===================================================================================================
+| rollingShutterDirection|`STRING`      |   `none`| rolling direction of the shutter, possible values: `none`, `left`, `right`, `down`, `up`
+| rollingShutterDuration |`FLOAT32`     |       0 | the “open” time per line, clamped to [0, shutter.upper-shutter.lower]
+|===================================================================================================
+
+The extension `KHR_CAMERA_ROLLING_SHUTTER` depends on extension `KHR_CAMERA_SHUTTER`.
 
 
 [[object_types_camera_perspective]]
@@ -173,7 +176,7 @@ special parameters:
 Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
 
-If `near` and/or `far` are explicitly set they need to fulfill 0 &le; `near` < `far`. If they
+If `near` and/or `far` are explicitly set they need to fulfill 0 ≤ `near` < `far`. If they
 are not set they are determined by the renderer.
 
 [NOTE]
