@@ -28,6 +28,9 @@
 * <<object_types_geometry_quad, `KHR_GEOMETRY_QUAD`>>: `quad` geometry subtype is supported
 * <<object_types_geometry_sphere, `KHR_GEOMETRY_SPHERE`>>: `sphere` geometry subtype is supported
 * <<object_types_geometry_triangle, `KHR_GEOMETRY_TRIANGLE`>>: `triangle` geometry subtype is supported
+* <<object_types_instance_matrix, `KHR_INSTANCE_MATRIX`>>: instances and basic `matrix` instance subtype is supported
+* <<object_types_instance_motion_matrix, `KHR_INSTANCE_MOTION_MATRIX`>>: `motionMatrix` instance subtype and instance transformation motion blur is supported
+* <<object_types_instance_motion_scale_rotation_translation, `KHR_INSTANCE_MOTION_SCALE_ROTATION_TRANSLATION`>>: `motionScaleRotationTranslation` instance subtype and instance transformation motion blur is supported
 * <<object_types_light_directional, `KHR_LIGHT_DIRECTIONAL`>>: `directional` light subtype is supported
 * <<object_types_light_hdri, `KHR_LIGHT_HDRI`>>: `hdri` light subtype is supported
 * <<object_types_light_point, `KHR_LIGHT_POINT`>>: `point` light subtype is supported
@@ -44,5 +47,4 @@
 * <<object_types_spatial_field_structured_regular, `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`>>: `structuredRegular` spatial field subtype is supported
 * <<object_types_frame, `KHR_PROGRESSIVE_RENDERING`>>: Frames are progressively rendered
 * <<object_types_camera, `KHR_STEREO_RENDERING`>>: 3D stereo rendering is supported
-* <<object_types_instance, `KHR_TRANSFORMATION_MOTION_BLUR`>>: Motion blur is supported through extra object parameters
 * <<object_types_volume_transfer_function1d, `KHR_VOLUME_TRANSFER_FUNCTION1D`>>: `transferFunction1D` volume subtype is supported
