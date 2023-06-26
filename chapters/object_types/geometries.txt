@@ -220,6 +220,20 @@ large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
+.Additional parameters accepted by a quad geometry with extension `KHR_GEOMETRY_QUAD_MOTION_DEFORMATION`.
+[cols="<,<,>,<",options="header,unbreakable"]
+|===================================================================================================
+| Name                   | Type                                                    | Default | Description
+| motion.vertex.position |`ARRAY1D` of `ARRAY1D` of `FLOAT32_VEC3`                 |         | uniformly distributed vertex position arrays
+| motion.vertex.normal   |`ARRAY1D` of `ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`|         | uniformly distributed vertex normal arrays
+| motion.vertex.tangent  |`ARRAY1D` of `ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | |  uniformly distributed vertex tangents arrays
+| time                   |`FLOAT32_BOX1`                                           |  [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
+|===================================================================================================
+
+The `motion.pass:[*]` arrays represents uniformly (in `time`) distributed vertex
+data keys to achieve deformation motion blur in combination with extension
+<<object_types_camera, `KHR_CAMERA_SHUTTER`>>.
+
 
 [[object_types_geometry_sphere]]
 ==== Sphere
@@ -309,3 +323,17 @@ implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
 large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
+
+.Additional parameters accepted by a triangle geometry with extension `KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION`.
+[cols="<,<,>,<",options="header,unbreakable"]
+|===================================================================================================
+| Name                   | Type                                                    | Default | Description
+| motion.vertex.position |`ARRAY1D` of `ARRAY1D` of `FLOAT32_VEC3`                 |         | uniformly distributed vertex position arrays
+| motion.vertex.normal   |`ARRAY1D` of `ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`|         | uniformly distributed vertex normal arrays
+| motion.vertex.tangent  |`ARRAY1D` of `ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | |  uniformly distributed vertex tangents arrays
+| time                   |`FLOAT32_BOX1`                                           |  [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
+|===================================================================================================
+
+The `motion.pass:[*]` arrays represents uniformly (in `time`) distributed vertex
+data keys to achieve deformation motion blur in combination with extension
+<<object_types_camera, `KHR_CAMERA_SHUTTER`>>.
