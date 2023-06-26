@@ -24,7 +24,6 @@ subtype specific transform definitions.
 | Name      | Type         |                                       Default | Description
 | group     |`GROUP`       |                                               | Group to be instanced, required
 | transform |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
-| id        |`UINT32`     |                                            -1u | optional user Id, for <<object_types_frame>> channel `instanceId`
 |===================================================================================================
 
 The matrix `transform` represents an affine transformation which is
@@ -38,6 +37,13 @@ the translational part of the affine transformation is the 13th to 15th
 float in memory. Implementations are free to always treat the last row
 (4th, 8th, 12th and 16th float) as being (0, 0, 0, 1).
 ====
+
+.Parameters understood by all instances with extension `KHR_FRAME_CHANNEL_INSTANCE_ID`.
+[cols="<,<,>,<3",options="header,unbreakable"]
+|=============================================================
+| Name      | Type     |    Default | Description
+| id        |`UINT32`  |         -1u | optional user Id, for <<object_types_frame>> channel `instanceId`
+|=============================================================
 
 .Properties supported by instances.
 [cols="<,<,<2",options="header,unbreakable"]

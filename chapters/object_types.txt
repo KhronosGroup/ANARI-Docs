@@ -197,11 +197,17 @@ ANARISurface anariNewSurface(ANARIDevice);
 | Name     |Type      | Description
 | geometry |`GEOMETRY`| <<object_types_geometry>> object used by this surface
 | material |`MATERIAL`| <<object_types_material>> applied to the geometry
-| id       |`UINT32`  | optional user Id, for <<object_types_frame>> channel `objectId`, default -1u
 |===================================================================================================
 
 Surfaces require a valid <<object_types_geometry>> to be set as the `geometry` parameter and
 a valid <<object_types_material>> to be set as the `material` parameter.
+
+.Parameters understood by Surface with extension `KHR_FRAME_CHANNEL_OBJECT_ID`
+[cols="<3,<3,>2,<9",options="header,unbreakable"]
+|===================================================================================================
+| Name | Type       | Default | Description
+| id   |`UINT32`    |     -1u | optional user Id, for <<object_types_frame>> channel `objectId`
+|===================================================================================================
 
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////

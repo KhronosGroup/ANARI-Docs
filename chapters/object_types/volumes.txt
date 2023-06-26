@@ -22,7 +22,7 @@ Extension: `KHR_VOLUME_TRANSFER_FUNCTION1D`
 The 1D transfer function volume is created by passing the subtype string
 `transferFunction1D` to `anariNewVolume`. It supports the folowing parameter:
 
-.Parameters understood by the tf1d volume.
+.Parameters understood by the transferFunction1D volume.
 [cols="<3,<3,>2,<9",options="header,unbreakable"]
 |===================================================================================================
 | Name             | Type                 | Default | Description
@@ -30,7 +30,6 @@ The 1D transfer function volume is created by passing the subtype string
 | valueRange       |`FLOAT32_BOX1` / `FLOAT64_BOX1` |  [0, 1] | sampled values of `field` are clamped to this range
 | color            |`FLOAT32_VEC3` / `FLOAT32_VEC4` / `ARRAY1D` of <<Color>>|         | array to map sampled and clamped field values to color
 | opacity          |`FLOAT32` / `ARRAY1D` of `FLOAT32`|         | opacity value multiplied into alpha component of the `color` parameter
-| id               |`UINT32`              |     -1u | optional user Id, for <<object_types_frame>> channel `objectId`
 |===================================================================================================
 
 When the `color` and `opacity` parameters are provided as single values, they
@@ -56,3 +55,10 @@ The values in the `color` and `opacity` arrays are assumed to be uniformly
 distributed within `valueRange`, with the first element representing the lowest
 value in `valueRange` and the last element representing the the last element in
 `valueRange`.
+
+.Parameters understood by the transferFunction1D volume with extension `KHR_FRAME_CHANNEL_OBJECT_ID`
+[cols="<3,<3,>2,<9",options="header,unbreakable"]
+|===================================================================================================
+| Name | Type       | Default | Description
+| id   |`UINT32`    |     -1u | optional user Id, for <<object_types_frame>> channel `objectId`
+|===================================================================================================
