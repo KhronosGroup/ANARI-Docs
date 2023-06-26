@@ -32,8 +32,10 @@
 * <<object_types_geometry_curve, `KHR_GEOMETRY_CURVE`>>: `curve` geometry subtype is supported
 * <<object_types_geometry_cylinder, `KHR_GEOMETRY_CYLINDER`>>: `cylinder` geometry subtype is supported
 * <<object_types_geometry_quad, `KHR_GEOMETRY_QUAD`>>: `quad` geometry subtype is supported
+* <<object_types_geometry_quad, `KHR_GEOMETRY_QUAD_MOTION_DEFORMATION`>>: `quad` geometry subtype supports deformation mortion blur
 * <<object_types_geometry_sphere, `KHR_GEOMETRY_SPHERE`>>: `sphere` geometry subtype is supported
 * <<object_types_geometry_triangle, `KHR_GEOMETRY_TRIANGLE`>>: `triangle` geometry subtype is supported
+* <<object_types_geometry_triangle, `KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION`>>: `triangle` geometry subtype supports deformation mortion blur
 * <<object_types_instance_transform, `KHR_INSTANCE_TRANSFORM`>>: instances and basic `transform` instance subtype is supported
 * <<object_types_instance_motion_transform, `KHR_INSTANCE_MOTION_TRANSFORM`>>: `motionTransform` instance subtype and instance transformation motion blur is supported
 * <<object_types_instance_motion_scale_rotation_translation, `KHR_INSTANCE_MOTION_SCALE_ROTATION_TRANSLATION`>>: `motionScaleRotationTranslation` instance subtype and instance transformation motion blur is supported
