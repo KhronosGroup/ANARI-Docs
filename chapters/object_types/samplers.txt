@@ -150,7 +150,7 @@ The `offset` parameter value is added to `primitiveID` before sampling.
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name  | Type      | Default  | Description
-| array | `ARRAY1D` of `FLOAT32`/`FLOAT32_VEC2`/`FLOAT32_VEC3`/`FLOAT32_VEC4` |  | backing array of the sampler
+| array | `ARRAY1D` of <<Color>> |  | backing array of the sampler
 | offset | `UINT64` | 0 | offset into the array
 |===================================================================================================
 
