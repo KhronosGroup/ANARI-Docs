@@ -142,18 +142,24 @@ in column-major memory layout and are applied to column vectors
 
 Extension: `KHR_SAMPLER_PRIMITIVE`
 
-The primitive sampler samples an `Array1D` at unnormalized integer
-coordinates based on the `primitiveId` surface attribute, shifted by
-non-negative `offset`.
+The primitive sampler samples an `Array1D` at integer
+coordinates based on the `primitiveId` surface attribute.
+The `offset` parameter value is added to `primitiveID` before sampling.
 
 .Parameters accepted by all `primitive` samplers.
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
-| Name  | Type      | Description
-| array | `ARRAY1D` | backing array of the sampler
+| Name  | Type      | Default  | Description
+| array | `ARRAY1D` of `FLOAT32`/`FLOAT32_VEC2`/`FLOAT32_VEC3`/`FLOAT32_VEC4` |  | backing array of the sampler
+| offset | `UINT64` | 0 | offset into the array
 |===================================================================================================
 
-The `array` size must be at most <<Devices, device limit `geometryMaxIndex`>>.
+[NOTE]
+.Note
+====
+Primitive samplers serve a similar role as per primitive attributes on geometries but are attached to the material
+instead.
+====
 
 [[object_types_sampler_transform]]
 ==== Transform
@@ -168,13 +174,16 @@ as the sampled value.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
-| inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate
-| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to coordinates before sampling
+| inAttribute | `STRING` | `attribute0` | surface attribute used as input
+| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to input
 |===================================================================================================
 
 [NOTE]
 .Note
 ====
+The transform sampler does not actually sample any array or image but merely applies a
+transformation to an attribute for purposes such as swizzling or scaling the components.
+
 Like all `FLOAT32_MAT4` matrices, `outTransform` is in column-major memory
 layout and is applied to column vectors (multiplied from the left).
 ====
