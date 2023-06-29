@@ -450,12 +450,12 @@ configuration (size, dimensionality, etc.) is discarded in favor of the
 currently mapped array configuration.
 
 Devices are only required to allocate directly mapped arrays for parameters
-corresponding extensions that the device implements. In cases where the
+corresponding to extensions that the device implements. In cases where the
 parameter is unknown by the device, the device is permitted to return `NULL`.
 
 Devices are permitted to have a non-dense element stride, which is returned by
-writing to `elementStride`. Implementations are permitted to return `0` in the
-value of `elementStride` indicating that the array is densely packed (each
+writing to `elementStride`. Implementations return `0` in the
+value of `elementStride` if the array is densely packed (each
 element is the size of the corresponding `elementType`). It is not permitted to
 pass `NULL` to `elementStride`;
 
@@ -572,6 +572,11 @@ specified before unmapping to avoid populating the array with undefined values.
 `ANARIArray` objects containing object handles increase the ref count
 of all objects in the array. Reference counts are updated on creation
 of the array object and when unmapping the array.
+
+Use of the arrays inside ANARI may cause accesses at indices derived
+from parameters or other arrays (for example when drawing an indexed geometry).
+If these accesses would cause out of bounds reads the read value is undefined.
+However out of bounds accesses must not result in abnormal program termination.
 
 [NOTE]
 .Note
