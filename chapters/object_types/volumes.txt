@@ -20,7 +20,7 @@ ANARIVolume anariNewVolume(ANARIDevice, const char *subtype);
 Extension: `KHR_VOLUME_TRANSFER_FUNCTION1D`
 
 The 1D transfer function volume is created by passing the subtype string
-`transferFunction1D` to `anariNewVolume`. It supports the folowing parameter:
+`transferFunction1D` to `anariNewVolume`. It supports the following parameters:
 
 .Parameters understood by the transferFunction1D volume.
 [cols="<3,<3,>2,<9",options="header,unbreakable"]
