@@ -27,7 +27,7 @@ The transformation of an <<Instance, instance>> apply only to vectors
 like `position` or `direction` of a light, but _not_ to affect sizes
 like `radius` (extension `KHR_AREA_LIGHTS`).
 
-.Additional parameters accepted by all lights with extension `KHR_AREA_LIGHTS`.
+.Additional parameters understood by all lights with extension `KHR_AREA_LIGHTS`.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type          |    Default | Description
@@ -57,7 +57,7 @@ special parameters:
                                                 surface, in W/m^2^
 |===================================================================================================
 
-.Additional parameters accepted by the directional light with extension `KHR_AREA_LIGHTS`.
+.Additional parameters understood by the directional light with extension `KHR_AREA_LIGHTS`.
 [cols="<3,<2,>2,<9",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type         |    Default | Description
@@ -127,7 +127,7 @@ the following special parameters:
 Extension `KHR_AREA_LIGHTS`: Setting the radius to a value greater than zero will
 result in soft shadows when the renderer support it.
 
-.Additional parameters accepted by the point light with extension `KHR_AREA_LIGHTS`.
+.Additional parameters understood by the point light with extension `KHR_AREA_LIGHTS`.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type    | Default | Description

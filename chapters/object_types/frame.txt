@@ -98,7 +98,7 @@ The signature of the continuation is provided in `anari.h` as
 typedef void (*ANARIFrameCompletionCallback)(const void *userPtr, ANARIDevice, ANARIFrame);
 ....
 
-.Additional parameters accepted by the frame with extension `KHR_FRAME_COMPLETION_CALLBACK`.
+.Additional parameters understood by the frame with extension `KHR_FRAME_COMPLETION_CALLBACK`.
 [cols="<11,<9,<10",options="header,unbreakable"]
 |===================================================================================================
 | Name                            | Type                      | Description
