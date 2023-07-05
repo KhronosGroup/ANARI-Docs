@@ -492,6 +492,22 @@
 |`float[8]`
 |four dimensional 32 bit float box (inclusive lower and upper bound vector)
 
+|`FLOAT64_BOX1`
+|`double[2]`
+|one dimensional 64 bit float box (inclusive lower and upper bounds)
+
+|`FLOAT64_BOX2`
+|`double[4]`
+|two dimensional 64 bit float box (inclusive lower and upper bound vector)
+
+|`FLOAT64_BOX3`
+|`double[6]`
+|three dimensional 64 bit float box (inclusive lower and upper bound vector)
+
+|`FLOAT64_BOX4`
+|`double[8]`
+|four dimensional 64 bit float box (inclusive lower and upper bound vector)
+
 |`FLOAT32_MAT2`
 |`float[4]`
 |two by two 32 bit float matrix in column-major order
