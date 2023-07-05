@@ -34,8 +34,8 @@
 * <<object_types_geometry_quad, `KHR_GEOMETRY_QUAD`>>: `quad` geometry subtype is supported
 * <<object_types_geometry_sphere, `KHR_GEOMETRY_SPHERE`>>: `sphere` geometry subtype is supported
 * <<object_types_geometry_triangle, `KHR_GEOMETRY_TRIANGLE`>>: `triangle` geometry subtype is supported
-* <<object_types_instance_matrix, `KHR_INSTANCE_MATRIX`>>: instances and basic `matrix` instance subtype is supported
-* <<object_types_instance_motion_matrix, `KHR_INSTANCE_MOTION_MATRIX`>>: `motionMatrix` instance subtype and instance transformation motion blur is supported
+* <<object_types_instance_transform, `KHR_INSTANCE_TRANSFORM`>>: instances and basic `transform` instance subtype is supported
+* <<object_types_instance_motion_transform, `KHR_INSTANCE_MOTION_TRANSFORM`>>: `motionTransform` instance subtype and instance transformation motion blur is supported
 * <<object_types_instance_motion_scale_rotation_translation, `KHR_INSTANCE_MOTION_SCALE_ROTATION_TRANSLATION`>>: `motionScaleRotationTranslation` instance subtype and instance transformation motion blur is supported
 * <<object_types_light_directional, `KHR_LIGHT_DIRECTIONAL`>>: `directional` light subtype is supported
 * <<object_types_light_hdri, `KHR_LIGHT_HDRI`>>: `hdri` light subtype is supported

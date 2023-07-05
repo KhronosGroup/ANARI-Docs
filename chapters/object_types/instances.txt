@@ -26,16 +26,16 @@ subtype specific transform definitions.
 | transform |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
 |===================================================================================================
 
-The matrix `transform` represents an affine transformation which is
-applied to homogeneous coordinates.
+The matrix `transform` represents an affine transformation which is applied to
+homogeneous coordinates.
 
 [NOTE]
 .Note
 ====
-Since the `FLOAT32_MAT4` matrix `transform` is in column-major layout
-the translational part of the affine transformation is the 13th to 15th
-float in memory. Implementations are free to always treat the last row
-(4th, 8th, 12th and 16th float) as being (0, 0, 0, 1).
+Since the `FLOAT32_MAT4` matrix `transform` is in column-major layout the
+translational part of the affine transformation is the 13th to 15th float in
+memory. Implementations are free to always treat the last row (4th, 8th, 12th
+and 16th float) as being (0, 0, 0, 1).
 ====
 
 .Parameters understood by all instances with extension `KHR_FRAME_CHANNEL_INSTANCE_ID`.
@@ -53,37 +53,37 @@ float in memory. Implementations are free to always treat the last row
 |===================================================================================================
 
 
-[[object_types_instance_matrix]]
-==== Matrix
+[[object_types_instance_transform]]
+==== Transform
 
-Extension: `KHR_INSTANCE_MATRIX`
+Extension: `KHR_INSTANCE_TRANSFORM`
 
-The `matrix` instance subtype is a basic instance that implements the mandatory
-parameters and properties listed above. When this extension is supported creating
-an instance of unknown subtype will create an instance of subtype `matrix`
-instead.
+The `transform` instance subtype is a basic instance that implements the
+mandatory parameters and properties listed above. When this extension is
+supported creating an instance of unknown subtype will create an instance of
+subtype `transform` instead.
 
 [NOTE]
 .Note
 ====
 Since the parameters of all other instance subtypes are supersets of the
-`matrix` subtype they can be safely substituted in case an implementation does
-not support that subtype. To maximize compatibility the transform parameter
+`transform` subtype they can be safely substituted in case an implementation
+does not support that subtype. To maximize compatibility the transform parameter
 should always be set in addition to any subtype specific transform parameters.
 ====
 
 
-[[object_types_instance_motion_matrix]]
-==== Motion Matrix
+[[object_types_instance_motion_transform]]
+==== Motion Transform
 
-Extension `KHR_INSTANCE_MOTION_MATRIX`:
+Extension `KHR_INSTANCE_MOTION_TRANSFORM`:
 
-The `motionMatrix` instance subtype represents uniformly (in `time`) distributed
-transformation keys as defined by `motion.transform` to achieve
+The `motionTransform` instance subtype represents uniformly (in `time`)
+distributed transformation keys as defined by `motion.transform` to achieve
 transformation motion blur in combination with `time` and extension
 <<object_types_camera, `KHR_CAMERA_SHUTTER`>>.
 
-.Additional parameters accepted by the motion matrix instance.
+.Additional parameters accepted by the motion transform instance.
 [cols="<2,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           | Default | Description
