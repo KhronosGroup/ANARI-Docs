@@ -220,7 +220,7 @@ large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
-.Additional parameters accepted by a quad geometry with extension `KHR_GEOMETRY_QUAD_MOTION_DEFORMATION`.
+.Additional parameters understood by a quad geometry with extension `KHR_GEOMETRY_QUAD_MOTION_DEFORMATION`.
 [cols="<,<,>,<",options="header,unbreakable"]
 |===================================================================================================
 | Name                   | Type                                                    | Default | Description
@@ -324,7 +324,7 @@ large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
-.Additional parameters accepted by a triangle geometry with extension `KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION`.
+.Additional parameters understood by a triangle geometry with extension `KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION`.
 [cols="<,<,>,<",options="header,unbreakable"]
 |===================================================================================================
 | Name                   | Type                                                    | Default | Description
