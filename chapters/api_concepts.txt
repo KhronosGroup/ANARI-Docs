@@ -572,7 +572,7 @@ of the array object and when unmapping the array.
 
 Use of the arrays inside ANARI may cause accesses at indices derived
 from parameters or other arrays (for example when drawing an indexed geometry).
-Out of bounds accesses caused this way cause undefined behavior.
+Out of bounds accesses caused this way have undefined behavior.
 
 [NOTE]
 .Note
