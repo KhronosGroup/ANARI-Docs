@@ -454,10 +454,7 @@ corresponding to extensions that the device implements. In cases where the
 parameter is unknown by the device, the device is permitted to return `NULL`.
 
 Devices are permitted to have a non-dense element stride, which is returned by
-writing to `elementStride`. Implementations return `0` in the
-value of `elementStride` if the array is densely packed (each
-element is the size of the corresponding `elementType`). It is not permitted to
-pass `NULL` to `elementStride`;
+writing to `elementStride`. The `elementStride` argument must not be `NULL`.
 
 Once the array has been filled, applications signal that the device is free to
 consume the data with
@@ -575,8 +572,7 @@ of the array object and when unmapping the array.
 
 Use of the arrays inside ANARI may cause accesses at indices derived
 from parameters or other arrays (for example when drawing an indexed geometry).
-If these accesses would cause out of bounds reads the read value is undefined.
-However out of bounds accesses must not result in abnormal program termination.
+Out of bounds accesses caused this way cause undefined behavior.
 
 [NOTE]
 .Note
