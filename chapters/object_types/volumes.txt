@@ -28,20 +28,25 @@ The 1D transfer function volume is created by passing the subtype string
 | Name             | Type                 | Default | Description
 | field            |`SPATIAL_FIELD`       |         | <<object_types_spatial_field, Spatial field>> used for the field values of the volume
 | valueRange       |`FLOAT32_BOX1` / `FLOAT64_BOX1` |  [0, 1] | sampled values of `field` are clamped to this range
-| color            |`FLOAT32_VEC3` / `FLOAT32_VEC4` / `ARRAY1D` of <<Color>>|         | array to map sampled and clamped field values to color
-| opacity          |`FLOAT32` / `ARRAY1D` of `FLOAT32`|         | opacity value multiplied into alpha component of the `color` parameter
+| color            |`FLOAT32_VEC4` / `FLOAT32_VEC3` / `ARRAY1D` of <<Color>>| (1.0, 1.0, 1.0, 1.0)  | array to map sampled and clamped field values to color
+| opacity          |`FLOAT32` / `ARRAY1D` of `FLOAT32`|        1.0 | opacity value multiplied into alpha component of the `color` parameter
+| attenuationDistance |`FLOAT32` |        1.0 | attenuation distance after which white light turns into `color`
+| emissionCoefficient |`FLOAT32` |        1.0 |
+| scatteringCoefficient |`FLOAT32` |      1.0 |
+| id               |`UINT32`              |     -1u | optional user Id, for <<object_types_frame>> channel `objectId`
 |===================================================================================================
 
-When the `color` and `opacity` parameters are provided as single values, they
-are uniformly used regardless of where samples are on `valueRange`.
+If the `color` parameter contains an alpha channel it is multiplied with the `opacity` to form the effective opacity.
 
-When the `color` and `opacity` parameters are provided as arrays, they map
-values sampled in `field` (clamped to `valueRange`) into output colors and
-opacities used for volume rendering, respectively.
+The volumes attenuation along a ray latexmath:[c] follows Beer's law:
 
-In either case, `color` includes the opacity component, so the `opacity`
-parameter is treated as a multiplied scaling factor for the final output color
-of the respective.
+:stem: latexmath
+
+latexmath:[T = e^{-\int_c\sigma_t(z)dz}]
+
+Where latexmath:[T] is the transmittance and latexmath:[\sigma_t] the absorption coefficient defined as:
+
+latexmath:[\sigma_t(z) = {log(color(field(z))*opacity(field(z)) + white*(1-opacity(field(z)))) \over attenuationDistance}]
 
 [NOTE]
 .Note
