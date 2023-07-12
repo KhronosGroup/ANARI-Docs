@@ -1,0 +1,30 @@
+// Copyright (c) 2021 Khronos Group. This work is licensed under a
+// Creative Commons Attribution 4.0 International License; see
+// http://creativecommons.org/licenses/by/4.0/
+
+[appendix]
+[[transferFunction1D_algorithm]]
+== TransferFunction1D Algorithm
+
+The `transferFunction1D` volume type uses the following or an
+equivalent algorithm. The values for `field`, `color`, `opacity`,
+`attenuationDistance`, `emissionCoefficient` and `scatteringCoefficient`
+are determined by the volume object parameters.
+The computation of `Light` and choice of `step` is up to the implementation.
+
+[source]
+....
+Accumulator = 0
+Transmittance = 1
+
+while x in volume
+   O = opacity(field(x))*color(field(x)).alpha
+   C = color(field(x)).rgb
+   Sigma = log(C*O + white*(1.0 - O))/attenuationDistance
+   Transmittance = Transmittance * exp(-step*Sigma)
+   Intensity = emissionCoefficient + scatteringCoefficient*Light(x)
+   Accumulator = Accumulator + Transmittance*Intensity*C*O*step
+   x = x + normalized_ray_direction*step
+
+Accumulator = Accumulator + Transmittance*rest_of_ray(x, normalized_ray_direction)
+....

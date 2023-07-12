@@ -31,22 +31,14 @@ The 1D transfer function volume is created by passing the subtype string
 | color            |`FLOAT32_VEC4` / `FLOAT32_VEC3` / `ARRAY1D` of <<Color>>| (1.0, 1.0, 1.0, 1.0)  | array to map sampled and clamped field values to color
 | opacity          |`FLOAT32` / `ARRAY1D` of `FLOAT32`|        1.0 | opacity value multiplied into alpha component of the `color` parameter
 | attenuationDistance |`FLOAT32` |        1.0 | attenuation distance after which white light turns into `color`
-| emissionCoefficient |`FLOAT32` |        1.0 |
-| scatteringCoefficient |`FLOAT32` |      1.0 |
+| emissionCoefficient |`FLOAT32` |        1.0 | volume elements emit `emissionCoefficient*color` into the view direction
+| scatteringCoefficient |`FLOAT32` |      1.0 | volume elements scatter `scatteringCoefficient*color` of incoming light into the view direction
 | id               |`UINT32`              |     -1u | optional user Id, for <<object_types_frame>> channel `objectId`
 |===================================================================================================
 
 If the `color` parameter contains an alpha channel it is multiplied with the `opacity` to form the effective opacity.
 
-The volumes attenuation along a ray latexmath:[c] follows Beer's law:
-
-:stem: latexmath
-
-latexmath:[T = e^{-\int_c\sigma_t(z)dz}]
-
-Where latexmath:[T] is the transmittance and latexmath:[\sigma_t] the absorption coefficient defined as:
-
-latexmath:[\sigma_t(z) = {log(color(field(z))*opacity(field(z)) + white*(1-opacity(field(z)))) \over attenuationDistance}]
+The appearance of the `transferFunction1D` volume is guided by the reference algorithm given in <<transferFunction1D_algorithm>>.
 
 [NOTE]
 .Note
