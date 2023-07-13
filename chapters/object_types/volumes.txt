@@ -30,15 +30,13 @@ The 1D transfer function volume is created by passing the subtype string
 | valueRange       |`FLOAT32_BOX1` / `FLOAT64_BOX1` |  [0, 1] | sampled values of `field` are clamped to this range
 | color            |`FLOAT32_VEC4` / `FLOAT32_VEC3` / `ARRAY1D` of <<Color>>| (1.0, 1.0, 1.0, 1.0)  | array to map sampled and clamped field values to color
 | opacity          |`FLOAT32` / `ARRAY1D` of `FLOAT32`|        1.0 | opacity value multiplied into alpha component of the `color` parameter
-| attenuationDistance |`FLOAT32` |        1.0 | attenuation distance after which white light turns into `color`
-| emissionCoefficient |`FLOAT32` |        1.0 | volume elements emit `emissionCoefficient*color` into the view direction
-| scatteringCoefficient |`FLOAT32` |      1.0 | volume elements scatter `scatteringCoefficient*color` of incoming light into the view direction
+| attenuationDistance |`FLOAT32` |        1.0 | attenuation distance after which the transmittance of the volume turns into opacity
 | id               |`UINT32`              |     -1u | optional user Id, for <<object_types_frame>> channel `objectId`
 |===================================================================================================
 
 If the `color` parameter contains an alpha channel it is multiplied with the `opacity` to form the effective opacity.
 
-The appearance of the `transferFunction1D` volume is guided by the reference algorithm given in <<transferFunction1D_algorithm>>.
+A possible implementation of a rendering algorithm for this volume type is given in <<transferFunction1D_algorithm>>.
 
 [NOTE]
 .Note
