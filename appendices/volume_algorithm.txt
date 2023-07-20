@@ -4,11 +4,12 @@
 
 [appendix]
 [[transferFunction1D_algorithm]]
-== TransferFunction1D Reference Algorithm
+== TransferFunction1D Example Algorithm
 
-The following is a possible raymarching implementation of the `transferFunction1D` volume.
-Implementations are not required to implement this but are encouraged to use it as a reference
-when adapting other algorithms to produce visually similar results.
+The following is a possible ray-marching implementation of the
+`transferFunction1D` volume. Implementations are not required to implement this
+but are encouraged to use it as a reference when adapting other algorithms to
+produce visually similar results.
 
 [source]
 ....
@@ -16,24 +17,22 @@ ColorAccumulator = 0
 Transmittance = 1
 
 while x in volume
-   StepOpacity = opacity(field(x))*color(field(x)).alpha
-   StepColor = color(field(x)).rgb
+   StepColor = color(value(x)).rgb
+   StepOpacity = color(value(x)).a * opacity(value(x))
 
-   if StepOpacity<1.0
-      Sigma = log(1-StepOpacity)/attenuationDistance
-      StepTransmittance = exp(step*Sigma)
-   else
-      StepTransmittance = 0.0
+   StepTransmittance = pow(1 - StepOpacity, step / unitDistance)
 
-   ColorAccumulator = ColorAccumulator + Transmittance*(1.0-StepTransmittance)*StepColor
+   ColorAccumulator += Transmittance * (1 - StepTransmittance) * StepColor
 
-   Transmittance = Transmittance * StepTransmittance
+   Transmittance *= StepTransmittance
 
-   x = x + direction*step
+   x += direction * step
 ....
 
-Any transformations the volume is subject to are assumed to be
-taken into account during sampling of `field(x)`.
+Any transformations the volume is subject to are assumed to be taken into
+account during sampling of `value(x)`.
 
-The current sample location `x` is in world space. The `direction` vector is the view/ray direction and is assumed to be normalized.
-The variables `field`, `opacity`, `color` and `attenuationDistance` are parameters of the `transferFunction1D` volume object.
+The current sample location `x` is in world space. The `direction` vector is the
+view/ray direction and is assumed to be normalized. The variables `value`,
+`opacity`, `color` and `unitDistance` are parameters of the `transferFunction1D`
+volume object.

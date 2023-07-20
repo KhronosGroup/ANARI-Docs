@@ -25,30 +25,13 @@ The 1D transfer function volume is created by passing the subtype string
 .Parameters understood by the transferFunction1D volume.
 [cols="<3,<3,>2,<9",options="header,unbreakable"]
 |===================================================================================================
-| Name             | Type                 | Default | Description
-| value            |`SPATIAL_FIELD`       |         | <<object_types_spatial_field, Spatial field>> used for the scalar values of the volume
+| Name             | Type                           | Default | Description
+| value            |`SPATIAL_FIELD`                 |         | <<object_types_spatial_field, Spatial field>> used for the scalar values of the volume
 | valueRange       |`FLOAT32_BOX1` / `FLOAT64_BOX1` |  [0, 1] | sampled values of `value` are clamped to this range
 | color            |`FLOAT32_VEC4` / `FLOAT32_VEC3` / `ARRAY1D` of <<Color>>| (1.0, 1.0, 1.0, 1.0)  | color to which the sampled values are mapped to
-| opacity          |`FLOAT32` / `ARRAY1D` of `FLOAT32`|        1.0 | opacity to which the sampled values are mapped to
-| unitDistance     |`FLOAT32` |        1.0 | attenuation distance after which the transmittance of the volume turns into opacity
+| opacity          |`FLOAT32` / `ARRAY1D` of `FLOAT32`|   1.0 | opacity to which the sampled values are mapped to
+| unitDistance     |`FLOAT32`                       |     1.0 | distance after which a 'opacity' fraction of light traverling trough the volume is absorbed
 |===================================================================================================
-
-If both `color` and `opacity` are arrays they can be of different size.
-
-The parameters `color` and `opacity` represent a look-up table to map the
-sampled values of the spatial field `value` (after clamping to `valueRange`) to
-a color and a opacity: The first array element representing the lowest value in
-`valueRange` and the last element representing the the last element in
-`valueRange` and elements are linearly interpolated inbetween.
-
-The fourth component of the resulting color is multiplied with the resulting
-opacity to form the final opacity.
-
-The 1D transfer function volume represents (monochromatic) absorbing and
-(colored) light emitting particles whose local density is defined at each point
-of the spatial field by the final opacity and `unitDistance`: the fraction of
-light which is absorbed while traveling a `unitDistance` through the volume is
-given by 'opacity'.
 
 [NOTE]
 .Note
@@ -58,8 +41,35 @@ which is used to visually emphasize the structure or certain features in the
 `value` data.
 ====
 
+The parameters `color` and `opacity` represent a look-up table to map the
+sampled values of the spatial field `value` (after clamping to `valueRange`) to
+a color and a opacity: The first array element representing the lowest value in
+`valueRange` and the last element representing the the last element in
+`valueRange` and elements are linearly interpolated inbetween.
+A `color` array can have a different size than a `opacity` array.
+
+The fourth component of the resulting color is multiplied with the resulting
+opacity to form the final opacity.
+
+The 1D transfer function volume represents (monochromatic) absorbing and
+(colored) light emitting particles whose local density is defined at each point
+of the spatial field by the final opacity and `unitDistance`: the fraction of
+light which is absorbed while traveling a `unitDistance` length through the
+volume will be 'opacity'.
+
+[NOTE]
+.Note
+====
+An opacity of 1.0 results in an infinitely high density of particles, a solid
+surface. Implementations may limit opacity to a value slightly smaller than one.
+====
+
+[NOTE]
+.Note
+====
 A possible implementation of a rendering algorithm for this volume type is given
 in <<transferFunction1D_algorithm>>.
+====
 
 .Parameters understood by the transferFunction1D volume with extension `KHR_FRAME_CHANNEL_OBJECT_ID`
 [cols="<3,<3,>2,<9",options="header,unbreakable"]
