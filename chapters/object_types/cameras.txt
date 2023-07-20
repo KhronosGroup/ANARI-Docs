@@ -42,6 +42,7 @@ easily realize overscan or film gate, or to emulate a shifted sensor.
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_DEPTH_OF_FIELD`
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
+| Name                   | Type         |          Default | Description
 | apertureRadius         |`FLOAT32`     |                0 | size of the aperture, controls the depth of field
 | focusDistance          |`FLOAT32`     |                1 | distance at where the image is sharpest when depth of field is enabled
 |===================================================================================================
@@ -81,12 +82,14 @@ transformation keys can also be given as decomposed `motion.scale`,
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_SHUTTER`.
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
+| Name               | Type                           |    Default | Description
 | shutter            |`FLOAT32_BOX1`                  | [0.5, 0.5] | start and end of shutter time, clamped to [0, 1]
 |===================================================================================================
 
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_ROLLING_SHUTTER`.
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
+| Name                   | Type         | Default | Description
 | rollingShutterDirection|`STRING`      |   `none`| rolling direction of the shutter, possible values: `none`, `left`, `right`, `down`, `up`
 | rollingShutterDuration |`FLOAT32`     |       0 | the “open” time per line, clamped to [0, shutter.upper-shutter.lower]
 |===================================================================================================
