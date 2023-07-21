@@ -25,10 +25,11 @@ their name.
   * Jakob Progsch, NVIDIA
   * Jefferson Amstutz, NVIDIA
   * Johannes Günther, Intel
-  * John Stone, UIUC
+  * John Stone, NVIDIA
   * Kees Van Kooten, NVIDIA
   * Kevin Griffin, NVIDIA
   * Neil Trevett, NVIDIA
+  * Mirosław Pawłowski, Intel
   * Peter Messmer, NVIDIA
   * Will Usher, Intel
 

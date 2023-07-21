@@ -4,7 +4,7 @@
 
 // :regtitle: is explained in
 // http://discuss.asciidoctor.org/How-to-add-markup-to-author-information-in-document-title-td6488.html
-= ANARI^™^ {revnumber} – Provisional Specification {apititle}
+= ANARI^™^ {revnumber} – Specification {apititle}
 :regtitle: pass:q,r[^®^]
 The Khronos{regtitle} ANARI Working Group
 :data-uri:
