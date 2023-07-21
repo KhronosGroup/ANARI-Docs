@@ -23,7 +23,7 @@ The 1D transfer function volume is created by passing the subtype string
 `transferFunction1D` to `anariNewVolume`. It supports the following parameters:
 
 .Parameters understood by the transferFunction1D volume.
-[cols="<3,<3,>2,<9",options="header,unbreakable"]
+[cols="<3,<3,>3,<10",options="header,unbreakable"]
 |===================================================================================================
 | Name             | Type                           | Default | Description
 | value            |`SPATIAL_FIELD`                 |         | <<object_types_spatial_field, Spatial field>> used for the scalar values of the volume

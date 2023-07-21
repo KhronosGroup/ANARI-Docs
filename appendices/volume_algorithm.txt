@@ -4,7 +4,7 @@
 
 [appendix]
 [[transferFunction1D_algorithm]]
-== TransferFunction1D Example Algorithm
+== Example Algorithm for Rendering a TransferFunction1D Volume (Informative)
 
 The following is a possible ray-marching implementation of the
 `transferFunction1D` volume. Implementations are not required to implement this
@@ -13,26 +13,25 @@ produce visually similar results.
 
 [source]
 ....
-ColorAccumulator = 0
+Color = 0
 Transmittance = 1
 
-while x in volume
-   StepColor = color(value(x)).rgb
-   StepOpacity = color(value(x)).a * opacity(value(x))
+while x in Volume
+   StepValue = value(x)
+   StepColor = color(StepValue).rgb
+   StepOpacity = color(StepValue).a * opacity(StepValue)
+   StepTransmittance = pow(1 - StepOpacity, Step / unitDistance)
 
-   StepTransmittance = pow(1 - StepOpacity, step / unitDistance)
-
-   ColorAccumulator += Transmittance * (1 - StepTransmittance) * StepColor
-
+   Color += Transmittance * (1 - StepTransmittance) * StepColor
    Transmittance *= StepTransmittance
 
-   x += direction * step
+   x += Direction * Step
 ....
 
 Any transformations the volume is subject to are assumed to be taken into
 account during sampling of `value(x)`.
 
-The current sample location `x` is in world space. The `direction` vector is the
+The current sample location `x` is in world space. The `Direction` vector is the
 view/ray direction and is assumed to be normalized. The variables `value`,
 `opacity`, `color` and `unitDistance` are parameters of the `transferFunction1D`
 volume object.
