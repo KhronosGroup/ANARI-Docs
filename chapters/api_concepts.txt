@@ -200,6 +200,19 @@ void anariUnsetParameter(
 );
 ----
 
+Similarly, all parameters on an object can be simultaneously unset using
+`anariUnsetAllParameters`, which returns the object back to a state as if no
+parameters had been set at all. Just like with unsetting individual parameters,
+changes made by `anariUnsetAllParameters` must only be applied when the object
+is committed.
+
+The signature to `anariUnsetAllParameters` is as follows
+
+[source,cpp]
+----
+void anariUnsetParameter(ANARIDevice, ANARIObject);
+----
+
 .Data types.
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
