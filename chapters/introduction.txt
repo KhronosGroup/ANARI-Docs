@@ -129,17 +129,13 @@ in this document are normative.
 [[introduction-technical-terminology]]
 ==== Technical Terminology
 
-The ANARI Specification makes use of common engineering and graphics terms
-such as *Device*, *Sampler*, and *Frame* to identify and describe ANARI API
-constructs and their attributes, states, and behaviors.
-The <<glossary,Glossary>> defines the basic meanings of these terms in the
-context of the Specification.
-The Specification text provides fuller definitions of the terms and may
-elaborate, extend, or clarify the <<glossary,Glossary>> definitions.
-When a term defined in the <<glossary,Glossary>> is used in normative
-language within the Specification, the definitions within the Specification
-govern and supersede any meanings the terms may have in other technical
-contexts (i.e. outside the Specification).
+The ANARI Specification makes use of common engineering and graphics terms such
+as *Device*, *Sampler*, and *Frame* to identify and describe ANARI API
+constructs and their attributes, states, and behaviors. The Specification text
+provides definitions of the terms. When a term is used in normative language
+within the Specification, the definitions within the Specification govern and
+supersede any meanings the terms may have in other technical contexts (i.e.,
+outside the Specification).
 
 ==== Prefixes
 
