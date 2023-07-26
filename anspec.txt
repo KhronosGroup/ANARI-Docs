@@ -41,8 +41,6 @@ include::chapters/object_types.txt[]
 
 include::appendices/extension_index.txt[]
 
-include::appendices/glossary.txt[]
-
 include::appendices/volume_algorithm.txt[]
 
 include::appendices/credits.txt[]
