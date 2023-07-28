@@ -75,7 +75,7 @@ sources of illumination.
 
 The following diagram illustrates the relationships described above:
 
-image::images/anari_hierarchy.png[]
+image::images/anari_hierarchy.svg[]
 
 [[api_concepts_object_definition]]
 === Object Definition
