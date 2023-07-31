@@ -43,18 +43,13 @@ IMAGEOPTS = inline
 #  pdf - PDF single-page API specification
 #  styleguide - HTML5 single-page "Documentation and Extensions" guide
 #  registry - HTML5 single-page XML Registry Schema documentation
-#  manhtml - HTML5 single-page reference guide - NOT SUPPORTED
-#  manpdf - PDF reference guide - NOT SUPPORTED
-#  manhtmlpages - HTML5 separate per-feature refpages
 #  allchecks - Python sanity checker for script markup and macro use
 
 all: alldocs allchecks
 
-alldocs: allspecs allman
+alldocs: allspecs
 
-allspecs: html pdf styleguide registry
-
-allman: manhtmlpages
+allspecs: html pdf
 
 allchecks:
 	$(PYTHON) $(SCRIPTS)/check_spec_links.py -Werror --ignore_count 0
@@ -395,10 +390,6 @@ man/apispec.txt: $(SPECFILES) $(GENREF) $(SCRIPTS)/reflib.py $(SCRIPTS)/anapi.py
 # messages make normally prints out, similarly to suppressing make
 # command output logging in the individual refpage actions below.
 SUBMAKEOPTIONS = --no-print-directory
-manhtmlpages: man/apispec.txt $(GENDEPENDS)
-	$(QUIET) echo "manhtmlpages: building HTML refpages with these options:"
-	$(QUIET) echo $(ASCIIDOC) -b html5 $(ADOCOPTS) $(ADOCHTMLOPTS) $(ADOCREFOPTS) -d manpage -o REFPAGE.html REFPAGE.txt
-	$(MAKE) $(SUBMAKEOPTIONS) -e buildmanpages
 
 # Build the individual refpages, then the symbolic links from aliases
 MANHTMLDIR  = $(OUTDIR)/man/html
