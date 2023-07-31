@@ -119,7 +119,7 @@ is optional; there is no need to create empty arrays if there are no instances
 | light    |`ARRAY1D` of `LIGHT`   | optional array with handles of <<Light, lights>>
 |===================================================================================================
 
-.Properties supported by the world.
+.<<api_concepts_object_properties, Properties>> queryable on the world.
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
@@ -160,7 +160,7 @@ there are no surfaces, no volumes, or no lights instanced.
 | light   |`ARRAY1D` of `LIGHT`  | optional array with handles of <<Light, lights>>
 |======================================================================================
 
-.Properties supported by groups.
+.<<api_concepts_object_properties, Properties>> queryable on groups.
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
