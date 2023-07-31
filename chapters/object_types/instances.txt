@@ -44,7 +44,7 @@ and 16th float) as being (0, 0, 0, 1).
 | id        |`UINT32`  |         -1u | optional user Id, for <<object_types_frame>> channel `instanceId`
 |=============================================================
 
-.Properties supported by instances.
+.<<api_concepts_object_properties, Properties>> queryable on instances.
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
