@@ -100,7 +100,7 @@ to undefined behavior.
 [[api_concepts_lifetimes]]
 === Object Creation and Lifetime
 
-Objects are created by calling an `anariNew` factory function (for example
+Objects are created by calling an `anariNew*` factory function (for example
 `anariNewGeometry`). Each object type has its own corresponding factory
 function. All objects, including devices, are only valid in the process in which
 they are created.
@@ -213,7 +213,7 @@ void anariUnsetParameter(ANARIDevice, ANARIObject);
 ----
 
 .Data types.
-[cols="<,<,<2",options="header,unbreakable"]
+[cols="<4,<5,<8",options="header,unbreakable"]
 |===================================================================================================
 include::type_table.txt[]
 |===================================================================================================
@@ -606,11 +606,11 @@ efficiency.
 Implementations provide this functionality by implementing extension
 `KHR_ARRAY1D_REGION`, which adds the following parameter to `ANARIArray1D`:
 
-.Additional parameters accepted by `ANARIArray1D` with extension `KHR_ARRAY1D_REGION`.
+.<<api_concepts_parameters, Parameters>> understood by `ANARIArray1D`.
 [cols="<,<,<4",options="header,unbreakable"]
 |==================================================================
 | Name     | Type            | Description
-| region   |`UINT64_REGION1` | region of elements currently in use
+| region   |`UINT64_REGION1` | extension `KHR_ARRAY1D_REGION`: region of elements currently in use
 |==================================================================
 
 If `region` is not set, all elements are used as specified when the array was
@@ -784,7 +784,7 @@ The following values for `ANARIStatusSeverity` are defined:
 * `SEVERITY_INFO`
 * `SEVERITY_DEBUG`
 
-.Parameters accepted by all devices.
+.<<api_concepts_parameters, Parameters>> understood by all devices.
 [cols="<,<,<",options="header,unbreakable"]
 |===================================================================================================
 | Name                   | Type            | Description

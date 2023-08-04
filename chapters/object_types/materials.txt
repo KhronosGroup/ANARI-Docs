@@ -27,7 +27,7 @@ it exhibits Lambertian reflectance and thus its apparent brightness is
 independent of the viewing direction. The matte material supports
 (partial) cut-out transparency depending on `alphaMode`.
 
-.Parameters of the matte material.
+.<<api_concepts_parameters, Parameters>> of the matte material.
 [cols="<,<2,>,<2",options="header",]
 |===
 |Name  |Type         |Default   |Description
@@ -66,7 +66,7 @@ https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materi
 https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_sheen/README.md[KHR_materials_sheen], and
 https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_iridescence/README.md[KHR_materials_iridescence].
 
-.Parameters of the physicallyBased material.
+.<<api_concepts_parameters, Parameters>> of the physicallyBased material.
 [cols="<3,<4,>2,<4",options="header",]
 |===================================================================================================
 | Name                | Type                                |       Default | Description

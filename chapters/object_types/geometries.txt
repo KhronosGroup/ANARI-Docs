@@ -14,7 +14,7 @@ ANARIGeometry anariNewGeometry(ANARIDevice, const char *subtype);
 
 All geometries support the following attribute setting parameters.
 
-.Parameters accepted by all geometries.
+.<<api_concepts_parameters, Parameters>> understood by all geometries.
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name                  | Type                                                                     | Description
@@ -51,7 +51,7 @@ Implementations are allowed to internally tessellate the cone, or to
 render them procedurally such that the cones are perfectly round.
 ====
 
-.Parameters defining a cone geometry.
+.Additional <<api_concepts_parameters, parameters>> understood by the cone <<object_types_geometry, geometry>>.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name              | Type                       | Default | Description
@@ -100,7 +100,7 @@ Implementations are allowed to internally tessellate the curve, or to render
 them procedurally such that the curve segments are perfectly round.
 ====
 
-.Parameters defining a curve geometry.
+.Additional <<api_concepts_parameters, parameters>> understood by the curve <<object_types_geometry, geometry>>.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                            |            Default | Description
@@ -142,7 +142,7 @@ Implementations are allowed to internally tessellate the cylinder, or to
 render them procedurally such that the cylinders are perfectly round.
 ====
 
-.Parameters defining a cylinder geometry.
+.Additional <<api_concepts_parameters, parameters>> understood by the cylinder <<object_types_geometry, geometry>>.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name              | Type                       | Default | Description
@@ -183,7 +183,7 @@ A geometry consisting of quads is created by calling <<object_types_geometry,
 `anariNewGeometry`>> with subtype string `quad`. A quad geometry
 recognizes the following parameters:
 
-.Parameters defining a quad geometry.
+.Additional <<api_concepts_parameters, parameters>> understood by the quad <<object_types_geometry, geometry>>.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name              | Type                                                      | Default                 | Description
@@ -248,7 +248,7 @@ Implementations are allowed to internally tessellate the sphere, or to render
 them procedurally such that the spheres are perfectly round.
 ====
 
-.Parameters defining a sphere geometry.
+.Additional <<api_concepts_parameters, parameters>> understood by the sphere <<object_types_geometry, geometry>>.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                       | Default | Description
@@ -286,7 +286,7 @@ A geometry consisting of triangles is created by calling <<object_types_geometry
 `anariNewGeometry`>> with subtype string `triangle`. A triangle geometry
 recognizes the following parameters:
 
-.Parameters defining a triangle geometry.
+.Additional <<api_concepts_parameters, parameters>> understood by the triangle <<object_types_geometry, geometry>>.
 [cols="<,<,>,<",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                                                       | Default    | Description
