@@ -17,7 +17,7 @@ share the instances world-space transform. They also always take a generic
 `FLOAT32_MAT4` transform which serves as a fall back but may be overriden by
 subtype specific transform definitions.
 
-.Parameters understood by all instances.
+.<<api_concepts_parameters, Parameters>> understood by all instances.
 [cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name      | Type         |                                       Default | Description
@@ -37,7 +37,7 @@ memory. Implementations are free to always treat the last row (4th, 8th, 12th
 and 16th float) as being (0, 0, 0, 1).
 ====
 
-.Parameters understood by all instances with extension `KHR_FRAME_CHANNEL_INSTANCE_ID`.
+.<<api_concepts_parameters, Parameters>> understood by all instances with extension `KHR_FRAME_CHANNEL_INSTANCE_ID`.
 [cols="<,<,>,<3",options="header,unbreakable"]
 |=============================================================
 | Name      | Type     |    Default | Description
@@ -82,7 +82,7 @@ distributed transformation keys as defined by `motion.transform` to achieve
 transformation motion blur in combination with `time` and extension
 <<object_types_camera, `KHR_CAMERA_SHUTTER`>>.
 
-.Additional parameters accepted by the motion transform instance.
+.Additional <<api_concepts_parameters, parameters>> understood by the motion transform <<object_types_instance, instance>>.
 [cols="<2,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           | Default | Description
@@ -105,7 +105,7 @@ The `motionScaleRotationTranslation` instance subtype represents uniformly (in
 order) to achieve transformation motion blur in combination with `time` and
 extension <<object_types_camera, `KHR_CAMERA_SHUTTER`>>.
 
-.Additional parameters accepted by the motion scale rotation translation instance.
+.Additional <<api_concepts_parameters, parameters>> understood by the motion scale rotation translation <<object_types_instance, instance>>.
 [cols="<2,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           | Default | Description

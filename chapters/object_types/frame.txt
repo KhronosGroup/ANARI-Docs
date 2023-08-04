@@ -20,7 +20,7 @@ to one of the allowed data types enables the channel and determines the data typ
 mapped as. The same channel names are used to map the channel contents with `anariMapFrame`. Each
 channel has its own associated extension name.
 
-.Parameters accepted by the frame.
+.<<api_concepts_parameters, Parameters>> understood by the frame.
 [cols="<2,<2,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description

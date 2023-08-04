@@ -54,7 +54,7 @@ Extension support information can be queried as properties on the `ANARIRenderer
 
 Extension: `KHR_RENDERER_BACKGROUND_COLOR`
 
-.Parameters understood by renderers with extension `KHR_RENDERER_BACKGROUND_COLOR`.
+.<<api_concepts_parameters, Parameters>> understood by renderers with extension `KHR_RENDERER_BACKGROUND_COLOR`.
 [cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name       | Type         |      Default | Description
@@ -63,7 +63,7 @@ Extension: `KHR_RENDERER_BACKGROUND_COLOR`
 
 Extension: `KHR_RENDERER_BACKGROUND_IMAGE`
 
-.Parameters understood by renderers with extension `KHR_RENDERER_BACKGROUND_IMAGE`.
+.<<api_concepts_parameters, Parameters>> understood by renderers with extension `KHR_RENDERER_BACKGROUND_IMAGE`.
 [cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name       | Type         |      Default | Description
@@ -80,7 +80,7 @@ Extension: `KHR_RENDERER_AMBIENT_LIGHT`
 The ambient light is a light with an invisible source which surrounds the scene
 and illuminates it from infinity.
 
-.Parameters understood by renderers with extension `KHR_RENDERER_AMBIENT_LIGHT`.
+.<<api_concepts_parameters, Parameters>> understood by renderers with extension `KHR_RENDERER_AMBIENT_LIGHT`.
 [cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name       | Type         |      Default | Description
@@ -109,7 +109,7 @@ volumes, or lights. Similar to <<instance, instances>>, each array of objects
 is optional; there is no need to create empty arrays if there are no instances
 (though there might be nothing to render).
 
-.Parameters understood by the world.
+.<<api_concepts_parameters, Parameters>> understood by the world.
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type                  | Description
@@ -151,7 +151,7 @@ ANARIGroup anariNewGroup(ANARIDevice);
 Each array on a group is optional; there is no need to create empty arrays if
 there are no surfaces, no volumes, or no lights instanced.
 
-.Parameters understood by groups.
+.<<api_concepts_parameters, Parameters>> understood by groups.
 [cols="<,<,<2",options="header,unbreakable"]
 |======================================================================================
 | Name    | Type                 | Description
@@ -190,7 +190,7 @@ created with
 ANARISurface anariNewSurface(ANARIDevice);
 ....
 
-.Parameters understood by Surface.
+.<<api_concepts_parameters, Parameters>> understood by Surface.
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name     |Type      | Description
@@ -201,7 +201,7 @@ ANARISurface anariNewSurface(ANARIDevice);
 Surfaces require a valid <<object_types_geometry>> to be set as the `geometry` parameter and
 a valid <<object_types_material>> to be set as the `material` parameter.
 
-.Parameters understood by Surface with extension `KHR_FRAME_CHANNEL_OBJECT_ID`
+.<<api_concepts_parameters, Parameters>> understood by Surface with extension `KHR_FRAME_CHANNEL_OBJECT_ID`
 [cols="<3,<3,>2,<9",options="header,unbreakable"]
 |===================================================================================================
 | Name | Type       | Default | Description

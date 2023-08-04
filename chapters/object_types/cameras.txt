@@ -15,7 +15,7 @@ ANARICamera anariNewCamera(ANARIDevice, const char *subtype);
 
 All cameras sources accept the following parameters:
 
-.Parameters accepted by all cameras.
+.<<api_concepts_parameters, Parameters>> understood by all cameras.
 [cols="<20,<14,>10,<30",options="header,unbreakable"]
 |===================================================================================================
 | Name                   | Type         |          Default | Description
@@ -46,7 +46,7 @@ easily realize overscan or film gate, or to emulate a shifted sensor.
 | focusDistance          |`FLOAT32`     |                1 | distance at where the image is sharpest when depth of field is enabled
 |===================================================================================================
 
-The externsion `KHR_CAMERA_DEPTH_OF_FIELD` indicates that cameras support depth
+The extension `KHR_CAMERA_DEPTH_OF_FIELD` indicates that cameras support depth
 of field via the `apertureRadius` and `focusDistance` parameters.
 
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_STEREO`.
@@ -103,12 +103,12 @@ Extension: `KHR_CAMERA_PERSPECTIVE`
 
 The perspective camera represents a simple thin lens camera for
 perspective rendering. It is created by passing the type string
-`perspective` to `anariNewCamera`. In addition to the
+`perspective` to <<object_types_camera, `anariNewCamera`>>. In addition to the
 <<object_types_camera, general parameters>> understood by all cameras the
 perspective camera supports the special parameters listed in the table
 below.
 
-.Additional parameters accepted by the perspective camera.
+.Additional <<api_concepts_parameters, parameters>> understood by the perspective <<object_types_camera, camera>>.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name   | Type    |  Default | Description
@@ -138,11 +138,11 @@ Extension: `KHR_CAMERA_OMNIDIRECTIONAL`
 
 The omnidirectional camera captures the complete surrounding
 It is is created by passing the type string
-`omnidirectional` to `anariNewCamera`. It is placed and oriented in the
+`omnidirectional` to <<object_types_camera, `anariNewCamera`>>. It is placed and oriented in the
 scene by using the <<object_types_camera, general parameters>> understood by all
 cameras.
 
-.Additional parameters accepted by the omnidirectional camera.
+.Additional <<api_concepts_parameters, parameters>> understood by the omnidirectional <<object_types_camera, camera>>.
 [cols="<,<,>2,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name   | Type   |         Default | Description
@@ -161,11 +161,11 @@ Extension: `KHR_CAMERA_ORTHOGRAPHIC`
 
 The orthographic camera represents a simple camera with orthographic
 projection. It is created by passing the type string `orthographic` to
-`anariNewCamera`. In addition to the <<object_types_camera, general parameters>>
+<<object_types_camera, `anariNewCamera`>>. In addition to the <<object_types_camera, general parameters>>
 understood by all cameras the orthographic camera supports the following
 special parameters:
 
-.Additional parameters accepted by the orthographic camera.
+.Additional <<api_concepts_parameters, parameters>> understood by the orthographic <<object_types_camera, camera>>.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name   | Type    |  Default | Description

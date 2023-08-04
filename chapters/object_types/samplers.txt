@@ -21,7 +21,7 @@ A one dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image1D`. It accepts the following
 parameters.
 
-.Parameters accepted by `image1D` samplers.
+.<<api_concepts_parameters, Parameters>> understood by the 1D image sampler.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
@@ -63,7 +63,7 @@ Extension: `KHR_SAMPLER_IMAGE2D`
 A two dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image2D`. It accepts the following parameters.
 
-.Parameters accepted by `image2D` samplers.
+.<<api_concepts_parameters, Parameters>> understood by the 2D image sampler.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
@@ -106,7 +106,7 @@ Extension: `KHR_SAMPLER_IMAGE3D`
 A three dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image3D`. It accepts the following parameters.
 
-.Parameters accepted by `image3D` samplers.
+.<<api_concepts_parameters, Parameters>> understood by the 3D image sampler.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
@@ -149,9 +149,11 @@ Extension: `KHR_SAMPLER_PRIMITIVE`
 
 The primitive sampler samples an `Array1D` at integer
 coordinates based on the `primitiveId` surface attribute.
+It is created by calling <<object_types_sampler,
+`anariNewSampler`>> with subtype string `primitive`.
 The `inOffset` parameter value is added to `primitiveID` before sampling.
 
-.Parameters accepted by all `primitive` samplers.
+.<<api_concepts_parameters, Parameters>> understood by the primitive sampler.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name  | Type      | Default  | Description
@@ -171,11 +173,12 @@ instead.
 
 Extension: `KHR_SAMPLER_TRANSFORM`
 
-The transform sampler multiplies by the input attribute by `outTransform` and adds it `outOffset` returns the result
-as the sampled value.
+The transform sampler multiplies by the input attribute by `outTransform` and
+adds it `outOffset` returns the result as the sampled value. It is created by
+calling <<object_types_sampler, `anariNewSampler`>> with subtype string
+`transform`.
 
-
-.Parameters accepted by all `primitive` samplers.
+.<<api_concepts_parameters, Parameters>> understood by the transform sampler.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description

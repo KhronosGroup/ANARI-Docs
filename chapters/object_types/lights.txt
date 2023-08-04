@@ -15,7 +15,7 @@ ANARILight anariNewLight(ANARIDevice, const char *subtype);
 
 All light sources accept the following parameters:
 
-.Parameters accepted by all lights.
+.<<api_concepts_parameters, Parameters>> understood by all lights.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type          |    Default | Description
@@ -42,11 +42,11 @@ Extension: `KHR_LIGHT_DIRECTIONAL`
 The directional light is thought to
 be far away (outside of the scene), thus its light arrives (mostly) as
 parallel rays. It is created by passing the subtype string `directional` to
-`anariNewLight`. In addition to the <<object_types_light, general parameters>>
+<<object_types_light, `anariNewLight`>>. In addition to the <<object_types_light, general parameters>>
 understood by all lights, the directional light supports the following
 special parameters:
 
-.Special parameters accepted by the directional light.
+.Additional <<api_concepts_parameters, parameters>> understood by the directional <<object_types_light, light>>.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type         |    Default | Description
@@ -81,10 +81,10 @@ Extension: `KHR_LIGHT_HDRI`
 
 The HDRI light is a textured light source surrounding the scene and
 illuminating it from infinity. It is created by passing the subtype string
-`hdri` to `anariNewLight`. In addition to the <<object_types_light, general
+`hdri` to <<object_types_light, `anariNewLight`>>. In addition to the <<object_types_light, general
 parameters>> the HDRI light supports the following special parameters:
 
-.Special parameters accepted by the HDRI light.
+.Additional <<api_concepts_parameters, parameters>> understood by the HDRI <<object_types_light, light>>.
 [cols="<10,<12,>14,<40",options="header,unbreakable"]
 |===================================================================================================
 | Name      | Type         |   Default | Description
@@ -108,11 +108,11 @@ Extension: `KHR_LIGHT_POINT`
 
 The point light (or with extension the sphere light) is a light emitting
 uniformly in all directions (from the surface toward the outside). It is created
-by passing the subtype string `point` to `anariNewLight`. In addition to the
+by passing the subtype string `point` to <<object_types_light, `anariNewLight`>>. In addition to the
 <<object_types_light, general parameters>> understood by all lights, the point light supports
 the following special parameters:
 
-.Special parameters accepted by the point light.
+.Additional <<api_concepts_parameters, parameters>> understood by the point <<object_types_light, light>>.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name       | Type         |    Default | Description
@@ -144,11 +144,11 @@ Extension: `KHR_LIGHT_QUAD`
 The quadfootnote:[actually a parallelogram] light is a planar,
 procedural area light source emitting uniformly on one side into the
 half-space. It is created by passing the subtype string `quad` to
-`anariNewLight`. In addition to the <<object_types_light, general parameters>>
+<<object_types_light, `anariNewLight`>>. In addition to the <<object_types_light, general parameters>>
 understood by all lights, the quad light supports the following special
 parameters:
 
-.Special parameters accepted by the quad light.
+.Additional <<api_concepts_parameters, parameters>> understood by the quad <<object_types_light, light>>.
 [cols="<2,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name         | Type         |    Default | Description
@@ -203,12 +203,12 @@ shadows), or may not compute shadows at all.
 Extension: `KHR_LIGHT_RING`
 
 The ring light is a light emitting into a cone of directions. It is created by
-passing the subtype string `ring` to `anariNewLight`. In addition to the <<object_types_light,
+passing the subtype string `ring` to <<object_types_light, `anariNewLight`>>. In addition to the <<object_types_light,
 general parameters>> understood by all lights, the ring light supports the special
 parameters listed in the table. The ring light is
 an area light and thus has a cosine falloff.
 
-.Special parameters accepted by the ring light.
+.Additional <<api_concepts_parameters, parameters>> understood by the ring <<object_types_light, light>>.
 [cols="<2,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name         | Type         |    Default | Description
@@ -265,12 +265,12 @@ neighbors. The orientation of the C0-plane is specified via `c0`.
 Extension: `KHR_LIGHT_SPOT`
 
 The spotlight is a light emitting into a cone of directions. It is
-created by passing the subtype string `spot` to `anariNewLight`. In
+created by passing the subtype string `spot` to <<object_types_light, `anariNewLight`>>. In
 addition to the <<object_types_light, general parameters>> understood by all
 lights, the spotlight supports the special parameters listed in the
 table.
 
-.Special parameters accepted by the spotlight.
+.Additional <<api_concepts_parameters, parameters>> understood by the spot<<object_types_light, light>>.
 [cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name         | Type         |    Default | Description
