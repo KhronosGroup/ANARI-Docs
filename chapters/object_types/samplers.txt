@@ -152,7 +152,7 @@ coordinates based on the `primitiveId` surface attribute.
 The `inOffset` parameter value is added to `primitiveID` before sampling.
 
 .Parameters accepted by all `primitive` samplers.
-[cols="<,<,<2",options="header,unbreakable"]
+[cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name  | Type      | Default  | Description
 | array | `ARRAY1D` of <<Color>> |  | backing array of the sampler

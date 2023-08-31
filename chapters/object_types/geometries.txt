@@ -23,13 +23,11 @@ All geometries support the following attribute setting parameters.
 | primitive.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | primitive attribute1
 | primitive.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | primitive attribute2
 | primitive.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | primitive attribute3
-| primitive.id          |`ARRAY1D` of `UINT32` / `UINT64`                                          | per-primitive re-mapping of the `primitiveId` attribute
 |===================================================================================================
 
-Values in `primitive.id` must
-be at most <<Devices, device limit `geometryMaxIndex`>>. If geometries have
-additional per-vertex parameters specifying the same attribute, then the
-geometry specific `vertex.pass:[*]` parameters take precedence.
+If geometries have additional per-vertex parameters specifying the same
+attribute, then the geometry specific `vertex.pass:[*]` parameters take
+precedence.
 
 [NOTE]
 .Note
