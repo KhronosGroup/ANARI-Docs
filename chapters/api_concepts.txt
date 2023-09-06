@@ -213,7 +213,7 @@ void anariUnsetParameter(ANARIDevice, ANARIObject);
 ----
 
 .Data types.
-[cols="<4,<5,<8",options="header,unbreakable"]
+[cols="<26,<29,<39",options="header,unbreakable"]
 |===================================================================================================
 include::type_table.txt[]
 |===================================================================================================
