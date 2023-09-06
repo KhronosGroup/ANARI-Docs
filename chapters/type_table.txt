@@ -77,55 +77,55 @@
 
 |`CAMERA`
 |`ANARICamera`
-|<<camera>> object handle
+|<<object_types_camera, camera>> object handle
 
 |`FRAME`
 |`ANARIFrame`
-|<<frame>> object handle
+|<<object_types_frame, frame>> object handle
 
 |`GEOMETRY`
 |`ANARIGeometry`
-|<<object_types_geometry>> object handle
+|<<object_types_geometry, geometry>> object handle
 
 |`GROUP`
 |`ANARIGroup`
-|<<group>> object handle
+|<<object_types_group, group>> object handle
 
 |`INSTANCE`
 |`ANARIInstance`
-|<<instance>> object handle
+|<<object_types_instance, instance>> object handle
 
 |`LIGHT`
 |`ANARILight`
-|<<light>> object handle
+|<<object_types_light, light>> object handle
 
 |`MATERIAL`
 |`ANARIMaterial`
-|<<object_types_material>> object handle
+|<<object_types_material, material>> object handle
 
 |`RENDERER`
 |`ANARIRenderer`
-|<<renderer>> object handle
+|<<object_types_renderer, renderer>> object handle
 
 |`SURFACE`
 |`ANARISurface`
-|<<surface>> object handle
+|<<object_types_surface, surface>> object handle
 
 |`SAMPLER`
 |`ANARISampler`
-|<<sampler>> object handle
+|<<object_types_sampler, sampler>> object handle
 
 |`SPATIAL_FIELD`
 |`ANARISpatialField`
-|<<spatial_field, Spatial Field>> object handle
+|<<object_types_spatial_field, spatial field>> object handle
 
 |`VOLUME`
 |`ANARIVolume`
-|<<volume>> object handle
+|<<object_types_volume, volume>> object handle
 
 |`WORLD`
 |`ANARIWorld`
-|<<world>> object handle
+|<<object_types_world, world>> object handle
 
 |`INT8`
 |`int8_t`
