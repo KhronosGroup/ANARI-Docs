@@ -44,7 +44,7 @@ refer to the documentation of ANARI implementations.
 Extension support information can be queried as properties on the `ANARIRenderer`
 <<api_concepts_object_properties, using `anariGetProperty`>>.
 
-.Properties queryable on all renderers.
+.<<api_concepts_object_properties, Properties>> queryable on a renderer.
 [cols="<2,<3,^2,<8",options="header,unbreakable"]
 |===================================================================================================
 | Name    | Type          | Required | Description
@@ -119,7 +119,7 @@ is optional; there is no need to create empty arrays if there are no instances
 | light    |`ARRAY1D` of `LIGHT`   | optional array with handles of <<Light, lights>>
 |===================================================================================================
 
-.<<api_concepts_object_properties, Properties>> queryable on the world.
+.<<api_concepts_object_properties, Properties>> queryable on a world.
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
@@ -160,7 +160,7 @@ there are no surfaces, no volumes, or no lights instanced.
 | light   |`ARRAY1D` of `LIGHT`  | optional array with handles of <<Light, lights>>
 |======================================================================================
 
-.<<api_concepts_object_properties, Properties>> queryable on groups.
+.<<api_concepts_object_properties, Properties>> queryable on a group.
 [cols="<,<,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
