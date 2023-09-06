@@ -91,7 +91,7 @@ https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materi
 | attenuationColor    |`FLOAT32_VEC3`                       |(1.0, 1.0, 1.0)| color that white light turns into due to absorption when reaching the attenuation distance
 | sheenColor          |`FLOAT32_VEC3` / `SAMPLER` / `STRING`|(0.0, 0.0, 0.0)| sheen color
 | sheenRoughness      |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | sheen roughness
-| iridescence         |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | stength of the thin-film layer
+| iridescence         |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | strength of the thin-film layer
 | iridescenceIor      |`FLOAT32`                            |           1.3 | index of refraction of the thin-film layer
 | iridescenceThickness|`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | thickness of the thin-film layer
 |===================================================================================================

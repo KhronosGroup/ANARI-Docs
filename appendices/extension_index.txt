@@ -10,7 +10,7 @@
 == Extension Index
 
 * <<api_types_lights, `KHR_AREA_LIGHTS`>>: Additional parameters are supported to spatially extend lights and thus potentially enable soft shadows
-* <<api_concepts_memory, `KHR_ARRAY1D_REGION`>>: Permit runtime changable valid array region
+* <<api_concepts_memory, `KHR_ARRAY1D_REGION`>>: Permit runtime changeable valid array region
 * <<object_types_camera, `KHR_CAMERA_DEPTH_OF_FIELD`>>: depth of field is supported
 * <<object_types_camera, `KHR_CAMERA_MOTION_TRANSFORMATION`>>: camera transformation motion blur is supported
 * <<object_types_camera_omnidirectional, `KHR_CAMERA_OMNIDIRECTIONAL`>>: `omnidirectional` camera subtype is supported

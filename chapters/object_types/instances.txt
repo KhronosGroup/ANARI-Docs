@@ -14,7 +14,7 @@ ANARIInstance anariNewInstance(ANARIDevice, const char *subtype);
 
 All instances take an array of <<group>> representing all the objects which
 share the instances world-space transform. They also always take a generic
-`FLOAT32_MAT4` transform which serves as a fall back but may be overriden by
+`FLOAT32_MAT4` transform which serves as a fall back but may be overridden by
 subtype specific transform definitions.
 
 .<<api_concepts_parameters, Parameters>> understood by all instances.
