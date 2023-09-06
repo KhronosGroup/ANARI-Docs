@@ -335,7 +335,7 @@ subtypes). The function returns the result for `infoName` of type `infoType`, or
 The following infos of objects can be queried:
 
 .Info of objects for introspection.
-[cols="<,<,^,<4",options="header,unbreakable"]
+[cols="<9,<12,^10,<38",options="header,unbreakable"]
 |===================================================================================================
 | Name          | Type             | Required | Description
 | description   | `STRING`         |    No    | explanation of the object, e.g., for a tooltip
@@ -364,7 +364,7 @@ info cannot be retrieved.
 The following infos of parameters can be queried:
 
 .Info of parameters for introspection.
-[cols="<,<,^,<4",options="header,unbreakable"]
+[cols="<10,<12,^9,<38",options="header,unbreakable"]
 |===================================================================================================
 | Name          | Type        | Required | Description
 | description   | `STRING`    |    No    | explanation of the parameter, e.g., for a tooltip
@@ -607,8 +607,8 @@ efficiency.
 Implementations provide this functionality by implementing extension
 `KHR_ARRAY1D_REGION`, which adds the following parameter to `ANARIArray1D`:
 
-.<<api_concepts_parameters, Parameters>> understood by `ANARIArray1D`.
-[cols="<,<,<4",options="header,unbreakable"]
+.<<api_concepts_parameters, Parameters>> understood by the 1D array.
+[cols="<,<2,<8",options="header,unbreakable"]
 |==================================================================
 | Name     | Type            | Description
 | region   |`UINT64_REGION1` | extension `KHR_ARRAY1D_REGION`: region of elements currently in use
@@ -736,7 +736,7 @@ Version information can be queried as properties on the `ANARIDevice`
 <<api_concepts_object_properties, using `anariGetProperty`>>.
 
 .Properties queryable on devices.
-[cols="<5,<2,^3,<10",options="header,unbreakable"]
+[cols="<5,<3,^3,<10",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type        | Required | Description
 | version         |`INT32`      |   Yes    | unique version number guaranteed to increase between versions
@@ -786,7 +786,7 @@ The following values for `ANARIStatusSeverity` are defined:
 * `SEVERITY_DEBUG`
 
 .<<api_concepts_parameters, Parameters>> understood by all devices.
-[cols="<,<,<",options="header,unbreakable"]
+[cols="<3,<2,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name                   | Type            | Description
 | statusCallback         |`STATUS_CALLBACK`| callback used to report information to the application
@@ -818,7 +818,7 @@ Unspecified (components of) attributes default to zero for the first
 three components and to one for the fourth component.
 
 .Attributes
-[cols="<,<,<",options="header",]
+[cols="<,<,<3",options="header",]
 |===
 |Identifier |Internal Type  |Description
 |`color` |`FLOAT32_VEC4` |color
@@ -830,7 +830,7 @@ three components and to one for the fourth component.
 |`attribute1` |`FLOAT32_VEC4` |generic attribute 1
 |`attribute2` |`FLOAT32_VEC4` |generic attribute 2
 |`attribute3` |`FLOAT32_VEC4` |generic attribute 3
-|`primitiveId` |`UINT32` / `UINT64` |geometry specific primitive identifier, at most <<Devices, device limit `geometryMaxIndex`>> large.
+|`primitiveId` |`UINT32` / `UINT64` |geometry specific primitive identifier, at most <<Devices, device limit `geometryMaxIndex`>> large
 |===
 
 

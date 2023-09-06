@@ -21,7 +21,7 @@ mapped as. The same channel names are used to map the channel contents with `ana
 channel has its own associated extension name.
 
 .<<api_concepts_parameters, Parameters>> understood by the frame.
-[cols="<2,<2,<5",options="header,unbreakable"]
+[cols="<2,<2,<7",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
 | world    |`WORLD`       | required world to be rendered
@@ -38,30 +38,30 @@ must be positive.
 
 [[frame_channels]]
 .Frame channel enabling parameters and their associated extension names.
-[cols="<,<,<,<5",options="header,unbreakable"]
+[cols="<7,<4,<20",options="header,unbreakable"]
 |===================================================================================================
-| Name             | Type        | Extension                  | Description
-| channel.color    |`DATA_TYPE`  |                            | enable mapping the `color` channel and specify its observable type;
-                                                                RGB color including alpha;
-                                                                possible values: `UFIXED8_VEC4`, `UFIXED8_RGBA_SRGB`, `FLOAT32_VEC4`
-| channel.depth    |`DATA_TYPE`  |                            | enable mapping the `depth` channel and specify its observable type;
-                                                                euclidean distance to the camera (_not_ to the image plane), for multiple
-                                                                samples per pixel their minimum is taken;
-                                                                possible values: `FLOAT32`
-| channel.normal   |`DATA_TYPE`  | `KHR_FRAME_CHANNEL_NORMAL` | enable mapping the `normal` channel and specify its observable type;
+| Name             | Type        | Description
+| channel.color    |`DATA_TYPE`  | enable mapping the `color` channel and specify its observable type;
+                                   RGB color including alpha;
+                                   possible values: `UFIXED8_VEC4`, `UFIXED8_RGBA_SRGB`, `FLOAT32_VEC4`
+| channel.depth    |`DATA_TYPE`  | enable mapping the `depth` channel and specify its observable type;
+                                   euclidean distance to the camera (_not_ to the image plane), for multiple
+                                   samples per pixel their minimum is taken;
+                                   possible values: `FLOAT32`
+| channel.normal   |`DATA_TYPE`  | extension `KHR_FRAME_CHANNEL_NORMAL`: enable mapping the `normal` channel and specify its observable type;
                                                                 average world-space normal of the first hit;
                                                                 possible values: `FIXED16_VEC3`, `FLOAT32_VEC3`
-| channel.albedo   |`DATA_TYPE`  | `KHR_FRAME_CHANNEL_ALBEDO` | enable mapping the `albedo` channel and specify its observable type;
+| channel.albedo   |`DATA_TYPE`  | extension `KHR_FRAME_CHANNEL_ALBEDO`: enable mapping the `albedo` channel and specify its observable type;
                                                                 average material albedo (color without illumination) at the first hit;
                                                                 possible values: `UFIXED8_VEC3`, `UFIXED8_RGB_SRGB`, `FLOAT32_VEC3`
-| channel.primitiveId |`DATA_TYPE` | `KHR_FRAME_CHANNEL_PRIMITIVE_ID` | enable mapping the `primitiveId` channel and specify its
+| channel.primitiveId |`DATA_TYPE` | extension `KHR_FRAME_CHANNEL_PRIMITIVE_ID`: enable mapping the `primitiveId` channel and specify its
                                                                         observable type; `primitiveId` attribute of the first hit;
                                                                         possible values: `UINT32`
-| channel.objectId    |`DATA_TYPE` | `KHR_FRAME_CHANNEL_OBJECT_ID`    | enable mapping the `objectId` channel and specify its
+| channel.objectId    |`DATA_TYPE` | extension `KHR_FRAME_CHANNEL_OBJECT_ID`: enable mapping the `objectId` channel and specify its
                                                                         observable type; user defined <<object_types_surface>> /
                                                                         <<object_types_volume>> `id`, if specified, or index in
                                                                         <<object_types_group>> of first hit; possible values: `UINT32`
-| channel.instanceId  |`DATA_TYPE` | `KHR_FRAME_CHANNEL_INSTANCE_ID`  | enable mapping the `instanceId` channel and specify its
+| channel.instanceId  |`DATA_TYPE` | extension `KHR_FRAME_CHANNEL_INSTANCE_ID`: enable mapping the `instanceId` channel and specify its
                                                                         observable type; user defined <<object_types_instance>> `id`,
                                                                         if specified, or instance index of first hit;
                                                                         possible values: `UINT32`
@@ -78,7 +78,7 @@ The following information can be queried as properties on the `ANARIFrame`
 <<api_concepts_object_properties, using `anariGetProperty`>>.
 
 .Properties queryable on frames.
-[cols="<2,<,^,<4",options="header,unbreakable"]
+[cols="<2,<,^,<5",options="header,unbreakable"]
 |===============================================================================================================================
 | Name               | Type    | Required | Description
 | duration           |`FLOAT32`| Yes      | time (in seconds) between start and completion of the frame
@@ -101,7 +101,7 @@ typedef void (*ANARIFrameCompletionCallback)(const void *userPtr, ANARIDevice, A
 ....
 
 .Additional parameters understood by the frame with extension `KHR_FRAME_COMPLETION_CALLBACK`.
-[cols="<11,<9,<10",options="header,unbreakable"]
+[cols="<11,<8,<10",options="header,unbreakable"]
 |===================================================================================================
 | Name                            | Type                      | Description
 | frameCompletionCallback         |`FRAME_COMPLETION_CALLBACK`| callback to invoke as continuation when the rendered frame is complete
