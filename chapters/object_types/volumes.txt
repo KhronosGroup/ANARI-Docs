@@ -29,7 +29,7 @@ The 1D transfer function volume is created by passing the subtype string
 | valueRange       |`FLOAT32_BOX1` / `FLOAT64_BOX1` |  [0, 1] | sampled values of `value` are clamped to this range
 | color            |`FLOAT32_VEC4` / `FLOAT32_VEC3` / `ARRAY1D` of <<Color>>| (1.0, 1.0, 1.0, 1.0)  | color to which the sampled values are mapped to
 | opacity          |`FLOAT32` / `ARRAY1D` of `FLOAT32`|   1.0 | opacity to which the sampled values are mapped to
-| unitDistance     |`FLOAT32`                       |     1.0 | distance after which a 'opacity' fraction of light traverling trough the volume is absorbed
+| unitDistance     |`FLOAT32`                       |     1.0 | distance after which a 'opacity' fraction of light traverling through the volume is absorbed
 |===================================================================================================
 
 [NOTE]
@@ -44,7 +44,7 @@ The parameters `color` and `opacity` represent a look-up table to map the
 sampled values of the spatial field `value` (after clamping to `valueRange`) to
 a color and a opacity: The first array element representing the lowest value in
 `valueRange` and the last element representing the the last element in
-`valueRange` and elements are linearly interpolated inbetween.
+`valueRange` and elements are linearly interpolated in between.
 A `color` array can have a different size than a `opacity` array.
 
 The fourth component of the resulting color is multiplied with the resulting

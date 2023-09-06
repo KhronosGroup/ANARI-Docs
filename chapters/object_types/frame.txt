@@ -24,7 +24,7 @@ channel has its own associated extension name.
 [cols="<2,<2,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
-| world    |`WORLD`       | required world to be rendererd
+| world    |`WORLD`       | required world to be rendered
 | camera   |`CAMERA`      | required camera used to render the world
 | renderer |`RENDERER`    | required renderer which renders the frame
 | size     |`UINT32_VEC2` | required size of the frame in pixels (width {times} height)

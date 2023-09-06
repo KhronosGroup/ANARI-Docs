@@ -39,7 +39,7 @@ be synchronized with all other ANARI calls as well. This only applies to the
 `anariRenderFrame` call itself, not the asynchronous render operations which
 remain subject to asynchronous rendering restrictions.
 
-This lowers the scope of required synchonization to individual ANARI objects
+This lowers the scope of required synchronization to individual ANARI objects
 allowing different threads to operate concurrently on different objects within
 the same device.
 
@@ -714,7 +714,7 @@ to independently render from each other.
 ====
 ANARI devices are a _software_ construct. Because ANARI abstracts away the
 details of an entire rendering system, the underlying hardware which a device
-may use is entirely up to the implemetation. Please read your vendor's device
+may use is entirely up to the implementation. Please read your vendor's device
 documentation to see what parameters are available to configure and what
 underlying hardware is both available and used to render frames.
 ====

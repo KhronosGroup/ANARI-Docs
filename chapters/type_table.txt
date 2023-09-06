@@ -329,7 +329,7 @@
 
 |`FIXED32_VEC3`
 |`int32_t[3]`
-|thre element 32 bit signed normalized fixed point vector
+|three element 32 bit signed normalized fixed point vector
 
 |`FIXED32_VEC4`
 |`int32_t[4]`
@@ -441,7 +441,7 @@
 
 |`UFIXED8_RA_SRGB`
 |`uint8_t[2]`
-|one componenet sRGB with linear alpha
+|one component sRGB with linear alpha
 
 |`UFIXED8_R_SRGB`
 |`uint8_t[1]`
