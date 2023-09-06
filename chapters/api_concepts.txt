@@ -596,6 +596,7 @@ common prefix followed by a period. An example are the vertex attributes of the
 `vertex.` followed by the attribute name.
 ====
 
+[[extension_array1d_region]]
 Arrays define a valid region of elements, which by default is always the full
 capacity of the array. Implementations can allow applications to keep a singular
 allocation of data, but use a parameter to tell the implementation only to use a
