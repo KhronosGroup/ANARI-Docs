@@ -16,14 +16,14 @@ ANARICamera anariNewCamera(ANARIDevice, const char *subtype);
 All cameras sources accept the following parameters:
 
 .<<api_concepts_parameters, Parameters>> understood by all cameras.
-[cols="<20,<14,>10,<30",options="header,unbreakable"]
-|===================================================================================================
-| Name                   | Type         |          Default | Description
-| position               |`FLOAT32_VEC3`|        (0, 0, 0) | position of the camera in world-space
-| direction              |`FLOAT32_VEC3`|       (0, 0, -1) | main viewing direction of the camera
-| up                     |`FLOAT32_VEC3`|        (0, 1, 0) | up direction of the camera
-| imageRegion            |`FLOAT32_BOX2`|\((0, 0), (1, 1)) | region of the sensor in normalized screen-space coordinates
-|===================================================================================================
+[cols="<12,<12,>10,<33",options="header,unbreakable"]
+|=========================================================================================
+| Name         | Type         |          Default | Description
+| position     |`FLOAT32_VEC3`|        (0, 0, 0) | position of the camera in world-space
+| direction    |`FLOAT32_VEC3`|       (0, 0, -1) | main viewing direction of the camera
+| up           |`FLOAT32_VEC3`|        (0, 1, 0) | up direction of the camera
+| imageRegion  |`FLOAT32_BOX2`|\((0, 0), (1, 1)) | region of the sensor in normalized screen-space coordinates
+|=========================================================================================
 
 The camera is placed and oriented in the world with `position`,
 `direction` and `up`. ANARI uses a right-handed coordinate system.
@@ -39,7 +39,7 @@ easily realize overscan or film gate, or to emulate a shifted sensor.
 
 [[extension_camera_depth_of_field]]
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_DEPTH_OF_FIELD`
-[cols="<3,<2,>2,<4",options="header,unbreakable"]
+[cols="<3,<2,>2,<7",options="header,unbreakable"]
 |===================================================================================================
 | Name                   | Type         |          Default | Description
 | apertureRadius         |`FLOAT32`     |                0 | size of the aperture, controls the depth of field
@@ -51,7 +51,7 @@ of field via the `apertureRadius` and `focusDistance` parameters.
 
 [[extension_camera_stereo]]
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_STEREO`.
-[cols="<3,<2,>2,<4",options="header,unbreakable"]
+[cols="<4,<2,>2,<7",options="header,unbreakable"]
 |===================================================================================================
 | Name                   | Type         | Default | Description
 | stereoMode             |`STRING`      |   `none`| possible values: `none`, `left`, `right`, `sideBySide`, `topBottom` (left eye at top half)
@@ -64,7 +64,7 @@ rendering, which is enabled by setting `stereoMode` and
 
 [[extension_camera_motion_transformation]]
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_MOTION_TRANSFORMATION`.
-[cols="<3,<2,>2,<4",options="header,unbreakable"]
+[cols="<3,<3,>2,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           |    Default | Description
 | motion.transform   |`ARRAY1D` of `FLOAT32_MAT4`     |            | uniformly distributed world-space transformations
@@ -82,7 +82,7 @@ transformation keys can also be given as decomposed `motion.scale`,
 
 [[extension_camera_shutter]]
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_SHUTTER`.
-[cols="<3,<2,>2,<4",options="header,unbreakable"]
+[cols="<,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           |    Default | Description
 | shutter            |`FLOAT32_BOX1`                  | [0.5, 0.5] | start and end of shutter time, clamped to [0, 1]
@@ -90,7 +90,7 @@ transformation keys can also be given as decomposed `motion.scale`,
 
 [[extension_camera_rolling_shutter]]
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_ROLLING_SHUTTER`.
-[cols="<3,<2,>2,<4",options="header,unbreakable"]
+[cols="<2,<,>,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name                   | Type         | Default | Description
 | rollingShutterDirection|`STRING`      |   `none`| rolling direction of the shutter, possible values: `none`, `left`, `right`, `down`, `up`
@@ -114,7 +114,7 @@ perspective camera supports the special parameters listed in the table
 below.
 
 .Additional <<api_concepts_parameters, parameters>> understood by the perspective <<object_types_camera, camera>>.
-[cols="<,<,>,<4",options="header,unbreakable"]
+[cols="<,<,>,<6",options="header,unbreakable"]
 |===================================================================================================
 | Name   | Type    |  Default | Description
 | fovy   |`FLOAT32`|   {pi}/3 | the field of view (angle in radians) of the frame’s height
@@ -148,7 +148,7 @@ scene by using the <<object_types_camera, general parameters>> understood by all
 cameras.
 
 .Additional <<api_concepts_parameters, parameters>> understood by the omnidirectional <<object_types_camera, camera>>.
-[cols="<,<,>2,<4",options="header,unbreakable"]
+[cols="<,<,>2,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name   | Type   |         Default | Description
 | layout |`STRING`|`equirectangular`| pixel layout, possible values: `equirectangular`
@@ -171,7 +171,7 @@ understood by all cameras the orthographic camera supports the following
 special parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the orthographic <<object_types_camera, camera>>.
-[cols="<,<,>,<4",options="header,unbreakable"]
+[cols="<,<,>,<6",options="header,unbreakable"]
 |===================================================================================================
 | Name   | Type    |  Default | Description
 | aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
