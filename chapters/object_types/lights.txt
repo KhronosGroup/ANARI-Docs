@@ -15,23 +15,18 @@ ANARILight anariNewLight(ANARIDevice, const char *subtype);
 
 All light sources accept the following parameters:
 
+[[extension_light_primary_visibility]]
 .<<api_concepts_parameters, Parameters>> understood by all lights.
 [cols="<,<,>,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type          |    Default | Description
 | color    |`FLOAT32_VEC3` |  (1, 1, 1) | color of the light, in 0..1
+| visible  |`BOOL`         |     `TRUE` | extension `KHR_LIGHT_PRIMARY_VISIBILITY`: whether the light can be directly seen (only meaningful for area lights)
 |===================================================================================================
 
 The transformation of an <<Instance, instance>> apply only to vectors
 like `position` or `direction` of a light, but _not_ to affect sizes
-like `radius` (extension `KHR_AREA_LIGHTS`).
-
-.Additional parameters understood by all lights with extension `KHR_AREA_LIGHTS`.
-[cols="<,<,>,<4",options="header,unbreakable"]
-|===================================================================================================
-| Name     | Type          |    Default | Description
-| visible  |`BOOL`         |     `TRUE` | whether the light can be directly seen
-|===================================================================================================
+like `radius`.
 
 
 [[object_types_light_directional]]
@@ -51,16 +46,10 @@ special parameters:
 |===================================================================================================
 | Name            | Type         |    Default | Description
 | direction       |`FLOAT32_VEC3`| (0, 0, -1) | main emission direction of the directional light
+| angularDiameter |`FLOAT32`     |          0 | apparent size (angle in radians) of the light
 | irradiance      |`FLOAT32`     |          1 | the amount of light arriving at a surface point,
                                                 assuming the light is oriented towards to the
                                                 surface, in W/m^2^
-|===================================================================================================
-
-.Additional parameters understood by the directional light with extension `KHR_AREA_LIGHTS`.
-[cols="<3,<2,>2,<9",options="header,unbreakable"]
-|===================================================================================================
-| Name            | Type         |    Default | Description
-| angularDiameter |`FLOAT32`     |          0 | apparent size (angle in radians) of the light
 | radiance        |`FLOAT32`     |          1 | the amount of light emitted in a direction, in W/sr/m^2^;
                                                `irradiance` takes precedence if also specified
 |===================================================================================================
@@ -68,7 +57,7 @@ special parameters:
 [NOTE]
 .Note
 ==================
-Extension `KHR_AREA_LIGHTS`: Setting the angular diameter to a value greater than
+Setting the angular diameter to a value greater than
 zero will result in soft shadows when supported by the implementation. For
 instance, the apparent size of the sun is about 0.53° or 0.00925 rad.
 ==================
@@ -106,7 +95,7 @@ parameters>> the HDRI light supports the following special parameters:
 
 Extension: `KHR_LIGHT_POINT`
 
-The point light (or with extension the sphere light) is a light emitting
+The point light (or with `radius > 0` the sphere light) is a light emitting
 uniformly in all directions (from the surface toward the outside). It is created
 by passing the subtype string `point` to <<object_types_light, `anariNewLight`>>. In addition to the
 <<object_types_light, general parameters>> understood by all lights, the point light supports
@@ -117,20 +106,11 @@ the following special parameters:
 |===================================================================================================
 | Name       | Type         |    Default | Description
 | position   |`FLOAT32_VEC3`|  (0, 0, 0) | the position of the point light
+| radius   |`FLOAT32`|       0 | the size of the point light (becoming a sphere)
 | intensity  |`FLOAT32`     |          1 | the overall amount of light emitted by the light in a
                                            direction, in W/sr
 | power      |`FLOAT32`     |          1 | the overall amount of light energy emitted, in W;
                                           `intensity` takes precedence if also specified
-|===================================================================================================
-
-Extension `KHR_AREA_LIGHTS`: Setting the radius to a value greater than zero will
-result in soft shadows when the renderer support it.
-
-.Additional parameters understood by the point light with extension `KHR_AREA_LIGHTS`.
-[cols="<,<,>,<4",options="header,unbreakable"]
-|===================================================================================================
-| Name     | Type    | Default | Description
-| radius   |`FLOAT32`|       0 | the size of the sphere light
 | radiance |`FLOAT32`|       1 | the amount of light emitted by a point on the light source in a direction,
                                  in W/sr/m^2^; `intensity` (or `power`) takes precedence if also specified
 |===================================================================================================

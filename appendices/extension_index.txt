@@ -9,7 +9,6 @@
 [[extension_index]]
 == Extension Index
 
-* <<api_types_lights, `KHR_AREA_LIGHTS`>>: Additional parameters are supported to spatially extend lights and thus potentially enable soft shadows
 * <<extension_array1d_region, `KHR_ARRAY1D_REGION`>>: Permit runtime changeable valid array region
 * <<extension_camera_depth_of_field, `KHR_CAMERA_DEPTH_OF_FIELD`>>: depth of field is supported
 * <<extension_camera_motion_transformation, `KHR_CAMERA_MOTION_TRANSFORMATION`>>: camera transformation motion blur is supported
@@ -41,6 +40,7 @@
 * <<object_types_light_directional, `KHR_LIGHT_DIRECTIONAL`>>: `directional` light subtype is supported
 * <<object_types_light_hdri, `KHR_LIGHT_HDRI`>>: `hdri` light subtype is supported
 * <<object_types_light_point, `KHR_LIGHT_POINT`>>: `point` light subtype is supported
+* <<extension_light_primary_visibility, `KHR_LIGHT_PRIMARY_VISIBILITY`>>: whether primary visibility of area lights can be controlled
 * <<object_types_light_quad, `KHR_LIGHT_QUAD`>>: `quad` light subtype is supported
 * <<object_types_light_ring, `KHR_LIGHT_RING`>>: `ring` light subtype is supported
 * <<object_types_light_spot, `KHR_LIGHT_SPOT`>>: `spot` light subtype is supported
