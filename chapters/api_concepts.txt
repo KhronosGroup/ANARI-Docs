@@ -735,7 +735,7 @@ ANARIDevice anariNewDevice(ANARILibrary, const char *subtype);
 Version information can be queried as properties on the `ANARIDevice`
 <<api_concepts_object_properties, using `anariGetProperty`>>.
 
-.Properties queryable on devices.
+.<<api_concepts_object_properties, Properties>> queryable on a device.
 [cols="<5,<3,^3,<10",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type        | Required | Description

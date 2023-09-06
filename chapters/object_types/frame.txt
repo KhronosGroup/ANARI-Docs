@@ -77,7 +77,7 @@ levels).
 The following information can be queried as properties on the `ANARIFrame`
 <<api_concepts_object_properties, using `anariGetProperty`>>.
 
-.Properties queryable on frames.
+.<<api_concepts_object_properties, Properties>> queryable on a frame.
 [cols="<2,<,^,<5",options="header,unbreakable"]
 |===============================================================================================================================
 | Name               | Type    | Required | Description
