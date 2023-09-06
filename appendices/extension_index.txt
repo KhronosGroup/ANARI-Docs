@@ -10,31 +10,31 @@
 == Extension Index
 
 * <<api_types_lights, `KHR_AREA_LIGHTS`>>: Additional parameters are supported to spatially extend lights and thus potentially enable soft shadows
-* <<api_concepts_memory, `KHR_ARRAY1D_REGION`>>: Permit runtime changeable valid array region
-* <<object_types_camera, `KHR_CAMERA_DEPTH_OF_FIELD`>>: depth of field is supported
-* <<object_types_camera, `KHR_CAMERA_MOTION_TRANSFORMATION`>>: camera transformation motion blur is supported
+* <<extension_array1d_region, `KHR_ARRAY1D_REGION`>>: Permit runtime changeable valid array region
+* <<extension_camera_depth_of_field, `KHR_CAMERA_DEPTH_OF_FIELD`>>: depth of field is supported
+* <<extension_camera_motion_transformation, `KHR_CAMERA_MOTION_TRANSFORMATION`>>: camera transformation motion blur is supported
 * <<object_types_camera_omnidirectional, `KHR_CAMERA_OMNIDIRECTIONAL`>>: `omnidirectional` camera subtype is supported
 * <<object_types_camera_orthographic, `KHR_CAMERA_ORTHOGRAPHIC`>>: `orthographic` camera subtype is supported
 * <<object_types_camera_perspective, `KHR_CAMERA_PERSPECTIVE`>>: `perspective` camera subtype is supported
-* <<object_types_camera, `KHR_CAMERA_ROLLING_SHUTTER`>>: camera rolling shutter is supported
-* <<object_types_camera, `KHR_CAMERA_SHUTTER`>>: camera global shutter and motion blur in combination with other extensions is supported
-* <<object_types_camera, `KHR_CAMERA_STEREO`>>: 3D stereo rendering is supported
+* <<extension_camera_rolling_shutter, `KHR_CAMERA_ROLLING_SHUTTER`>>: camera rolling shutter is supported
+* <<extension_camera_shutter, `KHR_CAMERA_SHUTTER`>>: camera global shutter and motion blur in combination with other extensions is supported
+* <<extension_camera_stereo, `KHR_CAMERA_STEREO`>>: 3D stereo rendering is supported
 * <<api_concepts_thread_safety, `KHR_DEVICE_SYNCHRONIZATION`>>: Relax API function synchronization requirement
-* <<object_types_frame, `KHR_FRAME_ACCUMULATION`>>: Frames are progressively rendered
-* <<object_types_frame, `KHR_FRAME_CHANNEL_NORMAL`>>: `channel.normal` is supported on ANARIFrame
-* <<object_types_frame, `KHR_FRAME_CHANNEL_ALBEDO`>>: `channel.albedo` is supported on ANARIFrame
-* <<object_types_frame, `KHR_FRAME_CHANNEL_PRIMITIVE_ID`>>: `channel.primitiveId` is supported on ANARIFrame
-* <<object_types_frame, `KHR_FRAME_CHANNEL_OBJECT_ID`>>: `channel.objectId` is supported on ANARIFrame
-* <<object_types_frame, `KHR_FRAME_CHANNEL_INSTANCE_ID`>>: `channel.instanceId` is supported on ANARIFrame
-* <<object_types_frame, `KHR_FRAME_COMPLETION_CALLBACK`>>: Frame completion callback function parameters on ANARIFrame are supported
+* <<extension_frame_accumulation, `KHR_FRAME_ACCUMULATION`>>: Frames are progressively rendered
+* <<frame_channels, `KHR_FRAME_CHANNEL_NORMAL`>>: `channel.normal` is supported on ANARIFrame
+* <<frame_channels, `KHR_FRAME_CHANNEL_ALBEDO`>>: `channel.albedo` is supported on ANARIFrame
+* <<frame_channels, `KHR_FRAME_CHANNEL_PRIMITIVE_ID`>>: `channel.primitiveId` is supported on ANARIFrame
+* <<frame_channels, `KHR_FRAME_CHANNEL_OBJECT_ID`>>: `channel.objectId` is supported on ANARIFrame
+* <<frame_channels, `KHR_FRAME_CHANNEL_INSTANCE_ID`>>: `channel.instanceId` is supported on ANARIFrame
+* <<extension_frame_completion_callback, `KHR_FRAME_COMPLETION_CALLBACK`>>: Frame completion callback function parameters on ANARIFrame are supported
 * <<object_types_geometry_cone, `KHR_GEOMETRY_CONE`>>: `cone` geometry subtype is supported
 * <<object_types_geometry_curve, `KHR_GEOMETRY_CURVE`>>: `curve` geometry subtype is supported
 * <<object_types_geometry_cylinder, `KHR_GEOMETRY_CYLINDER`>>: `cylinder` geometry subtype is supported
 * <<object_types_geometry_quad, `KHR_GEOMETRY_QUAD`>>: `quad` geometry subtype is supported
-* <<object_types_geometry_quad, `KHR_GEOMETRY_QUAD_MOTION_DEFORMATION`>>: `quad` geometry subtype supports deformation mortion blur
+* <<extension_geometry_quad_motion_deformation, `KHR_GEOMETRY_QUAD_MOTION_DEFORMATION`>>: `quad` geometry subtype supports deformation mortion blur
 * <<object_types_geometry_sphere, `KHR_GEOMETRY_SPHERE`>>: `sphere` geometry subtype is supported
 * <<object_types_geometry_triangle, `KHR_GEOMETRY_TRIANGLE`>>: `triangle` geometry subtype is supported
-* <<object_types_geometry_triangle, `KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION`>>: `triangle` geometry subtype supports deformation mortion blur
+* <<extension_geometry_triangle_motion_deformation, `KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION`>>: `triangle` geometry subtype supports deformation mortion blur
 * <<object_types_instance_transform, `KHR_INSTANCE_TRANSFORM`>>: instances and basic `transform` instance subtype is supported
 * <<object_types_instance_motion_transform, `KHR_INSTANCE_MOTION_TRANSFORM`>>: `motionTransform` instance subtype and instance transformation motion blur is supported
 * <<object_types_instance_motion_scale_rotation_translation, `KHR_INSTANCE_MOTION_SCALE_ROTATION_TRANSLATION`>>: `motionScaleRotationTranslation` instance subtype and instance transformation motion blur is supported

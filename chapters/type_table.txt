@@ -45,7 +45,7 @@
 
 |`FRAME_COMPLETION_CALLBACK`
 |`ANARIFrameCompletionCallback`
-| <<extension_continuations, extension `KHR_FRAME_COMPLETION_CALLBACK`>> frame completion callback function pointer
+| extension <<extension_frame_completion_callback, `KHR_FRAME_COMPLETION_CALLBACK`>> frame completion callback function pointer
 
 |`LIBRARY`
 |`ANARILibrary`

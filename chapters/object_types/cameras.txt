@@ -37,7 +37,7 @@ scenes which are specified in a left-handed coordinate system. Note that
 values outside the default range of [0–1] are valid, which is useful to
 easily realize overscan or film gate, or to emulate a shifted sensor.
 
-
+[[extension_camera_depth_of_field]]
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_DEPTH_OF_FIELD`
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
@@ -49,6 +49,7 @@ easily realize overscan or film gate, or to emulate a shifted sensor.
 The extension `KHR_CAMERA_DEPTH_OF_FIELD` indicates that cameras support depth
 of field via the `apertureRadius` and `focusDistance` parameters.
 
+[[extension_camera_stereo]]
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_STEREO`.
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
@@ -61,6 +62,7 @@ The extension `KHR_CAMERA_STEREO` indicates that a renderer permits 3D stereo
 rendering, which is enabled by setting `stereoMode` and
 `interpupillaryDistance`.
 
+[[extension_camera_motion_transformation]]
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_MOTION_TRANSFORMATION`.
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
@@ -78,6 +80,7 @@ blur (in combination with extension `KHR_CAMERA_SHUTTER`). Alternatively, the
 transformation keys can also be given as decomposed `motion.scale`,
 `motion.rotation` and `motion.translation`.
 
+[[extension_camera_shutter]]
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_SHUTTER`.
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
@@ -85,6 +88,7 @@ transformation keys can also be given as decomposed `motion.scale`,
 | shutter            |`FLOAT32_BOX1`                  | [0.5, 0.5] | start and end of shutter time, clamped to [0, 1]
 |===================================================================================================
 
+[[extension_camera_rolling_shutter]]
 .Additional parameters understood by all cameras with extension `KHR_CAMERA_ROLLING_SHUTTER`.
 [cols="<3,<2,>2,<4",options="header,unbreakable"]
 |===================================================================================================
@@ -93,7 +97,8 @@ transformation keys can also be given as decomposed `motion.scale`,
 | rollingShutterDuration |`FLOAT32`     |       0 | the “open” time per line, clamped to [0, shutter.upper-shutter.lower]
 |===================================================================================================
 
-The extension `KHR_CAMERA_ROLLING_SHUTTER` depends on extension `KHR_CAMERA_SHUTTER`.
+The extension `KHR_CAMERA_ROLLING_SHUTTER` depends on extension
+<<extension_camera_shutter, `KHR_CAMERA_SHUTTER`>>.
 
 
 [[object_types_camera_perspective]]
