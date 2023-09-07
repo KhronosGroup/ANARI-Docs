@@ -155,7 +155,7 @@ render them procedurally such that the cylinders are perfectly round.
 | vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
 | primitive.index   |`ARRAY1D` of `UINT32_VEC2` / `UINT64_VEC2` | [(0, 1), (2, 3), {ldots}] | optional indices into `vertex.pass:[*]` arrays, each 2-tuple defines one cylinder
 | primitive.radius  |`ARRAY1D` of `FLOAT32`      |         | per-cylinder radius
-| radius            |`FLOAT32`                   |       1 | default radius for all cylinders (if `cylinder.radius` is not set)
+| radius            |`FLOAT32`                   |       1 | default radius for all cylinders (if `primitive.radius` is not set)
 | caps              |`STRING`                    |   `none`| default vertex caps for all cylinders if `vertex.cap` is not set, possible values: `none`, `first`, `second`, `both`
 |===================================================================================================
 
@@ -261,7 +261,7 @@ them procedurally such that the spheres are perfectly round.
 | vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute2
 | vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute3
 | primitive.index   |`ARRAY1D` of `UINT32` / `UINT64`| [0, 1, 2, {ldots}]  | optional indices (into the vertex array(s))
-| radius            |`FLOAT32`                       |                   1 | default radius for all spheres (if `sphere.radius` is not set)
+| radius            |`FLOAT32`                       |                   1 | default radius for all spheres (if `vertex.radius` is not set)
 |===================================================================================================
 
 Parameter `vertex.position` must be set to yield a valid sphere
