@@ -13,21 +13,27 @@ ANARICamera anariNewCamera(ANARIDevice, const char *subtype);
 ....
 
 
-All cameras sources accept the following parameters:
+All cameras accept the following parameters:
 
-.<<api_concepts_parameters, Parameters>> understood by all cameras.
-[cols="<12,<12,>10,<33",options="header,unbreakable"]
+.<<api_concepts_parameters, Parameters>> understood by cameras.
+[cols="<18,<10,>10,<33",options="header,unbreakable"]
 |=========================================================================================
 | Name         | Type         |          Default | Description
 | position     |`FLOAT32_VEC3`|        (0, 0, 0) | position of the camera in world-space
 | direction    |`FLOAT32_VEC3`|       (0, 0, -1) | main viewing direction of the camera
 | up           |`FLOAT32_VEC3`|        (0, 1, 0) | up direction of the camera
 | imageRegion  |`FLOAT32_BOX2`|\((0, 0), (1, 1)) | region of the sensor in normalized screen-space coordinates
+| apertureRadius         |`FLOAT32`     |                0 | extension `KHR_CAMERA_DEPTH_OF_FIELD`, size of the aperture, controls the depth of field
+| focusDistance          |`FLOAT32`     |                1 | extension `KHR_CAMERA_DEPTH_OF_FIELD`, distance at where the image is sharpest when depth of field is enabled
+| stereoMode             |`STRING`      |   `none`| extension `KHR_CAMERA_STEREO`, possible values: `none`, `left`, `right`, `sideBySide`, `topBottom` (left eye at top half)
+| interpupillaryDistance |`FLOAT32`     |  0.0635 | extension `KHR_CAMERA_STEREO`, distance between left and right eye when stereo is enabled
+| shutter            |`FLOAT32_BOX1`                  | [0.5, 0.5] | extension `KHR_CAMERA_SHUTTER`, start and end of shutter time, clamped to [0, 1]
+| rollingShutterDirection|`STRING`      |   `none`| extension `KHR_CAMERA_ROLLING_SHUTTER`, rolling direction of the shutter, possible values: `none`, `left`, `right`, `down`, `up`
+| rollingShutterDuration |`FLOAT32`     |       0 | extension `KHR_CAMERA_ROLLING_SHUTTER`, the “open” time per line, clamped to [0, shutter.upper-shutter.lower]
 |=========================================================================================
 
 The camera is placed and oriented in the world with `position`,
 `direction` and `up`. ANARI uses a right-handed coordinate system.
-
 
 The region of the camera sensor that is rendered to the image can be
 specified in normalized screen-space coordinates with `imageRegion`.
@@ -38,26 +44,10 @@ values outside the default range of [0–1] are valid, which is useful to
 easily realize overscan or film gate, or to emulate a shifted sensor.
 
 [[extension_camera_depth_of_field]]
-.Additional parameters understood by all cameras with extension `KHR_CAMERA_DEPTH_OF_FIELD`
-[cols="<3,<2,>2,<7",options="header,unbreakable"]
-|===================================================================================================
-| Name                   | Type         |          Default | Description
-| apertureRadius         |`FLOAT32`     |                0 | size of the aperture, controls the depth of field
-| focusDistance          |`FLOAT32`     |                1 | distance at where the image is sharpest when depth of field is enabled
-|===================================================================================================
-
 The extension `KHR_CAMERA_DEPTH_OF_FIELD` indicates that cameras support depth
 of field via the `apertureRadius` and `focusDistance` parameters.
 
 [[extension_camera_stereo]]
-.Additional parameters understood by all cameras with extension `KHR_CAMERA_STEREO`.
-[cols="<4,<2,>2,<7",options="header,unbreakable"]
-|===================================================================================================
-| Name                   | Type         | Default | Description
-| stereoMode             |`STRING`      |   `none`| possible values: `none`, `left`, `right`, `sideBySide`, `topBottom` (left eye at top half)
-| interpupillaryDistance |`FLOAT32`     |  0.0635 | distance between left and right eye when stereo is enabled
-|===================================================================================================
-
 The extension `KHR_CAMERA_STEREO` indicates that a renderer permits 3D stereo
 rendering, which is enabled by setting `stereoMode` and
 `interpupillaryDistance`.
@@ -74,31 +64,17 @@ rendering, which is enabled by setting `stereoMode` and
 | time               |`FLOAT32_BOX1`                  |     [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
 |===================================================================================================
 
+[[extension_camera_shutter]]
 Extension `KHR_CAMERA_MOTION_TRANSFORMATION`: Uniformly (in `time`) distributed
 transformation keys can be set with `motion.transform` to achieve camera motion
 blur (in combination with extension `KHR_CAMERA_SHUTTER`). Alternatively, the
 transformation keys can also be given as decomposed `motion.scale`,
 `motion.rotation` and `motion.translation`.
 
-[[extension_camera_shutter]]
-.Additional parameters understood by all cameras with extension `KHR_CAMERA_SHUTTER`.
-[cols="<,<,>,<3",options="header,unbreakable"]
-|===================================================================================================
-| Name               | Type                           |    Default | Description
-| shutter            |`FLOAT32_BOX1`                  | [0.5, 0.5] | start and end of shutter time, clamped to [0, 1]
-|===================================================================================================
-
 [[extension_camera_rolling_shutter]]
-.Additional parameters understood by all cameras with extension `KHR_CAMERA_ROLLING_SHUTTER`.
-[cols="<2,<,>,<3",options="header,unbreakable"]
-|===================================================================================================
-| Name                   | Type         | Default | Description
-| rollingShutterDirection|`STRING`      |   `none`| rolling direction of the shutter, possible values: `none`, `left`, `right`, `down`, `up`
-| rollingShutterDuration |`FLOAT32`     |       0 | the “open” time per line, clamped to [0, shutter.upper-shutter.lower]
-|===================================================================================================
-
-The extension `KHR_CAMERA_ROLLING_SHUTTER` depends on extension
-<<extension_camera_shutter, `KHR_CAMERA_SHUTTER`>>.
+The extension `KHR_CAMERA_ROLLING_SHUTTER` provides more control over the type
+of shutter implemented. It depends on extension <<extension_camera_shutter,
+`KHR_CAMERA_SHUTTER`>>.
 
 
 [[object_types_camera_perspective]]
