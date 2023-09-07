@@ -17,7 +17,7 @@ All light sources accept the following parameters:
 
 [[extension_light_primary_visibility]]
 .<<api_concepts_parameters, Parameters>> understood by all lights.
-[cols="<,<,>,<4",options="header,unbreakable"]
+[cols="<4,<5,>4,<22",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type          |    Default | Description
 | color    |`FLOAT32_VEC3` |  (1, 1, 1) | color of the light, in 0..1
