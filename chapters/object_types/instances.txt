@@ -17,12 +17,13 @@ share the instances world-space transform. They also always take a generic
 `FLOAT32_MAT4` transform which serves as a fall back but may be overridden by
 subtype specific transform definitions.
 
-.<<api_concepts_parameters, Parameters>> understood by all instances.
-[cols="<,<,>,<3",options="header,unbreakable"]
+.<<api_concepts_parameters, Parameters>> understood by instances.
+[cols="<3,<4,>3,<14",options="header,unbreakable"]
 |===================================================================================================
 | Name      | Type         |                                       Default | Description
 | group     |`GROUP`       |                                               | Group to be instanced, required
 | transform |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
+| id        |`UINT32`      |         -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_INSTANCE_ID`>>, optional user Id, for frame <<frame_channels, channel `instanceId`>>
 |===================================================================================================
 
 The matrix `transform` represents an affine transformation which is applied to
@@ -37,15 +38,8 @@ memory. Implementations are free to always treat the last row (4th, 8th, 12th
 and 16th float) as being (0, 0, 0, 1).
 ====
 
-.<<api_concepts_parameters, Parameters>> understood by all instances with extension `KHR_FRAME_CHANNEL_INSTANCE_ID`.
-[cols="<,<,>,<3",options="header,unbreakable"]
-|=============================================================
-| Name      | Type     |    Default | Description
-| id        |`UINT32`  |         -1u | optional user Id, for <<object_types_frame>> channel `instanceId`
-|=============================================================
-
 .<<api_concepts_object_properties, Properties>> queryable on an instance.
-[cols="<,<,<2",options="header,unbreakable"]
+[cols="<,<,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
 | bounds   |`FLOAT32_BOX3`| axis-aligned bounding box in world-space (excluding the lights)
@@ -55,7 +49,7 @@ and 16th float) as being (0, 0, 0, 1).
 [[object_types_instance_transform]]
 ==== Transform
 
-Extension: `KHR_INSTANCE_TRANSFORM`
+Extension `KHR_INSTANCE_TRANSFORM`
 
 The `transform` instance subtype is a basic instance that implements the
 mandatory parameters and properties listed above. When this extension is
@@ -75,7 +69,7 @@ should always be set in addition to any subtype specific transform parameters.
 [[object_types_instance_motion_transform]]
 ==== Motion Transform
 
-Extension `KHR_INSTANCE_MOTION_TRANSFORM`:
+Extension `KHR_INSTANCE_MOTION_TRANSFORM`
 
 The `motionTransform` instance subtype represents uniformly (in `time`)
 distributed transformation keys as defined by `motion.transform` to achieve
@@ -83,7 +77,7 @@ transformation motion blur in combination with `time` and extension
 <<object_types_camera, `KHR_CAMERA_SHUTTER`>>.
 
 .Additional <<api_concepts_parameters, parameters>> understood by the motion transform <<object_types_instance, instance>>.
-[cols="<2,<2,>,<5",options="header,unbreakable"]
+[cols="<4,<3,>2,<11",options="header,unbreakable"]
 |===================================================================================================
 | Name               | Type                           | Default | Description
 | motion.transform   |`ARRAY1D` of `FLOAT32_MAT4`     |         | uniformly distributed world-space transformations
@@ -97,7 +91,7 @@ parameter.
 [[object_types_instance_motion_scale_rotation_translation]]
 ==== Motion Scale Rotation Translation
 
-Extension `KHR_INSTANCE_MOTION_SCALE_ROTATION_TRANSLATION`:
+Extension `KHR_INSTANCE_MOTION_SCALE_ROTATION_TRANSLATION`
 
 The `motionScaleRotationTranslation` instance subtype represents uniformly (in
 `time`) distributed transformation keys as defined by decomposed `motion.scale`,

@@ -13,16 +13,23 @@ create a new volume object of given subtype `subtype` use
 ANARIVolume anariNewVolume(ANARIDevice, const char *subtype);
 ....
 
+.<<api_concepts_parameters, Parameters>> understood by volumes.
+[cols="<,<,>,<7",options="header,unbreakable"]
+|===================================================================================================
+| Name | Type    | Default | Description
+| id   |`UINT32` |     -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_OBJECT_ID`>>, optional user Id, for frame <<frame_channels, channel `objectId`>>
+|===================================================================================================
+
 [[object_types_volume_transfer_function1d]]
 ==== TransferFunction1D
 
-Extension: `KHR_VOLUME_TRANSFER_FUNCTION1D`
+Extension `KHR_VOLUME_TRANSFER_FUNCTION1D`
 
 The 1D transfer function volume is created by passing the subtype string
 `transferFunction1D` to <<object_types_volume, `anariNewVolume`>>. It supports the following parameters:
 
 .<<api_concepts_parameters, Parameters>> understood by the transferFunction1D volume.
-[cols="<3,<3,>3,<10",options="header,unbreakable"]
+[cols="<3,<5,>4,<7",options="header,unbreakable"]
 |===================================================================================================
 | Name             | Type                           | Default | Description
 | value            |`SPATIAL_FIELD`                 |         | <<object_types_spatial_field, Spatial field>> used for the scalar values of the volume
@@ -69,10 +76,3 @@ surface. Implementations may limit opacity to a value slightly smaller than one.
 A possible implementation of a rendering algorithm for this volume type is given
 in <<transferFunction1D_algorithm>>.
 ====
-
-.<<api_concepts_parameters, Parameters>> understood by the transferFunction1D volume with extension `KHR_FRAME_CHANNEL_OBJECT_ID`
-[cols="<3,<3,>2,<9",options="header,unbreakable"]
-|===================================================================================================
-| Name | Type       | Default | Description
-| id   |`UINT32`    |     -1u | optional user Id, for <<object_types_frame>> channel `objectId`
-|===================================================================================================

@@ -16,14 +16,14 @@ ANARISpatialField anariNewSpatialField(ANARIDevice, const char *subtype);
 [[object_types_spatial_field_structured_regular]]
 ==== Structured Regular
 
-Extension: `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`
+Extension `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`
 
 Structured regular spatial fields are created by passing the subtype string
 `structuredRegular` to <<object_types_spatial_field, `anariNewSpatialField`>>. The parameters
 understood by structured regular spatial fields are summarized in the table below.
 
 .Configuration parameters for structured regular spatial fields.
-[cols="<,<,>,<4",options="header,unbreakable"]
+[cols="<,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name    | Type           |    Default | Description
 | data    |`ARRAY3D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | | the actual field

@@ -341,7 +341,7 @@ The following infos of objects can be queried:
 | description   | `STRING`         |    No    | explanation of the object, e.g., for a tooltip
 | parameter     | `PARAMETER_LIST` |    Yes   | list of supported parameters (array of `ANARIParameter`)
 | channel       | `STRING_LIST`    | for ``FRAME`` | list of supported channels
-| extension       | `STRING_LIST`    | for ``RENDERER``s | list of supported extensions
+| extension     | `STRING_LIST`    | for ``RENDERER``s | list of supported extensions
 |===================================================================================================
 
 Parameters that can be of multiple types are reported multiple times (once for
@@ -592,7 +592,7 @@ Out of bounds accesses caused this way have undefined behavior.
 Array parameters of objects that are accessed by the same index (because
 they represent an "array of structures") have per naming convention a
 common prefix followed by a period. An example are the vertex attributes of the
-<<standard_subtypes_geometry_triangle, triangle geometry>>, which all start with
+<<object_types_geometry_triangle, triangle geometry>>, which all start with
 `vertex.` followed by the attribute name.
 ====
 
@@ -611,7 +611,7 @@ Implementations provide this functionality by implementing extension
 [cols="<,<2,<8",options="header,unbreakable"]
 |==================================================================
 | Name     | Type            | Description
-| region   |`UINT64_REGION1` | extension `KHR_ARRAY1D_REGION`: region of elements currently in use
+| region   |`UINT64_REGION1` | extension `KHR_ARRAY1D_REGION`, region of elements currently in use
 |==================================================================
 
 If `region` is not set, all elements are used as specified when the array was

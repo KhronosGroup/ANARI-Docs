@@ -15,14 +15,14 @@ ANARISampler anariNewSampler(ANARIDevice, const char *subtype);
 [[object_types_sampler_image1D]]
 ==== Image1D
 
-Extension: `KHR_SAMPLER_IMAGE1D`
+Extension `KHR_SAMPLER_IMAGE1D`
 
 A one dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image1D`. It accepts the following
 parameters.
 
 .<<api_concepts_parameters, Parameters>> understood by the 1D image sampler.
-[cols="<,<,>,<2",options="header,unbreakable"]
+[cols="<16,<16,>13,<53",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
 | inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
@@ -58,13 +58,13 @@ in column-major memory layout and are applied to column vectors
 [[object_types_sampler_image2D]]
 ==== Image2D
 
-Extension: `KHR_SAMPLER_IMAGE2D`
+Extension `KHR_SAMPLER_IMAGE2D`
 
 A two dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image2D`. It accepts the following parameters.
 
 .<<api_concepts_parameters, Parameters>> understood by the 2D image sampler.
-[cols="<,<,>,<2",options="header,unbreakable"]
+[cols="<16,<16,>13,<53",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
 | inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
@@ -101,13 +101,13 @@ in column-major memory layout and are applied to column vectors
 [[object_types_sampler_image3D]]
 ==== Image3D
 
-Extension: `KHR_SAMPLER_IMAGE3D`
+Extension `KHR_SAMPLER_IMAGE3D`
 
 A three dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image3D`. It accepts the following parameters.
 
 .<<api_concepts_parameters, Parameters>> understood by the 3D image sampler.
-[cols="<,<,>,<2",options="header,unbreakable"]
+[cols="<16,<16,>13,<53",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
 | inAttribute | `STRING` | `attribute0` | surface attribute used as texture coordinate, possible values: float <<Attributes>>
@@ -145,7 +145,7 @@ in column-major memory layout and are applied to column vectors
 [[object_types_sampler_primitive]]
 ==== Primitive
 
-Extension: `KHR_SAMPLER_PRIMITIVE`
+Extension `KHR_SAMPLER_PRIMITIVE`
 
 The primitive sampler samples an `Array1D` at integer
 coordinates based on the `primitiveId` surface attribute.
@@ -154,7 +154,7 @@ It is created by calling <<object_types_sampler,
 The `inOffset` parameter value is added to `primitiveID` before sampling.
 
 .<<api_concepts_parameters, Parameters>> understood by the primitive sampler.
-[cols="<,<,>,<2",options="header,unbreakable"]
+[cols="<,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name  | Type      | Default  | Description
 | array | `ARRAY1D` of <<Color>> |  | backing array of the sampler
@@ -171,7 +171,7 @@ instead.
 [[object_types_sampler_transform]]
 ==== Transform
 
-Extension: `KHR_SAMPLER_TRANSFORM`
+Extension `KHR_SAMPLER_TRANSFORM`
 
 The transform sampler multiplies by the input attribute by `outTransform` and
 adds it `outOffset` returns the result as the sampled value. It is created by
@@ -179,7 +179,7 @@ calling <<object_types_sampler, `anariNewSampler`>> with subtype string
 `transform`.
 
 .<<api_concepts_parameters, Parameters>> understood by the transform sampler.
-[cols="<,<,>,<2",options="header,unbreakable"]
+[cols="<4,<4,>3,<13",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                                                       | Default                         | Description
 | inAttribute | `STRING` | `attribute0` | surface attribute used as input

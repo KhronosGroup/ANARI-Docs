@@ -41,14 +41,15 @@ ANARI API calls have a write-only behavior pattern to minimize imposed
 implementation requirements.
 
 An application can create ANARI objects and set named inputs on them called
-_parameters_. However, no mechanism is provided to subsequently query
+<<api_concepts_parameters,_parameters_>>. However, no mechanism is provided to subsequently query
 parameter data, since even the existence of a query mechanism
 would impose additional performance and storage restrictions for back-end
 renderer implementations (e.g. distributed rendering contexts).
 <<api_concepts_introspection, Object introspection>> can be used to query object
 subtypes and information about their parameters.
 
-Additionally, ANARI objects can publish named outputs called _properties_. Such
+Additionally, ANARI objects can publish named outputs called
+<<api_concepts_object_properties, _properties_>>. Such
 output is specific to the type and semantics of the object, but has a generic
 interface function for access.
 
@@ -72,7 +73,7 @@ application determines if the device is acceptable in meeting the application's
 requirements, or if the application wants to adapt itself to what extensions are
 available.
 
-Extensions are extensions that have not yet made it into the ANARI specification.
+Vendor extensions are extensions that have not yet made it into the ANARI specification.
 These extensions are reported in the same list as core extensions, but have vendor
 specific names, which may exist in more than one device from that vendor.
 This is a good way for vendors to agree upon and get experience with a extension
@@ -87,9 +88,10 @@ definition. All extensions follow the prefix convention of
 `ANARI\_[VENDOR]_[NAME]`, where ratified extensions use `KHR` as the vendor
 string.
 
-Implemented extensions may be queried via <<api_concepts_introspection>>
-functions. Currently available extensions for devices and renderers may be
-queried via <<api_concepts_object_properties>> functions.
+Implemented extensions may be queried via <<api_concepts_introspection,
+introspection>> functions. Currently available extensions for instantiated
+devices and renderers may be queried via the <<api_concepts_object_properties,
+`extension` property>>.
 
 A full list of ANARI extensions can be found in the <<extension_index>>
 appendix.

@@ -110,7 +110,7 @@ is optional; there is no need to create empty arrays if there are no instances
 (though there might be nothing to render).
 
 .<<api_concepts_parameters, Parameters>> understood by the world.
-[cols="<,<,<2",options="header,unbreakable"]
+[cols="<,<2,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type                  | Description
 | instance |`ARRAY1D` of `INSTANCE`| optional array with handles of <<Instance, instances>>
@@ -120,7 +120,7 @@ is optional; there is no need to create empty arrays if there are no instances
 |===================================================================================================
 
 .<<api_concepts_object_properties, Properties>> queryable on a world.
-[cols="<,<,<2",options="header,unbreakable"]
+[cols="<,<,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
 | bounds   |`FLOAT32_BOX3`| axis-aligned bounding box in world-space (excluding the lights)
@@ -152,7 +152,7 @@ Each array on a group is optional; there is no need to create empty arrays if
 there are no surfaces, no volumes, or no lights instanced.
 
 .<<api_concepts_parameters, Parameters>> understood by groups.
-[cols="<,<,<2",options="header,unbreakable"]
+[cols="<,<2,<4",options="header,unbreakable"]
 |======================================================================================
 | Name    | Type                 | Description
 | surface |`ARRAY1D` of `SURFACE`| optional array with handles of <<Surface, surfaces>>
@@ -161,7 +161,7 @@ there are no surfaces, no volumes, or no lights instanced.
 |======================================================================================
 
 .<<api_concepts_object_properties, Properties>> queryable on a group.
-[cols="<,<,<2",options="header,unbreakable"]
+[cols="<,<,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type         | Description
 | bounds   |`FLOAT32_BOX3`| axis-aligned bounding box (excluding the lights)
@@ -191,22 +191,16 @@ ANARISurface anariNewSurface(ANARIDevice);
 ....
 
 .<<api_concepts_parameters, Parameters>> understood by Surface.
-[cols="<,<,<2",options="header,unbreakable"]
+[cols="<,<,>,<5",options="header,unbreakable"]
 |===================================================================================================
-| Name     |Type      | Description
-| geometry |`GEOMETRY`| <<object_types_geometry>> object used by this surface
-| material |`MATERIAL`| <<object_types_material>> applied to the geometry
+| Name     | Type     | Default | Description
+| geometry |`GEOMETRY`|         | <<object_types_geometry>> object used by this surface
+| material |`MATERIAL`|         | <<object_types_material>> applied to the geometry
+| id       |`UINT32`  |     -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_OBJECT_ID`>>, optional user Id, for frame <<frame_channels, channel `objectId`>>
 |===================================================================================================
 
 Surfaces require a valid <<object_types_geometry>> to be set as the `geometry` parameter and
 a valid <<object_types_material>> to be set as the `material` parameter.
-
-.<<api_concepts_parameters, Parameters>> understood by Surface with extension `KHR_FRAME_CHANNEL_OBJECT_ID`
-[cols="<3,<3,>2,<9",options="header,unbreakable"]
-|===================================================================================================
-| Name | Type       | Default | Description
-| id   |`UINT32`    |     -1u | optional user Id, for <<object_types_frame>> channel `objectId`
-|===================================================================================================
 
 // ///////////////////////////////////////////////////////////////////////
 // ///////////////////////////////////////////////////////////////////////
