@@ -21,7 +21,7 @@ All light sources accept the following parameters:
 |===================================================================================================
 | Name     | Type          |    Default | Description
 | color    |`FLOAT32_VEC3` |  (1, 1, 1) | color of the light, in 0..1
-| visible  |`BOOL`         |     `TRUE` | extension `KHR_LIGHT_PRIMARY_VISIBILITY`: whether the light can be directly seen (only meaningful for area lights)
+| visible  |`BOOL`         |     `TRUE` | extension `KHR_LIGHT_PRIMARY_VISIBILITY`, whether the light can be directly seen (only meaningful for area lights)
 |===================================================================================================
 
 The transformation of an <<Instance, instance>> apply only to vectors
@@ -32,7 +32,7 @@ like `radius`.
 [[object_types_light_directional]]
 ==== Directional
 
-Extension: `KHR_LIGHT_DIRECTIONAL`
+Extension `KHR_LIGHT_DIRECTIONAL`
 
 The directional light is thought to
 be far away (outside of the scene), thus its light arrives (mostly) as
@@ -42,7 +42,7 @@ understood by all lights, the directional light supports the following
 special parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the directional <<object_types_light, light>>.
-[cols="<,<,>,<4",options="header,unbreakable"]
+[cols="<4,<3,>2,<12",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type         |    Default | Description
 | direction       |`FLOAT32_VEC3`| (0, 0, -1) | main emission direction of the directional light
@@ -66,7 +66,7 @@ instance, the apparent size of the sun is about 0.53° or 0.00925 rad.
 [[object_types_light_hdri]]
 ==== HDRI
 
-Extension: `KHR_LIGHT_HDRI`
+Extension `KHR_LIGHT_HDRI`
 
 The HDRI light is a textured light source surrounding the scene and
 illuminating it from infinity. It is created by passing the subtype string
@@ -93,7 +93,7 @@ parameters>> the HDRI light supports the following special parameters:
 [[object_types_light_point]]
 ==== Point
 
-Extension: `KHR_LIGHT_POINT`
+Extension `KHR_LIGHT_POINT`
 
 The point light (or with `radius > 0` the sphere light) is a light emitting
 uniformly in all directions (from the surface toward the outside). It is created
@@ -102,7 +102,7 @@ by passing the subtype string `point` to <<object_types_light, `anariNewLight`>>
 the following special parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the point <<object_types_light, light>>.
-[cols="<,<,>,<4",options="header,unbreakable"]
+[cols="<,<2,>,<6",options="header,unbreakable"]
 |===================================================================================================
 | Name       | Type         |    Default | Description
 | position   |`FLOAT32_VEC3`|  (0, 0, 0) | the position of the point light
@@ -119,17 +119,16 @@ the following special parameters:
 [[object_types_light_quad]]
 ==== Quad
 
-Extension: `KHR_LIGHT_QUAD`
+Extension `KHR_LIGHT_QUAD`
 
-The quadfootnote:[actually a parallelogram] light is a planar,
-procedural area light source emitting uniformly on one side into the
-half-space. It is created by passing the subtype string `quad` to
-<<object_types_light, `anariNewLight`>>. In addition to the <<object_types_light, general parameters>>
-understood by all lights, the quad light supports the following special
-parameters:
+The quad light is a planar, procedural area light source, a parallelogram,
+emitting uniformly on one side into the half-space. It is created by passing the
+subtype string `quad` to <<object_types_light, `anariNewLight`>>. In addition to
+the <<object_types_light, general parameters>> understood by all lights, the
+quad light supports the following special parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the quad <<object_types_light, light>>.
-[cols="<2,<,>,<3",options="header,unbreakable"]
+[cols="<5,<3,>2,<11",options="header,unbreakable"]
 |===================================================================================================
 | Name         | Type         |    Default | Description
 | position     |`FLOAT32_VEC3`|  (0, 0, 0) | position of one vertex of the quad light
@@ -180,7 +179,7 @@ shadows), or may not compute shadows at all.
 [[object_types_light_ring]]
 ==== Ring
 
-Extension: `KHR_LIGHT_RING`
+Extension `KHR_LIGHT_RING`
 
 The ring light is a light emitting into a cone of directions. It is created by
 passing the subtype string `ring` to <<object_types_light, `anariNewLight`>>. In addition to the <<object_types_light,
@@ -189,7 +188,7 @@ parameters listed in the table. The ring light is
 an area light and thus has a cosine falloff.
 
 .Additional <<api_concepts_parameters, parameters>> understood by the ring <<object_types_light, light>>.
-[cols="<2,<,>,<3",options="header,unbreakable"]
+[cols="<5,<3,>2,<11",options="header,unbreakable"]
 |===================================================================================================
 | Name         | Type         |    Default | Description
 | position     |`FLOAT32_VEC3`|  (0, 0, 0) | the center of the ring light
@@ -242,7 +241,7 @@ neighbors. The orientation of the C0-plane is specified via `c0`.
 [[object_types_light_spot]]
 ==== Spot
 
-Extension: `KHR_LIGHT_SPOT`
+Extension `KHR_LIGHT_SPOT`
 
 The spotlight is a light emitting into a cone of directions. It is
 created by passing the subtype string `spot` to <<object_types_light, `anariNewLight`>>. In
@@ -251,7 +250,7 @@ lights, the spotlight supports the special parameters listed in the
 table.
 
 .Additional <<api_concepts_parameters, parameters>> understood by the spot<<object_types_light, light>>.
-[cols="<,<,>,<3",options="header,unbreakable"]
+[cols="<3,<3,>2,<11",options="header,unbreakable"]
 |===================================================================================================
 | Name         | Type         |    Default | Description
 | position     |`FLOAT32_VEC3`|  (0, 0, 0) | the center of the spotlight

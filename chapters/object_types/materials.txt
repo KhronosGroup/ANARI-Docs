@@ -20,7 +20,7 @@ during rendering.
 [[object_types_material_matte]]
 ==== Matte
 
-Extension: `KHR_MATERIAL_MATTE`
+Extension `KHR_MATERIAL_MATTE`
 
 The `matte` material reflects light uniformly into the hemisphere, i.e.,
 it exhibits Lambertian reflectance and thus its apparent brightness is
@@ -28,7 +28,7 @@ independent of the viewing direction. The matte material supports
 (partial) cut-out transparency depending on `alphaMode`.
 
 .<<api_concepts_parameters, Parameters>> of the matte material.
-[cols="<,<2,>,<2",options="header",]
+[cols="<,<2,>,<3",options="header",]
 |===
 |Name  |Type         |Default   |Description
 |color |`FLOAT32_VEC3` / `SAMPLER` / `STRING` | (0.8, 0.8, 0.8) | diffuse color
@@ -50,7 +50,7 @@ with the opacity value. The final opacity is determied by `alphaMode`:
 [[object_types_material_physically_based]]
 ==== Physically Based
 
-Extension: `KHR_MATERIAL_PHYSICALLY_BASED`
+Extension `KHR_MATERIAL_PHYSICALLY_BASED`
 
 The `physicallyBased` material offers a wealth of extensions while being
 user friendly. It aims to be compatible to glTF's pbrMetallicRoughness

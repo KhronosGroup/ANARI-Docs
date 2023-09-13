@@ -80,7 +80,7 @@ of shutter implemented. It depends on extension <<extension_camera_shutter,
 [[object_types_camera_perspective]]
 ==== Perspective
 
-Extension: `KHR_CAMERA_PERSPECTIVE`
+Extension `KHR_CAMERA_PERSPECTIVE`
 
 The perspective camera represents a simple thin lens camera for
 perspective rendering. It is created by passing the type string
@@ -115,7 +115,7 @@ When the algorithm does not require clip planes and `near`/`far` are not set it 
 [[object_types_camera_omnidirectional]]
 ==== Omnidirectional
 
-Extension: `KHR_CAMERA_OMNIDIRECTIONAL`
+Extension `KHR_CAMERA_OMNIDIRECTIONAL`
 
 The omnidirectional camera captures the complete surrounding
 It is is created by passing the type string
@@ -138,7 +138,7 @@ omnidirectional camera.
 [[object_types_camera_orthographic]]
 ==== Orthographic
 
-Extension: `KHR_CAMERA_ORTHOGRAPHIC`
+Extension `KHR_CAMERA_ORTHOGRAPHIC`
 
 The orthographic camera represents a simple camera with orthographic
 projection. It is created by passing the type string `orthographic` to
