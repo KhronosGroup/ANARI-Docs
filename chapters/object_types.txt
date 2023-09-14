@@ -22,6 +22,7 @@ include::object_types/cameras.txt[]
 [[object_types_renderer]]
 === Renderer
 
+[[anariNewRenderer]]
 A renderer is the central object for rendering in ANARI. Different
 renderers implement different extensions, rendering algorithms, and support
 different materials. To create a new renderer of given subtype `subtype` use
@@ -96,6 +97,7 @@ and illuminates it from infinity.
 [[object_types_world]]
 === World
 
+[[anariNewWorld]]
 Worlds are a container of scene data represented by
 <<instance, instances>>. Worlds are created with
 
@@ -139,6 +141,7 @@ include::object_types/instances.txt[]
 [[object_types_group]]
 === Group
 
+[[anariNewGroup]]
 Groups in ANARI represent collections of <<surface>>, <<volume>>, and <<light>>
 which share a common local-space coordinate system. Groups are created
 with
@@ -180,6 +183,7 @@ include::object_types/lights.txt[]
 [[object_types_surface]]
 === Surface
 
+[[anariNewSurface]]
 Geometries are matched with appearance information through Surfaces. These take
 a geometry, which defines the spatial representation, and applies either
 full-object or per-primitive color and material information. Surfaces are
@@ -223,6 +227,7 @@ include::object_types/spatial_fields.txt[]
 [[object_types_extension_objects]]
 === Extension Objects
 
+[[anariNewObject]]
 Extensions may need to introduce custom object types. To create such an object use
 
 [source,cpp]

@@ -4,6 +4,7 @@
 [[object_types_light]]
 === Light
 
+[[anariNewLight]]
 Lights in ANARI are virtual objects that emit light into the world and
 thus illuminate objects. To create a new light object of given subtype
 `subtype` use

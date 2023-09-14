@@ -4,6 +4,7 @@
 [[object_types_instance]]
 === Instance
 
+[[anariNewInstance]]
 Instances apply transforms to groups for placement in the World.
 Instances are created with
 

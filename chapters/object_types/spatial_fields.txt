@@ -4,6 +4,7 @@
 [[object_types_spatial_field]]
 === Spatial Field
 
+[[anariNewSpatialField]]
 ANARI spatial field objects define collections of data values spread throughout
 a local coordinate system in order to be sampled in space. Spatial fields are
 created with

@@ -4,6 +4,7 @@
 [[object_types_sampler]]
 === Sampler
 
+[[anariNewSampler]]
 ANARI sampler objects map attribute data into other object inputs such
 materials. To create a new sampler use
 

@@ -4,6 +4,7 @@
 [[object_types_material]]
 === Material
 
+[[anariNewMaterial]]
 Materials describe how light interacts with surfaces to give objects their
 appearance. Materials are created with
 

@@ -4,6 +4,7 @@
 [[object_types_camera]]
 === Camera
 
+[[anariNewCamera]]
 Cameras express viewpoint and viewport projection information for rendering a
 scene. To create a new camera of given type `subtype` use
 
