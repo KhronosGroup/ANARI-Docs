@@ -1,13 +1,9 @@
 // Copyright 2023 The Khronos Group Inc.
 // SPDX-License-Identifier: CC-BY-4.0  
 
-// The asciidoc [glossary] template cannot contain subsections.
-// The abbreviations and prefixes probably belong in the upcoming
-// API/extension-writing-guidelines appendix, anyway.
-
 [appendix]
 [[extension_index]]
-== Extension Index
+== Extension Index (Informative)
 
 * <<extension_array1d_region, `KHR_ARRAY1D_REGION`>>: Permit runtime changeable valid array region
 * <<extension_camera_depth_of_field, `KHR_CAMERA_DEPTH_OF_FIELD`>>: depth of field is supported

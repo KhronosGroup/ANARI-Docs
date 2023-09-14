@@ -105,6 +105,7 @@ Objects are created by calling an `anariNew*` factory function (for example
 function. All objects, including devices, are only valid in the process in which
 they are created.
 
+[[anariRelease]][[anariRetain]]
 Object lifetime is managed by opaque reference counting. Objects have a
 public and internal reference count. Objects are created with a public
 reference count of 1, which can be increased with `anariRetain` and
@@ -131,6 +132,7 @@ release objects as soon as it no longer requires access to them.
 [[api_concepts_parameters]]
 === Parameters, Types, and Commits
 
+[[anariSetParameter]]
 Objects are configured by parameters, which are identified by a string name and
 are set using `anariSetParameter`. Multiple types can be valid for a parameter,
 but only one type can be set for a particular parameter name at any given time.
@@ -158,6 +160,7 @@ human readable identifiers into the command stream. This can be useful for
 debugging purposes, for example. Implementations are allowed to ignore this
 parameter and must not emit warnings when it is present.
 
+[[anariCommitParameters]]
 Changes to parameter values must only take effect once `anariCommitParameters`
 has been called on the object:
 
@@ -183,6 +186,7 @@ accordingly. There are, however, two exceptions: `ANARI_STRING` and
 `ANARI_VOID_POINTER` (`const char *` and `void *` respectively) are object
 pointer based types, so they are instead passed by value.
 
+[[anariUnsetParameter]]
 Object parameters can be unset using `anariUnsetParameter`, which returns the
 named parameter back to a state as if it had not been set. Just like with
 setting parameters, changes made by `anariUnsetParameter` must only be
@@ -199,6 +203,7 @@ void anariUnsetParameter(
 );
 ----
 
+[[anariUnsetAllParameters]]
 Similarly, all parameters on an object can be simultaneously unset using
 `anariUnsetAllParameters`, which returns the object back to a state as if no
 parameters had been set at all. Just like with unsetting individual parameters,
@@ -266,6 +271,7 @@ missing hardware support, the device may still advertise the associated paramete
 and object subtypes. The dynamic runtime extension availability can be queried using
 <<api_concepts_object_properties, properties>>.
 
+[[anariGetDeviceSubtypes]]
 Device subtypes and their implemented extensions can be queried
 from a library before instantiating a device. Object and parameter specific
 information can be queried from an instantiated device object.
@@ -280,7 +286,7 @@ A list of device subtypes implemented in a library is retrieved by calling
 `NULL`-terminated list of `0`-terminated C-strings with the names of the
 devices. The first (if any) device is the default device.
 
-
+[[anariGetDeviceExtensions]]
 [source,cpp]
 ----
 const char **anariGetDeviceExtensions(ANARILibrary, const char *deviceSubtype);
@@ -291,6 +297,7 @@ The list extensions implemented by a device is retrieved by calling
 `anariGetDeviceSubtypes`. It returns a `NULL`-terminated list of `0`-terminated
 C-strings with the names of the implemented extensions.
 
+[[anariGetObjectSubtypes]]
 [source,cpp]
 ----
 const char **anariGetObjectSubtypes(ANARIDevice, ANARIDataType objectType);
@@ -312,6 +319,7 @@ subtypes:
 * `VOLUME`
 * `SPATIAL_FIELD`
 
+[[anariGetObjectInfo]]
 [source,cpp]
 ----
 typedef struct
@@ -347,6 +355,7 @@ The following infos of objects can be queried:
 Parameters that can be of multiple types are reported multiple times (once for
 each supported variant: with the same `name`, but different `type`).
 
+[[anariGetParameterInfo]]
 [source,cpp]
 ----
 const void *anariGetParameterInfo(ANARIDevice,
@@ -381,6 +390,7 @@ The following infos of parameters can be queried:
 [[api_concepts_object_properties]]
 === Object Properties
 
+[[anariGetProperty]]
 Implementations may expose object properties through the object query
 interface.
 
@@ -428,6 +438,7 @@ creating array objects represented by a handle.
 The first method lets applications directly map a device's internally-managed
 one, two, or three dimensional array data on any given object using
 
+[[anariMapParameterArray1D]][[anariMapParameterArray2D]][[anariMapParameterArray3D]]
 [source,cpp]
 ....
 void *anariMapParameterArray1D(ANARIDevice,
@@ -468,6 +479,7 @@ parameter is unknown by the device, the device is permitted to return `NULL`.
 Devices are permitted to have a non-dense element stride, which is returned by
 writing to `elementStride`. The `elementStride` argument must not be `NULL`.
 
+[[anariUnmapParameterArray]]
 Once the array has been filled, applications signal that the device is free to
 consume the data with
 
@@ -493,6 +505,7 @@ implementations. The memory shared with ANARI can be either owned by the
 application, have ownership transferred to the device via a deleter callback, or
 be managed by the device.
 
+[[ANARIMemoryDeleter]]
 The signature of the deleter is provided in `anari.h` as
 
 [source,cpp]
@@ -500,6 +513,7 @@ The signature of the deleter is provided in `anari.h` as
 typedef void (*ANARIMemoryDeleter)(const void *userPtr, const void *appMemory);
 ....
 
+[[anariNewArray1D]][[anariNewArray2D]][[anariNewArray3D]]
 To create a data array, use any of the following API calls based on the
 desired dimension:
 
@@ -551,6 +565,7 @@ created with a deleter callback, it is implementation defined when an
 implementation frees host memory after the array object has been released.
 Deleter callbacks are never called for managed arrays.
 
+[[anariMapArray]]
 Applications are only permitted to write to the memory visible to
 `ANARIArray` objects if all array objects involved are mapped. Mapping
 a shared array object indicates that the device should not execute any rendering
@@ -565,6 +580,7 @@ Array objects are mapped using
 void *anariMapArray(ANARIDevice, ANARIArray);
 ....
 
+[[anariUnmapArray]]
 Mapped array objects are unmapped using
 
 [source,cpp]
@@ -665,6 +681,7 @@ represented by an opaque handle, they are not considered an object per the
 given <<api_concepts_object_definition,definition>> of an object and are thus
 only usable in API calls which explicitly take `ANARILibrary` handles.
 
+[[anariLoadLibrary]]
 To load a library, use
 
 [source,cpp]
@@ -681,6 +698,7 @@ parameter on devices created from the returned library object. Similarly, the
 user pointer passed is used as the default value for the
 `statusCallbackUserData` device parameter.
 
+[[anariUnloadLibrary]]
 To unload a library (where library resource cleanup occurs), use
 
 [source,cpp]
@@ -724,6 +742,7 @@ The ANARI device is responsible for coordinating the sharing of execution
 resources with the calling application, such as a CPU thread pool or GPU
 kernel queues.
 
+[[anariNewDevice]]
 ANARI devices are represented by an `ANARIDevice` handle and created using
 
 [source,cpp]
@@ -751,6 +770,7 @@ Version information can be queried as properties on the `ANARIDevice`
 [[api_concepts_error_handling]]
 === Error Handling
 
+[[ANARIStatusCallback]]
 Errors and other messages (warnings, validation messages, debug
 information etc.) from the device are reported via a status callback.
 The status callback function can be set using

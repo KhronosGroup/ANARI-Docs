@@ -4,6 +4,7 @@
 [[object_types_volume]]
 === Volume
 
+[[anariNewVolume]]
 Volumes in ANARI represent volumetric objects (complementing <<Surface,
 surfaces>>), encapsulating spatial data as well as appearance information. To
 create a new volume object of given subtype `subtype` use

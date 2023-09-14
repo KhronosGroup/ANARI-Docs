@@ -1,0 +1,53 @@
+// Copyright 2023 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0  
+
+[appendix]
+[[function_index]]
+== Function Index (Informative)
+
+* <<anariCommitParameters, `anariCommitParameters`>>
+* <<anariDiscardFrame, `anariDiscardFrame`>>
+* <<ANARIFrameCompletionCallback, `ANARIFrameCompletionCallback`>>
+* <<anariFrameReady, `anariFrameReady`>>
+* <<anariGetDeviceExtensions, `anariGetDeviceExtensions`>>
+* <<anariGetDeviceSubtypes, `anariGetDeviceSubtypes`>>
+* <<anariGetObjectInfo, `anariGetObjectInfo`>>
+* <<anariGetObjectSubtypes, `anariGetObjectSubtypes`>>
+* <<anariGetParameterInfo, `anariGetParameterInfo`>>
+* <<anariGetProperty, `anariGetProperty`>>
+* <<anariLoadLibrary, `anariLoadLibrary`>>
+* <<anariMapArray, `anariMapArray`>>
+* <<anariMapFrame, `anariMapFrame`>>
+* <<anariMapParameterArray1D, `anariMapParameterArray1D`>>
+* <<anariMapParameterArray2D, `anariMapParameterArray2D`>>
+* <<anariMapParameterArray3D, `anariMapParameterArray3D`>>
+* <<ANARIMemoryDeleter, `ANARIMemoryDeleter`>>
+* <<anariNewArray1D, `anariNewArray1D`>>
+* <<anariNewArray2D, `anariNewArray2D`>>
+* <<anariNewArray3D, `anariNewArray3D`>>
+* <<anariNewCamera, `anariNewCamera`>>
+* <<anariNewDevice, `anariNewDevice`>>
+* <<anariNewFrame, `anariNewFrame`>>
+* <<anariNewGeometry, `anariNewGeometry`>>
+* <<anariNewGroup, `anariNewGroup`>>
+* <<anariNewInstance, `anariNewInstance`>>
+* <<anariNewLight, `anariNewLight`>>
+* <<anariNewMaterial, `anariNewMaterial`>>
+* <<anariNewObject, `anariNewObject`>>
+* <<anariNewRenderer, `anariNewRenderer`>>
+* <<anariNewSampler, `anariNewSampler`>>
+* <<anariNewSpatialField, `anariNewSpatialField`>>
+* <<anariNewSurface, `anariNewSurface`>>
+* <<anariNewVolume, `anariNewVolume`>>
+* <<anariNewWorld, `anariNewWorld`>>
+* <<anariRelease, `anariRelease`>>
+* <<anariRenderFrame, `anariRenderFrame`>>
+* <<anariRetain, `anariRetain`>>
+* <<anariSetParameter, `anariSetParameter`>>
+* <<ANARIStatusCallback, `ANARIStatusCallback`>>
+* <<anariUnloadLibrary, `anariUnloadLibrary`>>
+* <<anariUnmapArray, `anariUnmapArray`>>
+* <<anariUnmapFrame, `anariUnmapFrame`>>
+* <<anariUnmapParameterArray, `anariUnmapParameterArray`>>
+* <<anariUnsetAllParameters, `anariUnsetAllParameters`>>
+* <<anariUnsetParameter, `anariUnsetParameter`>>

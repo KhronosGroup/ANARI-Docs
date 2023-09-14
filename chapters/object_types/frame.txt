@@ -4,6 +4,7 @@
 [[object_types_frame]]
 === Frame
 
+[[anariNewFrame]]
 The frame contains all the objects necessary to render and holds the resulting
 rendered 2D image (and optionally auxiliary information associated with pixels).
 To create a new frame, use
@@ -48,7 +49,7 @@ parameter `accumulation`, multiple subsequent calls to <<rendering_frames, `anar
 changes to <<object_types_frame>> improve the image quality (e.g., reduce noise
 levels).
 
-[[extension_frame_completion_callback]]
+[[extension_frame_completion_callback]][[ANARIFrameCompletionCallback]]
 Devices which implement extension `KHR_FRAME_COMPLETION_CALLBACK` add two
 parameters to <<object_types_frame>>: a callback invoked as a continuation after
 the frame completes, and an associated pointer to application state to be passed

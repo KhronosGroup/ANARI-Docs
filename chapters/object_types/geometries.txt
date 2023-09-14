@@ -4,6 +4,7 @@
 [[object_types_geometry]]
 === Geometry
 
+[[anariNewGeometry]]
 Geometries in ANARI are objects that describe the spatial representation of a
 surface. To create a new geometry object of given subtype `subtype` use
 

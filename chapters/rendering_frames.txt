@@ -4,6 +4,7 @@
 [[rendering_frames]]
 == Rendering Frames
 
+[[anariRenderFrame]]
 Rendering is asynchronous (non-blocking), and is done by combining a
 framebuffer, renderer, camera, and world. The process of rendering a
 frame is known as a _frame operation_. Frame operations are invoked
@@ -19,6 +20,7 @@ with the application, cancel, or query for progress of the running task.
 When `anariRenderFrame` is called, there is no guarantee when the
 associated task will begin execution.
 
+[[anariFrameReady]]
 Applications can query for the status of or wait on a running frame with
 
 [source,cpp]
@@ -44,6 +46,7 @@ The use of `anariRenderFrame` requires that all objects in the scene
 being rendered are valid before rendering occurs.
 ====
 
+[[anariDiscardFrame]]
 Applications can signal that an in-flight frame should be cancelled if possible
 using
 
@@ -57,6 +60,7 @@ signals to the implementation to attempt cancelling the currently rendered
 frame instead of going all the way to completion. The contents of a mapped
 frame which has been discarded is undefined.
 
+[[anariMapFrame]]
 The application can map the given channel of a frame – and thus
 access the stored pixel information – via
 
@@ -92,6 +96,7 @@ The origin of the screen coordinate system in ANARI is the lower left corner
 (as in OpenGL), thus the first pixel addressed by the returned pointer is the
 lower left pixel of the image.
 
+[[anariUnmapFrame]]
 A previously mapped channel of a frame can be unmapped calling
 
 [source,cpp]
