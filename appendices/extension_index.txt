@@ -42,6 +42,9 @@
 * <<object_types_light_spot, `KHR_LIGHT_SPOT`>>: `spot` light subtype is supported
 * <<object_types_material_matte, `KHR_MATERIAL_MATTE`>>: `matte` material subtype is supported
 * <<object_types_material_physically_based, `KHR_MATERIAL_PHYSICALLY_BASED`>>: `physicallyBased` material subtype is supported
+* <<extension_renderer, `KHR_RENDERER_AMBIENT_LIGHT`>>:  the renderer supports ambient lighting
+* <<extension_renderer, `KHR_RENDERER_BACKGROUND_COLOR`>>: the renderer supports a background color
+* <<extension_renderer, `KHR_RENDERER_BACKGROUND_IMAGE`>>:  the renderer supports a background image
 * <<object_types_sampler_image1D, `KHR_SAMPLER_IMAGE1D`>>: `image1D` sampler subtype is supported
 * <<object_types_sampler_image2D, `KHR_SAMPLER_IMAGE2D`>>: `image2D` sampler subtype is supported
 * <<object_types_sampler_image3D, `KHR_SAMPLER_IMAGE3D`>>: `image3D` sampler subtype is supported
