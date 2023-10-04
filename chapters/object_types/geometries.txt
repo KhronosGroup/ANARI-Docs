@@ -175,6 +175,28 @@ implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
 
 
+[[object_types_geometry_isosurface]]
+==== Isosurface
+
+Extension `KHR_GEOMETRY_ISOSURFACE`
+
+A geometry defined implicitly as the surface(s) of constant value of a spatial
+field is created by calling <<object_types_geometry, `anariNewGeometry`>> with
+subtype string `isosurface`. A isosurface geometry recognizes the following
+parameters:
+
+.Additional <<api_concepts_parameters, parameters>> understood by the isosurface <<object_types_geometry, geometry>>.
+[cols="<3,<5,>2,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name     | Type                               | Default | Description
+| isovalue | `FLOAT32` / `ARRAY1D` of `FLOAT32` |     0.5 | isovalue(s) defining the isosurface(s) 
+| field    | `SPATIAL_FIELD`                    |         | <<object_types_spatial_field, Spatial Field>> to be isosurfaced
+|===================================================================================================
+
+If multiple isovalues are given (as array) then multiple surfaces are created,
+which are the primitives of the isosurface geometry.
+
+
 [[object_types_geometry_quad]]
 ==== Quad
 
