@@ -35,9 +35,9 @@
 |`void(*)(void)`
 |generic function pointer
 
-|`MEMORY_DELETER`
-|`ANARIMemoryDeleter`
-|deleter function pointer
+|`DELETER_CALLBACK`
+|`ANARIDeleterCallback`
+|deleter callback function pointer
 
 |`STATUS_CALLBACK`
 |`ANARIStatusCallback`

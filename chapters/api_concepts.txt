@@ -505,12 +505,12 @@ implementations. The memory shared with ANARI can be either owned by the
 application, have ownership transferred to the device via a deleter callback, or
 be managed by the device.
 
-[[ANARIMemoryDeleter]]
+[[ANARIDeleterCallback]]
 The signature of the deleter is provided in `anari.h` as
 
 [source,cpp]
 ....
-typedef void (*ANARIMemoryDeleter)(const void *userPtr, const void *appMemory);
+typedef void (*ANARIDeleterCallback)(const void *userPtr, const void *appMemory);
 ....
 
 [[anariNewArray1D]][[anariNewArray2D]][[anariNewArray3D]]
@@ -521,14 +521,14 @@ desired dimension:
 ....
 ANARIArray1D anariNewArray1D(ANARIDevice,
    const void *appMemory,
-   ANARIMemoryDeleter,
+   ANARIDeleterCallback,
    const void *userPtr,
    ANARIDataType elementType,
    uint64_t numElements);
 
 ANARIArray2D anariNewArray2D(ANARIDevice,
    const void *appMemory,
-   ANARIMemoryDeleter,
+   ANARIDeleterCallback,
    const void *userPtr,
    ANARIDataType elementType,
    uint64_t numElements1,
@@ -536,7 +536,7 @@ ANARIArray2D anariNewArray2D(ANARIDevice,
 
 ANARIArray3D anariNewArray3D(ANARIDevice,
    const void *appMemory,
-   ANARIMemoryDeleter,
+   ANARIDeleterCallback,
    const void *userPtr,
    ANARIDataType elementType,
    uint64_t numElements1,
