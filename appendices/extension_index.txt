@@ -25,6 +25,7 @@
 * <<object_types_geometry_cone, `KHR_GEOMETRY_CONE`>>: `cone` geometry subtype is supported
 * <<object_types_geometry_curve, `KHR_GEOMETRY_CURVE`>>: `curve` geometry subtype is supported
 * <<object_types_geometry_cylinder, `KHR_GEOMETRY_CYLINDER`>>: `cylinder` geometry subtype is supported
+* <<object_types_geometry_isosurface, `KHR_GEOMETRY_ISOSURFACE`>>: `isosurface` geometry subtype is supported
 * <<object_types_geometry_quad, `KHR_GEOMETRY_QUAD`>>: `quad` geometry subtype is supported
 * <<extension_geometry_quad_motion_deformation, `KHR_GEOMETRY_QUAD_MOTION_DEFORMATION`>>: `quad` geometry subtype supports deformation mortion blur
 * <<object_types_geometry_sphere, `KHR_GEOMETRY_SPHERE`>>: `sphere` geometry subtype is supported
