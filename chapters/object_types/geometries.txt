@@ -186,15 +186,16 @@ subtype string `isosurface`. A isosurface geometry recognizes the following
 parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the isosurface <<object_types_geometry, geometry>>.
-[cols="<3,<5,>2,<4",options="header,unbreakable"]
+[cols="<3,<5,<4",options="header,unbreakable"]
 |===================================================================================================
-| Name     | Type                               | Default | Description
-| isovalue | `FLOAT32` / `ARRAY1D` of `FLOAT32` |     0.5 | isovalue(s) defining the isosurface(s) 
-| field    | `SPATIAL_FIELD`                    |         | <<object_types_spatial_field, Spatial Field>> to be isosurfaced
+| Name     | Type                               | Description
+| isovalue | `FLOAT32` / `ARRAY1D` of `FLOAT32` | isovalue(s) defining the isosurface(s) 
+| field    | `SPATIAL_FIELD`                    | <<object_types_spatial_field, Spatial Field>> to be isosurfaced
 |===================================================================================================
 
-If multiple isovalues are given (as array) then multiple surfaces are created,
-which are the primitives of the isosurface geometry.
+Both parameters, `isovalue` and `field`, must be set to yield a valid isosurface
+geometry. If multiple isovalues are given (as array) then multiple surfaces are
+created, which are the primitives of the isosurface geometry.
 
 
 [[object_types_geometry_quad]]
