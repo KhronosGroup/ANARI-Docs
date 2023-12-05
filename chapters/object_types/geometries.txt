@@ -19,16 +19,22 @@ All geometries support the following attribute setting parameters.
 [cols="<6,<13,<8",options="header,unbreakable"]
 |===================================================================================================
 | Name                  | Type                                                                     | Description
-| primitive.color       |`ARRAY1D` of <<color>>                                                    | primitive color attribute
-| primitive.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | primitive attribute0
-| primitive.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | primitive attribute1
-| primitive.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | primitive attribute2
-| primitive.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | primitive attribute3
+| color                 |`FLOAT32_VEC4`                                                            | uniform color attribute
+| attribute0            |`FLOAT32_VEC4`                                                            | uniform attribute0
+| attribute1            |`FLOAT32_VEC4`                                                            | uniform attribute1
+| attribute2            |`FLOAT32_VEC4`                                                            | uniform attribute2
+| attribute3            |`FLOAT32_VEC4`                                                            | uniform attribute3
+| primitive.color       |`ARRAY1D` of <<color>>                                                    | per-primitive color attribute
+| primitive.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute0
+| primitive.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute1
+| primitive.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute2
+| primitive.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute3
 |===================================================================================================
 
-If geometries have additional per-vertex parameters specifying the same
-attribute, then the geometry specific `vertex.pass:[*]` parameters take
-precedence.
+When both uniform and per-primitive attribute parameters are present, then the
+per-primitive parameter takes precedence. If geometries have additional
+per-vertex parameters specifying the same attribute, then the geometry specific
+`vertex.pass:[*]` parameters take precedence.
 
 [NOTE]
 .Note
