@@ -225,6 +225,11 @@ recognizes the following parameters:
 | vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
 | vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
 | vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
+| faceVarying.color       |`ARRAY1D` of <<color>>                                      |            | face-varying colors
+| faceVarying.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute0
+| faceVarying.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute1
+| faceVarying.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute2
+| faceVarying.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute3
 | primitive.index   |`ARRAY1D` of `UINT32_VEC4` / `UINT64_VEC4` | [(0, 1, 2, 4), (5, 6, 7, 8), {ldots}] | optional indices (into the vertex array(s)), each 4-tupel defines one quad
 |===================================================================================================
 
@@ -246,6 +251,14 @@ implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
 large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
+
+The `faceVarying.pass:[*]` attributes map unique values to each (implicitly or
+explicitly) indexed primitive vertices, where each vertex takes a unique value
+per-primitive that uses it. Each primitive associates vertex attribues values
+from the attribute array using the formula `4 * primID + {0, 1, 2, 3}`.
+
+Face-varying attributes take precedence over vertex attributes when both arrays
+of the same attribute are present.
 
 [[extension_geometry_quad_motion_deformation]]
 .Additional parameters understood by a quad geometry with extension `KHR_GEOMETRY_QUAD_MOTION_DEFORMATION`.
@@ -329,6 +342,11 @@ recognizes the following parameters:
 | vertex.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute1
 | vertex.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute2
 | vertex.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute3
+| faceVarying.color       |`ARRAY1D` of <<color>>                                      |            | face-varying colors
+| faceVarying.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute0
+| faceVarying.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute1
+| faceVarying.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute2
+| faceVarying.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute3
 | primitive.index    |`ARRAY1D` of `UINT32_VEC3` / `UINT64_VEC3` | [(0, 1, 2), (4, 5, 6), {ldots}] | optional indices (into the vertex array(s)), each 3-tupel defines one triangle
 |===================================================================================================
 
@@ -351,6 +369,14 @@ implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
 large enough to be indexed by the indices in (explicitly set or
 implicitly derived) `primitive.index`, which must be at most <<Devices,
 device limit `geometryMaxIndex`>>.
+
+The `faceVarying.pass:[*]` attributes map unique values to each (implicitly or
+explicitly) indexed primitive vertices, where each vertex takes a unique value
+per-primitive that uses it. Each primitive associates vertex attribues values
+from the attribute array using the formula `3 * primID + {0, 1, 2}`.
+
+Face-varying attributes take precedence over vertex attributes when both arrays
+of the same attribute are present.
 
 [[extension_geometry_triangle_motion_deformation]]
 .Additional parameters understood by a triangle geometry with extension `KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION`.
