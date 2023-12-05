@@ -54,6 +54,7 @@ their addresses in memory can be easily computed from a 3D position. A
 common type of structured spatial fields are regular grids.
 ====
 
+[[object_types_spatial_field_unstructured]]
 ==== Unstructured 
 
 Extension `KHR_SPATIAL_FIELD_UNSTRUCTURED`
