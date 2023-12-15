@@ -66,19 +66,16 @@ understood by unstructured spatial fields are summarized in the table below.
 .Configuration parameters for unstructured spatial fields.
 [cols="<,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
-| Name            | Type                       | Description
-| vertex.data     |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | array 
-                                          of vertex values to be sampled. The size and value type of
-                                          the spatial field is inferred from `vertex.data`
-| vertex.position |`ARRAY1D` of `FLOAT32_VEC3` | array of vertex positions 
-| index           |`UINT32` / `UINT64`         | array of indices into the vertex arrays that form cells 
-| cell.data       |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | array of
-                                          cell values to be sampled. The size and value type of the
-                                          spatial field is inferred from `cell.data`
-| cell.type       |`UINT8`                     | array of cell types where 0 == TETRAHEDRON, 1 == HEXAHEDRON, 2 == WEDGE
-                              and 3 == PYRAMID. No other cell types are currently supported 
-| cell.index      |`UINT32` / `UINT64`         | array of locations into the index array specifying
-                                                 the first index of each cell 
+| Name            | Type                                                                   | Description
+| vertex.data     |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | array of vertex values to be sampled. The size and value type of
+                                                                                             the spatial field is inferred from `vertex.data`
+| vertex.position |`ARRAY1D` of `FLOAT32_VEC3`                                             | array of vertex positions 
+| index           |`ARRAY1D` of `UINT32` / `UINT64`                                        | array of indices into the vertex arrays that form cells 
+| cell.data       |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | array of cell values to be sampled. The size and value type of the
+                                                                                             spatial field is inferred from `cell.data`
+| cell.type       |`ARRAY1D` of `UINT8`                                                    | array of cell types where 0 == TETRAHEDRON, 1 == HEXAHEDRON, 2 == WEDGE
+                                                                                             and 3 == PYRAMID. No other cell types are currently supported 
+| cell.index      |`ARRAY1D` of `UINT32` / `UINT64`                                        | array of locations into the index array specifying the first index of each cell
 |===================================================================================================
 
 Sampled cell values can be specified either per-vertex (vertex.data) or per-cell (cell.data). 
