@@ -77,7 +77,7 @@ understood by AMR spatial fields are summarized in the table below.
 |===================================================================================================
 
 AMR blocks are defined by three parameters: their bounds, the refinement level in which they reside, and
-the scalar data contained within each block. Cell widths are defined per refinement level, not per block.
+the scalar data contained within each block. The coarsest refinement level starts at 0 and cell widths are defined per refinement level, not per block.
 
 The `method` parameter determines the interpolation method used when sampling the volume. The `current`
 method is expected to find the finest refinement level at that cell and interpolate through that "current" 
