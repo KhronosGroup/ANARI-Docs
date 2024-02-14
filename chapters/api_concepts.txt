@@ -1,5 +1,5 @@
 // Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// SPDX-License-Identifier: CC-BY-4.0
 
 [[api_concepts]]
 == Common API Concepts
@@ -757,14 +757,17 @@ Version information can be queried as properties on the `ANARIDevice`
 .<<api_concepts_object_properties, Properties>> queryable on a device.
 [cols="<5,<3,^3,<10",options="header,unbreakable"]
 |===================================================================================================
-| Name            | Type        | Required | Description
-| version         |`INT32`      |   Yes    | unique version number guaranteed to increase between versions
-| version.major   |`INT32`      |   No     | semantic version major value (major.minor.patch)
-| version.minor   |`INT32`      |   No     | semantic version minor value (major.minor.patch)
-| version.patch   |`INT32`      |   No     | semantic version patch value (major.minor.patch)
-| version.name    |`STRING`     |   No     | human readable name/title
-| geometryMaxIndex|`UINT64`     |   Yes    | largest supported index into vertex arrays in <<object_types_geometry, geometries>>
-| extension         |`STRING_LIST`|   Yes    | list of supported extensions
+| Name               | Type        | Required | Description
+| version            |`INT32`      |   Yes    | unique device version number guaranteed to increase between versions
+| version.major      |`INT32`      |   No     | semantic device version major value (major.minor.patch)
+| version.minor      |`INT32`      |   No     | semantic device version minor value (major.minor.patch)
+| version.patch      |`INT32`      |   No     | semantic device version patch value (major.minor.patch)
+| version.name       |`STRING`     |   No     | human readable device name/title
+| anariVersion.major |`INT32`      |   Yes    | targeted ANARI specification version major value (major.minor.patch)
+| anariVersion.minor |`INT32`      |   Yes    | targeted ANARI specification version minor value (major.minor.patch)
+| anariVersion.patch |`INT32`      |   Yes    | targeted ANARI specification version patch value (major.minor.patch)
+| geometryMaxIndex   |`UINT64`     |   Yes    | largest supported index into vertex arrays in <<object_types_geometry, geometries>>
+| extension          |`STRING_LIST`|   Yes    | list of supported extensions
 |===================================================================================================
 
 [[api_concepts_error_handling]]
