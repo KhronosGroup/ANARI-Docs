@@ -698,6 +698,20 @@ parameter on devices created from the returned library object. Similarly, the
 user pointer passed is used as the default value for the
 `statusCallbackUserData` device parameter.
 
+[[anariLoadLibraryDirect]]
+Alternatively, shared library files can be opened directly that may not use the
+above naming convention or rely on runtime library resolution. In this case,
+the exact filename (which may include path information) and library name
+may differ. To load a library with this method, use
+
+[source,cpp]
+....
+ANARILibrary anariLoadLibraryDirect(const char *filename,
+  const char *libraryName,
+  ANARIStatusCallback defaultStatusCallback,
+  const void *defaultStatusCallbackUserData);
+....
+
 [[anariUnloadLibrary]]
 To unload a library (where library resource cleanup occurs), use
 
