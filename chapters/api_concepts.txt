@@ -763,9 +763,8 @@ Version information can be queried as properties on the `ANARIDevice`
 | version.minor      |`INT32`      |   No     | semantic device version minor value (major.minor.patch)
 | version.patch      |`INT32`      |   No     | semantic device version patch value (major.minor.patch)
 | version.name       |`STRING`     |   No     | human readable device name/title
-| anariVersion.major |`INT32`      |   Yes    | targeted ANARI specification version major value (major.minor.patch)
-| anariVersion.minor |`INT32`      |   Yes    | targeted ANARI specification version minor value (major.minor.patch)
-| anariVersion.patch |`INT32`      |   Yes    | targeted ANARI specification version patch value (major.minor.patch)
+| anariVersion.major |`INT32`      |   Yes    | targeted ANARI specification version major value (major.minor)
+| anariVersion.minor |`INT32`      |   Yes    | targeted ANARI specification version minor value (major.minor)
 | geometryMaxIndex   |`UINT64`     |   Yes    | largest supported index into vertex arrays in <<object_types_geometry, geometries>>
 | extension          |`STRING_LIST`|   Yes    | list of supported extensions
 |===================================================================================================
