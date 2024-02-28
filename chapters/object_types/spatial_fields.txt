@@ -53,3 +53,38 @@ Structured regular fields only need to store the values of the samples, because
 their addresses in memory can be easily computed from a 3D position. A
 common type of structured spatial fields are regular grids.
 ====
+
+[[object_types_spatial_field_amr]]
+==== Adaptive Mesh Refinement 
+
+Extension `KHR_SPATIAL_FIELD_AMR`
+
+Adaptive Mesh Refinement (AMR) spatial fields are created by passing the subtype string
+`amr` to <<object_types_spatial_field, `anariNewSpatialField`>>. The parameters
+understood by AMR spatial fields are summarized in the table below.
+
+.Configuration parameters for AMR spatial fields.
+[cols="<,<2,>,<5",options="header,unbreakable"]
+|===================================================================================================
+| Name         | Type                     | Default   | Description
+| block.data   |`ARRAY1D` of `ARRAY3D` of `FLOAT32` | | array of 3D arrays containing the scalar voxel data 
+| gridOrigin   |`FLOAT32_VEC3`            | (0, 0, 0) | origin of the grid in object-space
+| gridSpacing  |`FLOAT32_VEC3`            | (1, 1, 1) | size of the grid cells in object-space
+| method       |`STRING`                  | `current` | sampling method, possible values are: `current`, `finest`, `octant` 
+| cellWidth    |`ARRAY1D` of `FLOAT32`    | | array of each level's cell width 
+| block.bounds |`ARRAY1D` of `INT32_BOX3` | | array of grid sizes, in voxels, for each AMR block 
+| block.level  |`ARRAY1D` of `INT32`      | | array of each block's refinement level 
+|===================================================================================================
+
+AMR blocks are defined by three parameters: their bounds, the refinement level in which they reside, and
+the scalar data contained within each block. The coarsest refinement level starts at 0 and cell widths are 
+defined per refinement level, not per block.
+
+The `method` parameter determines the interpolation method used when sampling the volume. The `current`
+method is expected to find the finest refinement level at that cell and interpolate through that "current" 
+level. The `finest` method is expected to interpolate at the closest existing cell in the volume-wide 
+finest refinement level regardless of the sample cell's level. Lastly, the `octant` method is expected to 
+interpolate through all available refinement levels at that cell.
+
+Applications which set unknown values for `method` will result in the default being used.
+
