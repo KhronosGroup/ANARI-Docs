@@ -53,3 +53,50 @@ Structured regular fields only need to store the values of the samples, because
 their addresses in memory can be easily computed from a 3D position. A
 common type of structured spatial fields are regular grids.
 ====
+
+[[object_types_spatial_field_unstructured]]
+==== Unstructured 
+
+Extension `KHR_SPATIAL_FIELD_UNSTRUCTURED`
+
+Unstructured spatial fields are created by passing the subtype string
+`unstructured` to <<object_types_spatial_field, `anariNewSpatialField`>>. The parameters
+understood by unstructured spatial fields are summarized in the table below.
+
+.Configuration parameters for unstructured spatial fields.
+[cols="<,<2,>,<5",options="header,unbreakable"]
+|===================================================================================================
+| Name            | Type                                                                   | Description
+| vertex.data     |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | array of vertex values to be sampled. The size and value type of
+                                                                                             the spatial field is inferred from `vertex.data`
+| vertex.position |`ARRAY1D` of `FLOAT32_VEC3`                                             | array of vertex positions 
+| index           |`ARRAY1D` of `UINT32` / `UINT64`                                        | array of indices into the vertex arrays that form cells 
+| cell.data       |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | array of cell values to be sampled. The size and value type of the
+                                                                                             spatial field is inferred from `cell.data`
+| cell.type       |`ARRAY1D` of `UINT8`                                                    | array of cell types where 0 == TETRAHEDRON, 1 == HEXAHEDRON, 2 == WEDGE
+                                                                                             and 3 == PYRAMID. No other cell types are currently supported 
+| cell.index      |`ARRAY1D` of `UINT32` / `UINT64`                                        | array of locations into the index array specifying the first index of each cell
+|===================================================================================================
+
+Sampled cell values can be specified either per-vertex (vertex.data) or per-cell (cell.data). 
+If both arrays are set, cell.data takes precedence.
+
+Each cell is formed by a group of indices into the vertices. For each vertex, the corresponding by 
+array index data value will be used for sampling when rendering, if specified. The index order for 
+a tetrahedron is bottom triangle counterclockwise, then the top vertex.
+
+For hexahedral cells, each hexahedron is formed by a group of eight indices into the vertices and 
+data values. Vertex ordering is four bottom vertices counterclockwise, then top four counterclockwise.
+
+For wedge cells, each wedge is formed by a group of six indices into the vertices and data values. 
+Vertex ordering is three bottom vertices counterclockwise, then top three counterclockwise.
+
+For pyramid cells, each cell is formed by a group of five indices into the vertices and data values. 
+Vertex ordering is four bottom vertices counterclockwise, then the top vertex.
+
+[NOTE]
+.Note
+====
+The index order of the cells is the same as their VTK counterparts (VTK_TETRA, VTK_HEXAHEDRON, 
+VTK_WEDGE, VTK_PYRAMID).
+====
