@@ -70,7 +70,7 @@ render them procedurally such that the cones are perfectly round.
 | vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
 | vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
 | vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
-| primitive.index   |`ARRAY1D` of `UINT32_VEC2` / `UINT64_VEC2` | [(0, 1), (2, 3), {ldots}] | optional indices into the `vertex.pass:[*]` arrays, each 2-tuple defines one cone
+| primitive.index   |`ARRAY1D` of `UINT32_VEC2` / `UINT64_VEC2` | [(0, 1), (2, 3), {ldots}] | optional indices into the `vertex.pass:[*]` arrays, each pair defines one cone
 | caps              |`STRING`                    |   `none`| default vertex caps for all cones if `vertex.cap` is not set, possible values: `none`, `first`, `second`, `both`
 |===================================================================================================
 
@@ -160,7 +160,7 @@ render them procedurally such that the cylinders are perfectly round.
 | vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
 | vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
 | vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
-| primitive.index   |`ARRAY1D` of `UINT32_VEC2` / `UINT64_VEC2` | [(0, 1), (2, 3), {ldots}] | optional indices into `vertex.pass:[*]` arrays, each 2-tuple defines one cylinder
+| primitive.index   |`ARRAY1D` of `UINT32_VEC2` / `UINT64_VEC2` | [(0, 1), (2, 3), {ldots}] | optional indices into `vertex.pass:[*]` arrays, each pair defines one cylinder
 | primitive.radius  |`ARRAY1D` of `FLOAT32`      |         | per-cylinder radius
 | radius            |`FLOAT32`                   |       1 | default radius for all cylinders (if `primitive.radius` is not set)
 | caps              |`STRING`                    |   `none`| default vertex caps for all cylinders if `vertex.cap` is not set, possible values: `none`, `first`, `second`, `both`
@@ -230,7 +230,7 @@ recognizes the following parameters:
 | faceVarying.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute1
 | faceVarying.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute2
 | faceVarying.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute3
-| primitive.index   |`ARRAY1D` of `UINT32_VEC4` / `UINT64_VEC4` | [(0, 1, 2, 4), (5, 6, 7, 8), {ldots}] | optional indices (into the vertex array(s)), each 4-tupel defines one quad
+| primitive.index   |`ARRAY1D` of `UINT32_VEC4` / `UINT64_VEC4` | [(0, 1, 2, 4), (5, 6, 7, 8), {ldots}] | optional indices (into the vertex array(s)), each 4-tuple defines one quad
 |===================================================================================================
 
 Parameter `vertex.position` must be set and contain at least four
@@ -347,7 +347,7 @@ recognizes the following parameters:
 | faceVarying.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute1
 | faceVarying.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute2
 | faceVarying.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute3
-| primitive.index    |`ARRAY1D` of `UINT32_VEC3` / `UINT64_VEC3` | [(0, 1, 2), (4, 5, 6), {ldots}] | optional indices (into the vertex array(s)), each 3-tupel defines one triangle
+| primitive.index    |`ARRAY1D` of `UINT32_VEC3` / `UINT64_VEC3` | [(0, 1, 2), (4, 5, 6), {ldots}] | optional indices (into the vertex array(s)), each 3-tuple defines one triangle
 |===================================================================================================
 
 Parameter `vertex.position` must be set and contain at least three

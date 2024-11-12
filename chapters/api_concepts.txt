@@ -641,7 +641,7 @@ according to the following:
 
 - `region.upper` is clamped from below by `region.lower + 1`
 - `region.upper` is clamped from above by the array's capacity
-- `region.lower` is clamped from above by `region.upper` - 1`
+- `region.lower` is clamped from above by `region.upper - 1`
 
 Mapping an array always returns the full capacity, regardless of the elements
 specified by `region`. Object handles within `region` must always be valid.

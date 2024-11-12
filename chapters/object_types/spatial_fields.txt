@@ -66,7 +66,7 @@ parameters understood by unstructured spatial fields are summarized in the table
 below.
 
 .Configuration parameters for unstructured spatial fields.
-[cols="<,<2,>,<5",options="header,unbreakable"]
+[cols="<,<2,<3",options="header,unbreakable"]
 |===================================================================================================
 | Name            | Type                                                                   | Description
 | vertex.position |`ARRAY1D` of `FLOAT32_VEC3`                                             | array of vertex positions 
