@@ -25,22 +25,24 @@ All light sources accept the following parameters:
 | visible  |`BOOL`         |     `TRUE` | extension `KHR_LIGHT_PRIMARY_VISIBILITY`, whether the light can be directly seen (only meaningful for area lights)
 |===================================================================================================
 
+The `color` parameter is a unitless factor and acts as a filter of the
+emitted light.
+
 The transformation of an <<Instance, instance>> apply only to vectors
 like `position` or `direction` of a light, but _not_ to affect sizes
 like `radius`.
-
 
 [[object_types_light_directional]]
 ==== Directional
 
 Extension `KHR_LIGHT_DIRECTIONAL`
 
-The directional light is thought to
-be far away (outside of the scene), thus its light arrives (mostly) as
-parallel rays. It is created by passing the subtype string `directional` to
-<<object_types_light, `anariNewLight`>>. In addition to the <<object_types_light, general parameters>>
-understood by all lights, the directional light supports the following
-special parameters:
+The directional light is thought to be far away (outside of the scene),
+thus its light arrives (mostly) as parallel rays. It is created by
+passing the subtype string `directional` to <<object_types_light,
+`anariNewLight`>>. In addition to the <<object_types_light, general
+parameters>> understood by all lights, the directional light supports
+the following special parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the directional <<object_types_light, light>>.
 [cols="<4,<3,>2,<12",options="header,unbreakable"]
@@ -51,16 +53,29 @@ special parameters:
 | irradiance      |`FLOAT32`     |          1 | the amount of light arriving at a surface point,
                                                 assuming the light is oriented towards to the
                                                 surface, in W/m^2^
-| radiance        |`FLOAT32`     |          1 | the amount of light emitted in a direction, in W/sr/m^2^;
-                                               `irradiance` takes precedence if also specified
+| radiance        |`FLOAT32`     |            | alternative specification of the brightness (if
+						`irradiance` is not explicitly set): the amount of
+                                                light emitted in a direction, in W/sr/m^2^
 |===================================================================================================
+
+If `irradiance` and `radiance` are both explicitly set, then `irradiance` takes precedence.
 
 [NOTE]
 .Note
 ==================
-Setting the angular diameter to a value greater than
-zero will result in soft shadows when supported by the implementation. For
-instance, the apparent size of the sun is about 0.53° or 0.00925 rad.
+The main way to specify the brightness of the directional light via
+`irradiance` and its alternative specification via `radiance` differs in
+behavior when the `angularDiameter` is changing: With `irradiance`,
+increasing the angular diameter will result in softer shadows (when soft
+shadows are supported by the implementation), but the overall brightness
+in the scene stays roughly the same. With `radiance` however, increasing
+the angular diameter will also result in a brighter illumination in the
+scene. Using `radiance` is only meaninful if `angularDiameter` is larger
+than zero (otherwise the directional light is not emitting any light).
+
+Using a direction light with an angular diameter is a good approximation
+for sunlight: the apparent size of the sun is about 0.53° or 0.00925
+rad.
 ==================
 
 
@@ -70,9 +85,10 @@ instance, the apparent size of the sun is about 0.53° or 0.00925 rad.
 Extension `KHR_LIGHT_HDRI`
 
 The HDRI light is a textured light source surrounding the scene and
-illuminating it from infinity. It is created by passing the subtype string
-`hdri` to <<object_types_light, `anariNewLight`>>. In addition to the <<object_types_light, general
-parameters>> the HDRI light supports the following special parameters:
+illuminating it from infinity. It is created by passing the subtype
+string `hdri` to <<object_types_light, `anariNewLight`>>. In addition to
+the <<object_types_light, general parameters>> the HDRI light supports
+the following special parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the HDRI <<object_types_light, light>>.
 [cols="<10,<12,>14,<40",options="header,unbreakable"]
@@ -96,25 +112,50 @@ parameters>> the HDRI light supports the following special parameters:
 
 Extension `KHR_LIGHT_POINT`
 
-The point light (or with `radius > 0` the sphere light) is a light emitting
-uniformly in all directions (from the surface toward the outside). It is created
-by passing the subtype string `point` to <<object_types_light, `anariNewLight`>>. In addition to the
-<<object_types_light, general parameters>> understood by all lights, the point light supports
-the following special parameters:
+The point light (or with `radius > 0` the sphere light) is a light
+emitting uniformly in all directions (from the surface toward the
+outside). It is created by passing the subtype string `point` to
+<<object_types_light, `anariNewLight`>>. In addition to the
+<<object_types_light, general parameters>> understood by all lights, the
+point light supports the following special parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the point <<object_types_light, light>>.
 [cols="<,<2,>,<6",options="header,unbreakable"]
 |===================================================================================================
-| Name       | Type         |    Default | Description
-| position   |`FLOAT32_VEC3`|  (0, 0, 0) | the position of the point light
-| radius   |`FLOAT32`|       0 | the size of the point light (becoming a sphere)
-| intensity  |`FLOAT32`     |          1 | the overall amount of light emitted by the light in a
-                                           direction, in W/sr
-| power      |`FLOAT32`     |          1 | the overall amount of light energy emitted, in W;
-                                          `intensity` takes precedence if also specified
-| radiance |`FLOAT32`|       1 | the amount of light emitted by a point on the light source in a direction,
-                                 in W/sr/m^2^; `intensity` (or `power`) takes precedence if also specified
+| Name      | Type         |    Default | Description
+| position  |`FLOAT32_VEC3`|  (0, 0, 0) | the position of the point light
+| radius    |`FLOAT32`     |          0 | the size of the point light (becoming a sphere)
+| intensity |`FLOAT32`     |          1 | the overall amount of light emitted by the light in a
+                                          direction, in W/sr
+| power     |`FLOAT32`     |            | alternative specification of the brightness (if
+					  `intensity` is not explicitly set): the overall amount of
+                                          light energy emitted, in W
+| radiance  |`FLOAT32`     |            | alternative specification of the brightness (if neither
+					  `intensity` nor `power` is explicitly set): the amount of
+					  light emitted by a point on the light source in a
+                                          direction, in W/sr/m^2^
 |===================================================================================================
+
+The precedence order is `intensity`, `power`, `radiance`: the first (in
+this ordering) explicitly set parameter is used.
+
+[NOTE]
+.Note
+==================
+The main way to specify the brightness of the point light via
+`intensity` and its alternative specifications via `power` or `radiance`
+differs in behavior when the `radius` is changing: With `intensity` or
+`power`, increasing the radius will result in softer shadows (when soft
+shadows are supported by the implementation), but the overall brightness
+in the scene stays roughly the same. With `radiance` however, increasing
+the radius will also result in a brighter illumination in the scene.
+Using `radiance` is only meaninful if `radius` is larger than zero
+(otherwise the point light is not emitting any light).
+
+Since power is the integral of intensity over the sphere of directions,
+using the same value for `power` and `intensity` will differ by a
+constant factor of 4{pi} in brightness.
+==================
 
 
 [[object_types_light_quad]]
@@ -245,10 +286,10 @@ neighbors. The orientation of the C0-plane is specified via `c0`.
 Extension `KHR_LIGHT_SPOT`
 
 The spotlight is a light emitting into a cone of directions. It is
-created by passing the subtype string `spot` to <<object_types_light, `anariNewLight`>>. In
-addition to the <<object_types_light, general parameters>> understood by all
-lights, the spotlight supports the special parameters listed in the
-table.
+created by passing the subtype string `spot` to <<object_types_light,
+`anariNewLight`>>. In addition to the <<object_types_light, general
+parameters>> understood by all lights, the spotlight supports the
+special parameters listed in the table.
 
 .Additional <<api_concepts_parameters, parameters>> understood by the spot<<object_types_light, light>>.
 [cols="<3,<3,>2,<11",options="header,unbreakable"]
@@ -263,12 +304,32 @@ table.
                                              spot; should be smaller than half of `openingAngle`
 | intensity    |`FLOAT32`     |          1 | the overall amount of light emitted by the light in a
                                              direction, in W/sr
-| power        |`FLOAT32`     |          1 | the overall amount of light energy emitted, in W;
-                                            `intensity` takes precedence if also specified
+| power        |`FLOAT32`     |            | alternative specification of the brightness (if
+                                             `intensity` is not explicitly set): the overall amount
+                                             of light energy emitted, in W
 |===================================================================================================
 
-The intensity distribution is constant within the core cone (`openingAngle` -
-2 {times} `falloffAngle` and then falls off to zero (smoothly interpolated with
-the smoothstep function).
+The intensity distribution is constant within the core cone
+(`openingAngle` - 2 {times} `falloffAngle`) and then falls off to zero
+(smoothly interpolated with the smoothstep function).
+
+If `intensity` and `power` are both explicitly set, then `intensity`
+takes precedence.
+
+[NOTE]
+.Note
+==================
+The main way to specify the brightness of the spotlight via `intensity`
+and its alternative specification via `power` differs in behavior when
+the `openingAngle` is changing: Increasing the opening angle with
+`power` will result in roughly the same overall brightness in the scene,
+but already lit areas will become darker, because the same energy is
+spread over a larger cone of illumination. With `intensity` the behavior
+is the opposite.
+
+Power is the cosine-weighted integral of intensity over the cone of
+directions (within the opening angle). It can be approximated (ignoring
+the falloff) by {pi}(1 - cos^2^ {onehalf} `openingAngle`).
+==================
 
 //TODO image:imgSpotlight[ "Angles used by the spotlight."]
