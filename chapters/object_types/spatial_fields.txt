@@ -35,7 +35,7 @@ the table below.
 | origin  |`FLOAT32_VEC3`  |  (0, 0, 0) | origin of the grid in object-space
 | spacing |`FLOAT32_VEC3`  |  (1, 1, 1) | size of the grid cells in object-space
 | filter  |`STRING`        |    `linear`| filter used for reconstructing the field,
-                                          possible values: `nearest`, `linear`
+                                          possible values: `nearest`, `linear`, `cubic` (extension `KHR_SPATIAL_FIELD_FILTER_CUBIC`)
 |===================================================================================================
 
 The spatial field grid can be moved with `origin` and scaled with `spacing`, in

@@ -53,6 +53,7 @@
 * <<object_types_sampler_image3D, `KHR_SAMPLER_IMAGE3D`>>: `image3D` sampler subtype is supported
 * <<object_types_sampler_primitive, `KHR_SAMPLER_PRIMITIVE`>>: `primitive` sampler subtype is supported
 * <<object_types_sampler_transform, `KHR_SAMPLER_TRANSFORM`>>: `transform` sampler subtype is supported
+* <<object_types_spatial_field, `KHR_SPATIAL_FIELD_FILTER_CUBIC`>>: spatial fields with parameter `filter` support `cubic` filtering
 * <<object_types_spatial_field_structured_regular, `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`>>: `structuredRegular` spatial field subtype is supported
 * <<object_types_spatial_field_unstructured, `KHR_SPATIAL_FIELD_UNSTRUCTURED`>>: `unstructured` spatial field subtype is supported
 * <<object_types_volume_transfer_function1d, `KHR_VOLUME_TRANSFER_FUNCTION1D`>>: `transferFunction1D` volume subtype is supported
