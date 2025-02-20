@@ -109,3 +109,43 @@ the the index order of the cells is the same as their VTK counterparts
 `cell.index` cooresponds to the Offsets array and `index` to the Connectivity
 array of (current, not legacy) `vtkCellArray`.
 ====
+
+[[object_types_spatial_field_vdb]]
+==== VDB
+
+Extension `KHR_SPATIAL_FIELD_VDB`
+
+VDB spatial fields are created by passing the subtype string `vdb` to
+<<object_types_spatial_field, `anariNewSpatialField`>>. The parameters
+understood by VDB spatial fields are summarized in the table below.
+
+The data structure is a hierarchical regular grid at its core: Nodes are regular
+grids, and each grid cell may either store a constant value (this is called a
+tile), or child pointers. Nodes in VDB trees are wide: Nodes on the first level
+have a resolution of 32^3^ voxels, on the next level 16^3^, and on the leaf
+level 8^3^ voxels. This is compatible with the 5,4,3 tree configuration of
+OpenVDB and NanoVDB. The spatial field data is interpreted to be cell-centered.
+
+.Configuration parameters for VDB spatial fields.
+[cols="<5,<10,>4,<24",options="header,unbreakable"]
+|===================================================================================================
+| Name        | Type                    | Default| Description
+| node.start  |`ARRAY1D` of `INT32_VEC3`|        | array of local grid origin, index in voxels, for
+                                                   each VDB node 
+| node.level  |`ARRAY1D` of `UINT32`    |        | level on which each node exists, may be 1, 2 or 3
+                                                   (levels are counted from the root level = 0 down)
+| node.data   |`ARRAY1D` of `ARRAY3D` of
+               `FLOAT32`                |        | array of 3D arrays containing the scalar voxel
+                                                   data; nodes that are tiles are expected to have
+                                                   single-item arrays, leaf-nodes with grid data
+                                                   expected to have compact 3D arrays in _zyx_
+                                                   layout (_z_ changes most quickly) with the
+                                                   correct number of voxels for the `level`.
+| filter      |`STRING`                 |`linear`| filter used for reconstructing the field,
+                                                   possible values: `nearest`, `linear`, `cubic`
+                                                   (extension `KHR_SPATIAL_FIELD_FILTER_CUBIC`)
+|===================================================================================================
+
+Applications which set unknown values for `filter` will result in the default
+being used.
+
