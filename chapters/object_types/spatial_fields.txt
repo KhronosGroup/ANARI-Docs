@@ -14,6 +14,47 @@ created with
 ANARISpatialField anariNewSpatialField(ANARIDevice, const char *subtype);
 ....
 
+[[object_types_spatial_field_amr]]
+==== Adaptive Mesh Refinement (AMR)
+
+Extension `KHR_SPATIAL_FIELD_AMR`
+
+Adaptive Mesh Refinement (AMR) spatial fields are created by passing the subtype
+string `amr` to <<object_types_spatial_field, `anariNewSpatialField`>>. The
+parameters understood by AMR spatial fields are summarized in the table below.
+
+.Configuration parameters for AMR spatial fields.
+[cols="<2,<3,>,<4",options="header,unbreakable"]
+|===================================================================================================
+| Name            | Type                    | Default   | Description
+| block.start     |`ARRAY1D` of `INT32_VEC3`| | array of local grid origin, index in voxels, for each AMR block 
+| block.level     |`ARRAY1D` of `UINT32`    | | array of each block's refinement level 
+| block.data      |`ARRAY1D` of `ARRAY3D` of `FIXED8` / `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | | array of 3D arrays containing the scalar voxel data 
+| origin          |`FLOAT32_VEC3`           | (0, 0, 0) | origin of the coarsest (virtual) grid in object-space
+| spacing         |`FLOAT32_VEC3`           | (1, 1, 1) | size of the coarsest grid cells at level 0 in object-space
+| refinementRatio |`ARRAY1D` of `UINT32`    | | array of refinement ratios relative to the previous level, for levels > 0
+|===================================================================================================
+
+The AMR block scheme used by this extension is based on the
+Berger-Oliger-Collela scheme which is also used by other toolkits and libraries
+like VTK. The following structure is adopted for this scheme:
+
+* All grids are Cartesian
+* Grids at the same level do not overlap
+* The refinement ratios between adjacent levels are integer and uniform within
+  the same level
+* Grid cells are never partially refined
+
+AMR blocks are defined by three parameters: their start index, the refinement
+level in which they reside, and the scalar data contained within each block. The
+end index of a block can be deduced from its start index and its size (via the
+`ARRAY3D`).
+
+The number of levels is the maximum value in `block.level` plus one. Array
+`refinementRatio` must be at least as large as the number of levels minus one.
+The refinement ratio for level _l_ is stored at index _l-1_ in
+`refinementRatio`.
+
 [[object_types_spatial_field_structured_regular]]
 ==== Structured Regular
 
