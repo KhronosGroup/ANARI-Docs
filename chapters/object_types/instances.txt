@@ -21,14 +21,23 @@ transform definitions.
 .<<api_concepts_parameters, Parameters>> understood by instances.
 [cols="<3,<4,>3,<14",options="header,unbreakable"]
 |===================================================================================================
-| Name      | Type         |                                       Default | Description
-| group     |`GROUP`       |                                               | <<Group>> to be instanced, required
-| transform |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
-| id        |`UINT32`      |         -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_INSTANCE_ID`>>, optional user Id, for frame <<frame_channels, channel `instanceId`>>
+| Name       | Type         |                                       Default | Description
+| group      |`GROUP`       |                                               | <<Group>> to be instanced, required
+| transform  |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
+| id         |`UINT32`      |                                           -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_INSTANCE_ID`>>, optional user Id, for frame <<frame_channels, channel `instanceId`>>
+| color      |`FLOAT32_VEC4`|                                               | uniform color attribute
+| attribute0 |`FLOAT32_VEC4`|                                               | uniform attribute0
+| attribute1 |`FLOAT32_VEC4`|                                               | uniform attribute1
+| attribute2 |`FLOAT32_VEC4`|                                               | uniform attribute2
+| attribute3 |`FLOAT32_VEC4`|                                               | uniform attribute3
 |===================================================================================================
 
 The matrix `transform` represents an affine transformation which is applied to
 homogeneous coordinates.
+
+The uniform attribute parameters apply to all objects contained in the instance
+and have a lower precedence than attribute values found in objects within the
+instance when both are present.
 
 [NOTE]
 .Note
