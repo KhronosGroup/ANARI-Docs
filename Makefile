@@ -1,4 +1,4 @@
-# Copyright 2014-2023 The Khronos Group Inc.
+# Copyright 2014-2025 The Khronos Group Inc.
 # SPDX-License-Identifier: Apache-2.0
 
 # ANARI Specification makefile
@@ -104,7 +104,7 @@ VERBOSE =
 
 NOTEOPTS     = -a editing-notes -a implementation-guide
 PATCHVERSION = 0
-SPECREVISION = 1.0.$(PATCHVERSION)
+SPECREVISION = 1.1.$(PATCHVERSION)
 
 # Spell out ISO 8601 format as not all date commands support --rfc-3339
 SPECDATE     = $(shell echo `date -u "+%Y-%m-%d %TZ"`)
