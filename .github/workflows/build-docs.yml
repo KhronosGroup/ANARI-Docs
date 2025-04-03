@@ -24,9 +24,6 @@ jobs:
     if: "${{ github.event_name == 'push' }}"
     needs: build-docs
     steps:
-      - run: |
-          test -n "github.secrets.ANARI_REGISTRY_TOKEN"
-        name: Check if ANARI_REGISTRY_TOKEN is defined
       - uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/ANARI-Registry.git
