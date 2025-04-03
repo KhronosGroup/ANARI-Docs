@@ -44,10 +44,10 @@ jobs:
           git stage specs/1.0/ANARI-1.0.html specs/1.0/ANARI-1.0.pdf
         if: "${{ github.ref == 'refs/heads/main' }}"
       - run: |
-          mkdir -p specs/1.1-provisional/
-          cp -f "${{ steps.artifacts.outputs.download-path }}/html/anspec.html" specs/1.1-provisional/ANARI-1.1.html
-          cp -f "${{ steps.artifacts.outputs.download-path }}/pdf/anspec.pdf" specs/1.1-provisional/ANARI-1.1.pdf
-          git stage specs/1.1-provisional/ANARI-1.1.html specs/1.1-provisional/ANARI-1.1.pdf
+          mkdir -p specs/1.1-draft/
+          cp -f "${{ steps.artifacts.outputs.download-path }}/html/anspec.html" specs/1.1-draft/ANARI-1.1.html
+          cp -f "${{ steps.artifacts.outputs.download-path }}/pdf/anspec.pdf" specs/1.1-draft/ANARI-1.1.pdf
+          git stage specs/1.1-draft/ANARI-1.1.html specs/1.1-draft/ANARI-1.1.pdf
         if: "${{ github.ref == 'refs/heads/next_release' }}"
       - run: rm -fr "${{ steps.artifacts.outputs.download-path }}"
       - run: |
