@@ -1,0 +1,20 @@
+name: ANARI-Docs CI
+on:
+  push:
+    branches: [next_release]
+  pull_request:
+    branches: [main, next_release]
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker run --network=host --user ${uid}:${gid} --rm -v ${PWD}:/vulkan khronosgroup/docker-images@sha256:9f5add2758a383ba329bc8c4b819dea9fb695ee629b05b7da4739ddf81d39073 make -C /vulkan html pdf
+      - name: Upload docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ANARI-Docs
+          path: |
+            out/html
+            out/pdf
+          if-no-files-found: error
