@@ -1,5 +1,6 @@
 name: ANARI-Docs CI
 on:
+  workflow_dispatch:
   push:
     branches: [main, next_release]
   pull_request:
@@ -18,3 +19,40 @@ jobs:
             out/html
             out/pdf
           if-no-files-found: error
+  update-doc-registry:
+    runs-on: ubuntu-latest
+    if: "${{ github.event_name == 'push' }}"
+    needs: build-docs
+    steps:
+      - run: |
+          test -n "github.secrets.ANARI_REGISTRY_TOKEN"
+        name: Check if ANARI_REGISTRY_TOKEN is defined
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/ANARI-Registry.git
+          ref: main
+          token: ${{ secrets.ANARI_REGISTRY_TOKEN }}
+      - uses: actions/download-artifact@v4
+        id: artifacts
+        with:
+          name: ANARI-Docs
+          path: _ANARI-Docs
+      - run: |
+          mkdir -p specs/1.0/
+          cp -f ${{ steps.artifacts.outputs.download-path }}/html/anspec.html specs/1.0/ANARI-1.0.html
+          cp -f ${{ steps.artifacts.outputs.download-path }}/pdf/anspec.pdf specs/1.0/ANARI-1.0.pdf
+          git stage specs/1.0/ANARI-1.0.html specs/1.0/ANARI-1.0.pdf
+        if: "${{ github.ref == 'refs/heads/main' }}"
+      - run: |
+          mkdir -p specs/1.1-provisional/
+          cp -f "${{ steps.artifacts.outputs.download-path }}/html/anspec.html" specs/1.1-provisional/ANARI-1.1.html
+          cp -f "${{ steps.artifacts.outputs.download-path }}/pdf/anspec.pdf" specs/1.1-provisional/ANARI-1.1.pdf
+          git stage specs/1.1-provisional/ANARI-1.1.html specs/1.1-provisional/ANARI-1.1.pdf
+        if: "${{ github.ref == 'refs/heads/next_release' }}"
+      - run: rm -fr "${{ steps.artifacts.outputs.download-path }}"
+      - run: |
+          git config --global user.name "ANARI-Docs"
+          git config --global user.email "noreply@noreply"
+          git commit -a -m "Update doc from ${{ github.ref }}"
+          git push || :  # ignore push errors, in case there is no change
+        name: Pushing to ANARI-Registry
