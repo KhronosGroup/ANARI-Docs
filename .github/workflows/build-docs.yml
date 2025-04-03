@@ -1,7 +1,7 @@
 name: ANARI-Docs CI
 on:
   push:
-    branches: [next_release]
+    branches: [main, next_release]
   pull_request:
     branches: [main, next_release]
 jobs:
