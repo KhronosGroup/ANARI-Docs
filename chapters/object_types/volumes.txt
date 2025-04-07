@@ -17,8 +17,9 @@ ANARIVolume anariNewVolume(ANARIDevice, const char *subtype);
 .<<api_concepts_parameters, Parameters>> understood by volumes.
 [cols="<,<,>,<7",options="header,unbreakable"]
 |===================================================================================================
-| Name | Type    | Default | Description
-| id   |`UINT32` |     -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_OBJECT_ID`>>, optional user Id, for frame <<frame_channels, channel `objectId`>>
+| Name      | Type    | Default | Description
+| visible   |`BOOL`   |    TRUE | volume visibility flag (TRUE visible, FALSE not visible)  
+| id        |`UINT32` |     -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_OBJECT_ID`>>, optional user Id, for frame <<frame_channels, channel `objectId`>>
 |===================================================================================================
 
 [[object_types_volume_transfer_function1d]]
