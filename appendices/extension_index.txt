@@ -14,6 +14,7 @@
 * <<extension_camera_rolling_shutter, `KHR_CAMERA_ROLLING_SHUTTER`>>: camera rolling shutter is supported
 * <<extension_camera_shutter, `KHR_CAMERA_SHUTTER`>>: camera global shutter and motion blur in combination with other extensions is supported
 * <<extension_camera_stereo, `KHR_CAMERA_STEREO`>>: 3D stereo rendering is supported
+* <<api_choices_data_parallel_mpi, `KHR_DATA_PARALLEL_MPI`>>: Data-parallel rendering using MPI is supported
 * <<api_concepts_thread_safety, `KHR_DEVICE_SYNCHRONIZATION`>>: Relax API function synchronization requirement
 * <<extension_frame_accumulation, `KHR_FRAME_ACCUMULATION`>>: Frames are progressively rendered
 * <<frame_channels, `KHR_FRAME_CHANNEL_NORMAL`>>: `channel.normal` is supported on ANARIFrame
