@@ -13,6 +13,28 @@ materials. To create a new sampler use
 ANARISampler anariNewSampler(ANARIDevice, const char *subtype);
 ....
 
+.<<api_concepts_parameters, Parameters>> understood by samplers.
+[cols="<3,<4,>3,<14",options="header,unbreakable"]
+|===================================================================================================
+| Name       | Type         |                                       Default | Description
+| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
+| outOffset | `FLOAT32_VEC4` | (0, 0, 0, 0) | offset added to output transform result
+|===================================================================================================
+
+The sampled value is completed to four components (if needed: unspecified
+components default to zero for the first three components and to one for the
+fourth component), multiplied by `outTransform` and added to `outOffset` to
+yield the final result of the sampler.
+
+[NOTE]
+.Note
+====
+Like all `FLOAT32_MAT4` matrices `outTransform` is in column-major memory layout
+and is applied to column vectors (multiplied from the left `outTransform * x +
+outOffset`).
+====
+
+
 [[object_types_sampler_image1D]]
 ==== Image1D
 
@@ -32,18 +54,13 @@ parameters.
 | image | `ARRAY1D` of <<Color>> |  | array backing the sampler
 | filter | `STRING` | `linear` | filter of the sampler, possible values: `nearest`, `linear`
 | wrapMode | `STRING` | `clampToEdge` | wrap mode of the sampler, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
-| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
-| outOffset | `FLOAT32_VEC4` | (0, 0, 0, 0) | offset added to output transform result
 |===================================================================================================
 
 The attribute values indicated by `inAttribute` are first multiplied by the
 `inTransform` and added to the `inOffset`, then its first component is used as normalized coordinate
 to sample `image`, taking `filter` and `wrapMode` into account. Refer to
 <<vulkan-samplers>> for the exact definitions of the sampling and filtering
-operation. The sampled value is completed to four components (if needed:
-unspecified components default to zero for the first three components and to one
-for the fourth component), multiplied by `outTransform` and added to `outOffset` to yield the final
-result of the sampler.
+operation.
 
 Applications which set unknown values for `filter` will result in the default
 being used.
@@ -51,9 +68,9 @@ being used.
 [NOTE]
 .Note
 ====
-Like all `FLOAT32_MAT4` matrices, `inTransform` and `outTransform` are
-in column-major memory layout and are applied to column vectors
-(multiplied from the left `transform * x + offset`).
+Like all `FLOAT32_MAT4` matrices `inTransform` is in column-major memory layout
+and is applied to column vectors (multiplied from the left `inTransform * x +
+inOffset`).
 ====
 
 [[object_types_sampler_image2D]]
@@ -75,18 +92,13 @@ A two dimensional image sampler is created by calling <<object_types_sampler,
 | filter | `STRING` | `linear` | filter of the sampler, possible values: `nearest`, `linear`
 | wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
 | wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
-| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
-| outOffset | `FLOAT32_VEC4` | (0, 0, 0, 0) | offset added to output transform result
 |===================================================================================================
 
 The attribute values indicated by `inAttribute` are first multiplied by the
 `inTransform` and added to the `inOffset`, then its first component is used as normalized coordinate
 to sample `image`, taking `filter` and `wrapMode` into account. Refer to
 <<vulkan-samplers>> for the exact definitions of the sampling and filtering
-operation. The sampled value is completed to four components (if needed:
-unspecified components default to zero for the first three components and to one
-for the fourth component), multiplied by `outTransform` and added to `outOffset` to yield the final
-result of the sampler.
+operation.
 
 Applications which set unknown values for `filter` will result in the default
 being used.
@@ -94,9 +106,9 @@ being used.
 [NOTE]
 .Note
 ====
-Like all `FLOAT32_MAT4` matrices, `inTransform` and `outTransform` are
-in column-major memory layout and are applied to column vectors
-(multiplied from the left `transform * x + offset`).
+Like all `FLOAT32_MAT4` matrices `inTransform` is in column-major memory layout
+and is applied to column vectors (multiplied from the left `inTransform * x +
+inOffset`).
 ====
 
 [[object_types_sampler_image3D]]
@@ -119,18 +131,13 @@ A three dimensional image sampler is created by calling <<object_types_sampler,
 | wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
 | wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
 | wrapMode3 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 3rd dimension, possible values: `clampToEdge`, `repeat`, `mirrorRepeat`
-| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
-| outOffset | `FLOAT32_VEC4` | (0, 0, 0, 0) | offset added to output transform result
 |===================================================================================================
 
 The attribute values indicated by `inAttribute` are first multiplied by the
 `inTransform` and added to the `inOffset`, then its first component is used as normalized coordinate
 to sample `image`, taking `filter` and `wrapMode` into account. Refer to
 <<vulkan-samplers>> for the exact definitions of the sampling and filtering
-operation. The sampled value is completed to four components (if needed:
-unspecified components default to zero for the first three components and to one
-for the fourth component), multiplied by `outTransform` and added to `outOffset` to yield the final
-result of the sampler.
+operation.
 
 Applications which set unknown values for `filter` will result in the default
 being used.
@@ -138,9 +145,9 @@ being used.
 [NOTE]
 .Note
 ====
-Like all `FLOAT32_MAT4` matrices, `inTransform` and `outTransform` are
-in column-major memory layout and are applied to column vectors
-(multiplied from the left `transform * x + offset`).
+Like all `FLOAT32_MAT4` matrices `inTransform` is in column-major memory layout
+and is applied to column vectors (multiplied from the left `inTransform * x +
+inOffset`).
 ====
 
 [[object_types_sampler_primitive]]
@@ -156,17 +163,17 @@ The `inOffset` parameter value is added to `primitiveID` before sampling.
 
 .<<api_concepts_parameters, Parameters>> understood by the primitive sampler.
 [cols="<,<2,>,<5",options="header,unbreakable"]
-|===================================================================================================
-| Name  | Type      | Default  | Description
-| array | `ARRAY1D` of <<Color>> |  | backing array of the sampler
-| inOffset | `UINT64` | 0 | offset into the array
-|===================================================================================================
+|==============================================================================
+| Name     | Type                   | Default  | Description
+| array    | `ARRAY1D` of <<Color>> |          | backing array of the sampler
+| inOffset | `UINT64`               | 0        | offset into the array
+|==============================================================================
 
 [NOTE]
 .Note
 ====
-Primitive samplers serve a similar role as per primitive attributes on geometries but are attached to the material
-instead.
+Primitive samplers serve a similar role as per primitive attributes on
+geometries but are attached to the material instead.
 ====
 
 [[object_types_sampler_transform]]
@@ -174,26 +181,20 @@ instead.
 
 Extension `KHR_SAMPLER_TRANSFORM`
 
-The transform sampler multiplies by the input attribute by `outTransform` and
-adds it `outOffset` returns the result as the sampled value. It is created by
-calling <<object_types_sampler, `anariNewSampler`>> with subtype string
-`transform`.
+The transform sampler simply uses the input attribute as the "sampled" value. It
+is created by calling <<object_types_sampler, `anariNewSampler`>> with subtype
+string `transform`.
 
 .<<api_concepts_parameters, Parameters>> understood by the transform sampler.
 [cols="<4,<4,>3,<13",options="header,unbreakable"]
-|===================================================================================================
-| Name            | Type                                                       | Default                         | Description
+|==============================================================================
+| Name        | Type     | Default      | Description
 | inAttribute | `STRING` | `attribute0` | surface attribute used as input
-| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to input
-| outOffset | `FLOAT32_VEC4` | (0, 0, 0, 0) | offset added to output transform result
-|===================================================================================================
+|==============================================================================
 
 [NOTE]
 .Note
 ====
 The transform sampler does not actually sample any array or image but merely applies a
 transformation to an attribute for purposes such as swizzling or scaling the components.
-
-Like all `FLOAT32_MAT4` matrices, `outTransform` is in column-major memory
-layout and is applied to column vectors (multiplied from the left `transform * x + offset`).
 ====
