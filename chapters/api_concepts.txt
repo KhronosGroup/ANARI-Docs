@@ -380,9 +380,11 @@ The following infos of parameters can be queried:
 | minimum       | type        |    No    | set values will be clamped to this minimum
 | maximum       | type        |    No    | set values will be clamped to this maximum
 | default       | type        |    No    | default value, must be in `minimum`..`maximum` if present
-| elementType   |`DATA_TYPE_LIST`| for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
 | required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid,
-                                        must be `FALSE` if a `default` is present
+                                           must be `FALSE` if a `default` is present
+| softMinimum   | type        |    No    | typical minimum, must be in `minimum`..`maximum` if present (useful, e.g., for a slider widget)
+| softMaximum   | type        |    No    | typical maximum, must be in `minimum`..`maximum` if present (useful, e.g., for a slider widget)
+| elementType   |`DATA_TYPE_LIST`| for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
 | value         |`STRING_LIST` or `DATA_TYPE_LIST` |    No    | list of accepted strings or data types for parameters that only recognize specific values
 |===================================================================================================
 
