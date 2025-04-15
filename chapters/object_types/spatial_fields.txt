@@ -55,6 +55,44 @@ their addresses in memory can be easily computed from a 3D position. A
 common type of structured spatial fields are regular grids.
 ====
 
+[[object_types_spatial_field_nanovdb]]
+==== NanoVDB
+
+Extension `KHR_SPATIAL_FIELD_NANOVDB`
+
+NanoVDB spatial fields are created by passing the subtype string
+`nanovdb` to <<object_types_spatial_field, `anariNewSpatialField`>>.
+The parameters understood by NanoVDB spatial fields are summarized in
+the table below.
+
+.Configuration parameters for NanoVDB spatial fields.
+[cols="<,<2,>,<5",options="header,unbreakable"]
+|===================================================================================================
+| Name    | Type                |    Default | Description
+| data    |`ARRAY1D` of `UINT8` |            | NanoVDB grid, as a binary blob.
+| filter  |`STRING`             |    `linear`| filter used for reconstructing the field,
+                                               possible values: `nearest`, `linear`, `cubic`
+|===================================================================================================
+
+The `data` parameter content is expected to be a NanoVDB grid, as read from a NanoVDB file or constructed by the NanoVDB API.
+The spatial field extent is implicitely defined in the grid header.
+
+Setting data to an incompatible or invalid NanoVDB grid should result in the device implementation emitting a warning and ignoring the invalid object.
+
+[NOTE]
+.Note
+====
+Incompatible NanoVDB grids are device dependent and could result from an unsupported file version or unsupported data type (such as quantized fp4 or not so common data types in rendering workflows).
+====
+
+Applications which set unknown values for `filter` will result in the default being used.
+
+[NOTE]
+.Note
+====
+Cubic sampler support in NanoVDB is expected to always be available, not matter the extension `KHR_SPATIAL_FIELD_FILTER_CUBIC`.
+====
+
 [[object_types_spatial_field_unstructured]]
 ==== Unstructured
 
