@@ -1,5 +1,5 @@
 // Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// SPDX-License-Identifier: CC-BY-4.0
 
 [[object_types_volume]]
 === Volume
@@ -77,3 +77,27 @@ surface. Implementations may limit opacity to a value slightly smaller than one.
 A possible implementation of a rendering algorithm for this volume type is given
 in <<transferFunction1D_algorithm>>.
 ====
+
+[[object_types_volume_transfer_function2d]]
+==== TransferFunction2D
+
+Extension `KHR_VOLUME_TRANSFER_FUNCTION2D`
+
+A 2D transfer function uses two separate scalar fields to determine the color and opacity of the
+sampled `value`. This allows for a more nuanced and detailed visualization of volume data compared
+to 1D transfer functions. The 2D transfer function volume is created by passing the subtype string
+`transferFunction2D` to <<object_types_volume, `anariNewVolume`>>. It supports the following parameters:
+
+.<<api_concepts_parameters, Parameters>> understood by the transferFunction2D volume.
+[cols="<3,<5,>4,<7",options="header,unbreakable"]
+|===================================================================================================
+| Name             | Type                           | Default | Description
+| value            |`SPATIAL_FIELD`                 |         | <<object_types_spatial_field, Spatial field>> used for the scalar values of the volume
+| lookupTable      |`SAMPLER` of `Image2D`          |         | two separate scalar fields are represented by the image width and height
+| unitDistance     |`FLOAT32`                       |     1.0 | distance after which a 'opacity' fraction of light traverling through the volume is absorbed
+|===================================================================================================
+
+The `lookupTable` maps the sampled spatial field `value` to color and opacity for two separate scalar
+fields. Typically, the image width (X-axis) represents the sampled data value and the image height (Y-axis)
+represents the gradient magnitude. Clamping and iterpolation values can be viewed and set directly on the
+`lookupTable` through the <<object_types_sampler_image2D>> parameters.
