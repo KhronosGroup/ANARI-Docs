@@ -225,6 +225,8 @@ recognizes the following parameters:
 | vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
 | vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
 | vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
+| faceVarying.normal     |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                                  | | face-varying normals
+| faceVarying.tangent    |`ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4`| | face-varying tangents
 | faceVarying.color       |`ARRAY1D` of <<color>>                                      |            | face-varying colors
 | faceVarying.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute0
 | faceVarying.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute1
@@ -342,6 +344,8 @@ recognizes the following parameters:
 | vertex.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute1
 | vertex.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute2
 | vertex.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute3
+| faceVarying.normal     |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                                  | | face-varying normals
+| faceVarying.tangent    |`ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4`| | face-varying tangents
 | faceVarying.color       |`ARRAY1D` of <<color>>                                      |            | face-varying colors
 | faceVarying.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute0
 | faceVarying.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute1
