@@ -1,0 +1,52 @@
+// Copyright 2023 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0  
+
+[appendix]
+[[transferFunction2D_lookupTable]]
+== Example Code for Creating a TransferFunction2D LookupTable (Informative)
+
+The following is an illustrative example of a `transferFunction2D` implementation for generating a lookup table. 
+While implementations are not required to match this code exactly, it serves as a reference for the intended 
+design and structure of the lookup table. Developers may adapt the logic, data mappings, or visualization strategies 
+based on the specific needs of their volume rendering pipeline or scientific dataset.
+
+[source]
+....
+anari::Array2D CreateLookupTable(const Volume &volume)
+{
+    std::vector<int> scalars = getScalarValues(volume);
+    std::vector<int> grads = getGradients(volume);
+
+    auto minScalarIt = std::min_element(scalars.begin(), scalars.end());
+    auto maxScalarIt = std::max_element(scalars.begin(), scalars.end());
+    int minScalar = *minScalarIt;
+    int maxScalar = *maxScalarIt;
+    int width = maxScalar - minScalar + 1;
+
+    auto minGradIt = std::min_element(grads.begin(), grads.end());
+    auto maxGradIt = std::max_element(grads.begin(), grads.end());
+    int minGrad = *minGradIt;
+    int maxGrad = *maxGradIt;
+    int height = maxGrad - minGrad + 1;
+
+    std::vector<vec4> lookupTableVector(width * height);
+
+    for (int j = minGrad; j <= maxGrad; ++j) {
+        for (int i = minScalar; i <= maxScalar; ++i) {
+            float red = static_cast<float>(i * j);
+            float green = red * 0.4f;
+            float blue = 0.25f * static_cast<float>(j);
+            float alpha = static_cast<float>(i * j) / static_cast<float>(grads.size());
+
+            vec4 color{red, green, blue, alpha};
+            int x = i - minScalar;
+            int y = j - minGrad;
+            lookupTableVector[y * width + x] = color;
+        }
+    }
+
+    auto lookupTable = anari::newArray2D(device, lookupTableVector.data(), width, height);
+    return lookupTable;
+}
+....
+

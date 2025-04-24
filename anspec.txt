@@ -45,5 +45,7 @@ include::appendices/extension_index.txt[]
 
 include::appendices/volume_algorithm.txt[]
 
+include::appendices/tf2d_algorithm.txt[]
+
 include::appendices/credits.txt[]
 

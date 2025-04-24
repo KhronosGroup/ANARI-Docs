@@ -94,7 +94,7 @@ to 1D transfer functions. The 2D transfer function volume is created by passing 
 | Name             | Type                           | Default | Description
 | value            |`SPATIAL_FIELD`                 |         | <<object_types_spatial_field, Spatial field>> used for the scalar values of the volume
 | valueRange       |`FLOAT32_BOX1` / `FLOAT64_BOX1` |  [0, 1] | sampled values of `value` are clamped to this range
-| lookupTable      |ARRAY2D of <<Color>>            |         | two separate scalar fields are represented by the image width and height
+| lookupTable      |ARRAY2D of <<Color>>            |         | two separate scalar fields are represented by the image width and height (see appendix for additional details)
 | unitDistance     |`FLOAT32`                       |     1.0 | distance after which a 'opacity' fraction of light traverling through the volume is absorbed
 |===================================================================================================
 
