@@ -93,11 +93,12 @@ to 1D transfer functions. The 2D transfer function volume is created by passing 
 |===================================================================================================
 | Name             | Type                           | Default | Description
 | value            |`SPATIAL_FIELD`                 |         | <<object_types_spatial_field, Spatial field>> used for the scalar values of the volume
-| lookupTable      |`SAMPLER` of `Image2D`          |         | two separate scalar fields are represented by the image width and height
+| valueRange       |`FLOAT32_BOX1` / `FLOAT64_BOX1` |  [0, 1] | sampled values of `value` are clamped to this range
+| lookupTable      |ARRAY2D of <<Color>>            |         | two separate scalar fields are represented by the image width and height
 | unitDistance     |`FLOAT32`                       |     1.0 | distance after which a 'opacity' fraction of light traverling through the volume is absorbed
 |===================================================================================================
 
-The `lookupTable` maps the sampled spatial field `value` to color and opacity for two separate scalar
-fields. Typically, the image width (X-axis) represents the sampled data value and the image height (Y-axis)
-represents the gradient magnitude. Clamping and iterpolation values can be viewed and set directly on the
-`lookupTable` through the <<object_types_sampler_image2D>> parameters.
+The `lookupTable` maps the scalar `value` to color and opacity for two separate scalar
+fields. Typically, the image width (X-axis) represents the scalar `value` clamped to 
+`valueRange` and the image height (Y-axis) is derived from the scalar `value` which
+,in most cases, represents the gradient magnitude.
