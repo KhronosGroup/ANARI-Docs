@@ -386,7 +386,15 @@ The following infos of parameters can be queried:
 | softMaximum   | type        |    No    | typical maximum, must be in `minimum`..`maximum` if present (useful, e.g., for a slider widget)
 | elementType   |`DATA_TYPE_LIST`| for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
 | value         |`STRING_LIST` or `DATA_TYPE_LIST` |    No    | list of accepted strings or data types for parameters that only recognize specific values
+| initializer   | `BOOL`      |    No    | whether the value is set as a normal parameter or only passable on creation of the object
 |===================================================================================================
+
+[NOTE]
+.Note
+====
+The `initializer` flag is only present for devices and represents immutable parameters
+passed during device creation.
+====
 
 
 [[api_concepts_object_properties]]
@@ -751,6 +759,31 @@ ANARI devices are represented by an `ANARIDevice` handle and created using
 ....
 ANARIDevice anariNewDevice(ANARILibrary, const char *subtype);
 ....
+
+Some devices may have device parameters that can only be set once: for example,
+choosing a particular GPU used for rendering on a machine with more than one.
+Devices should always be usable with `anariNewDevice` having sensible defaults,
+but applications seeking to set immutable parameters on a device during
+device creation should instead use
+
+[source,cpp]
+....
+struct ANARIParameterValue
+{
+  const char *name;
+  ANARIDataType type;
+  const void *value;
+};
+
+ANARIDevice anariNewInitializedDevice(
+  ANARILibrary,
+  const char *subtype,
+  ANARIParameterValue *initializers
+);
+....
+
+The last element in `params` is indicated with `name` being `NULL`, `type`
+being `ANARI_UNKNOWN`, and `value` being `NULL`.
 
 
 Version information can be queried as properties on the `ANARIDevice`
