@@ -137,9 +137,10 @@ with the following additional rules:
   <<object_types_renderer,Renderer>>, and <<object_types_camera,Camera>>
   parameters must match on all ranks. Using different parameters for these
   objects on different ranks will result in undefined behavior.
-- Mapping frame channels is only well-defined on a designated main rank.
-  While it is not an error to map any channel on any other rank, its contents
-  (size, pixel type, and returned data pointer) are undefined.
+- Mapping frame channels is only well-defined on rank 0 of the used MPI
+  communicator (see parameter table below).  While it is not an error to map any
+  channel on any other rank, its contents (size, pixel type, and returned data
+  pointer) are undefined.
 - Properties queried with `anariGetProperty` are globally synchronizing
   (collective) operations for <<object_types_frame,Frame>> and
   <<object_types_world,World>> objects when queried with the `ANARI_WAIT` flag.
@@ -152,8 +153,8 @@ This extension introduces the following additional parameters:
 .<<api_concepts_parameters, Parameters>> added to MPI distributed <<object_types_frame,Frame>> objects.
 [cols="<2,<,^,<20",options="header,unbreakable"]
 |===================================================================================================
-| Name     | Type         | Default | Description
-| mainRank |`INT32`       | 0       | Designated application rank which will map frame channels within `MPI_COMM_WORLD`.
+| Name            | Type                | Default        | Description
+| mpiCommunicator |`VOID_POINTER`       | MPI_COMM_WORLD | The MPI communicator which the device should treat as the MPI world.
 |===================================================================================================
 
 [NOTE]
