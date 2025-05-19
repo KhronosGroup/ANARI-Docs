@@ -74,7 +74,7 @@ the table below.
                                                possible values: `nearest`, `linear`, `cubic`
 |===================================================================================================
 
-The `data` parameter content is expected to be a NanoVDB grid, as read from a NanoVDB file or constructed by the NanoVDB API.
+The `data` parameter content is expected to be a single NanoVDB grid, as read from a NanoVDB file or constructed by the NanoVDB API.
 The spatial field extent is implicitely defined in the grid header.
 
 Setting `data` to an incompatible or invalid NanoVDB grid should result in the device implementation emitting a warning and ignoring the invalid object.
