@@ -71,10 +71,10 @@ below.
 | Name            | Type                                                                   | Description
 | vertex.position |`ARRAY1D` of `FLOAT32_VEC3`                                             | array of vertex positions
 | vertex.data     |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | array of values at vertices
-| index           |`ARRAY1D` of `UINT32` / `UINT64`                                        | array of indices into the `vertex.pass:[*]` arrays that form cells
+| index           |`ARRAY1D` of `UINT32`                                                   | array of indices into the `vertex.pass:[*]` arrays that form cells
 | cell.data       |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | array of values in cells
 | cell.type       |`ARRAY1D` of `UINT8`                                                    | array of cell types, where 10 encodes tetrahedral, 12 hexahedral, 13 wedge, and 14 pyramidal cells
-| cell.index      |`ARRAY1D` of `UINT32` / `UINT64`                                        | array of indices into the `index` array, specifying the first (index of the) vertex of each cell
+| cell.index      |`ARRAY1D` of `UINT32`                                                   | array of indices into the `index` array, specifying the first (index of the) vertex of each cell
 |===================================================================================================
 
 Sampled cell values can be specified either per-vertex (via `vertex.data`) or
