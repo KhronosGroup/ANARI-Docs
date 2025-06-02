@@ -35,7 +35,7 @@ the table below.
 | origin  |`FLOAT32_VEC3`  |  (0, 0, 0) | origin of the grid in object-space
 | spacing |`FLOAT32_VEC3`  |  (1, 1, 1) | size of the grid cells in object-space
 | filter  |`STRING`        |    `linear`| filter used for reconstructing the field,
-                                          possible values: `nearest`, `linear`, `cubic` (extension `KHR_SPATIAL_FIELD_FILTER_CUBIC`)
+                                          possible values: `nearest`, `linear`, `cubic` (extension `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR_FILTER_CUBIC`)
 |===================================================================================================
 
 The spatial field grid can be moved with `origin` and scaled with `spacing`, in
@@ -54,6 +54,33 @@ Structured regular fields only need to store the values of the samples, because
 their addresses in memory can be easily computed from a 3D position. A
 common type of structured spatial fields are regular grids.
 ====
+
+[[object_types_spatial_field_nanovdb]]
+==== NanoVDB
+
+Extension `KHR_SPATIAL_FIELD_NANOVDB`
+
+NanoVDB spatial fields are created by passing the subtype string
+`nanovdb` to <<object_types_spatial_field, `anariNewSpatialField`>>.
+The parameters understood by NanoVDB spatial fields are summarized in
+the table below.
+
+.Configuration parameters for NanoVDB spatial fields.
+[cols="<,<2,>,<5",options="header,unbreakable"]
+|===================================================================================================
+| Name    | Type                |    Default | Description
+| data    |`ARRAY1D` of `UINT8` |            | NanoVDB grid, as a binary blob.
+| filter  |`STRING`             |    `linear`| filter used for reconstructing the field,
+                                               possible values: `nearest`, `linear`, `cubic`
+|===================================================================================================
+
+The `data` parameter content is expected to be a single NanoVDB grid, as read from a NanoVDB file or constructed by the NanoVDB API.
+The spatial field extent is implicitely defined in the grid header.
+
+The device must support NanoVDB grids with major version 32.
+
+Applications which set unknown values for `filter` will result in the default being used.
+
 
 [[object_types_spatial_field_unstructured]]
 ==== Unstructured
