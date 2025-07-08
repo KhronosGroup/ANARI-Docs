@@ -422,8 +422,9 @@ return instantly.
 If the property is available, the value will be written to `memory`, and the function
 returns `1`. Otherwise, the value is not written to `memory`, and the return value is `0`.
 
-The length of a string property can be queried as an `ANARI_ULONG` by appending
-`.size` to the property name.
+The length of a string property can be queried as an `ANARI_UINT64` by appending
+`.size` to the property name. The returned length includes space for the zero termination
+character.
 
 At most `size` bytes will be written to `memory`.
 
