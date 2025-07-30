@@ -14,11 +14,11 @@ ANARISampler anariNewSampler(ANARIDevice, const char *subtype);
 ....
 
 .<<api_concepts_parameters, Parameters>> understood by samplers.
-[cols="<3,<4,>3,<14",options="header,unbreakable"]
+[cols="<4,<4,>3,<14",options="header,unbreakable"]
 |===================================================================================================
-| Name       | Type         |                                       Default | Description
-| outTransform | `FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
-| outOffset | `FLOAT32_VEC4` | (0, 0, 0, 0) | offset added to output transform result
+| Name         | Type          | Default                                                   | Description
+| outTransform |`FLOAT32_MAT4` | \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | transform applied to the sampled values
+| outOffset    |`FLOAT32_VEC4` | (0, 0, 0, 0)                                              | offset added to output transform result
 |===================================================================================================
 
 The sampled value is completed to four components (if needed: unspecified
@@ -186,7 +186,7 @@ is created by calling <<object_types_sampler, `anariNewSampler`>> with subtype
 string `transform`.
 
 .<<api_concepts_parameters, Parameters>> understood by the transform sampler.
-[cols="<4,<4,>3,<13",options="header,unbreakable"]
+[cols="<4,<3,>3,<13",options="header,unbreakable"]
 |==============================================================================
 | Name        | Type     | Default      | Description
 | inAttribute | `STRING` | `attribute0` | surface attribute used as input

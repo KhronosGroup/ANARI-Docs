@@ -167,15 +167,15 @@ IEEE.
 August, 2008.
 _IEEE Standard for Floating-Point Arithmetic_.
 IEEE Std 754-2008.
-https://dx.doi.org/10.1109/IEEESTD.2008.4610935 .
+https://dx.doi.org/10.1109/IEEESTD.2008.4610935.
 
 [[vulkan-samplers]]
 The Khronos® Vulkan Working Group.
-January, 2020
+January, 2020.
 _Vulkan® 1.2 – A Specification_, Section 16.8. Image Sample Operations,
-https://registry.khronos.org/vulkan/ .
+https://registry.khronos.org/vulkan/.
 
 [[gltf-brdf]]
-The Khronos® 3D Formats Working Group
+The Khronos® 3D Formats Working Group.
 _glTF™ 2.0 Specification_, Appendix B: BRDF Implementation
-https://registry.khronos.org/glTF/ .
+https://registry.khronos.org/glTF/.

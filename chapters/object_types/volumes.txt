@@ -18,7 +18,7 @@ ANARIVolume anariNewVolume(ANARIDevice, const char *subtype);
 [cols="<,<,>,<7",options="header,unbreakable"]
 |===================================================================================================
 | Name      | Type    | Default | Description
-| visible   |`BOOL`   |    TRUE | volume visibility flag (TRUE visible, FALSE not visible)  
+| visible   |`BOOL`   |  `TRUE` | whether the volume is visible
 | id        |`UINT32` |     -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_OBJECT_ID`>>, optional user Id, for frame <<frame_channels, channel `objectId`>>
 |===================================================================================================
 
@@ -31,7 +31,7 @@ The 1D transfer function volume is created by passing the subtype string
 `transferFunction1D` to <<object_types_volume, `anariNewVolume`>>. It supports the following parameters:
 
 .<<api_concepts_parameters, Parameters>> understood by the transferFunction1D volume.
-[cols="<3,<5,>4,<7",options="header,unbreakable"]
+[cols="<3,<6,>4,<7",options="header,unbreakable"]
 |===================================================================================================
 | Name             | Type                           | Default | Description
 | value            |`SPATIAL_FIELD`                 |         | <<object_types_spatial_field, Spatial field>> used for the scalar values of the volume
