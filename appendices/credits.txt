@@ -5,7 +5,7 @@
 [[credits]]
 == Credits (Informative)
 
-ANARI 1.0 is the result of contributions from many people and companies
+ANARI 1.1 is the result of contributions from many people and companies
 participating in the Khronos ANARI Working Group, as well as input from the
 ANARI Advisory Panel.
 
@@ -18,7 +18,26 @@ their name.
 
 === Working Group Contributors to ANARI
 
-  * Bill Sherman, NIST
+==== ANARI 1.1
+
+  * Bill Sherman, National Institute of Standards and Technology
+  * Ingo Wald, NVIDIA
+  * Jakob Progsch, NVIDIA
+  * Jefferson Amstutz, NVIDIA
+  * Johannes Günther, Intel
+  * John Stone, NVIDIA
+  * Kees Van Kooten, NVIDIA
+  * Kevin Griffin, NVIDIA
+  * Leonard Daly, Daly Realism
+  * Mirosław Pawłowski, Intel
+  * Neil Trevett, NVIDIA
+  * Simon Su, National Institute of Standards and Technology
+  * Thomas Arcila, NVIDIA
+  * Victor Mateevitsi, Argonne National Laboratory
+
+==== ANARI 1.0
+
+  * Bill Sherman, National Institute of Standards and Technology
   * Brian Savery, AMD
   * Dave DeMarle, Intel
   * Jakob Progsch, NVIDIA
@@ -38,8 +57,9 @@ their name.
 The ANARI Advisory Panel members provided important real-world usage
 information and advice that helped guide design decisions.
 
-Administrative support to the Working Group for ANARI 1.0 was
-provided by Khronos staff.
+Administrative support to the Working Group for ANARI 1.1 was provided by
+Khronos staff including Emily Stearns; and by Alex Crabb of Caster
+Communications.
 
 Technical support was provided by James Riordon, webmaster of Khronos.org.
 
