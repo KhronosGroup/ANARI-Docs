@@ -26,10 +26,10 @@ transform definitions.
 | transform  |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
 | id         |`UINT32`      |                                           -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_INSTANCE_ID`>>, optional user Id, for frame <<frame_channels, channel `instanceId`>>
 | color      |`FLOAT32_VEC4`|                                               | uniform color attribute
-| attribute0 |`FLOAT32_VEC4`|                                               | uniform attribute0
-| attribute1 |`FLOAT32_VEC4`|                                               | uniform attribute1
-| attribute2 |`FLOAT32_VEC4`|                                               | uniform attribute2
-| attribute3 |`FLOAT32_VEC4`|                                               | uniform attribute3
+| attribute0 |`FLOAT32_VEC4`|                                               | uniform attribute 0
+| attribute1 |`FLOAT32_VEC4`|                                               | uniform attribute 1
+| attribute2 |`FLOAT32_VEC4`|                                               | uniform attribute 2
+| attribute3 |`FLOAT32_VEC4`|                                               | uniform attribute 3
 |===================================================================================================
 
 The matrix `transform` represents an affine transformation which is applied to
@@ -80,10 +80,10 @@ to transform a single group many times by avoiding the need to create an entire
 object per-transform.
 
 .Additional <<api_concepts_parameters, parameters>> introduced by `KHR_INSTANCE_TRANSFORM_ARRAY` <<object_types_instance, instance>>.
-[cols="<4,<3,<11",options="header,unbreakable"]
+[cols="<2,<4,<10",options="header,unbreakable"]
 |==========================================================================================================
 | Name      | Type                       | Description
-| transform |`ARRAY1D` of `FLOAT32_MAT4` | array of matrices, instantiating `group` once per-element matrix
+| transform |`ARRAY1D` of `FLOAT32_MAT4` | array of matrices, instantiating `group` once per matrix
 | id        |`ARRAY1D` of `UINT32`       | <<frame_channels, extension `KHR_FRAME_CHANNEL_INSTANCE_ID`>>, optional user Id, for frame <<frame_channels, channel `instanceId`>>
 |==========================================================================================================
 

@@ -123,7 +123,7 @@ use MPI to enable data-parallel rendering. The overall API usage requirements
 are as follows:
 
 - Applications collectively create the device, frame, and world in lockstep.
-- Each rank creates/modifies the local contents of the
+- Each rank creates and modifies the local contents of the
   <<object_types_world,World>> it has using the ANARI API normally.
 - All ranks collectively render by calling `anariRenderFrame` in lockstep.
 
@@ -151,11 +151,11 @@ with the following additional rules:
 This extension introduces the following additional parameters:
 
 .<<api_concepts_parameters, Parameters>> added to MPI distributed <<object_types_frame,Frame>> objects.
-[cols="<2,<,^,<20",options="header,unbreakable"]
-|===================================================================================================
-| Name            | Type                | Default        | Description
-| mpiCommunicator |`VOID_POINTER`       | MPI_COMM_WORLD | The MPI communicator which the device should treat as the MPI world.
-|===================================================================================================
+[cols="<3,<2,^3,<6",options="header,unbreakable"]
+|=============================================================================================
+| Name            | Type          | Default        | Description
+| mpiCommunicator |`VOID_POINTER` |`MPI_COMM_WORLD`| The MPI communicator which the device should treat as the MPI world.
+|=============================================================================================
 
 [NOTE]
 .Note
@@ -163,8 +163,8 @@ This extension introduces the following additional parameters:
 A more complete description of the problem, ANARI-based solution, and example
 implementation results can be found in the freely available paper:
 [[mpi-parallel-rendering]]
-Wald et al.
-July, 2024
-"Standardized Data-Parallel Rendering using ANARI"
-https://arxiv.org/abs/2407.00179
+Wald et al..
+July, 2024.
+_Standardized Data-Parallel Rendering using ANARI_
+https://arxiv.org/abs/2407.00179.
 ====

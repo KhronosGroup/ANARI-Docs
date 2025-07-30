@@ -16,19 +16,19 @@ ANARIGeometry anariNewGeometry(ANARIDevice, const char *subtype);
 All geometries support the following attribute setting parameters.
 
 .<<api_concepts_parameters, Parameters>> understood by all geometries.
-[cols="<6,<13,<8",options="header,unbreakable"]
+[cols="<3,<5,<4",options="header,unbreakable"]
 |===================================================================================================
 | Name                  | Type                                                                     | Description
 | color                 |`FLOAT32_VEC4`                                                            | uniform color attribute
-| attribute0            |`FLOAT32_VEC4`                                                            | uniform attribute0
-| attribute1            |`FLOAT32_VEC4`                                                            | uniform attribute1
-| attribute2            |`FLOAT32_VEC4`                                                            | uniform attribute2
-| attribute3            |`FLOAT32_VEC4`                                                            | uniform attribute3
+| attribute0            |`FLOAT32_VEC4`                                                            | uniform attribute 0
+| attribute1            |`FLOAT32_VEC4`                                                            | uniform attribute 1
+| attribute2            |`FLOAT32_VEC4`                                                            | uniform attribute 2
+| attribute3            |`FLOAT32_VEC4`                                                            | uniform attribute 3
 | primitive.color       |`ARRAY1D` of <<color>>                                                    | per-primitive color attribute
-| primitive.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute0
-| primitive.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute1
-| primitive.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute2
-| primitive.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute3
+| primitive.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute 0
+| primitive.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute 1
+| primitive.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute 2
+| primitive.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | per-primitive attribute 3
 |===================================================================================================
 
 When both uniform and per-primitive attribute parameters are present, then the
@@ -59,17 +59,17 @@ render them procedurally such that the cones are perfectly round.
 ====
 
 .Additional <<api_concepts_parameters, parameters>> understood by the cone <<object_types_geometry, geometry>>.
-[cols="<,<,>,<2",options="header,unbreakable"]
+[cols="<10,<19,>5,<20",options="header,unbreakable"]
 |===================================================================================================
 | Name              | Type                       | Default | Description
-| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3` |         | required center positions of the cones
+| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3` |         | required vertex positions
 | vertex.radius     |`ARRAY1D` of `FLOAT32`      |         | radius at each vertex
 | vertex.cap        |`ARRAY1D` of `UINT8`        |         | per-vertex end cap flags (0 means no caps, 1 means flat-capped)
-| vertex.color      |`ARRAY1D` of <<color>>                                                        |  | vertex colors
-| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
-| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
-| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
-| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
+| vertex.color      |`ARRAY1D` of <<color>>                                                    | | per-vertex color
+| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 0
+| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 1
+| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 2
+| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 3
 | primitive.index   |`ARRAY1D` of `UINT32_VEC2` / `UINT64_VEC2` | [(0, 1), (2, 3), {ldots}] | optional indices into the `vertex.pass:[*]` arrays, each pair defines one cone
 | caps              |`STRING`                    |   `none`| default vertex caps for all cones if `vertex.cap` is not set, possible values: `none`, `first`, `second`, `both`
 |===================================================================================================
@@ -108,18 +108,18 @@ them procedurally such that the curve segments are perfectly round.
 ====
 
 .Additional <<api_concepts_parameters, parameters>> understood by the curve <<object_types_geometry, geometry>>.
-[cols="<2,<3,>,<3",options="header,unbreakable"]
+[cols="<10,<19,>5,<20",options="header,unbreakable"]
 |===================================================================================================
-| Name            | Type                            |            Default | Description
-| vertex.position |`ARRAY1D` of `FLOAT32_VEC3`      |                    | required vertex positions
-| vertex.radius   |`ARRAY1D` of `FLOAT32`           |                    | per-vertex radius
-| vertex.color      |`ARRAY1D` of <<color>>                                                        |  | vertex colors
-| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
-| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
-| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
-| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
-| primitive.index |`ARRAY1D` of `UINT32` / `UINT64` | [0, 1, 2, {ldots}] | optional indices into `vertex.pass:[*]` arrays, each index defines the start of one segment of a curve (the end is implicitly given with index+1)
-| radius          |`FLOAT32`                        |                  1 | default radius for all curve vertices (if `vertex.radius` is not set)
+| Name              | Type                            |            Default | Description
+| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3`      |                    | required vertex positions
+| vertex.radius     |`ARRAY1D` of `FLOAT32`           |                    | radius at each vertex
+| vertex.color      |`ARRAY1D` of <<color>>                                                    | | per-vertex color
+| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 0
+| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 1
+| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 2
+| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 3
+| primitive.index   |`ARRAY1D` of `UINT32` / `UINT64` | [0, 1, 2, {ldots}] | optional indices into `vertex.pass:[*]` arrays, each index defines the start of one segment of a curve (the end is implicitly given with index+1)
+| radius            |`FLOAT32`                        |                  1 | default radius for all curve vertices (if `vertex.radius` is not set)
 |===================================================================================================
 
 Parameter `vertex.position` must be set and contain at least two
@@ -150,16 +150,16 @@ render them procedurally such that the cylinders are perfectly round.
 ====
 
 .Additional <<api_concepts_parameters, parameters>> understood by the cylinder <<object_types_geometry, geometry>>.
-[cols="<,<,>,<2",options="header,unbreakable"]
+[cols="<10,<19,>5,<20",options="header,unbreakable"]
 |===================================================================================================
 | Name              | Type                       | Default | Description
-| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3` |         | required center positions of the cylinders
+| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3` |         | required vertex positions
 | vertex.cap        |`ARRAY1D` of `UINT8`        |         | per-vertex end cap flags (0 means no caps, 1 means flat-capped)
-| vertex.color      |`ARRAY1D` of <<color>>                                                        |  | vertex colors
-| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
-| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
-| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
-| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
+| vertex.color      |`ARRAY1D` of <<color>>                                                    | | per-vertex color
+| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 0
+| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 1
+| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 2
+| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 3
 | primitive.index   |`ARRAY1D` of `UINT32_VEC2` / `UINT64_VEC2` | [(0, 1), (2, 3), {ldots}] | optional indices into `vertex.pass:[*]` arrays, each pair defines one cylinder
 | primitive.radius  |`ARRAY1D` of `FLOAT32`      |         | per-cylinder radius
 | radius            |`FLOAT32`                   |       1 | default radius for all cylinders (if `primitive.radius` is not set)
@@ -192,7 +192,7 @@ subtype string `isosurface`. A isosurface geometry recognizes the following
 parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the isosurface <<object_types_geometry, geometry>>.
-[cols="<3,<5,<4",options="header,unbreakable"]
+[cols="<4,<9,<13",options="header,unbreakable"]
 |===================================================================================================
 | Name     | Type                               | Description
 | isovalue | `FLOAT32` / `ARRAY1D` of `FLOAT32` | isovalue(s) defining the isosurface(s)
@@ -214,25 +214,25 @@ A geometry consisting of quads is created by calling <<object_types_geometry,
 recognizes the following parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the quad <<object_types_geometry, geometry>>.
-[cols="<3,<5,>2,<4",options="header,unbreakable"]
+[cols="<18,<25,>9,<20",options="header,unbreakable"]
 |===================================================================================================
-| Name              | Type                                                      | Default                 | Description
-| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3`                     |                         | required vertex positions
-| vertex.normal     |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                                  | | vertex normals
-| vertex.tangent    |`ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4`| | vertex tangents
-| vertex.color      |`ARRAY1D` of <<color>>                                                        |  | vertex colors
-| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
-| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute1
-| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute2
-| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`  | | vertex attribute3
+| Name                   | Type                                      | Default                            | Description
+| vertex.position        |`ARRAY1D` of `FLOAT32_VEC3`                                                   | | required vertex positions
+| vertex.normal          |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                                  | | vertex normals
+| vertex.tangent         |`ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4`| | vertex tangents
+| vertex.color           |`ARRAY1D` of <<color>>                                                        | | per-vertex color
+| vertex.attribute0      |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | per-vertex attribute 0
+| vertex.attribute1      |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | per-vertex attribute 1
+| vertex.attribute2      |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | per-vertex attribute 2
+| vertex.attribute3      |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | per-vertex attribute 3
 | faceVarying.normal     |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                                  | | face-varying normals
 | faceVarying.tangent    |`ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4`| | face-varying tangents
-| faceVarying.color       |`ARRAY1D` of <<color>>                                      |            | face-varying colors
-| faceVarying.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute0
-| faceVarying.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute1
-| faceVarying.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute2
-| faceVarying.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute3
-| primitive.index   |`ARRAY1D` of `UINT32_VEC4` / `UINT64_VEC4` | [(0, 1, 2, 4), (5, 6, 7, 8), {ldots}] | optional indices (into the vertex array(s)), each 4-tuple defines one quad
+| faceVarying.color      |`ARRAY1D` of <<color>>                                                        | | face-varying colors
+| faceVarying.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | face-varying attribute 0
+| faceVarying.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | face-varying attribute 1
+| faceVarying.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | face-varying attribute 2
+| faceVarying.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | face-varying attribute 3
+| primitive.index        |`ARRAY1D` of `UINT32_VEC4` / `UINT64_VEC4` | [(0, 1, 2, 4), (5, 6, 7, 8), {ldots}] | optional indices (into the vertex array(s)), each 4-tuple defines one quad
 |===================================================================================================
 
 Parameter `vertex.position` must be set and contain at least four
@@ -295,16 +295,16 @@ them procedurally such that the spheres are perfectly round.
 ====
 
 .Additional <<api_concepts_parameters, parameters>> understood by the sphere <<object_types_geometry, geometry>>.
-[cols="<2,<3,>,<4",options="header,unbreakable"]
+[cols="<10,<19,>5,<20",options="header,unbreakable"]
 |===================================================================================================
-| Name               | Type                       | Default | Description
+| Name              | Type                        | Default | Description
 | vertex.position   |`ARRAY1D` of `FLOAT32_VEC3`  |         | required center positions of the spheres
 | vertex.radius     |`ARRAY1D` of `FLOAT32`       |         | per-sphere radius
-| vertex.color      |`ARRAY1D` of <<color>>                                                    | | vertex colors
-| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
-| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute1
-| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute2
-| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute3
+| vertex.color      |`ARRAY1D` of <<color>>                                                    | | per-vertex color
+| vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 0
+| vertex.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 1
+| vertex.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 2
+| vertex.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | per-vertex attribute 3
 | primitive.index   |`ARRAY1D` of `UINT32` / `UINT64`| [0, 1, 2, {ldots}]  | optional indices (into the vertex array(s))
 | radius            |`FLOAT32`                       |                   1 | default radius for all spheres (if `vertex.radius` is not set)
 |===================================================================================================
@@ -333,25 +333,25 @@ A geometry consisting of triangles is created by calling <<object_types_geometry
 recognizes the following parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the triangle <<object_types_geometry, geometry>>.
-[cols="<3,<5,>2,<4",options="header,unbreakable"]
+[cols="<18,<25,>8,<22",options="header,unbreakable"]
 |===================================================================================================
-| Name               | Type                                                       | Default    | Description
-| vertex.position    |`ARRAY1D` of `FLOAT32_VEC3`                                 |            | required vertex positions
-| vertex.normal      |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                |            | vertex normals
-| vertex.tangent     |`ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex tangents
-| vertex.color       |`ARRAY1D` of <<color>>                                      |            | vertex colors
-| vertex.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0
-| vertex.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute1
-| vertex.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute2
-| vertex.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute3
+| Name                   | Type                                      | Default                            | Description
+| vertex.position        |`ARRAY1D` of `FLOAT32_VEC3`                                                   | | required vertex positions
+| vertex.normal          |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                                  | | vertex normals
+| vertex.tangent         |`ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4`| | vertex tangents
+| vertex.color           |`ARRAY1D` of <<color>>                                                        | | per-vertex color
+| vertex.attribute0      |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | per-vertex attribute 0
+| vertex.attribute1      |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | per-vertex attribute 1
+| vertex.attribute2      |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | per-vertex attribute 2
+| vertex.attribute3      |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | per-vertex attribute 3
 | faceVarying.normal     |`ARRAY1D` of `FIXED16_VEC3` / `FLOAT32_VEC3`                                  | | face-varying normals
 | faceVarying.tangent    |`ARRAY1D` of `FIXED16_VEC3` / `FIXED16_VEC4` / `FLOAT32_VEC3` / `FLOAT32_VEC4`| | face-varying tangents
-| faceVarying.color       |`ARRAY1D` of <<color>>                                      |            | face-varying colors
-| faceVarying.attribute0  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute0
-| faceVarying.attribute1  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute1
-| faceVarying.attribute2  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute2
-| faceVarying.attribute3  |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | face-varying attribute3
-| primitive.index    |`ARRAY1D` of `UINT32_VEC3` / `UINT64_VEC3` | [(0, 1, 2), (4, 5, 6), {ldots}] | optional indices (into the vertex array(s)), each 3-tuple defines one triangle
+| faceVarying.color      |`ARRAY1D` of <<color>>                                                        | | face-varying colors
+| faceVarying.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | face-varying attribute 0
+| faceVarying.attribute1 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | face-varying attribute 1
+| faceVarying.attribute2 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | face-varying attribute 2
+| faceVarying.attribute3 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4`     | | face-varying attribute 3
+| primitive.index        |`ARRAY1D` of `UINT32_VEC3` / `UINT64_VEC3` | [(0, 1, 2), (4, 5, 6), {ldots}]    | optional indices (into the vertex array(s)), each 3-tuple defines one triangle
 |===================================================================================================
 
 Parameter `vertex.position` must be set and contain at least three

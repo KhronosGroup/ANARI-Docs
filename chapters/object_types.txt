@@ -185,7 +185,7 @@ ANARISurface anariNewSurface(ANARIDevice);
 | Name     | Type     | Default | Description
 | geometry |`GEOMETRY`|         | <<object_types_geometry>> object used by this surface
 | material |`MATERIAL`|         | <<object_types_material>> applied to the geometry
-| visible  |`BOOL`    |    TRUE | surface visibility flag (TRUE visible, FALSE not visible)
+| visible  |`BOOL`    |  `TRUE` | whether the surface is visible
 | id       |`UINT32`  |     -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_OBJECT_ID`>>, optional user Id, for frame <<frame_channels, channel `objectId`>>
 |===================================================================================================
 

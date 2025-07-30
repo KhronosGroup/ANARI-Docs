@@ -373,15 +373,14 @@ info cannot be retrieved.
 The following infos of parameters can be queried:
 
 .Info of parameters for introspection.
-[cols="<10,<12,^9,<38",options="header,unbreakable"]
+[cols="<11,<12,^9,<38",options="header,unbreakable"]
 |===================================================================================================
 | Name          | Type        | Required | Description
 | description   | `STRING`    |    No    | explanation of the parameter, e.g., for a tooltip
 | minimum       | type        |    No    | set values will be clamped to this minimum
 | maximum       | type        |    No    | set values will be clamped to this maximum
 | default       | type        |    No    | default value, must be in `minimum`..`maximum` if present
-| required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid,
-                                           must be `FALSE` if a `default` is present
+| required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid, must be `FALSE` if a `default` is present
 | softMinimum   | type        |    No    | typical minimum, must be in `minimum`..`maximum` if present (useful, e.g., for a slider widget)
 | softMaximum   | type        |    No    | typical maximum, must be in `minimum`..`maximum` if present (useful, e.g., for a slider widget)
 | elementType   |`DATA_TYPE_LIST`| for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
@@ -393,7 +392,8 @@ The following infos of parameters can be queried:
 .Note
 ====
 The `initializer` flag is only present for devices and represents immutable parameters
-passed during device creation.
+passed during device creation via <<api_concepts_devices,
+`anariNewInitializedDevice`>>.
 ====
 
 

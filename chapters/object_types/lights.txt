@@ -120,7 +120,7 @@ outside). It is created by passing the subtype string `point` to
 point light supports the following special parameters:
 
 .Additional <<api_concepts_parameters, parameters>> understood by the point <<object_types_light, light>>.
-[cols="<,<2,>,<6",options="header,unbreakable"]
+[cols="<2,<3,>2,<13",options="header,unbreakable"]
 |===================================================================================================
 | Name      | Type         |    Default | Description
 | position  |`FLOAT32_VEC3`|  (0, 0, 0) | the position of the point light
