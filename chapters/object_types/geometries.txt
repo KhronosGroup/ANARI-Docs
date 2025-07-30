@@ -62,7 +62,7 @@ render them procedurally such that the cones are perfectly round.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name              | Type                       | Default | Description
-| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3` |         | required center positions of the cones
+| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3` |         | required vertec positions
 | vertex.radius     |`ARRAY1D` of `FLOAT32`      |         | radius at each vertex
 | vertex.cap        |`ARRAY1D` of `UINT8`        |         | per-vertex end cap flags (0 means no caps, 1 means flat-capped)
 | vertex.color      |`ARRAY1D` of <<color>>                                                        |  | vertex colors
@@ -153,7 +153,7 @@ render them procedurally such that the cylinders are perfectly round.
 [cols="<,<,>,<2",options="header,unbreakable"]
 |===================================================================================================
 | Name              | Type                       | Default | Description
-| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3` |         | required center positions of the cylinders
+| vertex.position   |`ARRAY1D` of `FLOAT32_VEC3` |         | required vertex positions
 | vertex.cap        |`ARRAY1D` of `UINT8`        |         | per-vertex end cap flags (0 means no caps, 1 means flat-capped)
 | vertex.color      |`ARRAY1D` of <<color>>                                                        |  | vertex colors
 | vertex.attribute0 |`ARRAY1D` of `FLOAT32` / `FLOAT32_VEC2` / `FLOAT32_VEC3` / `FLOAT32_VEC4` | | vertex attribute0

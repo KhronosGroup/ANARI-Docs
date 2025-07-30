@@ -18,7 +18,7 @@ ANARIVolume anariNewVolume(ANARIDevice, const char *subtype);
 [cols="<,<,>,<7",options="header,unbreakable"]
 |===================================================================================================
 | Name      | Type    | Default | Description
-| visible   |`BOOL`   |    TRUE | volume visibility flag (TRUE visible, FALSE not visible)  
+| visible   |`BOOL`   |  `TRUE` | volume visibility flag (TRUE visible, FALSE not visible)  
 | id        |`UINT32` |     -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_OBJECT_ID`>>, optional user Id, for frame <<frame_channels, channel `objectId`>>
 |===================================================================================================
 
