@@ -47,7 +47,7 @@ being rendered are valid before rendering occurs.
 ====
 
 [[anariDiscardFrame]]
-Applications can signal that an in-flight frame should be cancelled if possible
+Applications can signal that an in-flight frame should be canceled if possible
 using
 
 [source,cpp]
@@ -56,7 +56,7 @@ void anariDiscardFrame(ANARIDevice, ANARIFrame);
 ....
 
 This call is not required to block until the frame completes, rather it only
-signals to the implementation to attempt cancelling the currently rendered
+signals to the implementation to attempt canceling the currently rendered
 frame instead of going all the way to completion. The contents of a mapped
 frame which has been discarded is undefined.
 

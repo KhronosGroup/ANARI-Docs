@@ -97,7 +97,7 @@ Extension `KHR_GEOMETRY_CURVE`
 A geometry consisting of multiple curves is created by calling
 <<object_types_geometry, `anariNewGeometry`>> with type string `curve`. The vertices
 of the curve(s) are connected by linear, round segments (i.e., cones or
-clinders). The parameters defining this geometry are listed in the table
+cylinders). The parameters defining this geometry are listed in the table
 below.
 
 [NOTE]
@@ -124,7 +124,7 @@ them procedurally such that the curve segments are perfectly round.
 
 Parameter `vertex.position` must be set and contain at least two
 elements to yield a valid curve geometry. If no `primitive.index` is
-given, then a single curve is assumed, conneting all vertices.
+given, then a single curve is assumed, connecting all vertices.
 
 All `primitive.pass:[*]` arrays must be at least as large as (explicitly set or
 implicitly derived) `primitive.index`. All `vertex.pass:[*]` arrays must be
@@ -256,7 +256,7 @@ device limit `geometryMaxIndex`>>.
 
 The `faceVarying.pass:[*]` attributes map unique values to each (implicitly or
 explicitly) indexed primitive vertices, where each vertex takes a unique value
-per-primitive that uses it. Each primitive associates vertex attribues values
+per-primitive that uses it. Each primitive associates vertex attributes values
 from the attribute array using the formula `4 * primID + {0, 1, 2, 3}`.
 
 Face-varying attributes take precedence over vertex attributes when both arrays
@@ -376,7 +376,7 @@ device limit `geometryMaxIndex`>>.
 
 The `faceVarying.pass:[*]` attributes map unique values to each (implicitly or
 explicitly) indexed primitive vertices, where each vertex takes a unique value
-per-primitive that uses it. Each primitive associates vertex attribues values
+per-primitive that uses it. Each primitive associates vertex attributes values
 from the attribute array using the formula `3 * primID + {0, 1, 2}`.
 
 Face-varying attributes take precedence over vertex attributes when both arrays

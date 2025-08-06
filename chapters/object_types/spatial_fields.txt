@@ -69,13 +69,13 @@ the table below.
 [cols="<,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name    | Type                |    Default | Description
-| data    |`ARRAY1D` of `UINT8` |            | NanoVDB grid, as a binary blob.
+| data    |`ARRAY1D` of `UINT8` |            | NanoVDB grid, as a binary blob
 | filter  |`STRING`             |    `linear`| filter used for reconstructing the field,
                                                possible values: `nearest`, `linear`, `cubic`
 |===================================================================================================
 
 The `data` parameter content is expected to be a single NanoVDB grid, as read from a NanoVDB file or constructed by the NanoVDB API.
-The spatial field extent is implicitely defined in the grid header.
+The spatial field extent is implicitly defined in the grid header.
 
 The device must support NanoVDB grids with major version 32.
 
@@ -99,13 +99,13 @@ below.
 | vertex.position |`ARRAY1D` of `FLOAT32_VEC3`                                             | array of vertex positions
 | vertex.data     |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | array of values at vertices
 | index           |`ARRAY1D` of `UINT32`                                                   | array of indices into the `vertex.pass:[*]` arrays that form cells
-| cell.data       |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | array of values in cells
+| cell.data       |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | alternative specification of the values (if `vertex.data` is not explicitly set): array of values in cells
 | cell.type       |`ARRAY1D` of `UINT8`                                                    | array of cell types, where 10 encodes tetrahedral, 12 hexahedral, 13 wedge, and 14 pyramidal cells
 | cell.index      |`ARRAY1D` of `UINT32`                                                   | array of indices into the `index` array, specifying the first (index of the) vertex of each cell
 |===================================================================================================
 
 Sampled cell values can be specified either per-vertex (via `vertex.data`) or
-per-cell (via `cell.data`). If both arrays are set, `vertex.data` takes
+per-cell (via `cell.data`). If both arrays are explicitly set, `vertex.data` takes
 precedence.
 
 Each cell is formed by a consecutive group of indices from `index` into the
@@ -129,10 +129,10 @@ counterclockwise, then the top vertex.
 [NOTE]
 .Note
 ====
-The unstructured spatial field is modelled after and thus compatible to
+The unstructured spatial field is modeled after and thus compatible to
 `vtkUnstructuredGrid`: `cell.type` values are the same as VTK cell types, and
 the the index order of the cells is the same as their VTK counterparts
 (`VTK_TETRA`, `VTK_HEXAHEDRON`, `VTK_WEDGE`, and `VTK_PYRAMID`). The arrays
-`cell.index` cooresponds to the Offsets array and `index` to the Connectivity
+`cell.index` corresponds to the Offsets array and `index` to the Connectivity
 array of (current, not legacy) `vtkCellArray`.
 ====
