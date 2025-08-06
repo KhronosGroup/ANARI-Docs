@@ -1,9 +1,9 @@
 // Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// SPDX-License-Identifier: CC-BY-4.0
 
 // :regtitle: is explained in
 // http://discuss.asciidoctor.org/How-to-add-markup-to-author-information-in-document-title-td6488.html
-= ANARI^™^ {revnumber} – Provisional Specification {apititle}
+= ANARI^™^ {revnumber} – Specification {apititle}
 :regtitle: pass:q,r[^®^]
 The Khronos{regtitle} ANARI Working Group
 :data-uri:
