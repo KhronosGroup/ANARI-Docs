@@ -31,7 +31,7 @@ header and front-end library.
 
 
 [[api_choices_objects]]
-=== Opaque Objects, Parameterization, and Properties
+=== Opaque Objects, Parametrization, and Properties
 
 The ANARI API is designed to encapsulate scene data and rendering operations
 as opaque object handles using string-value pairs to parameterize them. This
@@ -102,13 +102,13 @@ appendix.
 ANARI is designed to be compatible with applications which are distributed
 across multiple processes which may reside on multiple machines. The following
 extensions specify the semantics and required networking to enable rendering
-in distriuted applications.
+in distributed applications.
 
 [NOTE]
 .Note
 ====
 Distributed rendering define semantics and rules for ANARI usage within
-distributed _applications_. Some devices _may_ use distirbuted rendering
+distributed _applications_. Some devices _may_ use distributed rendering
 resources behind the API of single-process applications, which is already
 covered by normal ANARI API usage and does not require additional specification.
 ====
@@ -154,7 +154,7 @@ This extension introduces the following additional parameters:
 [cols="<3,<2,^3,<6",options="header,unbreakable"]
 |=============================================================================================
 | Name            | Type          | Default        | Description
-| mpiCommunicator |`VOID_POINTER` |`MPI_COMM_WORLD`| The MPI communicator which the device should treat as the MPI world.
+| mpiCommunicator |`VOID_POINTER` |`MPI_COMM_WORLD`| the MPI communicator which the device should treat as the MPI world
 |=============================================================================================
 
 [NOTE]

@@ -39,7 +39,7 @@ more general functionality must be obtained through other APIs or
 applications which use ANARI.
 
 Domains which leverage 3D graphics have diverse rendering needs involving
-tradeoffs among quality, speed, and scalability to available hardware resources.
+trade-offs among quality, speed, and scalability to available hardware resources.
 It is typical for 3D applications to use both visual and quantitative
 rendering techniques to satisfy user demands. Furthermore, it is common for an
 application to need rendering from local CPU or GPU hardware, with parallel

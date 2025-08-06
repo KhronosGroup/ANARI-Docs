@@ -40,7 +40,7 @@ independent of the viewing direction. The matte material supports
 
 If `color` is of type `ANARI_SAMPLER` or `ANARI_STRING`, the fourth
 component of the value fetched from a sampler or attribute is multiplied
-with the opacity value. The final opacity is determied by `alphaMode`:
+with the opacity value. The final opacity is determined by `alphaMode`:
 
 * `opaque`: fully opaque (opacity treated as 1)
 * `blend`: partial opacity
@@ -100,7 +100,7 @@ https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materi
 If `baseColor` is of type `ANARI_SAMPLER` or `ANARI_STRING` and
 `alphaMode` is not `opaque`, the fourth component of the value fetched
 from a sampler or attribute is multiplied with the `opacity` value. The
-final opacity is determied by `alphaMode`:
+final opacity is determined by `alphaMode`:
 
 * `opaque`: fully opaque (opacity treated as 1)
 * `blend`: partial opacity

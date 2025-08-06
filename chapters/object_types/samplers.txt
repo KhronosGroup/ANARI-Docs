@@ -159,7 +159,7 @@ The primitive sampler samples an `Array1D` at integer
 coordinates based on the `primitiveId` surface attribute.
 It is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `primitive`.
-The `inOffset` parameter value is added to `primitiveID` before sampling.
+The `inOffset` parameter value is added to `primitiveId` before sampling.
 
 .<<api_concepts_parameters, Parameters>> understood by the primitive sampler.
 [cols="<,<2,>,<5",options="header,unbreakable"]

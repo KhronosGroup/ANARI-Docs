@@ -5,7 +5,7 @@
 == Common API Concepts
 
 This section describes concepts common to all object types for creation,
-parameterization, and property queries.
+parametrization, and property queries.
 
 [[api_concepts_thread_safety]]
 === Thread Safety, Asynchronous Operations
@@ -223,7 +223,7 @@ void anariUnsetParameter(ANARIDevice, ANARIObject);
 include::type_table.txt[]
 |===================================================================================================
 
-Floating point number (data types with `FLOAT`) layout and behaviour are as specified in <<ieee-754>>.
+Floating point number (data types with `FLOAT`) layout and behavior are as specified in <<ieee-754>>.
 
 [[color]]
 ==== Color

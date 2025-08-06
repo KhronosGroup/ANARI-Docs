@@ -61,7 +61,7 @@ rendering, which is enabled by setting `stereoMode` and
 | motion.transform   |`ARRAY1D` of `FLOAT32_MAT4`     |            | uniformly distributed world-space transformations
 | motion.scale       |`ARRAY1D` of `FLOAT32_VEC3`     |            | uniformly distributed scale, overridden by `motion.transform`
 | motion.rotation    |`ARRAY1D` of `FLOAT32_QUAT_IJKW`|            | uniformly distributed quaternion rotation, overridden by `motion.transform`
-| motion.translation |`ARRAY1D` of `FLOAT32_VEC3`     |            | uniformly distributed transformlation, overridden by `motion.transform`
+| motion.translation |`ARRAY1D` of `FLOAT32_VEC3`     |            | uniformly distributed translation, overridden by `motion.transform`
 | time               |`FLOAT32_BOX1`                  |     [0, 1] | time associated with first and last key in `motion.pass:[*]` arrays
 |===================================================================================================
 
