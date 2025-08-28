@@ -30,6 +30,7 @@
 * <<anariNewFrame, `anariNewFrame`>>
 * <<anariNewGeometry, `anariNewGeometry`>>
 * <<anariNewGroup, `anariNewGroup`>>
+* <<anariNewInitializedDevice, `anariNewInitializedDevice`>>
 * <<anariNewInstance, `anariNewInstance`>>
 * <<anariNewLight, `anariNewLight`>>
 * <<anariNewMaterial, `anariNewMaterial`>>

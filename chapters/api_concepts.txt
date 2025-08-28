@@ -391,9 +391,9 @@ The following infos of parameters can be queried:
 [NOTE]
 .Note
 ====
-The `initializer` flag is only present for devices and represents immutable parameters
-passed during device creation via <<api_concepts_devices,
-`anariNewInitializedDevice`>>.
+The `initializer` flag is only present for devices and represents
+immutable parameters passed during device creation via
+<<anariNewInitializedDevice, `anariNewInitializedDevice`>>.
 ====
 
 
@@ -761,6 +761,7 @@ ANARI devices are represented by an `ANARIDevice` handle and created using
 ANARIDevice anariNewDevice(ANARILibrary, const char *subtype);
 ....
 
+[[anariNewInitializedDevice]]
 Some devices may have device parameters that can only be set once: for example,
 choosing a particular GPU used for rendering on a machine with more than one.
 Devices should always be usable with `anariNewDevice` having sensible defaults,
