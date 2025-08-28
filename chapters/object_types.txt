@@ -83,8 +83,7 @@ and illuminates it from infinity.
 === World
 
 [[anariNewWorld]]
-Worlds are a container of scene data represented by
-<<instance, instances>>. Worlds are created with
+Worlds are a container of scene data. Worlds are created with
 
 [source,cpp]
 ....
@@ -92,9 +91,8 @@ ANARIWorld anariNewWorld(ANARIDevice);
 ....
 
 Objects are placed in the world through an array of instances, geometries,
-volumes, or lights. Similar to <<instance, instances>>, each array of objects
-is optional; there is no need to create empty arrays if there are no instances
-(though there might be nothing to render).
+volumes, or lights. Each array of objects is optional (though there might be
+nothing to render).
 
 .<<api_concepts_parameters, Parameters>> understood by the world.
 [cols="<,<2,<4",options="header,unbreakable"]

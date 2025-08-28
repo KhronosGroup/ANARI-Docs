@@ -1,0 +1,51 @@
+// Copyright 2025 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0
+
+[appendix]
+[[changelog]]
+== Changes in Version 1.1 (Informative)
+
+=== New Extensions
+
+* <<api_choices_data_parallel_mpi, `KHR_DATA_PARALLEL_MPI`>>: data-parallel rendering using MPI
+* <<object_types_geometry_isosurface, `KHR_GEOMETRY_ISOSURFACE`>>: `isosurface` geometry subtype
+* <<extension_instance_transform_array, `KHR_INSTANCE_TRANSFORM_ARRAY`>>: the basic `transform` instance subtype supports matrix arrays
+* <<extension_light_primary_visibility, `KHR_LIGHT_PRIMARY_VISIBILITY`>>: whether primary visibility of area lights can be controlled
+* <<extension_renderer, `KHR_RENDERER_DENOISE`>>:  the renderer supports denoising
+* <<object_types_spatial_field_nanovdb, `KHR_SPATIAL_FIELD_NANOVDB`>>: `nanovdb` spatial field subtype
+* <<object_types_spatial_field_structured_regular, `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR_FILTER_CUBIC`>>: `structuredRegular` spatial field supports `cubic` filtering for parameter `filter`
+* <<object_types_spatial_field_unstructured, `KHR_SPATIAL_FIELD_UNSTRUCTURED`>>: `unstructured` spatial field subtype
+
+=== Changes to Core Functionality and Extensions
+
+* New API function <<anariNewInitializedDevice, `anariNewInitializedDevice`>>
+to pass parameters which cannot be changed later; those parameters are
+indicated by the new <<anariGetParameterInfo, parameter info>> `initializer`
+
+* Added uniform attributes with parameters `color`, and `attribute0` to
+`attribute3` to <<Geometry, geometry>> and <<Instance, instance>>
+
+* Added face-varying normals, tangents, and attributes with parameters
+`faceVarying.normal`, `faceVarying.tangent`, `faceVarying.color`, and
+`faceVarying.attribute0` to `faceVarying.attribute3` to <<Triangle, triangle>>
+and <<Quad, quad>> geometries
+
+* Unified `outTransform` and `outOffset` parameters across all
+<<object_types_sampler, samplers>>, in particular for the
+<<object_types_sampler_primitive, primitive>> sampler
+
+* Added `visible` parameter to <<Surface, surface>> and <<Volume, volume>>
+
+* New <<api_concepts_devices, device>> properties `anariVersion.major` and
+`anariVersion.minor` for targeted specification version
+
+* New <<anariGetParameterInfo, parameter info>> `softMinimum` and
+`softMaximum` as hints for GUI widgets
+
+* Changed `ANARI_BOOL` to be 8 bit wide
+
+* No implicit generation of user Ids anymore for extensions <<frame_channels,
+`KHR_FRAME_CHANNEL_OBJECT_ID`>> and <<frame_channels,
+`KHR_FRAME_CHANNEL_INSTANCE_ID`>>; if the `id` parameter is not explicitly set
+at <<Surface, surface>>, <<Volume, volume>>, or <<Instance, instance>>, then
+always the default -1u will be used
