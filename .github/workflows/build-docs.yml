@@ -35,16 +35,16 @@ jobs:
           name: ANARI-Docs
           path: _ANARI-Docs
       - run: |
-          mkdir -p specs/1.0/
-          cp -f ${{ steps.artifacts.outputs.download-path }}/html/anspec.html specs/1.0/ANARI-1.0.html
-          cp -f ${{ steps.artifacts.outputs.download-path }}/pdf/anspec.pdf specs/1.0/ANARI-1.0.pdf
-          git stage specs/1.0/ANARI-1.0.html specs/1.0/ANARI-1.0.pdf
+          mkdir -p specs/1.1/
+          cp -f ${{ steps.artifacts.outputs.download-path }}/html/anspec.html specs/1.1/ANARI-1.1.html
+          cp -f ${{ steps.artifacts.outputs.download-path }}/pdf/anspec.pdf specs/1.1/ANARI-1.1.pdf
+          git stage specs/1.1/ANARI-1.1.html specs/1.1/ANARI-1.1.pdf
         if: "${{ github.ref == 'refs/heads/main' }}"
       - run: |
-          mkdir -p specs/1.1-draft/
-          cp -f "${{ steps.artifacts.outputs.download-path }}/html/anspec.html" specs/1.1-draft/ANARI-1.1.html
-          cp -f "${{ steps.artifacts.outputs.download-path }}/pdf/anspec.pdf" specs/1.1-draft/ANARI-1.1.pdf
-          git stage specs/1.1-draft/ANARI-1.1.html specs/1.1-draft/ANARI-1.1.pdf
+          mkdir -p specs/1.2-draft/
+          cp -f "${{ steps.artifacts.outputs.download-path }}/html/anspec.html" specs/1.2-draft/ANARI-1.2.html
+          cp -f "${{ steps.artifacts.outputs.download-path }}/pdf/anspec.pdf" specs/1.2-draft/ANARI-1.2.pdf
+          git stage specs/1.2-draft/ANARI-1.2.html specs/1.2-draft/ANARI-1.2.pdf
         if: "${{ github.ref == 'refs/heads/next_release' }}"
       - run: rm -fr "${{ steps.artifacts.outputs.download-path }}"
       - run: |
