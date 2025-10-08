@@ -104,7 +104,7 @@ VERBOSE =
 
 NOTEOPTS     = -a editing-notes -a implementation-guide
 PATCHVERSION = 0
-SPECREVISION = 1.1.$(PATCHVERSION)
+SPECREVISION = 1.2.$(PATCHVERSION)
 
 # Spell out ISO 8601 format as not all date commands support --rfc-3339
 SPECDATE     = $(shell echo `date -u "+%Y-%m-%d %TZ"`)
