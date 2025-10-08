@@ -1,5 +1,5 @@
-// Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// Copyright 2023-2025 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0
 
 [[object_types]]
 == Object Types and Subtypes
@@ -65,6 +65,7 @@ some typical parameters are specified by the following extensions.
 | background      |`ARRAY2D` of <<color>> |     | extension `KHR_RENDERER_BACKGROUND_IMAGE`, the background image, rescaled to the size of the <<Frame>> by linear filtering
 | ambientColor    |`FLOAT32_VEC3`|    (1, 1, 1) | extension `KHR_RENDERER_AMBIENT_LIGHT`, ambient light color
 | ambientRadiance |`FLOAT32`     |            0 | extension `KHR_RENDERER_AMBIENT_LIGHT`, the amount of light emitted by a point on the ambient light source in a direction, in W/sr/m^2^
+| denoise         |`BOOL`        |      `FALSE` | extension `KHR_RENDERER_DENOISE`, whether the rendered image should be denoised
 |===================================================================================================
 
 If both `KHR_RENDERER_BACKGROUND_COLOR` and `KHR_RENDERER_BACKGROUND_IMAGE` are
@@ -82,8 +83,7 @@ and illuminates it from infinity.
 === World
 
 [[anariNewWorld]]
-Worlds are a container of scene data represented by
-<<instance, instances>>. Worlds are created with
+Worlds are a container of scene data. Worlds are created with
 
 [source,cpp]
 ....
@@ -91,9 +91,8 @@ ANARIWorld anariNewWorld(ANARIDevice);
 ....
 
 Objects are placed in the world through an array of instances, geometries,
-volumes, or lights. Similar to <<instance, instances>>, each array of objects
-is optional; there is no need to create empty arrays if there are no instances
-(though there might be nothing to render).
+volumes, or lights. Each array of objects is optional (though there might be
+nothing to render).
 
 .<<api_concepts_parameters, Parameters>> understood by the world.
 [cols="<,<2,<4",options="header,unbreakable"]
@@ -126,9 +125,9 @@ include::object_types/instances.txt[]
 === Group
 
 [[anariNewGroup]]
-Groups in ANARI represent collections of <<surface>>, <<volume>>, and <<light>>
-which share a common local-space coordinate system. Groups are created
-with
+Groups in ANARI represent collections of <<Surface, surfaces>>, <<Volume,
+volumes>>, and <<Light, lights>> which share a common local-space coordinate
+system. Groups are created with
 
 [source,cpp]
 ....
@@ -184,6 +183,7 @@ ANARISurface anariNewSurface(ANARIDevice);
 | Name     | Type     | Default | Description
 | geometry |`GEOMETRY`|         | <<object_types_geometry>> object used by this surface
 | material |`MATERIAL`|         | <<object_types_material>> applied to the geometry
+| visible  |`BOOL`    |  `TRUE` | whether the surface is visible
 | id       |`UINT32`  |     -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_OBJECT_ID`>>, optional user Id, for frame <<frame_channels, channel `objectId`>>
 |===================================================================================================
 

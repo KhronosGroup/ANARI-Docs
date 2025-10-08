@@ -1,5 +1,5 @@
-// Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// Copyright 2023-2025 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0
 
 
 [[introduction]]
@@ -39,7 +39,7 @@ more general functionality must be obtained through other APIs or
 applications which use ANARI.
 
 Domains which leverage 3D graphics have diverse rendering needs involving
-tradeoffs among quality, speed, and scalability to available hardware resources.
+trade-offs among quality, speed, and scalability to available hardware resources.
 It is typical for 3D applications to use both visual and quantitative
 rendering techniques to satisfy user demands. Furthermore, it is common for an
 application to need rendering from local CPU or GPU hardware, with parallel
@@ -167,15 +167,15 @@ IEEE.
 August, 2008.
 _IEEE Standard for Floating-Point Arithmetic_.
 IEEE Std 754-2008.
-https://dx.doi.org/10.1109/IEEESTD.2008.4610935 .
+https://dx.doi.org/10.1109/IEEESTD.2008.4610935.
 
 [[vulkan-samplers]]
 The Khronos® Vulkan Working Group.
-January, 2020
+January, 2020.
 _Vulkan® 1.2 – A Specification_, Section 16.8. Image Sample Operations,
-https://registry.khronos.org/vulkan/ .
+https://registry.khronos.org/vulkan/.
 
 [[gltf-brdf]]
-The Khronos® 3D Formats Working Group
+The Khronos® 3D Formats Working Group.
 _glTF™ 2.0 Specification_, Appendix B: BRDF Implementation
-https://registry.khronos.org/glTF/ .
+https://registry.khronos.org/glTF/.

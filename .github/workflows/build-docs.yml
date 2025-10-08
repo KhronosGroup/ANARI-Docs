@@ -1,0 +1,55 @@
+name: ANARI-Docs CI
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, next_release]
+  pull_request:
+    branches: [main, next_release]
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker run --network=host --user ${uid}:${gid} --rm -v ${PWD}:/vulkan khronosgroup/docker-images@sha256:9f5add2758a383ba329bc8c4b819dea9fb695ee629b05b7da4739ddf81d39073 make -C /vulkan html pdf
+      - name: Upload docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ANARI-Docs
+          path: |
+            out/html
+            out/pdf
+          if-no-files-found: error
+  update-doc-registry:
+    runs-on: ubuntu-latest
+    if: "${{ github.event_name == 'push' }}"
+    needs: build-docs
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/ANARI-Registry.git
+          ref: main
+          token: ${{ secrets.ANARI_REGISTRY_TOKEN }}
+      - uses: actions/download-artifact@v4
+        id: artifacts
+        with:
+          name: ANARI-Docs
+          path: _ANARI-Docs
+      - run: |
+          mkdir -p specs/1.1/
+          cp -f ${{ steps.artifacts.outputs.download-path }}/html/anspec.html specs/1.1/ANARI-1.1.html
+          cp -f ${{ steps.artifacts.outputs.download-path }}/pdf/anspec.pdf specs/1.1/ANARI-1.1.pdf
+          git stage specs/1.1/ANARI-1.1.html specs/1.1/ANARI-1.1.pdf
+        if: "${{ github.ref == 'refs/heads/main' }}"
+      - run: |
+          mkdir -p specs/1.2-draft/
+          cp -f "${{ steps.artifacts.outputs.download-path }}/html/anspec.html" specs/1.2-draft/ANARI-1.2.html
+          cp -f "${{ steps.artifacts.outputs.download-path }}/pdf/anspec.pdf" specs/1.2-draft/ANARI-1.2.pdf
+          git stage specs/1.2-draft/ANARI-1.2.html specs/1.2-draft/ANARI-1.2.pdf
+        if: "${{ github.ref == 'refs/heads/next_release' }}"
+      - run: rm -fr "${{ steps.artifacts.outputs.download-path }}"
+      - run: |
+          git config --global user.name "ANARI-Docs"
+          git config --global user.email "noreply@noreply"
+          git commit -a -m "Update doc from ${{ github.ref }}"
+          git push || :  # ignore push errors, in case there is no change
+        name: Pushing to ANARI-Registry

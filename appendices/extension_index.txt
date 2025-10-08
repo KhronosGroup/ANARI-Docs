@@ -1,11 +1,11 @@
 // Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// SPDX-License-Identifier: CC-BY-4.0
 
 [appendix]
 [[extension_index]]
 == Extension Index (Informative)
 
-* <<extension_array1d_region, `KHR_ARRAY1D_REGION`>>: Permit runtime changeable valid array region
+* <<extension_array1d_region, `KHR_ARRAY1D_REGION`>>: permit runtime changeable valid array region
 * <<extension_camera_depth_of_field, `KHR_CAMERA_DEPTH_OF_FIELD`>>: depth of field is supported
 * <<extension_camera_motion_transformation, `KHR_CAMERA_MOTION_TRANSFORMATION`>>: camera transformation motion blur is supported
 * <<object_types_camera_omnidirectional, `KHR_CAMERA_OMNIDIRECTIONAL`>>: `omnidirectional` camera subtype is supported
@@ -14,23 +14,26 @@
 * <<extension_camera_rolling_shutter, `KHR_CAMERA_ROLLING_SHUTTER`>>: camera rolling shutter is supported
 * <<extension_camera_shutter, `KHR_CAMERA_SHUTTER`>>: camera global shutter and motion blur in combination with other extensions is supported
 * <<extension_camera_stereo, `KHR_CAMERA_STEREO`>>: 3D stereo rendering is supported
-* <<api_concepts_thread_safety, `KHR_DEVICE_SYNCHRONIZATION`>>: Relax API function synchronization requirement
-* <<extension_frame_accumulation, `KHR_FRAME_ACCUMULATION`>>: Frames are progressively rendered
+* <<api_choices_data_parallel_mpi, `KHR_DATA_PARALLEL_MPI`>>: data-parallel rendering using MPI is supported
+* <<api_concepts_thread_safety, `KHR_DEVICE_SYNCHRONIZATION`>>: relax API function synchronization requirement
+* <<extension_frame_accumulation, `KHR_FRAME_ACCUMULATION`>>: frames are progressively rendered
 * <<frame_channels, `KHR_FRAME_CHANNEL_NORMAL`>>: `channel.normal` is supported on ANARIFrame
 * <<frame_channels, `KHR_FRAME_CHANNEL_ALBEDO`>>: `channel.albedo` is supported on ANARIFrame
 * <<frame_channels, `KHR_FRAME_CHANNEL_PRIMITIVE_ID`>>: `channel.primitiveId` is supported on ANARIFrame
 * <<frame_channels, `KHR_FRAME_CHANNEL_OBJECT_ID`>>: `channel.objectId` is supported on ANARIFrame
 * <<frame_channels, `KHR_FRAME_CHANNEL_INSTANCE_ID`>>: `channel.instanceId` is supported on ANARIFrame
-* <<extension_frame_completion_callback, `KHR_FRAME_COMPLETION_CALLBACK`>>: Frame completion callback function parameters on ANARIFrame are supported
+* <<extension_frame_completion_callback, `KHR_FRAME_COMPLETION_CALLBACK`>>: frame completion callback function parameters on ANARIFrame are supported
 * <<object_types_geometry_cone, `KHR_GEOMETRY_CONE`>>: `cone` geometry subtype is supported
 * <<object_types_geometry_curve, `KHR_GEOMETRY_CURVE`>>: `curve` geometry subtype is supported
 * <<object_types_geometry_cylinder, `KHR_GEOMETRY_CYLINDER`>>: `cylinder` geometry subtype is supported
+* <<object_types_geometry_isosurface, `KHR_GEOMETRY_ISOSURFACE`>>: `isosurface` geometry subtype is supported
 * <<object_types_geometry_quad, `KHR_GEOMETRY_QUAD`>>: `quad` geometry subtype is supported
-* <<extension_geometry_quad_motion_deformation, `KHR_GEOMETRY_QUAD_MOTION_DEFORMATION`>>: `quad` geometry subtype supports deformation mortion blur
+* <<extension_geometry_quad_motion_deformation, `KHR_GEOMETRY_QUAD_MOTION_DEFORMATION`>>: `quad` geometry subtype supports deformation motion blur
 * <<object_types_geometry_sphere, `KHR_GEOMETRY_SPHERE`>>: `sphere` geometry subtype is supported
 * <<object_types_geometry_triangle, `KHR_GEOMETRY_TRIANGLE`>>: `triangle` geometry subtype is supported
-* <<extension_geometry_triangle_motion_deformation, `KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION`>>: `triangle` geometry subtype supports deformation mortion blur
-* <<object_types_instance_transform, `KHR_INSTANCE_TRANSFORM`>>: instances and basic `transform` instance subtype is supported
+* <<extension_geometry_triangle_motion_deformation, `KHR_GEOMETRY_TRIANGLE_MOTION_DEFORMATION`>>: `triangle` geometry subtype supports deformation motion blur
+* <<object_types_instance_transform, `KHR_INSTANCE_TRANSFORM`>>: basic `transform` instance subtype is supported
+* <<extension_instance_transform_array, `KHR_INSTANCE_TRANSFORM_ARRAY`>>: the basic `transform` instance subtype supports matrix arrays
 * <<object_types_instance_motion_transform, `KHR_INSTANCE_MOTION_TRANSFORM`>>: `motionTransform` instance subtype and instance transformation motion blur is supported
 * <<object_types_instance_motion_scale_rotation_translation, `KHR_INSTANCE_MOTION_SCALE_ROTATION_TRANSLATION`>>: `motionScaleRotationTranslation` instance subtype and instance transformation motion blur is supported
 * <<object_types_light_directional, `KHR_LIGHT_DIRECTIONAL`>>: `directional` light subtype is supported
@@ -45,10 +48,14 @@
 * <<extension_renderer, `KHR_RENDERER_AMBIENT_LIGHT`>>:  the renderer supports ambient lighting
 * <<extension_renderer, `KHR_RENDERER_BACKGROUND_COLOR`>>: the renderer supports a background color
 * <<extension_renderer, `KHR_RENDERER_BACKGROUND_IMAGE`>>:  the renderer supports a background image
+* <<extension_renderer, `KHR_RENDERER_DENOISE`>>:  the renderer supports denoising
 * <<object_types_sampler_image1D, `KHR_SAMPLER_IMAGE1D`>>: `image1D` sampler subtype is supported
 * <<object_types_sampler_image2D, `KHR_SAMPLER_IMAGE2D`>>: `image2D` sampler subtype is supported
 * <<object_types_sampler_image3D, `KHR_SAMPLER_IMAGE3D`>>: `image3D` sampler subtype is supported
 * <<object_types_sampler_primitive, `KHR_SAMPLER_PRIMITIVE`>>: `primitive` sampler subtype is supported
 * <<object_types_sampler_transform, `KHR_SAMPLER_TRANSFORM`>>: `transform` sampler subtype is supported
+* <<object_types_spatial_field_nanovdb, `KHR_SPATIAL_FIELD_NANOVDB`>>: `nanovdb` spatial field subtype is supported
 * <<object_types_spatial_field_structured_regular, `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`>>: `structuredRegular` spatial field subtype is supported
+* <<object_types_spatial_field_structured_regular, `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR_FILTER_CUBIC`>>: `structuredRegular` spatial field supports `cubic` filtering for parameter `filter`
+* <<object_types_spatial_field_unstructured, `KHR_SPATIAL_FIELD_UNSTRUCTURED`>>: `unstructured` spatial field subtype is supported
 * <<object_types_volume_transfer_function1d, `KHR_VOLUME_TRANSFER_FUNCTION1D`>>: `transferFunction1D` volume subtype is supported

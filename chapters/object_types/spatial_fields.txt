@@ -1,5 +1,5 @@
-// Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// Copyright 2023-2025 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0
 
 [[object_types_spatial_field]]
 === Spatial Field
@@ -20,21 +20,22 @@ ANARISpatialField anariNewSpatialField(ANARIDevice, const char *subtype);
 Extension `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR`
 
 Structured regular spatial fields are created by passing the subtype string
-`structuredRegular` to <<object_types_spatial_field, `anariNewSpatialField`>>. The parameters
-understood by structured regular spatial fields are summarized in the table below.
+`structuredRegular` to <<object_types_spatial_field, `anariNewSpatialField`>>.
+The parameters understood by structured regular spatial fields are summarized in
+the table below.
 
 .Configuration parameters for structured regular spatial fields.
 [cols="<,<2,>,<5",options="header,unbreakable"]
 |===================================================================================================
 | Name    | Type           |    Default | Description
-| data    |`ARRAY3D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | | the actual field
-                                          values for the 3D grid, i.e., the scalars are
-                                          vertex-centered; the size and value type of the spatial field
-                                          is inferred from `data`
+| data    |`ARRAY3D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | | the actual
+					  field values for the 3D grid, i.e., the scalars are
+					  vertex-centered; the size of the spatial field is inferred
+                                          from `data`
 | origin  |`FLOAT32_VEC3`  |  (0, 0, 0) | origin of the grid in object-space
 | spacing |`FLOAT32_VEC3`  |  (1, 1, 1) | size of the grid cells in object-space
 | filter  |`STRING`        |    `linear`| filter used for reconstructing the field,
-                                          possible values: `nearest`, `linear`
+                                          possible values: `nearest`, `linear`, `cubic` (extension `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR_FILTER_CUBIC`)
 |===================================================================================================
 
 The spatial field grid can be moved with `origin` and scaled with `spacing`, in
@@ -52,4 +53,86 @@ being used.
 Structured regular fields only need to store the values of the samples, because
 their addresses in memory can be easily computed from a 3D position. A
 common type of structured spatial fields are regular grids.
+====
+
+[[object_types_spatial_field_nanovdb]]
+==== NanoVDB
+
+Extension `KHR_SPATIAL_FIELD_NANOVDB`
+
+NanoVDB spatial fields are created by passing the subtype string
+`nanovdb` to <<object_types_spatial_field, `anariNewSpatialField`>>.
+The parameters understood by NanoVDB spatial fields are summarized in
+the table below.
+
+.Configuration parameters for NanoVDB spatial fields.
+[cols="<,<2,>,<5",options="header,unbreakable"]
+|===================================================================================================
+| Name    | Type                |    Default | Description
+| data    |`ARRAY1D` of `UINT8` |            | NanoVDB grid, as a binary blob
+| filter  |`STRING`             |    `linear`| filter used for reconstructing the field,
+                                               possible values: `nearest`, `linear`, `cubic`
+|===================================================================================================
+
+The `data` parameter content is expected to be a single NanoVDB grid, as read from a NanoVDB file or constructed by the NanoVDB API.
+The spatial field extent is implicitly defined in the grid header.
+
+The device must support NanoVDB grids with major version 32.
+
+Applications which set unknown values for `filter` will result in the default being used.
+
+
+[[object_types_spatial_field_unstructured]]
+==== Unstructured
+
+Extension `KHR_SPATIAL_FIELD_UNSTRUCTURED`
+
+Unstructured spatial fields are created by passing the subtype string
+`unstructured` to <<object_types_spatial_field, `anariNewSpatialField`>>. The
+parameters understood by unstructured spatial fields are summarized in the table
+below.
+
+.Configuration parameters for unstructured spatial fields.
+[cols="<,<2,<3",options="header,unbreakable"]
+|===================================================================================================
+| Name            | Type                                                                   | Description
+| vertex.position |`ARRAY1D` of `FLOAT32_VEC3`                                             | array of vertex positions
+| vertex.data     |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | array of values at vertices
+| index           |`ARRAY1D` of `UINT32`                                                   | array of indices into the `vertex.pass:[*]` arrays that form cells
+| cell.data       |`ARRAY1D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | alternative specification of the values (if `vertex.data` is not explicitly set): array of values in cells
+| cell.type       |`ARRAY1D` of `UINT8`                                                    | array of cell types, where 10 encodes tetrahedral, 12 hexahedral, 13 wedge, and 14 pyramidal cells
+| cell.index      |`ARRAY1D` of `UINT32`                                                   | array of indices into the `index` array, specifying the first (index of the) vertex of each cell
+|===================================================================================================
+
+Sampled cell values can be specified either per-vertex (via `vertex.data`) or
+per-cell (via `cell.data`). If both arrays are explicitly set, `vertex.data` takes
+precedence.
+
+Each cell is formed by a consecutive group of indices from `index` into the
+vertices, the first index of the group indicated by `cell.index`.
+
+The index order for a tetrahedron (cell type 10) is bottom triangle
+counterclockwise, then the top vertex.
+
+For hexahedral cells (type 12), each hexahedron is formed by a group of eight
+indices into the vertices and data values. Vertex ordering is four bottom
+vertices counterclockwise, then top four counterclockwise.
+
+For wedge cells (type 13), each wedge is formed by a group of six indices into
+the vertices and data values. Vertex ordering is three bottom vertices
+counterclockwise, then top three counterclockwise.
+
+For pyramid cells (type 14), each cell is formed by a group of five indices into
+the vertices and data values. Vertex ordering is four bottom vertices
+counterclockwise, then the top vertex.
+
+[NOTE]
+.Note
+====
+The unstructured spatial field is modeled after and thus compatible to
+`vtkUnstructuredGrid`: `cell.type` values are the same as VTK cell types, and
+the the index order of the cells is the same as their VTK counterparts
+(`VTK_TETRA`, `VTK_HEXAHEDRON`, `VTK_WEDGE`, and `VTK_PYRAMID`). The arrays
+`cell.index` corresponds to the Offsets array and `index` to the Connectivity
+array of (current, not legacy) `vtkCellArray`.
 ====

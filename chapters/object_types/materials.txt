@@ -1,5 +1,5 @@
-// Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// Copyright 2023-2025 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0
 
 [[object_types_material]]
 === Material
@@ -40,7 +40,7 @@ independent of the viewing direction. The matte material supports
 
 If `color` is of type `ANARI_SAMPLER` or `ANARI_STRING`, the fourth
 component of the value fetched from a sampler or attribute is multiplied
-with the opacity value. The final opacity is determied by `alphaMode`:
+with the opacity value. The final opacity is determined by `alphaMode`:
 
 * `opaque`: fully opaque (opacity treated as 1)
 * `blend`: partial opacity
@@ -74,7 +74,7 @@ https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materi
 | baseColor           |`FLOAT32_VEC3` / `SAMPLER` / `STRING`|(1.0, 1.0, 1.0)| base color
 | opacity             |`FLOAT32` / `SAMPLER` / `STRING`     |           1.0 | opacity
 | metallic            |`FLOAT32` / `SAMPLER` / `STRING`     |           1.0 | metalness
-| roughness           |`FLOAT32` / `SAMPLER` / `STRING`     |           1.0 | roughness 
+| roughness           |`FLOAT32` / `SAMPLER` / `STRING`     |           1.0 | roughness
 | normal              |`SAMPLER`                            |               | normal map for the base layer
 | emissive            |`FLOAT32_VEC3` / `SAMPLER` / `STRING`|(0.0, 0.0, 0.0)| emissive
 | occlusion           |`SAMPLER`                            |               | occlusion map
@@ -100,7 +100,7 @@ https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materi
 If `baseColor` is of type `ANARI_SAMPLER` or `ANARI_STRING` and
 `alphaMode` is not `opaque`, the fourth component of the value fetched
 from a sampler or attribute is multiplied with the `opacity` value. The
-final opacity is determied by `alphaMode`:
+final opacity is determined by `alphaMode`:
 
 * `opaque`: fully opaque (opacity treated as 1)
 * `blend`: partial opacity
@@ -108,6 +108,10 @@ final opacity is determied by `alphaMode`:
   value is greater than or equal to `alphaCutoff`, otherwise fully
   transparent (opacity treated 0)
 
+The values sampled from samplers `normal` and `clearcoatNormal`
+represent tangent space normals (the first two components are expected
+to be in range `[-1, 1]` and the third component is expected to be in
+range `[0, 1]`).
 
 [NOTE]
 .Note
@@ -116,19 +120,22 @@ To use the glTF `metallicRoughnessTexture` create two samplers with the
 same `image` array and a "swizzle" `outTransform` for `roughness`.
 
 The normal maps `normal` and `clearcoatNormal` typically use an
-<<Image2D>> sampler with `image` array element type `FIXED8_VEC3` or
-`FIXED8_VEC4`. The glTF `scale` parameter of normal maps should be
-factored into the `outTransform` of the corresponding <<Sampler,
-sampler>>.
+<<Image2D>> sampler with `image` array element type `UFIXED8_VEC3` with
+a transformation from range `[0, 1]` to range `[-1, 1]` via
+`outTransform` and `outOffset`, computing `2 * texel - 1` per channel.
+The glTF `scale` parameter of normal maps should be factored into the
+`outTransform` and `outOffset` of the corresponding <<Sampler,
+sampler>>. Putting it all together, set `outTransform` to \((2 * scale,
+0, 0, 0), (0, 2 * scale, 0, 0), (0, 0, 2, 0), (0, 0, 0, 1)) and
+`outOffset` to (-scale, -scale, -1, 0).
 
 Similarly, glTF parameters `emissiveStrength` and `emissiveFactor`
 should be factored into `emissive` (or `outTransform` if `emissive` is
 an `ANARI_SAMPLER`).
 
 Also, the glTF parameters `iridescenceThicknessMinimum` and
-`iridescenceThicknessMaximum` should be mapped to `outTransforms` of the
-`iridescenceThickness` sampler (assuming the 4th channel is not present
-or 1).
+`iridescenceThicknessMaximum` should be mapped to `outTransform` and
+`outOffset` of the `iridescenceThickness` sampler.
 ====
 
 [NOTE]
@@ -136,5 +143,6 @@ or 1).
 ====
 Implementations should apply the `occlusion` attenuation only for
 otherwise unoccluded ambient lighting. The glTF parameter `strength`
-should be factored into the `outTransforms` of its sampler.
+should be factored into the diagonal of `outTransform` (as scale) and `1 -
+strength` added to `outOffset` of its sampler.
 ====

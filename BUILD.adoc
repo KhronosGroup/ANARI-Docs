@@ -1,4 +1,4 @@
-= Vulkan^(R)^ Specification Build Instructions and Notes
+= ANARI^(R)^ Specification Build Instructions and Notes
 :toc2:
 :toclevels: 2
 
@@ -9,7 +9,7 @@ endif::[]
 [[intro]]
 == Introduction
 
-This README describes how to build the Vulkan API specification, reference
+This README describes how to build the ANARI API specification, reference
 pages, and\or other related targets.
 
 It documents how to set up your build environment, build steps and targets,
@@ -18,9 +18,9 @@ and contains some troubleshooting advice.
 [[building]]
 == Building The Spec
 
-First, clone the Khronos Github repository containing the Vulkan
+First, clone the Khronos Github repository containing the ANARI
 specification to your local Linux, Windows, or Mac PC.
-The repository is located at https://github.com/KhronosGroup/Vulkan-Docs/.
+The repository is located at https://github.com/KhronosGroup/ANARI-Docs/.
 
 Next, install all the necessary build tools (see <<depends,Software
 Dependencies>> below).
@@ -42,7 +42,7 @@ Then in the running image,
     $ cd /vulkan
     $ make html
 
-which builds an HTML5 specification output for the core Vulkan 1.2
+which builds an HTML5 specification output for the core ANARI 1.2
 specification, with no extensions included, or
 
     $ ./makeAllExts all
@@ -66,7 +66,7 @@ commands there.
     irrelevant for most users.
     `make html` just generates the HTML target, which is often all that's
     needed for spec bugfixes not involving extensions.
-  * The default `make` options build a Vulkan 1.2 specification with no
+  * The default `make` options build a ANARI 1.2 specification with no
     optional extensions.
   * The `validusage` target is not built as part of `make all`, due to it
     needing to be built with all extensions enabled.
@@ -78,12 +78,12 @@ specified by the Makefile variable `$(OUTDIR)` (by default, `out/`).
 The checked-in file `out/index.html` links to all these
 targets, or they can individually be found as follows:
 
-Vulkan^(R)^ Specification::
+ANARI^(R)^ Specification::
   * `html` -- Single-file HTML5 in `$(OUTDIR)/html/vkspec.html`, and KaTeX
     dependency in $(OUTDIR)/katex
   * `chunked` -- Chunked HTML5 in `$(OUTDIR)/html/chap?.html`
   * `pdf` -- PDF in `$(OUTDIR)/pdf/vkspec.pdf`
-"`styleguide`" (Vulkan^(R)^ Documentation and Extensions: Procedures and Conventions)::
+"`styleguide`" (ANARI^(R)^ Documentation and Extensions: Procedures and Conventions)::
   * `styleguide` -- Single-file HTML5 in `$(OUTDIR)/styleguide.html`
 XML Registry schema document::
   * `registry` -- Single-file HTML5 in `$(OUTDIR)/registry.html`
@@ -113,21 +113,6 @@ may significantly speed up the reference page builds.
 
 If you encounter problems refer to the <<troubleshooting>> section.
 
-[[building-versions]]
-=== Building Specifications For Different API Versions
-
-The `Makefile` defaults to building a Vulkan 1.2 specification.
-This is controlled by Asciidoctor attributes passed in the Makefile variable
-`$(VERSIONS)`
-To instead build a Vulkan 1.1 specification, pass
-
-----
-VERSIONS="VK_VERSION_1_0 VK_VERSION_1_1"
-----
-
-on the `make` command line.
-
-
 [[building-extensions]]
 === Building With Extensions Included
 
@@ -156,7 +141,7 @@ or more specified targets for specified extensions:
   * `makeKHR` -- generate outputs with all Khronos (`VK_KHR_*`) extensions
     enabled.
     Usage is `makeKHR target(s)`.
-  * `makeAllExts` -- generate outputs with all Vulkan extensions enabled.
+  * `makeAllExts` -- generate outputs with all ANARI extensions enabled.
     Usage is `makeAllExts target(s)`.
 
 The `target(s)` passed to these scripts are arbitrary `make` options, and
@@ -164,14 +149,11 @@ can be used to set Makefile variables and options, as well as specify actual
 build targets; you can, for example, do:
 
 ----
-$ ./makeAllExts -j 8 VERSIONS="VK_VERSION_1_0" html
+$ ./makeAllExts -j 8 html
 ----
 
 The Makefile variable `$(APITITLE)` defines an additional string which is
 appended to the specification title.
-When building with extensions enabled, this should be set to something like
-`(with extension VK_extension_name)`.
-The `makeExt`, `makeKHR`, and `makeAllExts` scripts already do this.
 
 The reference pages (the `manhtmlpages` target) must be built using
 `makeAllExts`; there are markup and scripting issues which will probably
@@ -279,7 +261,7 @@ different commands, structures, enumerants, and other types.
 A set of Python scripts extract and lightly massage the relevant tagged
 language into corresponding ref page.
 Pages without corresponding content in the API spec are generated
-automatically, when possible (e.g. for `Vk*FlagBits` pages).
+automatically, when possible.
 
 If for some reason you want to regenerate the ref page sources from scratch
 yourself, you can do so by
@@ -314,12 +296,12 @@ font family].
 
 
 [[styleguide]]
-== Vulkan Style Guide
+== ANARI Style Guide
 
 
 If you're writing new spec language or modifying existing language, see the
 link:https://www.khronos.org/registry/vulkan/specs/1.2/styleguide.html["`style
-guide`"] (formally titled "`Vulkan Documentation and Extensions: Procedures
+guide`"] (formally titled "`ANARI Documentation and Extensions: Procedures
 and Conventions`") document for details of our asciidoctor macros,
 extensions, mathematical equation markup, writing style, etc.
 
@@ -327,7 +309,7 @@ extensions, mathematical equation markup, writing style, etc.
 [[depends]]
 == Software Dependencies
 
-This section describes the software components used by the Vulkan spec
+This section describes the software components used by the ANARI spec
 toolchain.
 
 In the past, we previously specified package versions and instructions for
@@ -393,46 +375,10 @@ environments for Windows such as MinGW and Cygwin, we provided instructions
 in older versions of this document.
 While those instructions are out of date and have been removed from current
 versions of this document, you may be able to make use of
-link:https://github.com/KhronosGroup/Vulkan-Docs/blob/v1.2.135/BUILD.adoc#depends[the
+link:https://github.com/KhronosGroup/ANARI-Docs/blob/v1.2.135/BUILD.adoc#depends[the
 version of BUILD.adoc in the v1.2.135 repository tag]
 
 *NOTE* while we have no intention of forcing people to use our Docker image,
 we cannot support every possible environment.
-The Docker image is a straightforward way to use the Vulkan-Docs repository
+The Docker image is a straightforward way to use the ANARI-Docs repository
 with almost all modern desktop environments.
-
-
-[[history]]
-== Revision History
-
-  * 2020-03-23 - Document Khronos' published Docker image for building the
-    spec, and remove all platform-specific instructions.
-  * 2018-12-04 - Update Rbenv and ruby gem installation instructions and
-    package dependencies for Linux and Ubuntu/Windows 10.
-  * 2018-10-25 - Update Troubleshooting, and Windows and Linux build. Plus
-    random editing.
-  * 2018-03-13 - Rename to BUILD.adoc and update for new directory
-    structure.
-  * 2018-03-05 - Update README for Vulkan 1.1 release.
-  * 2017-03-20 - Add description of prawn versioning problem and how to fix
-    it.
-  * 2017-03-06 - Add description of ruby-enum versioning problem and how to
-    fix it.
-  * 2017-02-13 - Move some comments here from ../../../README.md. Tweak
-    asciidoctor markup to more clearly delineate shell command blocks.
-  * 2017-02-10 - Add more Ruby installation guidelines and reflow the
-    document in accordance with the style guide.
-  * 2017-01-31 - Add rbenv instructions and update the README elsewhere.
-  * 2017-01-16 - Modified dependencies for Asciidoctor
-  * 2017-01-06 - Replace MathJax with KaTeX.
-  * 2016-08-25 - Update for the single-branch model.
-  * 2016-07-10 - Update for current state of spec and ref page generation.
-  * 2015-11-11 - Add new can: etc.
-    macros and DBLATEXPREFIX variable.
-  * 2015-09-21 - Convert document to asciidoc and rename to README.md in the
-    hope the gitlab browser will render it in some fashion.
-  * 2015-09-21 - Add descriptions of LaTeX and MathJax math support for all
-    output formats.
-  * 2015-09-02 - Added Cygwin package info.
-  * 2015-09-02 - Initial version documenting macros, required toolchain
-    components and versions, etc.

@@ -1,5 +1,5 @@
-// Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// Copyright 2023-2025 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0
 
 [[api_choices]]
 == API Design Choices
@@ -31,7 +31,7 @@ header and front-end library.
 
 
 [[api_choices_objects]]
-=== Opaque Objects, Parameterization, and Properties
+=== Opaque Objects, Parametrization, and Properties
 
 The ANARI API is designed to encapsulate scene data and rendering operations
 as opaque object handles using string-value pairs to parameterize them. This
@@ -97,17 +97,74 @@ A full list of ANARI extensions can be found in the <<extension_index>>
 appendix.
 
 [[api_choices_distributed_rendering]]
-=== Support for Distributed Applications (Informative)
+=== Data-Parallel Distributed Rendering
 
 ANARI is designed to be compatible with applications which are distributed
-across multiple processes which may reside on multiple machines. ANARI
-implementors provide distributed rendering capabilities using existing API
-semantics relevant to running in distributed environments, such as multiple
-processes invoking API calls in lock-step.
+across multiple processes which may reside on multiple machines. The following
+extensions specify the semantics and required networking to enable rendering
+in distributed applications.
 
 [NOTE]
 .Note
 ====
-Interoperability with underlying
-networking APIs, such as MPI, are expected to be documented by the vendor.
+Distributed rendering define semantics and rules for ANARI usage within
+distributed _applications_. Some devices _may_ use distributed rendering
+resources behind the API of single-process applications, which is already
+covered by normal ANARI API usage and does not require additional specification.
+====
+
+[[api_choices_data_parallel_mpi]]
+==== MPI
+
+Extension `KHR_DATA_PARALLEL_MPI`
+
+Distributed applications using MPI can leverage ANARI implementations which also
+use MPI to enable data-parallel rendering. The overall API usage requirements
+are as follows:
+
+- Applications collectively create the device, frame, and world in lockstep.
+- Each rank creates and modifies the local contents of the
+  <<object_types_world,World>> it has using the ANARI API normally.
+- All ranks collectively render by calling `anariRenderFrame` in lockstep.
+
+Given an MPI distributed application using ANARI, all ANARI concepts apply along
+with the following additional rules:
+
+- Applications must create <<object_types_frame,Frame>> and
+  <<object_types_world,World>> objects in the same order. Construction order
+  determines how they are collectively identified among all ranks.
+- Participating <<object_types_frame,Frame>>,
+  <<object_types_renderer,Renderer>>, and <<object_types_camera,Camera>>
+  parameters must match on all ranks. Using different parameters for these
+  objects on different ranks will result in undefined behavior.
+- Mapping frame channels is only well-defined on rank 0 of the used MPI
+  communicator (see parameter table below).  While it is not an error to map any
+  channel on any other rank, its contents (size, pixel type, and returned data
+  pointer) are undefined.
+- Properties queried with `anariGetProperty` are globally synchronizing
+  (collective) operations for <<object_types_frame,Frame>> and
+  <<object_types_world,World>> objects when queried with the `ANARI_WAIT` flag.
+- Calling `anariRelease` on the final application held reference of the
+  <<anari_concepts_devices,Device>> is a globally synchronized (collective)
+  operation.
+
+This extension introduces the following additional parameters:
+
+.<<api_concepts_parameters, Parameters>> added to MPI distributed <<object_types_frame,Frame>> objects.
+[cols="<3,<2,^3,<6",options="header,unbreakable"]
+|=============================================================================================
+| Name            | Type          | Default        | Description
+| mpiCommunicator |`VOID_POINTER` |`MPI_COMM_WORLD`| the MPI communicator which the device should treat as the MPI world
+|=============================================================================================
+
+[NOTE]
+.Note
+====
+A more complete description of the problem, ANARI-based solution, and example
+implementation results can be found in the freely available paper:
+[[mpi-parallel-rendering]]
+Wald et al..
+July, 2024.
+_Standardized Data-Parallel Rendering using ANARI_
+https://arxiv.org/abs/2407.00179.
 ====

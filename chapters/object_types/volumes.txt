@@ -1,5 +1,5 @@
-// Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// Copyright 2023-2025 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0
 
 [[object_types_volume]]
 === Volume
@@ -17,8 +17,9 @@ ANARIVolume anariNewVolume(ANARIDevice, const char *subtype);
 .<<api_concepts_parameters, Parameters>> understood by volumes.
 [cols="<,<,>,<7",options="header,unbreakable"]
 |===================================================================================================
-| Name | Type    | Default | Description
-| id   |`UINT32` |     -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_OBJECT_ID`>>, optional user Id, for frame <<frame_channels, channel `objectId`>>
+| Name      | Type    | Default | Description
+| visible   |`BOOL`   |  `TRUE` | whether the volume is visible
+| id        |`UINT32` |     -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_OBJECT_ID`>>, optional user Id, for frame <<frame_channels, channel `objectId`>>
 |===================================================================================================
 
 [[object_types_volume_transfer_function1d]]
@@ -30,14 +31,14 @@ The 1D transfer function volume is created by passing the subtype string
 `transferFunction1D` to <<object_types_volume, `anariNewVolume`>>. It supports the following parameters:
 
 .<<api_concepts_parameters, Parameters>> understood by the transferFunction1D volume.
-[cols="<3,<5,>4,<7",options="header,unbreakable"]
+[cols="<3,<6,>4,<7",options="header,unbreakable"]
 |===================================================================================================
 | Name             | Type                           | Default | Description
 | value            |`SPATIAL_FIELD`                 |         | <<object_types_spatial_field, Spatial field>> used for the scalar values of the volume
 | valueRange       |`FLOAT32_BOX1` / `FLOAT64_BOX1` |  [0, 1] | sampled values of `value` are clamped to this range
 | color            |`FLOAT32_VEC4` / `FLOAT32_VEC3` / `ARRAY1D` of <<Color>>| (1.0, 1.0, 1.0, 1.0)  | color to which the sampled values are mapped to
 | opacity          |`FLOAT32` / `ARRAY1D` of `FLOAT32`|   1.0 | opacity to which the sampled values are mapped to
-| unitDistance     |`FLOAT32`                       |     1.0 | distance after which a 'opacity' fraction of light traverling through the volume is absorbed
+| unitDistance     |`FLOAT32`                       |     1.0 | distance after which a `opacity` fraction of light traveling through the volume is absorbed
 |===================================================================================================
 
 [NOTE]
@@ -62,7 +63,7 @@ The 1D transfer function volume represents (monochromatic) absorbing and
 (colored) light emitting particles whose local density is defined at each point
 of the spatial field by the final opacity and `unitDistance`: the fraction of
 light which is absorbed while traveling a `unitDistance` length through the
-volume will be 'opacity'.
+volume will be `opacity`.
 
 [NOTE]
 .Note

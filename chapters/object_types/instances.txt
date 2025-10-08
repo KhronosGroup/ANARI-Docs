@@ -1,5 +1,5 @@
-// Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// Copyright 2023-2025 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0
 
 [[object_types_instance]]
 === Instance
@@ -13,22 +13,31 @@ Instances are created with
 ANARIInstance anariNewInstance(ANARIDevice, const char *subtype);
 ....
 
-All instances take an array of <<group>> representing all the objects which
-share the instances world-space transform. They also always take a generic
-`FLOAT32_MAT4` transform which serves as a fall back but may be overridden by
-subtype specific transform definitions.
+All instances take a <<Group>> representing all the objects which share the
+instance's world-space transform. They also always take a generic `FLOAT32_MAT4`
+transform which serves as a fall back but may be overridden by subtype specific
+transform definitions.
 
 .<<api_concepts_parameters, Parameters>> understood by instances.
 [cols="<3,<4,>3,<14",options="header,unbreakable"]
 |===================================================================================================
-| Name      | Type         |                                       Default | Description
-| group     |`GROUP`       |                                               | Group to be instanced, required
-| transform |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
-| id        |`UINT32`      |         -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_INSTANCE_ID`>>, optional user Id, for frame <<frame_channels, channel `instanceId`>>
+| Name       | Type         |                                       Default | Description
+| group      |`GROUP`       |                                               | <<Group>> to be instanced, required
+| transform  |`FLOAT32_MAT4`| \((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)) | world-space transformation matrix for all attached objects
+| id         |`UINT32`      |                                           -1u | <<frame_channels, extension `KHR_FRAME_CHANNEL_INSTANCE_ID`>>, optional user Id, for frame <<frame_channels, channel `instanceId`>>
+| color      |`FLOAT32_VEC4`|                                               | uniform color attribute
+| attribute0 |`FLOAT32_VEC4`|                                               | uniform attribute 0
+| attribute1 |`FLOAT32_VEC4`|                                               | uniform attribute 1
+| attribute2 |`FLOAT32_VEC4`|                                               | uniform attribute 2
+| attribute3 |`FLOAT32_VEC4`|                                               | uniform attribute 3
 |===================================================================================================
 
 The matrix `transform` represents an affine transformation which is applied to
 homogeneous coordinates.
+
+The uniform attribute parameters apply to all objects contained in the instance
+and have a lower precedence than attribute values found in objects within the
+instance when both are present.
 
 [NOTE]
 .Note
@@ -39,6 +48,15 @@ memory. Implementations are free to always treat the last row (4th, 8th, 12th
 and 16th float) as being (0, 0, 0, 1).
 ====
 
+[NOTE]
+.Note
+====
+Since the parameters of all other instance subtypes are supersets of the
+basic parameters listed above, it is recommend that the `transform` parameter
+should always be set in addition to any subtype specific transform parameters.
+====
+
+
 .<<api_concepts_object_properties, Properties>> queryable on an instance.
 [cols="<,<,<5",options="header,unbreakable"]
 |===================================================================================================
@@ -46,24 +64,43 @@ and 16th float) as being (0, 0, 0, 1).
 | bounds   |`FLOAT32_BOX3`| axis-aligned bounding box in world-space (excluding the lights)
 |===================================================================================================
 
-
 [[object_types_instance_transform]]
 ==== Transform
 
 Extension `KHR_INSTANCE_TRANSFORM`
 
 The `transform` instance subtype is a basic instance that implements the
-mandatory parameters and properties listed above. When this extension is
-supported creating an instance of unknown subtype will create an instance of
-subtype `transform` instead.
+parameters and properties listed above.
+
+[[extension_instance_transform_array]]
+The `KHR_INSTANCE_TRANSFORM_ARRAY` extension adds to the `transform` subtype
+additional types for the `transform` (and related) parameters by allowing
+arrays to do multi-instantiation. This gives applications a more efficient means
+to transform a single group many times by avoiding the need to create an entire
+object per-transform.
+
+.Additional <<api_concepts_parameters, parameters>> introduced by `KHR_INSTANCE_TRANSFORM_ARRAY` <<object_types_instance, instance>>.
+[cols="<2,<4,<10",options="header,unbreakable"]
+|==========================================================================================================
+| Name      | Type                       | Description
+| transform |`ARRAY1D` of `FLOAT32_MAT4` | array of matrices, instantiating `group` once per element
+| id        |`ARRAY1D` of `UINT32`       | <<frame_channels, extension `KHR_FRAME_CHANNEL_INSTANCE_ID`>>, optional user Id, for frame <<frame_channels, channel `instanceId`>>
+|==========================================================================================================
+
+The additional `id` array applies an instance identifier value to each element
+instance of the `transform` array. The size of the `id` array must be large
+enough to cover each element of the `transform` array. If the `id` array is not
+present when `transform` is set as an array, the single value version of `id` is
+used.
 
 [NOTE]
 .Note
 ====
-Since the parameters of all other instance subtypes are supersets of the
-`transform` subtype they can be safely substituted in case an implementation
-does not support that subtype. To maximize compatibility the transform parameter
-should always be set in addition to any subtype specific transform parameters.
+Since setting transforms using an array of matrices does not have a sensible
+fallback when a device does not implement it, a unique extension
+`KHR_INSTANCE_TRANSFORM_ARRAY` is provided so this can be detected as early as
+possible for applications to decide whether or not the device is considered
+usable.
 ====
 
 

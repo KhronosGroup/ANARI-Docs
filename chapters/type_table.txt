@@ -1,5 +1,5 @@
-// Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// Copyright 2023-2025 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0
 
 |Name |Closest C99-Type |Description
 
@@ -28,8 +28,8 @@
 |void pointer
 
 |`BOOL`
-|`int32_t`
-|boolean represented as int32_t
+|`uint8_t`
+|boolean represented as uint8_t
 
 |`FUNCTION_POINTER`
 |`void(*)(void)`

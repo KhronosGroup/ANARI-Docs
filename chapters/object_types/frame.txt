@@ -1,5 +1,5 @@
-// Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// Copyright 2023-2025 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0
 
 [[object_types_frame]]
 === Frame
@@ -32,7 +32,7 @@ channel has its own associated extension name.
 | accumulation |`BOOL`    | extension `KHR_FRAME_ACCUMULATION`, whether additional internal buffers
 			    are created to potentially improve the image quality when multiple
 			    subsequent calls to <<rendering_frames, `anariRenderFrame`>> are made,
-                            default `FALSE` 
+                            default `FALSE`
 | frameCompletionCallback         |`FRAME_COMPLETION_CALLBACK`| extension <<extension_frame_completion_callback, `KHR_FRAME_COMPLETION_CALLBACK`>>,
                                                                 callback to invoke as continuation when the rendered frame is complete
 | frameCompletionCallbackUserData |`VOID_POINTER`             | extension <<extension_frame_completion_callback, `KHR_FRAME_COMPLETION_CALLBACK`>>,
@@ -96,12 +96,10 @@ this will incur a deadlock.
                                                                         observable type; `primitiveId` attribute of the first hit;
                                                                         possible values: `UINT32`
 | channel.objectId    |`DATA_TYPE` | extension `KHR_FRAME_CHANNEL_OBJECT_ID`, enable mapping the `objectId` channel and specify its
-                                                                        observable type; user defined <<object_types_surface>> /
-                                                                        <<object_types_volume>> `id`, if specified, or index in
-                                                                        <<object_types_group>> of first hit; possible values: `UINT32`
+                                                                        observable type; user defined <<Surface>> /
+                                                                        <<Volume>> `id`, possible values: `UINT32`
 | channel.instanceId  |`DATA_TYPE` | extension `KHR_FRAME_CHANNEL_INSTANCE_ID`, enable mapping the `instanceId` channel and specify its
-                                                                        observable type; user defined <<object_types_instance>> `id`,
-                                                                        if specified, or instance index of first hit;
+                                                                        observable type; user defined <<Instance>> `id`,
                                                                         possible values: `UINT32`
 |===================================================================================================
 

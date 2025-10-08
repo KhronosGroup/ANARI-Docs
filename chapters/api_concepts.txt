@@ -1,11 +1,11 @@
-// Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// Copyright 2023-2025 The Khronos Group Inc.
+// SPDX-License-Identifier: CC-BY-4.0
 
 [[api_concepts]]
 == Common API Concepts
 
 This section describes concepts common to all object types for creation,
-parameterization, and property queries.
+parametrization, and property queries.
 
 [[api_concepts_thread_safety]]
 === Thread Safety, Asynchronous Operations
@@ -223,7 +223,7 @@ void anariUnsetParameter(ANARIDevice, ANARIObject);
 include::type_table.txt[]
 |===================================================================================================
 
-Floating point number (data types with `FLOAT`) layout and behaviour are as specified in <<ieee-754>>.
+Floating point number (data types with `FLOAT`) layout and behavior are as specified in <<ieee-754>>.
 
 [[color]]
 ==== Color
@@ -373,18 +373,28 @@ info cannot be retrieved.
 The following infos of parameters can be queried:
 
 .Info of parameters for introspection.
-[cols="<10,<12,^9,<38",options="header,unbreakable"]
+[cols="<11,<12,^9,<38",options="header,unbreakable"]
 |===================================================================================================
 | Name          | Type        | Required | Description
 | description   | `STRING`    |    No    | explanation of the parameter, e.g., for a tooltip
 | minimum       | type        |    No    | set values will be clamped to this minimum
 | maximum       | type        |    No    | set values will be clamped to this maximum
 | default       | type        |    No    | default value, must be in `minimum`..`maximum` if present
+| required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid, must be `FALSE` if a `default` is present
+| softMinimum   | type        |    No    | typical minimum, must be in `minimum`..`maximum` if present (useful, e.g., for a slider widget)
+| softMaximum   | type        |    No    | typical maximum, must be in `minimum`..`maximum` if present (useful, e.g., for a slider widget)
 | elementType   |`DATA_TYPE_LIST`| for ``ARRAY``s | array of supported element types of the `ANARIArray` parameter, with last element `UNKNOWN`
-| required      | `BOOL`      |    Yes   | whether the parameter must be set for an object to be valid,
-                                        must be `FALSE` if a `default` is present
 | value         |`STRING_LIST` or `DATA_TYPE_LIST` |    No    | list of accepted strings or data types for parameters that only recognize specific values
+| initializer   | `BOOL`      |    No    | whether the value is set as a normal parameter or only passable on creation of the object
 |===================================================================================================
+
+[NOTE]
+.Note
+====
+The `initializer` flag is only present for devices and represents
+immutable parameters passed during device creation via
+<<anariNewInitializedDevice, `anariNewInitializedDevice`>>.
+====
 
 
 [[api_concepts_object_properties]]
@@ -412,8 +422,9 @@ return instantly.
 If the property is available, the value will be written to `memory`, and the function
 returns `1`. Otherwise, the value is not written to `memory`, and the return value is `0`.
 
-The length of a string property can be queried as an `ANARI_ULONG` by appending
-`.size` to the property name.
+The length of a string property can be queried as an `ANARI_UINT64` by appending
+`.size` to the property name. The returned length includes space for the zero termination
+character.
 
 At most `size` bytes will be written to `memory`.
 
@@ -641,7 +652,7 @@ according to the following:
 
 - `region.upper` is clamped from below by `region.lower + 1`
 - `region.upper` is clamped from above by the array's capacity
-- `region.lower` is clamped from above by `region.upper` - 1`
+- `region.lower` is clamped from above by `region.upper - 1`
 
 Mapping an array always returns the full capacity, regardless of the elements
 specified by `region`. Object handles within `region` must always be valid.
@@ -750,6 +761,32 @@ ANARI devices are represented by an `ANARIDevice` handle and created using
 ANARIDevice anariNewDevice(ANARILibrary, const char *subtype);
 ....
 
+[[anariNewInitializedDevice]]
+Some devices may have device parameters that can only be set once: for example,
+choosing a particular GPU used for rendering on a machine with more than one.
+Devices should always be usable with `anariNewDevice` having sensible defaults,
+but applications seeking to set immutable parameters on a device during
+device creation should instead use
+
+[source,cpp]
+....
+struct ANARIParameterValue
+{
+  const char *name;
+  ANARIDataType type;
+  const void *value;
+};
+
+ANARIDevice anariNewInitializedDevice(
+  ANARILibrary,
+  const char *subtype,
+  ANARIParameterValue *initializers
+);
+....
+
+The last element in `params` is indicated with `name` being `NULL`, `type`
+being `ANARI_UNKNOWN`, and `value` being `NULL`.
+
 
 Version information can be queried as properties on the `ANARIDevice`
 <<api_concepts_object_properties, using `anariGetProperty`>>.
@@ -757,14 +794,16 @@ Version information can be queried as properties on the `ANARIDevice`
 .<<api_concepts_object_properties, Properties>> queryable on a device.
 [cols="<5,<3,^3,<10",options="header,unbreakable"]
 |===================================================================================================
-| Name            | Type        | Required | Description
-| version         |`INT32`      |   Yes    | unique version number guaranteed to increase between versions
-| version.major   |`INT32`      |   No     | semantic version major value (major.minor.patch)
-| version.minor   |`INT32`      |   No     | semantic version minor value (major.minor.patch)
-| version.patch   |`INT32`      |   No     | semantic version patch value (major.minor.patch)
-| version.name    |`STRING`     |   No     | human readable name/title
-| geometryMaxIndex|`UINT64`     |   Yes    | largest supported index into vertex arrays in <<object_types_geometry, geometries>>
-| extension         |`STRING_LIST`|   Yes    | list of supported extensions
+| Name               | Type        | Required | Description
+| version            |`INT32`      |   Yes    | unique device version number guaranteed to increase between versions
+| version.major      |`INT32`      |   No     | semantic device version major value (major.minor.patch)
+| version.minor      |`INT32`      |   No     | semantic device version minor value (major.minor.patch)
+| version.patch      |`INT32`      |   No     | semantic device version patch value (major.minor.patch)
+| version.name       |`STRING`     |   No     | human readable device name/title
+| anariVersion.major |`INT32`      |   Yes    | targeted ANARI specification version major value (major.minor)
+| anariVersion.minor |`INT32`      |   Yes    | targeted ANARI specification version minor value (major.minor)
+| geometryMaxIndex   |`UINT64`     |   Yes    | largest supported index into vertex arrays in <<object_types_geometry, geometries>>
+| extension          |`STRING_LIST`|   Yes    | list of supported extensions
 |===================================================================================================
 
 [[api_concepts_error_handling]]
@@ -830,12 +869,12 @@ themselves be thread safe as they can be called on any thread.
 Attributes are quantities that are passed between objects during
 rendering. Attributes are identified by strings.
 
-Surface attributes are passed from <<Geometry, geometries>> to
-<<Material, materials>> and <<Sampler, samplers>>. Attributes are either
-set explicitly by user-provided data as array parameters (and may be
+Surface attributes are passed from <<Geometry, geometries>> and <<Instance,
+instances>> to <<Material, materials>> and <<Sampler, samplers>>. Attributes are
+either set explicitly by user-provided data as array parameters (and may be
 interpolated in a geometry-specific way) or implicitly by the surface.
-Unspecified (components of) attributes default to zero for the first
-three components and to one for the fourth component.
+Unspecified (components of) attributes default to zero for the first three
+components and to one for the fourth component.
 
 .Attributes
 [cols="<,<,<3",options="header",]

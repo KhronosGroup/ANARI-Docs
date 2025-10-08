@@ -1,11 +1,12 @@
 // Copyright 2023 The Khronos Group Inc.
-// SPDX-License-Identifier: CC-BY-4.0  
+// SPDX-License-Identifier: CC-BY-4.0
 
 [appendix]
 [[function_index]]
 == Function Index (Informative)
 
 * <<anariCommitParameters, `anariCommitParameters`>>
+* <<ANARIDeleterCallback, `ANARIDeleterCallback`>>
 * <<anariDiscardFrame, `anariDiscardFrame`>>
 * <<ANARIFrameCompletionCallback, `ANARIFrameCompletionCallback`>>
 * <<anariFrameReady, `anariFrameReady`>>
@@ -21,7 +22,6 @@
 * <<anariMapParameterArray1D, `anariMapParameterArray1D`>>
 * <<anariMapParameterArray2D, `anariMapParameterArray2D`>>
 * <<anariMapParameterArray3D, `anariMapParameterArray3D`>>
-* <<ANARIMemoryDeleter, `ANARIMemoryDeleter`>>
 * <<anariNewArray1D, `anariNewArray1D`>>
 * <<anariNewArray2D, `anariNewArray2D`>>
 * <<anariNewArray3D, `anariNewArray3D`>>
@@ -30,6 +30,7 @@
 * <<anariNewFrame, `anariNewFrame`>>
 * <<anariNewGeometry, `anariNewGeometry`>>
 * <<anariNewGroup, `anariNewGroup`>>
+* <<anariNewInitializedDevice, `anariNewInitializedDevice`>>
 * <<anariNewInstance, `anariNewInstance`>>
 * <<anariNewLight, `anariNewLight`>>
 * <<anariNewMaterial, `anariNewMaterial`>>
