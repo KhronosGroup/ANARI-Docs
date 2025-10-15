@@ -2,7 +2,16 @@
 // SPDX-License-Identifier: CC-BY-4.0
 
 [appendix]
-[[changelog]]
+[[changelog12]]
+== Changes in Version 1.2 (Informative)
+
+=== Changes to Core Functionality and Extensions
+
+* Added `clampToBorder` to `wrapMode1`, `wrapMode2`, `wrapMode3` to <<Image1D, image1d>>,
+<<Image2D, image2d>> and <<Image3D, image3d>> samplers.
+
+[appendix]
+[[changelog11]]
 == Changes in Version 1.1 (Informative)
 
 === New Extensions
