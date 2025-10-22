@@ -44,8 +44,8 @@ A one dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image1D`. It accepts the following
 parameters.
 
-[[extension_sampler_clamp_to_border_image1d]]
-The `KHR_SAMPLER_CLAMP_TO_BORDER` extension adds the `clampToBorder` mode to `wrapMode`.
+[[extension_sampler_image_clamp_to_border_image1d]]
+The `KHR_SAMPLER_IMAGE_CLAMP_TO_BORDER` extension adds the `clampToBorder` mode to `wrapMode`.
 
 .<<api_concepts_parameters, Parameters>> understood by the 1D image sampler.
 [cols="<16,<16,>13,<53",options="header,unbreakable"]
@@ -56,7 +56,7 @@ The `KHR_SAMPLER_CLAMP_TO_BORDER` extension adds the `clampToBorder` mode to `wr
 | inOffset | `FLOAT32_VEC4` | (0, 0, 0, 0) | offset added to input transform result
 | image | `ARRAY1D` of <<Color>> |  | array backing the sampler
 | filter | `STRING` | `linear` | filter of the sampler, possible values: `nearest`, `linear`
-| wrapMode | `STRING` | `clampToEdge` | wrap mode of the sampler, possible values: `clampToBorder` (extension `KHR_SAMPLER_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
+| wrapMode | `STRING` | `clampToEdge` | wrap mode of the sampler, possible values: `clampToBorder` (extension `KHR_SAMPLER_IMAGE_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
 | borderColor | `FLOAT32_VEC4` | (0, 0, 0, 0) | border color used when wrapMode is `clampToBorder`
 |===================================================================================================
 
@@ -85,8 +85,8 @@ Extension `KHR_SAMPLER_IMAGE2D`
 A two dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image2D`. It accepts the following parameters.
 
-[[extension_sampler_clamp_to_border_image2d]]
-The `KHR_SAMPLER_CLAMP_TO_BORDER` extension adds the `clampToBorder` mode to `wrapMode1` and `wrapMode2`.
+[[extension_sampler_image_clamp_to_border_image2d]]
+The `KHR_SAMPLER_IMAGE_CLAMP_TO_BORDER` extension adds the `clampToBorder` mode to `wrapMode1` and `wrapMode2`.
 
 .<<api_concepts_parameters, Parameters>> understood by the 2D image sampler.
 [cols="<16,<16,>13,<53",options="header,unbreakable"]
@@ -97,8 +97,8 @@ The `KHR_SAMPLER_CLAMP_TO_BORDER` extension adds the `clampToBorder` mode to `wr
 | inOffset | `FLOAT32_VEC4` | (0, 0, 0, 0) | offset added to input transform result
 | image | `ARRAY2D` of <<Color>> / `FIXED8_VEC3` / `FIXED8_VEC4`|  | array backing the sampler
 | filter | `STRING` | `linear` | filter of the sampler, possible values: `nearest`, `linear`
-| wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToBorder` (extension `KHR_SAMPLER_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
-| wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToBorder` (extension `KHR_SAMPLER_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
+| wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToBorder` (extension `KHR_SAMPLER_IMAGE_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
+| wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToBorder` (extension `KHR_SAMPLER_IMAGE_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
 | borderColor | `FLOAT32_VEC4` | (0, 0, 0, 0) | border color used when wrapMode is `clampToBorder`
 |===================================================================================================
 
@@ -127,8 +127,8 @@ Extension `KHR_SAMPLER_IMAGE3D`
 A three dimensional image sampler is created by calling <<object_types_sampler,
 `anariNewSampler`>> with subtype string `image3D`. It accepts the following parameters.
 
-[[extension_sampler_clamp_to_border_image3d]]
-The `KHR_SAMPLER_CLAMP_TO_BORDER` extension adds the `clampToBorder` mode to `wrapMode1`, `wrapMode2` and `wrapMode3`.
+[[extension_sampler_image_clamp_to_border_image3d]]
+The `KHR_SAMPLER_IMAGE_CLAMP_TO_BORDER` extension adds the `clampToBorder` mode to `wrapMode1`, `wrapMode2` and `wrapMode3`.
 
 .<<api_concepts_parameters, Parameters>> understood by the 3D image sampler.
 [cols="<16,<16,>13,<53",options="header,unbreakable"]
@@ -139,9 +139,9 @@ The `KHR_SAMPLER_CLAMP_TO_BORDER` extension adds the `clampToBorder` mode to `wr
 | inOffset | `FLOAT32_VEC4` | (0, 0, 0, 0) | offset added to input transform result
 | image | `ARRAY3D` of <<Color>> |  | array backing the sampler
 | filter | `STRING` | `linear` | filter of the sampler, possible values: `nearest`, `linear`
-| wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToBorder` (extension `KHR_SAMPLER_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
-| wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToBorder` (extension `KHR_SAMPLER_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
-| wrapMode3 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 3rd dimension, possible values: `clampToBorder` (extension `KHR_SAMPLER_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
+| wrapMode1 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 1st dimension, possible values: `clampToBorder` (extension `KHR_SAMPLER_IMAGE_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
+| wrapMode2 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 2nd dimension, possible values: `clampToBorder` (extension `KHR_SAMPLER_IMAGE_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
+| wrapMode3 | `STRING` | `clampToEdge` | wrap mode of the sampler for the 3rd dimension, possible values: `clampToBorder` (extension `KHR_SAMPLER_IMAGE_CLAMP_TO_BORDER`), `clampToEdge`, `repeat`, `mirrorRepeat`
 | borderColor | `FLOAT32_VEC4` | (0, 0, 0, 0) | border color used when wrapMode is `clampToBorder`
 |===================================================================================================
 
