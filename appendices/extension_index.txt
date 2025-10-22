@@ -50,8 +50,11 @@
 * <<extension_renderer, `KHR_RENDERER_BACKGROUND_IMAGE`>>:  the renderer supports a background image
 * <<extension_renderer, `KHR_RENDERER_DENOISE`>>:  the renderer supports denoising
 * <<object_types_sampler_image1D, `KHR_SAMPLER_IMAGE1D`>>: `image1D` sampler subtype is supported
+* <<extension_sampler_clamp_to_border_image1d, `KHR_SAMPLER_CLAMP_TO_BORDER`>>: `image1D` sampler wrapMode supports clampToBorder
 * <<object_types_sampler_image2D, `KHR_SAMPLER_IMAGE2D`>>: `image2D` sampler subtype is supported
+* <<extension_sampler_clamp_to_border_image2d, `KHR_SAMPLER_CLAMP_TO_BORDER`>>: `image2D` sampler wrapMode1, wrapMode2 support clampToBorder
 * <<object_types_sampler_image3D, `KHR_SAMPLER_IMAGE3D`>>: `image3D` sampler subtype is supported
+* <<extension_sampler_clamp_to_border_image3d, `KHR_SAMPLER_CLAMP_TO_BORDER`>>: `image3D` sampler wrapMode1, wrapMode2, wrapMode3 support clampToBorder
 * <<object_types_sampler_primitive, `KHR_SAMPLER_PRIMITIVE`>>: `primitive` sampler subtype is supported
 * <<object_types_sampler_transform, `KHR_SAMPLER_TRANSFORM`>>: `transform` sampler subtype is supported
 * <<object_types_spatial_field_nanovdb, `KHR_SPATIAL_FIELD_NANOVDB`>>: `nanovdb` spatial field subtype is supported
