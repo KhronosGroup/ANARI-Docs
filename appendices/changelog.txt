@@ -6,7 +6,7 @@
 == Changes in Version 1.2 (Informative)
 
 === New Extensions
-* <<extension_sampler_image_clamp_to_border, `KHR_SAMPLER_IMAGE_CLAMP_TO_BORDER`>>:
+* <<extension_sampler_imagexd_clamp_to_border, `KHR_SAMPLER_IMAGExD_CLAMP_TO_BORDER`>>:
   - `image1D` sampler `wrapMode` supports `clampToBorder`
   - `image2D` sampler `wrapMode1` and `wrapMode2` support `clampToBorder`
   - `image3D` sampler `wrapMode1`, `wrapMode2` and `wrapMode3` support `clampToBorder`
