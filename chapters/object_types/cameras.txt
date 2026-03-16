@@ -95,10 +95,13 @@ below.
 |===================================================================================================
 | Name   | Type    |  Default | Description
 | fovy   |`FLOAT32`|   {pi}/3 | the field of view (angle in radians) of the frame’s height
-| aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
-| near |`FLOAT32`|         | near clip plane distance
-| far |`FLOAT32`|         | far clip plane distance
+| aspect |`FLOAT32`|          | ratio of width by height of the frame (and image region)
+| near   |`FLOAT32`|          | near clip plane distance
+| far    |`FLOAT32`|          | far clip plane distance
 |===================================================================================================
+
+When left unset, the `aspect` ratio parameter is calcualted using the dimensions
+of the parent <<object_types_frame, Frame>> object.
 
 Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
@@ -151,11 +154,14 @@ special parameters:
 [cols="<,<,>,<6",options="header,unbreakable"]
 |===================================================================================================
 | Name   | Type    |  Default | Description
-| aspect |`FLOAT32`|        1 | ratio of width by height of the frame (and image region)
+| aspect |`FLOAT32`|          | ratio of width by height of the frame (and image region)
 | height |`FLOAT32`|        1 | height of the image plane in world units
-| near |`FLOAT32`|         | near clip plane distance
-| far |`FLOAT32`|         | far clip plane distance
+| near   |`FLOAT32`|          | near clip plane distance
+| far    |`FLOAT32`|          | far clip plane distance
 |===================================================================================================
+
+When left unset, the `aspect` ratio parameter is calcualted using the dimensions
+of the parent <<object_types_frame, Frame>> object.
 
 Note that when computing the `aspect` ratio a potentially set image
 region (using `imageRegion`) needs to be regarded as well.
