@@ -13,6 +13,11 @@
 
 === Changes to Core Functionality and Extensions
 
+* Changed the default of `aspect` ratio of <<object_types_camera_orthographic,
+`orthographic`>> and <<object_types_camera_perspective, `perspective`>> camera
+to be calcualted using the dimensions of the parent <<object_types_frame,
+Frame>> object.
+
 * Added `clampToBorder` to `wrapMode1`, `wrapMode2`, `wrapMode3` to <<Image1D, image1d>>,
 <<Image2D, image2d>> and <<Image3D, image3d>> samplers.
 
