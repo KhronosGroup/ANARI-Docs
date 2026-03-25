@@ -100,7 +100,7 @@ below.
 | far    |`FLOAT32`|          | far clip plane distance
 |===================================================================================================
 
-When left unset, the `aspect` ratio parameter is calcualted using the dimensions
+When left unset, the `aspect` ratio parameter is calculated using the dimensions
 of the parent <<object_types_frame, Frame>> object.
 
 Note that when computing the `aspect` ratio a potentially set image
@@ -160,7 +160,7 @@ special parameters:
 | far    |`FLOAT32`|          | far clip plane distance
 |===================================================================================================
 
-When left unset, the `aspect` ratio parameter is calcualted using the dimensions
+When left unset, the `aspect` ratio parameter is calculated using the dimensions
 of the parent <<object_types_frame, Frame>> object.
 
 Note that when computing the `aspect` ratio a potentially set image
