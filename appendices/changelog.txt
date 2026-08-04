@@ -18,6 +18,10 @@
 to be calcualted using the dimensions of the parent <<object_types_frame,
 Frame>> object.
 
+* Removed parameter `alphaMode` from <<object_types_material_matte, `matte`>>
+and <<object_types_material_physically_based, `physicallyBased`>> material;
+`mask` is used implicitly when `alphaCutoff` is set.
+
 * Added `clampToBorder` to `wrapMode1`, `wrapMode2`, `wrapMode3` to <<Image1D, image1d>>,
 <<Image2D, image2d>> and <<Image3D, image3d>> samplers.
 
