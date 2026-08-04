@@ -26,7 +26,7 @@ Extension `KHR_MATERIAL_MATTE`
 The `matte` material reflects light uniformly into the hemisphere, i.e.,
 it exhibits Lambertian reflectance and thus its apparent brightness is
 independent of the viewing direction. The matte material supports
-(partial) cut-out transparency depending on `alphaMode`.
+(partial) cut-out transparency via `opacity` and `alphaCutoff`.
 
 .<<api_concepts_parameters, Parameters>> of the matte material.
 [cols="<,<2,>,<3",options="header",]
@@ -34,19 +34,15 @@ independent of the viewing direction. The matte material supports
 |Name  |Type         |Default   |Description
 |color |`FLOAT32_VEC3` / `SAMPLER` / `STRING` | (0.8, 0.8, 0.8) | diffuse color
 |opacity |`FLOAT32` / `SAMPLER` / `STRING` | 1.0 | opacity
-|alphaMode |`STRING` |`opaque`| control cut-out transparency, possible values: `opaque`, `blend`, `mask`
-|alphaCutoff |`FLOAT32` | 0.5 | threshold when `alphaMode` is `mask`
+|alphaCutoff |`FLOAT32` | | optional threshold to binarize `opacity`
 |===
 
 If `color` is of type `ANARI_SAMPLER` or `ANARI_STRING`, the fourth
 component of the value fetched from a sampler or attribute is multiplied
-with the opacity value. The final opacity is determined by `alphaMode`:
-
-* `opaque`: fully opaque (opacity treated as 1)
-* `blend`: partial opacity
-* `mask`: fully opaque (opacity treated as 1) if the computed opacity
-  value is greater than or equal to `alphaCutoff`, otherwise fully
-  transparent (opacity treated 0)
+with the opacity value. The final opacity is binary when `alphaCutoff` is
+set: fully opaque (opacity treated as 1) if the computed opacity value is
+greater than or equal to `alphaCutoff`, otherwise fully transparent (opacity
+treated 0).
 
 [[object_types_material_physically_based]]
 ==== Physically Based
@@ -73,13 +69,12 @@ https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materi
 | Name                | Type                                |       Default | Description
 | baseColor           |`FLOAT32_VEC3` / `SAMPLER` / `STRING`|(1.0, 1.0, 1.0)| base color
 | opacity             |`FLOAT32` / `SAMPLER` / `STRING`     |           1.0 | opacity
+| alphaCutoff         |`FLOAT32`                            |               | optional threshold to binarize `opacity`
 | metallic            |`FLOAT32` / `SAMPLER` / `STRING`     |           1.0 | metalness
 | roughness           |`FLOAT32` / `SAMPLER` / `STRING`     |           1.0 | roughness
 | normal              |`SAMPLER`                            |               | normal map for the base layer
 | emissive            |`FLOAT32_VEC3` / `SAMPLER` / `STRING`|(0.0, 0.0, 0.0)| emissive
 | occlusion           |`SAMPLER`                            |               | occlusion map
-| alphaMode           |`STRING`                             |       `opaque`| control cut-out transparency, possible values: `opaque`, `blend`, `mask`
-| alphaCutoff         |`FLOAT32`                            |           0.5 | threshold when `alphaMode` is `mask`
 | specular            |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | strength of the specular reflection
 | specularColor       |`FLOAT32_VEC3` / `SAMPLER` / `STRING`|(1.0, 1.0, 1.0)| color of the specular reflection at normal incidence
 | clearcoat           |`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | strength of the clearcoat layer
@@ -97,16 +92,11 @@ https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materi
 | iridescenceThickness|`FLOAT32` / `SAMPLER` / `STRING`     |           0.0 | thickness of the thin-film layer
 |===================================================================================================
 
-If `baseColor` is of type `ANARI_SAMPLER` or `ANARI_STRING` and
-`alphaMode` is not `opaque`, the fourth component of the value fetched
-from a sampler or attribute is multiplied with the `opacity` value. The
-final opacity is determined by `alphaMode`:
-
-* `opaque`: fully opaque (opacity treated as 1)
-* `blend`: partial opacity
-* `mask`: fully opaque (opacity treated as 1) if the computed opacity
-  value is greater than or equal to `alphaCutoff`, otherwise fully
-  transparent (opacity treated 0)
+If `baseColor` is of type `ANARI_SAMPLER` or `ANARI_STRING` the fourth component
+of the value fetched from a sampler or attribute is multiplied with the
+`opacity` value. The final opacity is binary when `alphaCutoff` is set: fully
+opaque (opacity treated as 1) if the computed opacity value is greater than or
+equal to `alphaCutoff`, otherwise fully transparent (opacity treated 0)
 
 The values sampled from samplers `normal` and `clearcoatNormal`
 represent tangent space normals (the first two components are expected
@@ -118,6 +108,11 @@ range `[0, 1]`).
 ====
 To use the glTF `metallicRoughnessTexture` create two samplers with the
 same `image` array and a "swizzle" `outTransform` for `roughness`.
+
+To handle glTF `alphaMode`, for
+* `opaque`: do not use any opacity, or set `alphaCutoff` to 0.0
+* `blend`: do not set `alphaCutoff`
+* `mask`: set `alphaCutoff` appropriately
 
 The normal maps `normal` and `clearcoatNormal` typically use an
 <<Image2D>> sampler with `image` array element type `UFIXED8_VEC3` with
