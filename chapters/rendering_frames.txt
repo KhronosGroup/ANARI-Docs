@@ -80,6 +80,9 @@ value. The arguments `width`, `height`, and `pixelType` are output parameters
 for the application to validate the exact dimensions and per-pixel data type in
 the mapped image.
 
+If the channel can not be mapped `NULL` is returned, `width` and `height` are set
+to 0 and `pixelType` is set to `UNKNOWN`.
+
 [NOTE]
 .Note
 ====
