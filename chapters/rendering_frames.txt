@@ -106,3 +106,6 @@ A previously mapped channel of a frame can be unmapped calling
 ....
 void anariUnmapFrame(ANARIDevice, ANARIFrame, const char *channel);
 ....
+
+Channels whose mapping returned `NULL` have not been mapped and do not
+require a matching unmap operation.
