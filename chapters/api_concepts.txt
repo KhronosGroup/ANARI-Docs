@@ -609,6 +609,8 @@ specified before unmapping to avoid populating the array with undefined values.
 of all objects in the array. Reference counts are updated on creation
 of the array object and when unmapping the array.
 
+Mapping an array may return `NULL` in case an error is encountered by the device.
+
 Use of the arrays inside ANARI may cause accesses at indices derived
 from parameters or other arrays (for example when drawing an indexed geometry).
 Out of bounds accesses caused this way have undefined behavior.
