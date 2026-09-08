@@ -80,6 +80,9 @@ value. The arguments `width`, `height`, and `pixelType` are output parameters
 for the application to validate the exact dimensions and per-pixel data type in
 the mapped image.
 
+If the channel can not be mapped `NULL` is returned, `width` and `height` are set
+to 0 and `pixelType` is set to `UNKNOWN`.
+
 [NOTE]
 .Note
 ====
@@ -103,3 +106,6 @@ A previously mapped channel of a frame can be unmapped calling
 ....
 void anariUnmapFrame(ANARIDevice, ANARIFrame, const char *channel);
 ....
+
+Channels whose mapping returned `NULL` have not been mapped and do not
+require a matching unmap operation.

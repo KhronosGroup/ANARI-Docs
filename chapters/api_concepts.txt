@@ -499,6 +499,9 @@ consume the data with
 void anariUnmapParameterArray(ANARIDevice, ANARIObject, const char *parameterName);
 ....
 
+If a parameter mapping returned `NULL` the parameter has not been mapped and does not
+require a matching unmap operation.
+
 Directly mapped arrays behave like normal parameters in that the underlying
 array data will not be used in the <<rendering_frames, next rendered frame>>
 until the object itself is committed with `anariCommitParameters`. Furthermore,
@@ -608,6 +611,10 @@ specified before unmapping to avoid populating the array with undefined values.
 `ANARIArray` objects containing object handles increase the ref count
 of all objects in the array. Reference counts are updated on creation
 of the array object and when unmapping the array.
+
+Mapping an array may return `NULL` in case an error is encountered by the device.
+If the mapping returned `NULL` the array has not been mapped and does not
+require a matching unmap operation.
 
 Use of the arrays inside ANARI may cause accesses at indices derived
 from parameters or other arrays (for example when drawing an indexed geometry).
