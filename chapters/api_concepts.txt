@@ -485,7 +485,8 @@ currently mapped array configuration.
 
 Devices are only required to allocate directly mapped arrays for parameters
 corresponding to extensions that the device implements. In cases where the
-parameter is unknown by the device, the device is permitted to return `NULL`.
+parameter is unknown by the device or an error is encountered, the device is
+permitted to return `NULL`.
 
 Devices are permitted to have a non-dense element stride, which is returned by
 writing to `elementStride`. The `elementStride` argument must not be `NULL`.
@@ -498,6 +499,9 @@ consume the data with
 ....
 void anariUnmapParameterArray(ANARIDevice, ANARIObject, const char *parameterName);
 ....
+
+If a parameter mapping returned `NULL` the parameter has not been mapped and does not
+require a matching unmap operation.
 
 Directly mapped arrays behave like normal parameters in that the underlying
 array data will not be used in the <<rendering_frames, next rendered frame>>
@@ -604,6 +608,10 @@ when constructing the array object. Mapping a managed array may return a
 different pointer each time it is mapped. The contents of memory mapped from
 managed arrays is undefined until written to and the entire mapped range must be
 specified before unmapping to avoid populating the array with undefined values.
+
+Mapping a managed array may return `NULL` in case an error is encountered by the device.
+If the mapping returned `NULL` the array has not been mapped and does not
+require a matching unmap operation.
 
 `ANARIArray` objects containing object handles increase the ref count
 of all objects in the array. Reference counts are updated on creation
