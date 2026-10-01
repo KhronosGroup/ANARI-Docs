@@ -36,7 +36,7 @@ from spec_tools.shared import (AUTO_FIX_STRING, EXTENSION_CATEGORY, MessageId,
 FREEFORM_CATEGORY = 'freeform'
 
 # defines mentioned in spec but not needed in registry
-EXTRA_DEFINES = ('ANAPI_ATTR', 'ANAPI_CALL', 'ANAPI_PTR', 'AN_NO_STDINT_H')
+EXTRA_DEFINES = ('ANARIAPI_ATTR', 'ANARIAPI_CALL', 'ANARIAPI_PTR', 'ANARI_NO_STDINT_H')
 
 # Extra freeform refpages in addition to EXTRA_DEFINES
 EXTRA_REFPAGES = ('WSIheaders', 'provisional-headers')
@@ -75,10 +75,10 @@ class VulkanEntityDatabase(EntityDatabase):
         return registry
 
     def getNamePrefix(self):
-        return "an"
+        return "anari"
 
     def getPlatformRequires(self):
-        return 'an_platform'
+        return 'anari_platform'
 
     def getSystemTypes(self):
         return SYSTEM_TYPES

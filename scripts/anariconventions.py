@@ -79,20 +79,20 @@ class AnariConventions(ConventionsBase):
 
     def is_structure_type_member(self, paramtype, paramname):
         """Determine if member type and name match the structure type member."""
-        return paramtype == 'AnStructureType' and paramname == self.structtype_member_name
+        return paramtype == 'ANARIStructureType' and paramname == self.structtype_member_name
 
     def is_nextpointer_member(self, paramtype, paramname):
         """Determine if member type and name match the next pointer chain member."""
         return paramtype == 'void' and paramname == self.nextpointer_member_name
 
     def generate_structure_type_from_name(self, structname):
-        """Generate a structure type name, like AN_STRUCTURE_TYPE_CREATE_INSTANCE_INFO"""
+        """Generate a structure type name, like ANARI_STRUCTURE_TYPE_CREATE_INSTANCE_INFO"""
         structure_type_parts = []
         # Tokenize into "words"
         for elem in MAIN_RE.findall(structname):
             word = elem[0]
-            if word == 'An':
-                structure_type_parts.append('AN_STRUCTURE_TYPE')
+            if word == 'ANARI':
+                structure_type_parts.append('ANARI_STRUCTURE_TYPE')
             else:
                 structure_type_parts.append(word.upper())
         return '_'.join(structure_type_parts)
@@ -128,7 +128,7 @@ class AnariConventions(ConventionsBase):
     @property
     def api_prefix(self):
         """Return API token prefix"""
-        return 'AN_'
+        return 'ANARI_'
 
     @property
     def write_contacts(self):
@@ -147,10 +147,10 @@ class AnariConventions(ConventionsBase):
 
     def is_api_name(self, name):
         """Returns True if name is in the reserved API namespace.
-        For ANARI, these are names with a case-insensitive 'an' prefix, or
-        a 'PFN_an' function pointer type prefix.
+        For ANARI, these are names with a case-insensitive 'anari' prefix, or
+        a 'PFN_anari' function pointer type prefix.
         """
-        return name[0:2].lower() == 'an' or name[0:6] == 'PFN_an'
+        return name[0:5].lower() == 'anari' or name[0:9] == 'PFN_anari'
 
     def specURL(self, spectype='api'):
         """Return public registry URL which ref pages should link to for the
@@ -184,7 +184,7 @@ class AnariConventions(ConventionsBase):
     @property
     def extension_index_prefixes(self):
         """Return a list of extension prefixes used to group extension refpages."""
-        return ['AN_KHR', 'AN_EXT', 'AN']
+        return ['ANARI_KHR', 'ANARI_EXT', 'ANARI']
 
     @property
     def unified_flag_refpages(self):
@@ -223,8 +223,8 @@ class AnariConventions(ConventionsBase):
         ANARI mostly relies on the validation layers rather than API
         builtin error checking, so these checks are not appropriate.
 
-        For example, passing in a AnFormat parameter will not potentially
-        generate an AN_ERROR_FORMAT_NOT_SUPPORTED code."""
+        For example, passing in an ANARIFormat parameter will not potentially
+        generate an ANARI_ERROR_FORMAT_NOT_SUPPORTED code."""
 
         return True
 

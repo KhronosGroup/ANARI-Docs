@@ -121,7 +121,7 @@ def makeGenOpts(args):
     ]
 
     # Text specific to ANARI headers
-    anPrefixStrings = [
+    anariPrefixStrings = [
         '/*',
         '** This header is generated from the Khronos ANARI XML API Registry.',
         '**',
@@ -156,7 +156,7 @@ def makeGenOpts(args):
             addExtensions     = addExtensionsPat,
             removeExtensions  = removeExtensionsPat,
             emitExtensions    = emitExtensionsPat,
-            prefixText        = prefixStrings + anPrefixStrings,
+            prefixText        = prefixStrings + anariPrefixStrings,
             apicall           = '',
             apientry          = '',
             apientryp         = '*',
@@ -239,15 +239,15 @@ def makeGenOpts(args):
             addExtensions     = None,
             removeExtensions  = removeExtensionsPat,
             emitExtensions    = emitExtensionsPat,
-            prefixText        = prefixStrings + anPrefixStrings,
+            prefixText        = prefixStrings + anariPrefixStrings,
             genFuncPointers   = True,
             protectFile       = protectFile,
             protectFeature    = False,
             protectProto      = '#ifndef',
-            protectProtoStr   = 'AN_NO_PROTOTYPES',
-            apicall           = 'ANAPI_ATTR ',
-            apientry          = 'ANAPI_CALL ',
-            apientryp         = 'ANAPI_PTR *',
+            protectProtoStr   = 'ANARI_NO_PROTOTYPES',
+            apicall           = 'ANARIAPI_ATTR ',
+            apientry          = 'ANARIAPI_CALL ',
+            apientryp         = 'ANARIAPI_PTR *',
             alignFuncParam    = 48,
             genEnumBeginEndRange = True)
         ]

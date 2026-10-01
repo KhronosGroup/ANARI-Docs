@@ -114,7 +114,6 @@ Details on how to register an author ID are provided below.
   ** Khronos-ratified extensions add the reserved author ID `KHR` and use
      the prefix `ANARI_KHR_`.
   ** The following author IDs are reserved and must not be used:
-  *** `AN` - To avoid confusion with the top-level AN_ prefix.
   *** `ANARI` - To avoid confusion with the top-level `ANARI_` prefix and ANARI API.
   *** `KHRONOS` - To avoid confusion with the Khronos organization.
   ** Multi-author extensions that have not been ratified by Khronos (those

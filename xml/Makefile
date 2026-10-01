@@ -70,7 +70,7 @@ validate:
 # Platforms to test
 TESTDEFS = -DVK_USE_PLATFORM_XCB_KHR -DVK_USE_PLATFORM_XLIB_KHR
 
-test: $(HEADERS) $(ANARI)/anari.h $(ANARI)/an_platform.h
+test: $(HEADERS) $(ANARI)/anari.h $(ANARI)/anari_platform.h
 	gcc -Wall -std=c99 -c -I$(INCLUDE) -I$(TESTS) $(TESTS)/htest.c
 	gcc -Wall -std=c11 -c -I$(INCLUDE) -I$(TESTS) $(TESTS)/htest.c
 	g++ -Wall -c -std=c++98 -I$(INCLUDE) -I$(TESTS) $(TESTS)/htest.c

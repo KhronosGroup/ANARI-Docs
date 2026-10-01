@@ -39,70 +39,66 @@ machine-readable definition of the API, parameter and member validation
 language incorporated into the Specification and reference pages, and other
 material which is registered by Khronos, such as tags used by extension and
 layer authors. The authoritative public version of anari.xml is maintained in
-the master branch of the Khronos ANARI GitHub project. The authoritative
-private version is maintained in the master branch of the member gitlab
+the main branch of the Khronos ANARI GitHub project. The authoritative
+private version is maintained in the main branch of the member gitlab
 server.
     </comment>
 
     <tags comment="ANARI vendor/author tags for extensions and layers">
         <tag name="KHR"         author="Khronos"                       contact="Tom Olson @tomolson"/>
         <tag name="EXT"         author="Multivendor"                   contact="Jon Leech @oddhack"/>
+        <tag name="NV"          author="NVIDIA Corporation"            contact="jamstutz@nvidia.com"/>
+        <tag name="VISRTX"      author="VisRTX (NVIDIA)"               contact="jamstutz@nvidia.com"/>
     </tags>
 
     <types comment="ANARI type definitions">
-        <type name="an_platform" category="include">#include "an_platform.h"</type>
+        <type name="anari_platform" category="include">#include "anari_platform.h"</type>
 
-            <comment>System header files that may be needed</comment>
-        <type category="include" name="X11/Xlib.h"/>
-            <comment>System types that may be needed</comment>
-        <type requires="X11/Xlib.h" name="Display"/>
-
-        <type category="define">#define <name>AN_MAKE_VERSION</name>(major, minor, patch) \
+        <type category="define">#define <name>ANARI_MAKE_VERSION</name>(major, minor, patch) \
     (((major) &lt;&lt; 22) | ((minor) &lt;&lt; 12) | (patch))</type>
-        <type category="define">#define <name>AN_VERSION_MAJOR</name>(version) ((uint32_t)(version) &gt;&gt; 22)</type>
-        <type category="define">#define <name>AN_VERSION_MINOR</name>(version) (((uint32_t)(version) &gt;&gt; 12) &amp; 0x3ff)</type>
-        <type category="define">#define <name>AN_VERSION_PATCH</name>(version) ((uint32_t)(version) &amp; 0xfff)</type>
+        <type category="define">#define <name>ANARI_VERSION_MAJOR</name>(version) ((uint32_t)(version) &gt;&gt; 22)</type>
+        <type category="define">#define <name>ANARI_VERSION_MINOR</name>(version) (((uint32_t)(version) &gt;&gt; 12) &amp; 0x3ff)</type>
+        <type category="define">#define <name>ANARI_VERSION_PATCH</name>(version) ((uint32_t)(version) &amp; 0xfff)</type>
 
         <type category="define">// ANARI 1.0 version number
-#define <name>AN_API_VERSION_1_0</name> <type>AN_MAKE_VERSION</type>(1, 0, 0)// Patch version should always be set to 0</type>
+#define <name>ANARI_API_VERSION_1_0</name> <type>ANARI_MAKE_VERSION</type>(1, 0, 0)// Patch version should always be set to 0</type>
         <type category="define">// Version of this file
-#define <name>AN_HEADER_VERSION</name> 138</type>
-        <type category="define" requires="AN_HEADER_VERSION">// Complete version of this file
-#define <name>AN_HEADER_VERSION_COMPLETE</name> <type>AN_MAKE_VERSION</type>(1, 2, AN_HEADER_VERSION)</type>
+#define <name>ANARI_HEADER_VERSION</name> 0</type>
+        <type category="define" requires="ANARI_HEADER_VERSION">// Complete version of this file
+#define <name>ANARI_HEADER_VERSION_COMPLETE</name> <type>ANARI_MAKE_VERSION</type>(1, 0, ANARI_HEADER_VERSION)</type>
 
             <comment>Aliases of builtin scalar types</comment>
-        <type category="basetype">typedef <type>uint32_t</type> <name>AnFlags</name>;</type>
-        <type category="basetype">typedef <type>uint32_t</type> <name>AnBool32</name>;</type>
+        <type category="basetype">typedef <type>uint32_t</type> <name>ANARIBool32</name>;</type>
 
-            <comment>Basic C types, pulled in via an_platform.h</comment>
-        <type requires="an_platform" name="void"/>
-        <type requires="an_platform" name="char"/>
-        <type requires="an_platform" name="float"/>
-        <type requires="an_platform" name="double"/>
-        <type requires="an_platform" name="uint8_t"/>
-        <type requires="an_platform" name="uint16_t"/>
-        <type requires="an_platform" name="uint32_t"/>
-        <type requires="an_platform" name="uint64_t"/>
-        <type requires="an_platform" name="int32_t"/>
-        <type requires="an_platform" name="int64_t"/>
-        <type requires="an_platform" name="size_t"/>
-        <type requires="an_platform" name="int"/>
+            <comment>Basic C types, pulled in via anari_platform.h</comment>
+        <type requires="anari_platform" name="void"/>
+        <type requires="anari_platform" name="char"/>
+        <type requires="anari_platform" name="float"/>
+        <type requires="anari_platform" name="double"/>
+        <type requires="anari_platform" name="uint8_t"/>
+        <type requires="anari_platform" name="uint16_t"/>
+        <type requires="anari_platform" name="uint32_t"/>
+        <type requires="anari_platform" name="uint64_t"/>
+        <type requires="anari_platform" name="int32_t"/>
+        <type requires="anari_platform" name="int64_t"/>
+        <type requires="anari_platform" name="size_t"/>
+        <type requires="anari_platform" name="int"/>
 
                 <comment>Abstract handles referring to API objects</comment>
-        <type category="handle">typedef <type>void</type> *<name>AnDevice</name>;</type>
-        <type category="handle">typedef <type>void</type> <name>_AnManagedObject</name>;</type>
-        <type category="handle">typedef <type>_AnManagedObject</type>* <name>AnObject</name>;</type>
+        <type category="handle">typedef <type>void</type> *<name>ANARIDevice</name>;</type>
+        <type category="handle">typedef <type>void</type> <name>_ANARIManagedObject</name>;</type>
+        <type category="handle">typedef <type>_ANARIManagedObject</type>* <name>ANARIObject</name>;</type>
 
             <comment>Types generated from corresponding enums tags below</comment>
-        <type name="AnError" category="enum"/>
-        <type name="AnDeviceProperty" category="enum"/>
+        <type name="ANARIError" category="enum"/>
+        <type name="ANARIDeviceProperty" category="enum"/>
 
         <comment>Callback functions pointer types</comment>
-        <type category="funcpointer">typedef void (ANAPI_PTR *<name>AnStatusFunc</name>)(
+        <type category="funcpointer">typedef void (ANARIAPI_PTR *<name>ANARIStatusFunc</name>)(
     const <type>char</type>*                                 messageText);</type>
 
             <comment>Struct types</comment>
-        <type category="struct" name="AnBounds">
+        <type category="struct" name="ANARIBounds">
             <member><type>float</type> <name>lower</name>[3]</member>
             <member><type>float</type> <name>upper</name>[3]</member>
         </type>
@@ -111,8 +107,8 @@ server.
     <comment>ANARI enumerant (token) definitions</comment>
 
     <enums name="API Constants" comment="ANARI hardcoded constants - not an enumerated type, part of the header boilerplate">
-        <enum value="1"     name="AN_TRUE"/>
-        <enum value="0"     name="AN_FALSE"/>
+        <enum value="1"     name="ANARI_TRUE"/>
+        <enum value="0"     name="ANARI_FALSE"/>
     </enums>
 
     <comment>
@@ -124,86 +120,85 @@ server.
         be generated inside an appropriate definition.
     </comment>
 
-    <enums name="AnError" type="enum">
-        <enum value="0"     name="AN_NO_ERROR"/>
-        <enum value="1"     name="AN_UNKNOWN_ERROR"/>
-        <enum value="2"     name="AN_INVALID_ARGUMENT"/>
-        <enum value="3"     name="AN_INVALID_OPERATION"/>
-        <enum value="4"     name="AN_OUT_OF_MEMORY"/>
-        <enum value="5"     name="AN_UNSUPPORTED_CPU"/>
-        <enum value="6"     name="AN_VERSION_MISMATCH"/>
+    <enums name="ANARIError" type="enum">
+        <enum value="0"     name="ANARI_NO_ERROR"/>
+        <enum value="1"     name="ANARI_UNKNOWN_ERROR"/>
+        <enum value="2"     name="ANARI_INVALID_ARGUMENT"/>
+        <enum value="3"     name="ANARI_INVALID_OPERATION"/>
+        <enum value="4"     name="ANARI_OUT_OF_MEMORY"/>
+        <enum value="5"     name="ANARI_UNSUPPORTED_CPU"/>
+        <enum value="6"     name="ANARI_VERSION_MISMATCH"/>
     </enums>
-    <enums name="AnDeviceProperty" type="enum">
-        <enum value="0"     name="AN_DEVICE_VERSION"/>
-        <enum value="1"     name="AN_DEVICE_VERSION_MAJOR"/>
-        <enum value="2"     name="AN_DEVICE_VERSION_MINOR"/>
-        <enum value="3"     name="AN_DEVICE_VERSION_PATCH"/>
-        <enum value="4"     name="AN_DEVICE_SO_VERSION"/>
+    <enums name="ANARIDeviceProperty" type="enum">
+        <enum value="0"     name="ANARI_DEVICE_VERSION"/>
+        <enum value="1"     name="ANARI_DEVICE_VERSION_MAJOR"/>
+        <enum value="2"     name="ANARI_DEVICE_VERSION_MINOR"/>
+        <enum value="3"     name="ANARI_DEVICE_VERSION_PATCH"/>
+        <enum value="4"     name="ANARI_DEVICE_SO_VERSION"/>
     </enums>
 
     <commands comment="ANARI command definitions">
         <command>
-            <proto><type>AnError</type> <name>anInit</name></proto>
+            <proto><type>ANARIError</type> <name>anariInit</name></proto>
             <param><type>int</type>* <name>argc</name></param>
             <param>const <type>char</type>** <name>argv</name></param>
         </command>
         <command>
-            <proto><type>int64_t</type> <name>anDeviceGetProperty</name></proto>
-            <param><type>AnDevice</type> <name>device</name></param>
-            <param><type>AnDeviceProperty</type> <name>property</name></param>
+            <proto><type>int64_t</type> <name>anariDeviceGetProperty</name></proto>
+            <param><type>ANARIDevice</type> <name>device</name></param>
+            <param><type>ANARIDeviceProperty</type> <name>property</name></param>
         </command>
         <command>
-            <proto><type>void</type> <name>anShutdown</name></proto>
+            <proto><type>void</type> <name>anariShutdown</name></proto>
         </command>
         <command>
-            <proto><type>AnDevice</type> <name>anNewDevice</name></proto>
+            <proto><type>ANARIDevice</type> <name>anariNewDevice</name></proto>
             <param>const <type>char</type>* <name>deviceType</name></param>
         </command>
         <command>
-            <proto><type>void</type> <name>anSetCurrentDevice</name></proto>
-            <param><type>AnDevice</type> <name>device</name></param>
+            <proto><type>void</type> <name>anariSetCurrentDevice</name></proto>
+            <param><type>ANARIDevice</type> <name>device</name></param>
         </command>
         <command>
-            <proto><type>void</type> <name>anDeviceSetStatusFunc</name></proto>
-            <param><type>AnDevice</type> <name>device</name></param>
-            <param><type>AnStatusFunc</type> <name>callback</name></param>
+            <proto><type>void</type> <name>anariDeviceSetStatusFunc</name></proto>
+            <param><type>ANARIDevice</type> <name>device</name></param>
+            <param><type>ANARIStatusFunc</type> <name>callback</name></param>
         </command>
         <command>
-            <proto><type>AnBounds</type> <name>anGetBounds</name></proto>
-            <param><type>AnObject</type> <name>object</name></param>
+            <proto><type>ANARIBounds</type> <name>anariGetBounds</name></proto>
+            <param><type>ANARIObject</type> <name>object</name></param>
         </command>
     </commands>
 
-    <feature api="anari" name="AN_VERSION_1_0" number="1.0" comment="ANARI core API interface definitions">
+    <feature api="anari" name="ANARI_VERSION_1_0" number="1.0" comment="ANARI core API interface definitions">
         <require comment="Header boilerplate">
-            <type name="an_platform"/>
+            <type name="anari_platform"/>
         </require>
         <require comment="API version">
-            <type name="AN_API_VERSION_1_0"/>
-            <type name="AN_VERSION_MAJOR"/>
-            <type name="AN_VERSION_MINOR"/>
-            <type name="AN_VERSION_PATCH"/>
-            <type name="AN_HEADER_VERSION"/>
-            <type name="AN_HEADER_VERSION_COMPLETE"/>
+            <type name="ANARI_API_VERSION_1_0"/>
+            <type name="ANARI_VERSION_MAJOR"/>
+            <type name="ANARI_VERSION_MINOR"/>
+            <type name="ANARI_VERSION_PATCH"/>
+            <type name="ANARI_HEADER_VERSION"/>
+            <type name="ANARI_HEADER_VERSION_COMPLETE"/>
         </require>
         <require comment="API constants">
-            <enum name="AN_TRUE"/>
-            <enum name="AN_FALSE"/>
+            <enum name="ANARI_TRUE"/>
+            <enum name="ANARI_FALSE"/>
         </require>
         <require comment="Types">
-            <type name="AnBool32"/>
-            <type name="AnDevice"/>
-            <type name="AnDeviceProperty"/>
+            <type name="ANARIBool32"/>
+            <type name="ANARIDevice"/>
+            <type name="ANARIDeviceProperty"/>
         </require>
         <require comment="Commands">
-            <command name="anInit"/>
-            <command name="anDeviceGetProperty"/>
-            <command name="anShutdown"/>
-            <command name="anNewDevice"/>
-            <command name="anSetCurrentDevice"/>
-            <command name="anDeviceSetStatusFunc"/>
-            <command name="anGetBounds"/>
-            <command name="anDeviceSetStatusFunc"/>
+            <command name="anariInit"/>
+            <command name="anariDeviceGetProperty"/>
+            <command name="anariShutdown"/>
+            <command name="anariNewDevice"/>
+            <command name="anariSetCurrentDevice"/>
+            <command name="anariDeviceSetStatusFunc"/>
+            <command name="anariGetBounds"/>
         </require>
     </feature>
 
