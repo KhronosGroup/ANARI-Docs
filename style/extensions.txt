@@ -114,7 +114,6 @@ Details on how to register an author ID are provided below.
   ** Khronos-ratified extensions add the reserved author ID `KHR` and use
      the prefix `ANARI_KHR_`.
   ** The following author IDs are reserved and must not be used:
-  *** `AN` - To avoid confusion with the top-level AN_ prefix.
   *** `ANARI` - To avoid confusion with the top-level `ANARI_` prefix and ANARI API.
   *** `KHRONOS` - To avoid confusion with the Khronos organization.
   ** Multi-author extensions that have not been ratified by Khronos (those
@@ -165,7 +164,7 @@ section above.
 
 The canonical definition of the ANARI APIs is kept in an XML file known as
 the *ANARI registry*.
-The registry is kept in `docs/xml/an.xml` in the `main` branch of the
+The registry is kept in `docs/xml/anari.xml` in the `main` branch of the
 KhronosGroup/ANARI project, containing the most
 recently released ANARI API specification.
 The registry contains reserved author IDs, core and extension interface
@@ -196,7 +195,7 @@ The same mechanism will be used to request registration of extensions
 with Khronos, as described below.
 
 To reserve an author ID, propose a merge request against
-<<extensions-api-registry,`an.xml`>> in the `main` branch.
+<<extensions-api-registry,`anari.xml`>> in the `main` branch.
 The merge must add a `<tag>` XML tag and fill in the `name`, `author` and
 `contact` attributes with the requested author ID, the author's formal name
 (e.g. company or project name), and contact email address, respectively.
@@ -218,7 +217,7 @@ While vendor IDs are not directly related to API extensions, the reservation
 process is similar, and so is described in this section.
 
 To reserve a Khronos vendor ID, you must first have a Khronos author ID.
-Propose a merge request against <<extensions-api-registry,`an.xml`>> in the
+Propose a merge request against <<extensions-api-registry,`anari.xml`>> in the
 `main` branch.
 The merge must define a new enumerant by adding an `<enum>` tag to the
 `ANARIVendorId` `<enums>` tag, following the existing examples.
@@ -238,9 +237,9 @@ that purpose.
 ====
 Other Khronos APIs such as OpenCL also utilize vendor IDs and share the
 Khronos vendor ID space.
-To obtain a vendor ID for these APIs, first reserve it in ANARI's `an.xml`
+To obtain a vendor ID for these APIs, first reserve it in ANARI's `anari.xml`
 and once that's done, utilize it in the other API.
-To avoid collisions, we are currently utilizing `an.xml` as the central
+To avoid collisions, we are currently utilizing `anari.xml` as the central
 Khronos vendor ID registry.
 ====
 
@@ -250,16 +249,16 @@ Extensions must be registered with Khronos.
 Registration means:
 
   * Receiving an extension number.
-  * Adding the extension or layer name to the list in `an.xml` and appearing
+  * Adding the extension or layer name to the list in `anari.xml` and appearing
     on the Khronos registry website, which will link to associated
     documentation hosted on Khronos.
   * For extensions which add to the ANARI API, including definitions of
-    those additions to `an.xml`.
+    those additions to `anari.xml`.
 
 Registration for Khronos members is handled by filing a merge request in the
 internal gitlab repository against the branch containing the core
 specification against which the extension or layer will be written.
-The merge must modify `an.xml` to define extension names, API interfaces,
+The merge must modify `anari.xml` to define extension names, API interfaces,
 and related information.
 Registration is not complete until the registry maintainer has validated and
 accepted the merge.
@@ -270,7 +269,7 @@ Non-Khronos members who want to create extensions must register with Khronos
 by creating a GitHub account, and registering their author ID
 to that account.
 They can then submit new extension registration requests by proposing merges
-to `an.xml`.
+to `anari.xml`.
 On acceptance of the merge, the extension will be registered, though its
 specification need not be checked into the Khronos GitHub repository at that
 point.
@@ -279,7 +278,7 @@ The registration process can be split into several steps to accommodate
 extension number assignment prior to extension publication:
 
   * Acquire an extension number.
-    This is done by proposing a merge request against `an.xml` similarly to
+    This is done by proposing a merge request against `anari.xml` similarly to
     how <<extensions-author-ID,author IDs are reserved>>.
     The merge should add a new `<extension>` tag at the end of the file with
     attributes specifying the proposed extension `name`, the next unused
@@ -292,12 +291,12 @@ extension number assignment prior to extension publication:
   * Publish the extension to Khronos using the previously registered
     extension number, by submitting merge requests to the `main` branch
     defining the changes specific to the extension.
-    Changes to both the specification source, and to `an.xml` will be
+    Changes to both the specification source, and to `anari.xml` will be
     needed.
   ** Extension changes to the specification source must be protected by
      asciidoctor conditionals as described in the
      <<extensions-documenting,Documenting Extensions>> section.
-  ** Changes to `an.xml` must define the extension interfaces in the
+  ** Changes to `anari.xml` must define the extension interfaces in the
      `<extension>` block, and must also change the `supported` attribute
      value of the `<extension>` to `supported="anari"`.
   ** When publishing an extension, mark it as enabled by proposing a merge
@@ -322,7 +321,7 @@ extension number assignment prior to extension publication:
   * It is still possible to publish a separate branch of the repository with
     appropriate changes relative to the core ANARI API branch instead, but
     this approach is deprecated and discouraged.
-    If this is done, all changes to `an.xml` must still be made in the
+    If this is done, all changes to `anari.xml` must still be made in the
     `main` branch.
 
 ifdef::editing-notes[]
@@ -356,7 +355,7 @@ extension when the Makefile is invoked appropriately.
 
 Most language defining extensions can be localized either into a small
 number of asciidoctor include files which are conditionally included in the
-core specification chapters and appendices, or into parts of `an.xml`
+core specification chapters and appendices, or into parts of `anari.xml`
 defining the extension interfaces.
 
 [NOTE]
@@ -391,7 +390,7 @@ Another link to the `apiext:ANARI_KHR_geometric_model` extension.
   * In the preamble to the appendix, start with an asciidoctor `include` of
     the automatically generated meta information.
     This information includes the extension name string, type, number,
-    revision, and contact information from `an.xml`.
+    revision, and contact information from `anari.xml`.
   * Following the `include`, add as many of the following items as are
     meaningful:
   ** *Status* - *Complete*, *Draft*, or other.
@@ -431,7 +430,7 @@ Another link to the `apiext:ANARI_KHR_geometric_model` extension.
   ** *Version History* (in itemized list style, describing significant
      functional changes to the extension during its development).
   * Each extension's appendix file is automatically included from
-    `appendices/extensions.txt` via code generated from `an.xml`.
+    `appendices/extensions.txt` via code generated from `anari.xml`.
     It is no longer necessary to explicitly include the appendices.
   * Extensions usually make significant additions and changes to the ANARI
     specification.
@@ -494,7 +493,7 @@ Another link to the `apiext:ANARI_KHR_geometric_model` extension.
     also enables the functionality that was previously enabled by enabling
     the previously-new extension (A).
   * For vendor extensions, changes made to existing core Specification
-    source files and to `an.xml` all fall under the Contributor License
+    source files and to `anari.xml` all fall under the Contributor License
     Agreement.
     Vendors may use their own copyright on new files they add to the
     `main` branch, although that copyright must be compatible with the
@@ -718,7 +717,7 @@ Values are calculated as follows:
   * Negative values: [eq]#enum_offset(_extension_number_, _offset_})#
 
 The exact syntax for specifying extension enumerant values is defined in the
-`readme.pdf` specifying the format of `an.xml`, and extension authors can
+`readme.pdf` specifying the format of `anari.xml`, and extension authors can
 also refer to existing extensions for examples.
 
 If an extension becomes part of core, the enumerant values should remain the
@@ -775,7 +774,7 @@ In some cases, a new flags type will be defined with no individual bits yet
 specified.
 This usage occurs when the flags are intended for future expansion.
 In this case, even though the corresponding bitmask type is not yet useful,
-the (empty) bitmask type should be defined in `an.xml`.
+the (empty) bitmask type should be defined in `anari.xml`.
 The empty bitmask type and corresponding flags type should be given
 boilerplate definitions in the specification.
 

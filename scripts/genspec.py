@@ -137,7 +137,7 @@ def buildBranch(targetDir,
     - `repoDir` = path to the ANARI git repo containing the specs
     - `outDir` = path to the output base directory in which targets are generated"""
 
-    # Directory with an.xml and generation tools
+    # Directory with anari.xml and generation tools
     xmlDir = repoDir + '/xml'
     # Directory with spec sources
     specDir = repoDir
