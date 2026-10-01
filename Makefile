@@ -91,7 +91,7 @@ VERBOSE =
 
 # asciidoc attributes to set (defaults are usually OK)
 # NOTEOPTS sets options controlling which NOTEs are generated
-# PATCHVERSION must equal AN_HEADER_VERSION from an.xml
+# PATCHVERSION must equal AN_HEADER_VERSION from anari.xml
 # ATTRIBOPTS sets the API revision and enables KaTeX generation
 # VERSIONATTRIBS sets attributes for enabled API versions (set above
 #	     based on $(VERSIONS))
@@ -477,7 +477,7 @@ manaliases: $(SCRIPTS)/anapi.py
 # '-diag diag'
 
 REGISTRY   = xml
-XML	   = $(REGISTRY)/an.xml
+XML	   = $(REGISTRY)/anari.xml
 GENSCRIPT      = $(SCRIPTS)/genan.py
 GENSCRIPTOPTS  = $(VERSIONOPTIONS) $(EXTOPTIONS) $(GENSCRIPTEXTRA) -registry $(XML)
 GENSCRIPTEXTRA =
@@ -511,11 +511,11 @@ $(METADEPEND): $(XML) $(GENSCRIPT)
 
 # Debugging aid - generate all files from registry XML
 # This leaves out config/extDependency.sh intentionally as it only
-# needs to be updated when the extension dependencies in an.xml change.
+# needs to be updated when the extension dependencies in anari.xml change.
 
 generated: $(SCRIPTS)/anapi.py $(GENDEPENDS)
 
-# Extension dependencies derived from an.xml
+# Extension dependencies derived from anari.xml
 # Both Bash and Python versions are generated
 
 config/extDependency.sh: config/extDependency.stamp

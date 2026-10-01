@@ -75,7 +75,7 @@ class EntityDatabase(OrigEntityDatabase):
         if not HAS_LXML:
             return super().makeRegistry()
 
-        registryFile = str(SPECIFICATION_DIR / 'xml/an.xml')
+        registryFile = str(SPECIFICATION_DIR / 'xml/anari.xml')
         registry = Registry()
         registry.filename = registryFile
         registry.loadElementTree(etree.parse(registryFile))

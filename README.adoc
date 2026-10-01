@@ -65,9 +65,9 @@ See link:xml/README.adoc[xml/README.adoc].
 
 The header files (`include/anari/anari*.h`) and many parts of the
 specification and reference page documents are generated from descriptions
-in the XML API Registry (`xml/an.xml`).
+in the XML API Registry (`xml/anari.xml`).
 The generated files are not checked into the repository.
-If you change `an.xml`, you can regenerate the headers by going into
+If you change `anari.xml`, you can regenerate the headers by going into
 `xml/` and running:
 
     $ make clean install

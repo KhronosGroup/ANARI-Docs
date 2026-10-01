@@ -69,7 +69,7 @@ class VulkanEntityDatabase(EntityDatabase):
         self._conditionally_recognized = set(('fname', 'sname'))
 
     def makeRegistry(self):
-        registryFile = str(ROOT / 'xml/an.xml')
+        registryFile = str(ROOT / 'xml/anari.xml')
         registry = Registry()
         registry.loadFile(registryFile)
         return registry
