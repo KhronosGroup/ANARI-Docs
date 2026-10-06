@@ -29,9 +29,13 @@ the table below.
 |===================================================================================================
 | Name    | Type           |    Default | Description
 | data    |`ARRAY3D` of `UFIXED8` / `FIXED16` / `UFIXED16` / `FLOAT32` / `FLOAT64` | | the actual
-					  field values for the 3D grid, i.e., the scalars are
-					  vertex-centered; the size of the spatial field is inferred
-                                          from `data`
+					  field values for the 3D grid; per default the the scalars
+					  are vertex-centered; the size of the spatial field is
+                                          inferred from `data`
+| cellCentered |`BOOL`     |    `FALSE` | extension
+                                          `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR_CELL_CENTERED`,
+                                          whether the values of `data` are cell-centered instead
+                                          of vertex-centered
 | origin  |`FLOAT32_VEC3`  |  (0, 0, 0) | origin of the grid in object-space
 | spacing |`FLOAT32_VEC3`  |  (1, 1, 1) | size of the grid cells in object-space
 | filter  |`STRING`        |    `linear`| filter used for reconstructing the field,
@@ -39,10 +43,16 @@ the table below.
 |===================================================================================================
 
 The spatial field grid can be moved with `origin` and scaled with `spacing`, in
-local object coordinates. The spatial field data is interpreted to be
+local object coordinates. By default the spatial field data is interpreted to be
 vertex-centered, which means at least two data values need to be
 specified in each dimension to avoid a degenerated spatial field. Its local
 bounds are [`origin`, `origin` + (`data`.size - 1) {times} `spacing`].
+
+[[extension_spatial_field_structured_regular_cell_centered]]
+The `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR_CELL_CENTERED` extension adds the
+`cellCentered` parameter, which allows to specify that the values of `data` are
+located at the centers of the grid cells. The local bounds of a cell-centered
+spatial field are then [`origin`, `origin` + `data`.size {times} `spacing`].
 
 Applications which set unknown values for `filter` will result in the default
 being used.
