@@ -37,19 +37,14 @@ This file, anari.xml, is the ANARI API Registry. It is a critically important
 and normative part of the ANARI Specification, including a canonical
 machine-readable definition of the API, parameter and member validation
 language incorporated into the Specification and reference pages, and other
-material which is registered by Khronos, such as tags used by extension and
-layer authors. The authoritative public version of anari.xml is maintained in
+material which is registered by Khronos. Extension author IDs (vendor tags)
+are not registered here; the master list is prefixes.csv in
+https://github.com/KhronosGroup/ANARI-Community-Extensions.
+The authoritative public version of anari.xml is maintained in
 the main branch of the Khronos ANARI GitHub project. The authoritative
 private version is maintained in the main branch of the member gitlab
 server.
     </comment>
-
-    <tags comment="ANARI vendor/author tags for extensions and layers">
-        <tag name="KHR"         author="Khronos"                       contact="Tom Olson @tomolson"/>
-        <tag name="EXT"         author="Multivendor"                   contact="Jon Leech @oddhack"/>
-        <tag name="NV"          author="NVIDIA Corporation"            contact="jamstutz@nvidia.com"/>
-        <tag name="VISRTX"      author="VisRTX (NVIDIA)"               contact="jamstutz@nvidia.com"/>
-    </tags>
 
     <types comment="ANARI type definitions">
         <type name="anari_platform" category="include">#include "anari_platform.h"</type>

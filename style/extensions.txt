@@ -100,7 +100,9 @@ Extension names also contain an _author ID_, indicated by
 `<author>` above, identifying the author of the extension.
 This ID is a short, capitalized string identifying an author, such as a
 Khronos member developing ANARI implementations for their devices.
-Author IDs must be registered with Khronos.
+Author IDs must be registered in the
+link:https://github.com/KhronosGroup/ANARI-Community-Extensions[ANARI-Community-Extensions]
+repository, which holds the master list of reserved author IDs.
 
 Some authors have platform communities they wish to distinguish between, and
 can register additional author IDs for that purpose.
@@ -167,7 +169,7 @@ the *ANARI registry*.
 The registry is kept in `docs/xml/anari.xml` in the `main` branch of the
 KhronosGroup/ANARI project, containing the most
 recently released ANARI API specification.
-The registry contains reserved author IDs, core and extension interface
+The registry contains core and extension interface
 definitions, definitions of individual commands and structures, and other
 information which must be agreed on by all implementations.
 The registry is used to maintain a single, consistent global namespace for
@@ -178,28 +180,28 @@ Other uses of the registry outside Khronos include a variety of language binding
 
 
 [[extensions-author-ID]]
-== Registering an Author ID with Khronos
+== Registering an Author ID
 
 Previous Khronos APIs could only officially be modified by Khronos members.
 In an effort to build a more flexible platform, ANARI allows non-Khronos
 developers to extend and modify the API via extensions in the
 same manner as Khronos members.
-However, extensions must still be registered with Khronos.
-A mechanism for non-members to register extensions is provided.
+However, author IDs must still be registered, so that no two authors claim
+the same one.
 
-Extension authors will be able to create an account on GitHub and register
-an author ID with Khronos through the
-KhronosGroup/ANARI project.
-The author ID must be used for any extensions that author registers.
-The same mechanism will be used to request registration of extensions
-with Khronos, as described below.
+The master list of reserved author IDs is `prefixes.csv` in the
+link:https://github.com/KhronosGroup/ANARI-Community-Extensions[KhronosGroup/ANARI-Community-Extensions]
+repository on GitHub, maintained by the ANARI Working Group.
+The author ID must be used for any extensions that author publishes.
+Registering an author ID does not require publishing any extensions in that
+repository.
 
-To reserve an author ID, propose a merge request against
-<<extensions-api-registry,`anari.xml`>> in the `main` branch.
-The merge must add a `<tag>` XML tag and fill in the `name`, `author` and
-`contact` attributes with the requested author ID, the author's formal name
-(e.g. company or project name), and contact email address, respectively.
-The author ID will only be reserved once this merge request is accepted.
+To reserve an author ID, open a pull request against that repository adding
+a row to `prefixes.csv` with the requested author ID, the author's formal
+name (e.g. company or project name), and a contact email address or GitHub
+handle.
+The repository's `CONTRIBUTING.md` describes the exact format.
+The author ID will only be reserved once this pull request is accepted.
 
 Please do not try to reserve author IDs which clearly belong to another
 existing company or project which may wish to develop ANARI extensions or
@@ -216,7 +218,8 @@ Khronos vendor IDs are reserved in a similar fashion to
 While vendor IDs are not directly related to API extensions, the reservation
 process is similar, and so is described in this section.
 
-To reserve a Khronos vendor ID, you must first have a Khronos author ID.
+To reserve a Khronos vendor ID, you must first have a registered
+<<extensions-author-ID,author ID>>.
 Propose a merge request against <<extensions-api-registry,`anari.xml`>> in the
 `main` branch.
 The merge must define a new enumerant by adding an `<enum>` tag to the
