@@ -121,7 +121,7 @@ def makeGenOpts(args):
     ]
 
     # Text specific to ANARI headers
-    anPrefixStrings = [
+    anariPrefixStrings = [
         '/*',
         '** This header is generated from the Khronos ANARI XML API Registry.',
         '**',
@@ -156,7 +156,7 @@ def makeGenOpts(args):
             addExtensions     = addExtensionsPat,
             removeExtensions  = removeExtensionsPat,
             emitExtensions    = emitExtensionsPat,
-            prefixText        = prefixStrings + anPrefixStrings,
+            prefixText        = prefixStrings + anariPrefixStrings,
             apicall           = '',
             apientry          = '',
             apientryp         = '*',
@@ -239,15 +239,15 @@ def makeGenOpts(args):
             addExtensions     = None,
             removeExtensions  = removeExtensionsPat,
             emitExtensions    = emitExtensionsPat,
-            prefixText        = prefixStrings + anPrefixStrings,
+            prefixText        = prefixStrings + anariPrefixStrings,
             genFuncPointers   = True,
             protectFile       = protectFile,
             protectFeature    = False,
             protectProto      = '#ifndef',
-            protectProtoStr   = 'AN_NO_PROTOTYPES',
-            apicall           = 'ANAPI_ATTR ',
-            apientry          = 'ANAPI_CALL ',
-            apientryp         = 'ANAPI_PTR *',
+            protectProtoStr   = 'ANARI_NO_PROTOTYPES',
+            apicall           = 'ANARIAPI_ATTR ',
+            apientry          = 'ANARIAPI_CALL ',
+            apientryp         = 'ANARIAPI_PTR *',
             alignFuncParam    = 48,
             genEnumBeginEndRange = True)
         ]
@@ -331,8 +331,8 @@ if __name__ == '__main__':
     parser.add_argument('-profile', action='store_true',
                         help='Enable profiling')
     parser.add_argument('-registry', action='store',
-                        default='an.xml',
-                        help='Use specified registry file instead of an.xml')
+                        default='anari.xml',
+                        help='Use specified registry file instead of anari.xml')
     parser.add_argument('-time', action='store_true',
                         help='Enable timing')
     parser.add_argument('-validate', action='store_true',

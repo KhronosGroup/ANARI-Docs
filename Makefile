@@ -5,9 +5,9 @@
 #
 # To build the spec with a specific version included, set the
 # $(VERSIONS) variable on the make command line to a space-separated
-# list of version names (e.g. AN_VERSION_1_2) *including all previous
-# versions of the API* (e.g. AN_VERSION_1_1 must also include
-# AN_VERSION_1_0). $(VERSIONS) is converted into asciidoc and generator
+# list of version names (e.g. ANARI_VERSION_1_2) *including all previous
+# versions of the API* (e.g. ANARI_VERSION_1_1 must also include
+# ANARI_VERSION_1_0). $(VERSIONS) is converted into asciidoc and generator
 # script arguments $(VERSIONATTRIBS) and $(VERSIONOPTIONS)
 #
 # To build the specification / reference pages (refpages) with optional
@@ -21,7 +21,7 @@
 # runs of `make`.
 .DELETE_ON_ERROR:
 
-VERSIONS := AN_VERSION_1_0
+VERSIONS := ANARI_VERSION_1_0
 VERSIONATTRIBS := $(foreach version,$(VERSIONS),-a $(version))
 VERSIONOPTIONS := $(foreach version,$(VERSIONS),-feature $(version))
 
@@ -91,7 +91,7 @@ VERBOSE =
 
 # asciidoc attributes to set (defaults are usually OK)
 # NOTEOPTS sets options controlling which NOTEs are generated
-# PATCHVERSION must equal AN_HEADER_VERSION from an.xml
+# PATCHVERSION must equal ANARI_HEADER_VERSION from anari.xml
 # ATTRIBOPTS sets the API revision and enables KaTeX generation
 # VERSIONATTRIBS sets attributes for enabled API versions (set above
 #	     based on $(VERSIONS))
@@ -360,7 +360,7 @@ MANSECTION  := 3
 # Changing MANSOURCES to e.g. $(CORESOURCES) will restore older behavior.
 
 KHRSOURCES   = $(wildcard $(MANDIR)/*KHR.txt)
-MACROSOURCES = $(wildcard $(MANDIR)/AN_*[A-Z][A-Z].txt)
+MACROSOURCES = $(wildcard $(MANDIR)/ANARI_*[A-Z][A-Z].txt)
 VENSOURCES   = $(filter-out $(KHRSOURCES) $(MACROSOURCES),$(wildcard $(MANDIR)/*[A-Z][A-Z].txt))
 CORESOURCES  = $(filter-out $(KHRSOURCES) $(VENSOURCES),$(wildcard $(MANDIR)/[Vv][Kk]*.txt $(MANDIR)/PFN*.txt))
 MANSOURCES   = $(wildcard $(MANDIR)/[Vv][Kk]*.txt $(MANDIR)/PFN*.txt)
@@ -477,7 +477,7 @@ manaliases: $(SCRIPTS)/anapi.py
 # '-diag diag'
 
 REGISTRY   = xml
-XML	   = $(REGISTRY)/an.xml
+XML	   = $(REGISTRY)/anari.xml
 GENSCRIPT      = $(SCRIPTS)/genan.py
 GENSCRIPTOPTS  = $(VERSIONOPTIONS) $(EXTOPTIONS) $(GENSCRIPTEXTRA) -registry $(XML)
 GENSCRIPTEXTRA =
@@ -511,11 +511,11 @@ $(METADEPEND): $(XML) $(GENSCRIPT)
 
 # Debugging aid - generate all files from registry XML
 # This leaves out config/extDependency.sh intentionally as it only
-# needs to be updated when the extension dependencies in an.xml change.
+# needs to be updated when the extension dependencies in anari.xml change.
 
 generated: $(SCRIPTS)/anapi.py $(GENDEPENDS)
 
-# Extension dependencies derived from an.xml
+# Extension dependencies derived from anari.xml
 # Both Bash and Python versions are generated
 
 config/extDependency.sh: config/extDependency.stamp

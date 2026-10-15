@@ -25,13 +25,13 @@ SCRIPTS = ../scripts
 GENOPTS =
 
 # Generate ANARI header from XML. Many other files can be generated
-# from an.xml using the scripts, but they are all generated in ../ as
+# from anari.xml using the scripts, but they are all generated in ../ as
 # part of the process of building the Specification.
 #
 # Targets:
 #
 # default / install - regenerate headers in ../include/anari/.
-# validate - run XML validator on an.xml against the schema.
+# validate - run XML validator on anari.xml against the schema.
 # test - check if anari_core.h compiles.
 # clean_dirt - remove intermediate files.
 # clean - remove installed and intermediate files.
@@ -40,7 +40,7 @@ INCLUDE     = ../include
 TESTS	    = ../tests
 ANARI	    = $(INCLUDE)/anari
 SRC	    = ../src
-XML	    = an.xml
+XML	    = anari.xml
 
 # ANARI platform-specific headers - none yet
 PLATFORM_HEADERS =
@@ -70,7 +70,7 @@ validate:
 # Platforms to test
 TESTDEFS = -DVK_USE_PLATFORM_XCB_KHR -DVK_USE_PLATFORM_XLIB_KHR
 
-test: $(HEADERS) $(ANARI)/anari.h $(ANARI)/an_platform.h
+test: $(HEADERS) $(ANARI)/anari.h $(ANARI)/anari_platform.h
 	gcc -Wall -std=c99 -c -I$(INCLUDE) -I$(TESTS) $(TESTS)/htest.c
 	gcc -Wall -std=c11 -c -I$(INCLUDE) -I$(TESTS) $(TESTS)/htest.c
 	g++ -Wall -c -std=c++98 -I$(INCLUDE) -I$(TESTS) $(TESTS)/htest.c

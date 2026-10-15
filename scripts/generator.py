@@ -454,7 +454,10 @@ class OutputGenerator:
 
         # Break the group name into prefix and suffix portions for range
         # enum generation
-        expandName = re.sub(r'([0-9a-z_])([A-Z0-9])', r'\1_\2', groupName).upper()
+        # The second substitution splits an all-caps prefix from the
+        # following word, e.g. ANARIDevice_Property -> ANARI_Device_Property
+        expandName = re.sub(r'([0-9a-z_])([A-Z0-9])', r'\1_\2', groupName)
+        expandName = re.sub(r'([A-Z])([A-Z][a-z])', r'\1_\2', expandName).upper()
         expandPrefix = expandName
         expandSuffix = ''
         expandSuffixMatch = re.search(r'[A-Z][A-Z]+$', groupName)

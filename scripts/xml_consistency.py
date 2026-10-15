@@ -31,7 +31,7 @@ from anariconventions import AnariConventions as APIConventions
 # Most extensions have theier meta-enums named with just an uppercase version of their name,
 # but some are weird.
 EXTENSION_ENUM_NAME_SPELLING_CHANGE = {
-    'AN_EXT_swapchain_colorspace': 'AN_EXT_SWAPCHAIN_COLOR_SPACE',
+    'ANARI_EXT_swapchain_colorspace': 'ANARI_EXT_SWAPCHAIN_COLOR_SPACE',
 }
 
 
@@ -51,8 +51,8 @@ def get_enum_value_names(reg, enum_type):
     return names
 
 
-DESTROY_PREFIX = "anDestroy"
-TYPEENUM = "AnStructureType"
+DESTROY_PREFIX = "anariDestroy"
+TYPEENUM = "ANARIStructureType"
 
 
 SPECIFICATION_DIR = Path(__file__).parent.parent
@@ -75,7 +75,7 @@ class EntityDatabase(OrigEntityDatabase):
         if not HAS_LXML:
             return super().makeRegistry()
 
-        registryFile = str(SPECIFICATION_DIR / 'xml/an.xml')
+        registryFile = str(SPECIFICATION_DIR / 'xml/anari.xml')
         registry = Registry()
         registry.filename = registryFile
         registry.loadElementTree(etree.parse(registryFile))
@@ -89,7 +89,7 @@ class Checker(XMLChecker):
             # the codes of the value (string, list, or tuple)
             # are available for a command if-and-only-if
             # the key type is passed as an input.
-            # "VkFormat": "AN_ERROR_FORMAT_NOT_SUPPORTED"
+            # "VkFormat": "ANARI_ERROR_FORMAT_NOT_SUPPORTED"
         }
         forward_only = {
             # Like the above, but these are only valid in the
@@ -161,13 +161,13 @@ class Checker(XMLChecker):
                        if is_count_output(name, elt)]
         if countParams:
             assert(len(countParams) == 1)
-            if 'AN_INCOMPLETE' not in successcodes:
+            if 'ANARI_INCOMPLETE' not in successcodes:
                 self.record_error(
-                    "Apparent enumeration of an array without AN_INCOMPLETE in successcodes.")
+                    "Apparent enumeration of an array without ANARI_INCOMPLETE in successcodes.")
 
-        elif 'AN_INCOMPLETE' in successcodes:
+        elif 'ANARI_INCOMPLETE' in successcodes:
             self.record_error(
-                "AN_INCOMPLETE in successcodes of command that is apparently not an array enumeration.")
+                "ANARI_INCOMPLETE in successcodes of command that is apparently not an array enumeration.")
 
     def check_param(self, param):
         """Check a member of a struct or a param of a function.
