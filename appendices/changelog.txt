@@ -13,6 +13,7 @@
 * <<extension_spatial_field_structured_regular_cell_centered,
 `KHR_SPATIAL_FIELD_STRUCTURED_REGULAR_CELL_CENTERED`>>: `structuredRegular`
 spatial field supports cell-centered data via parameter `cellCentered`
+* <<object_types_spatial_field_block_structured_amr, `KHR_SPATIAL_FIELD_BLOCK_STRUCTURED_AMR`>>: `blockStructuredAmr` spatial field subtype
 
 === Changes to Core Functionality and Extensions
 
