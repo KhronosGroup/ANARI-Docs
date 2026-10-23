@@ -14,6 +14,67 @@ created with
 ANARISpatialField anariNewSpatialField(ANARIDevice, const char *subtype);
 ....
 
+[[object_types_spatial_field_block_structured_amr]]
+==== Block Structured AMR
+
+Extension `KHR_SPATIAL_FIELD_BLOCK_STRUCTURED_AMR`
+
+Block structured AMR (Adaptive Mesh Refinement) spatial fields are created by
+passing the subtype string `blockStructuredAmr` to <<object_types_spatial_field,
+`anariNewSpatialField`>>. The parameters understood by block structured AMR
+spatial fields are summarized in the table below.
+
+.Configuration parameters for block structured AMR spatial fields.
+[cols="<3,<5,>2,<11",options="header,unbreakable"]
+|===================================================================================================
+| Name            | Type                    | Default   | Description
+| block.level     |`ARRAY1D` of `UINT32`    | | array of each block's refinement level
+| block.start     |`ARRAY1D` of `INT32_VEC3`| | array of each block's start index of the (virtual) grid of the block's level, in cells
+| block.size      |`ARRAY1D` of `UINT32_VEC3`|| array of each block's size, in cells
+| data            |`ARRAY1D` of `FLOAT32`   | | the scalar cell data of each block, concatenated
+| origin          |`FLOAT32_VEC3`           | (0, 0, 0) | origin of the coarsest (virtual) grid in object-space
+| spacing         |`FLOAT32_VEC3`           | (1, 1, 1) | size of the coarsest grid cells at level 0 in object-space
+|===================================================================================================
+
+The AMR block scheme used by this extension is based on the
+Berger-Oliger-Colella scheme: data blocks are placed on a hierarchy of Cartesian
+grids corresponding to refinement levels, blocks at the same level do not
+overlap.
+
+The spatial field can be moved with `origin` and scaled with `spacing`, in
+local object coordinates. Level 0 is the coarsest grid with cell size equal to
+`spacing`. With each higher level the grids refine the previous one by a factor
+of 2 in each dimension (the cell size is halved).
+
+The topology of AMR blocks is defined by three parameters: to which refinement
+level they belong, their start index (in cells) of the corresponding virtual
+grid, and their size (number of cells in each dimension). Thus, block _b_ covers
+the region [`origin` + `block.start`[_b_] {times} _s_, `origin` {plus}
+(`block.start`[_b_] + `block.size`[_b_]) {times} _s_), with _s_ = `spacing` /
+2^`block.level`[_b_]^. The field's bounds are the union of all blocks. All
+`block.pass:[*]` arrays must have the same number of elements. Blocks must not
+be empty.
+
+The scalar float data of all AMR blocks is specified in a single 1D array
+`data`, the data values of each block concatenated without padding (thus the
+offset of each block's data can be determined by the size of the preceding
+blocks); `data` must have at least {sum}~_b_~ {product} `block.size`[_b_]
+elements. The data values are interpreted to be cell-centered.
+
+[NOTE]
+.Note
+====
+Levels can be empty. For example, if a data set uses a refinement factor of 4,
+every other level will not contain any block.
+====
+
+[NOTE]
+.Note
+====
+The field is typically reconstructed by a linear filter, but the exact method is
+implementation-defined.
+====
+
 [[object_types_spatial_field_structured_regular]]
 ==== Structured Regular
 
