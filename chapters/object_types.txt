@@ -65,7 +65,7 @@ some typical parameters are specified by the following extensions.
 | background      |`ARRAY2D` of <<color>> |     | extension `KHR_RENDERER_BACKGROUND_IMAGE`, the background image, rescaled to the size of the <<Frame>> by linear filtering
 | ambientColor    |`FLOAT32_VEC3`|    (1, 1, 1) | extension `KHR_RENDERER_AMBIENT_LIGHT`, ambient light color
 | ambientRadiance |`FLOAT32`     |            0 | extension `KHR_RENDERER_AMBIENT_LIGHT`, the amount of light emitted by a point on the ambient light source in a direction, in W/sr/m^2^
-| denoise         |`BOOL`        |      `FALSE` | extension `KHR_RENDERER_DENOISE`, whether the rendered image should be denoised
+| denoise         |`BOOL`        | implementation-defined | extension `KHR_RENDERER_DENOISE`, whether the rendered image should be denoised
 |===================================================================================================
 
 If both `KHR_RENDERER_BACKGROUND_COLOR` and `KHR_RENDERER_BACKGROUND_IMAGE` are

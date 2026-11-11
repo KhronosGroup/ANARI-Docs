@@ -388,6 +388,12 @@ The following infos of parameters can be queried:
 | initializer   | `BOOL`      |    No    | whether the value is set as a normal parameter or only passable on creation of the object
 |===================================================================================================
 
+If a parameter has a default value, the `default` information returned by
+`anariGetParameterInfo` must report the default value used by the queried device,
+including implementation-defined defaults where this specification does not
+define one. Parameters that remain unset by default have no default value; for
+these parameters, querying `default` must return `NULL`.
+
 [NOTE]
 .Note
 ====
