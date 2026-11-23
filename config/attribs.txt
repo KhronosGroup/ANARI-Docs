@@ -44,6 +44,8 @@
 :sqrt: √
 :inf: ∞
 :plusmn: ±
+:sum: Σ
+:product: Π
 
 // Greek letters
 :alpha: α
@@ -55,8 +57,10 @@
 :eta: η
 :theta: θ
 :lambda: λ
+:PiUpper: Π
 :pi: π
 :rho: ρ
+:SigmaUpper: Σ
 :sigma: σ
 :tau: τ
 :phi: ϕ
